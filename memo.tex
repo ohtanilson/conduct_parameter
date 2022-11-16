@@ -1,0 +1,316 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=70pt,bmargin=70pt,lmargin=70pt,rmargin=70pt}
+
+%\usepackage{mlmodern}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{stmaryrd}
+\usepackage{csvsimple}
+\usepackage[english]{babel}
+\hyphenation{mis-spec-i-fi-ca-tion}
+\hyphenation{dif-fer-en-ti-a-ble}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= Periwinkle, citecolor = Periwinkle, filecolor = Periwinkle, urlcolor = Periwinkle, pdfpagemode = FullScreen, pagebackref,hypertexnames = true]{hyperref}
+
+\usepackage{natbib} % For reference 
+% https://gking.harvard.edu/files/natnotes2.pdf
+
+
+\setstretch{1.4}
+% Header
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{The Third-Year Paper Proposal}
+%\rhead{Yuri Matsumura}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\theoremstyle{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\argmax}{\operatornamewithlimits{arg\ max}}
+\newcommand{\argmin}{\operatornamewithlimits{arg\ min}}
+
+\newcommand{\bbA}{\mathbb{A}}
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbG}{\mathbb{G}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbJ}{\mathbb{J}}
+\newcommand{\bbK}{\mathbb{K}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbM}{\mathbb{M}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbO}{\mathbb{O}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}} 
+\newcommand{\bbT}{\mathbb{T}} 
+\newcommand{\bbU}{\mathbb{U}} 
+\newcommand{\bbV}{\mathbb{V}}
+\newcommand{\bbW}{\mathbb{W}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bbY}{\mathbb{Y}}
+\newcommand{\bbZ}{\mathbb{Z}}
+
+\newcommand{\0}{\mathbf{0}}
+
+\newcommand{\scrA}{\mathscr{A}}
+\newcommand{\scrB}{\mathscr{B}}
+\newcommand{\scrC}{\mathscr{C}}
+\newcommand{\scrD}{\mathscr{D}}
+\newcommand{\scrE}{\mathscr{E}}
+\newcommand{\scrF}{\mathscr{F}}
+\newcommand{\scrG}{\mathscr{G}}
+\newcommand{\scrH}{\mathscr{H}}
+\newcommand{\scrI}{\mathscr{I}}
+\newcommand{\scrJ}{\mathscr{J}}
+\newcommand{\scrK}{\mathscr{K}}
+\newcommand{\scrL}{\mathscr{L}}
+\newcommand{\scrM}{\mathscr{M}}
+\newcommand{\scrN}{\mathscr{N}}
+\newcommand{\scrO}{\mathscr{O}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\scrQ}{\mathscr{Q}}
+\newcommand{\scrR}{\mathscr{R}}
+\newcommand{\scrS}{\mathscr{S}} 
+\newcommand{\scrT}{\mathscr{T}} 
+\newcommand{\scrU}{\mathscr{U}} 
+\newcommand{\scrV}{\mathscr{V}}
+\newcommand{\scrW}{\mathscr{W}}
+\newcommand{\scrX}{\mathscr{X}}
+\newcommand{\scrY}{\mathscr{Y}}
+\newcommand{\scrZ}{\mathscr{Z}}
+
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}} 
+\newcommand{\calT}{\mathcal{T}} 
+\newcommand{\calU}{\mathcal{U}} 
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+
+\newcommand{\Perms[2]}{\tensor[_{#2}]P{_{#1}}}
+\newcommand{\Combi[2]}{\tensor[_{#2}]C{_{#1}}}
+
+\newcommand{\bmA}{\bm{A}}
+\newcommand{\bmB}{\bm{B}}
+\newcommand{\bmC}{\bm{C}}
+\newcommand{\bmD}{\bm{D}}
+\newcommand{\bmE}{\bm{E}}
+\newcommand{\bmF}{\bm{F}}
+\newcommand{\bmG}{\bm{G}}
+\newcommand{\bmH}{\bm{H}}
+\newcommand{\bmI}{\bm{I}}
+\newcommand{\bmJ}{\bm{J}}
+\newcommand{\bmK}{\bm{K}}
+\newcommand{\bmL}{\bm{L}}
+\newcommand{\bmM}{\bm{M}}
+\newcommand{\bmN}{\bm{N}}
+\newcommand{\bmO}{\bm{O}}
+\newcommand{\bmP}{\bm{P}}
+\newcommand{\bmQ}{\bm{Q}}
+\newcommand{\bmR}{\bm{R}}
+\newcommand{\bmS}{\bm{S}} 
+\newcommand{\bmT}{\bm{T}} 
+\newcommand{\bmU}{\bm{U}} 
+\newcommand{\bmV}{\bm{V}}
+\newcommand{\bmW}{\bm{W}}
+\newcommand{\bmX}{\bm{X}}
+\newcommand{\bmY}{\bm{Y}}
+\newcommand{\bmZ}{\bm{Z}}
+
+
+\newcommand{\bma}{\bm{a}}
+\newcommand{\bmb}{\bm{b}}
+\newcommand{\bmc}{\bm{c}}
+\newcommand{\bmd}{\bm{d}}
+\newcommand{\bme}{\bm{e}}
+\newcommand{\bmf}{\bm{f}}
+\newcommand{\bmg}{\bm{g}}
+\newcommand{\bmh}{\bm{h}}
+\newcommand{\bmi}{\bm{i}}
+\newcommand{\bmj}{\bm{j}}
+\newcommand{\bmk}{\bm{k}}
+\newcommand{\bml}{\bm{l}}
+\newcommand{\bmm}{\bm{m}}
+\newcommand{\bmn}{\bm{n}}
+\newcommand{\bmo}{\bm{o}}
+\newcommand{\bmp}{\bm{p}}
+\newcommand{\bmq}{\bm{q}}
+\newcommand{\bmr}{\bm{r}}
+\newcommand{\bms}{\bm{s}} 
+\newcommand{\bmt}{\bm{t}} 
+\newcommand{\bmu}{\bm{u}} 
+\newcommand{\bmv}{\bm{v}}
+\newcommand{\bmw}{\bm{w}}
+\newcommand{\bmx}{\bm{x}}
+\newcommand{\bmy}{\bm{y}}
+\newcommand{\bmz}{\bm{z}}
+
+\newcommand{\bmal}{\bm{\alpha}}
+\newcommand{\bmbe}{\bm{\beta}}
+\newcommand{\bmga}{\bm{\gamma}}
+\newcommand{\bmvare}{\bm{\varepsilon}}
+\newcommand{\bmth}{\bm{\theta}}
+
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
+
+
+
+\begin{document}
+
+\section{Formal proof}
+\citet{lau1982identifying} assumes that both demand and marginal cost functions are twice continuously differentiable.
+
+\begin{claim}
+Assume that the inverse demand function satisfies twice continuously differentiability and the demand rotation IV and the aggregate quantity are non-separable, and the marginal cost function is linear. The conduct parameter and the marginal cost parameters are identified.
+\end{claim}
+
+Let $P = f(Q,z_1)$ be a twice continuously differentiable function and $MC = \gamma_0 + \gamma_1 Q + \gamma_2 z_2$.
+For the sake of a contradiction, suppose that the parameters are not identified. This implies that for $(\theta, \gamma_0, \gamma_1, \gamma_2)\ne (\theta', \gamma_0', \gamma_1', \gamma_2')$, two first-order conditions
+\begin{align}
+    f(Q,z_1) &= - \theta \frac{\partial f}{\partial Q}(Q,z_1) Q + \gamma_0 + \gamma_1 Q + \gamma_2 z_2 \label{eq:non_identification_1}\\
+    f(Q,z_1) &= - \theta' \frac{\partial f}{\partial Q}(Q,z_1) Q + \gamma_0' + \gamma_1' Q + \gamma_2' z_2 \label{eq:non_identification_2},
+\end{align}
+where the reduced form function $Q= h_2(z_1,z_2)$ and $Q= h_2'(z_1,z_2)$ from \eqref{eq:non_identification_1} and \eqref{eq:non_identification_2} respectively are identical.
+
+
+
+
+
+This in turn implies
+\begin{align}\label{eq:equivalence_1}
+    \frac{\partial h_2}{\partial z_1} = \frac{\frac{\partial f}{\partial z_1} + \theta \frac{\partial^2 f}{\partial z_1\partial Q}Q}{(1 + \theta)\frac{\partial f}{\partial Q} + \theta \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0} = \frac{\partial h_2'}{\partial z_1} = \frac{\frac{\partial f}{\partial z_1} + \theta' \frac{\partial^2 f}{\partial z_1\partial Q}Q}{(1 + \theta')\frac{\partial f}{\partial Q} + \theta' \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0'}
+\end{align}
+and 
+\begin{align}\label{eq:equivalence_2}
+    \frac{\partial h_2}{\partial z_2} = -\frac{\gamma_2}{(1 + \theta)\frac{\partial f}{\partial Q} + \theta \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0} = \frac{\partial h_2'}{\partial z_2} = -\frac{\gamma_2'}{(1 + \theta')\frac{\partial f}{\partial Q} + \theta' \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0'}
+\end{align}
+
+From \eqref{eq:equivalence_1} and \eqref{eq:equivalence_2}, we have
+\begin{align}\label{eq:identification}
+    &\frac{\frac{\partial f}{\partial z_1} + \theta \frac{\partial^2 f}{\partial z_1\partial Q}Q}{\frac{\partial f}{\partial z_1} + \theta' \frac{\partial^2 f}{\partial z_1\partial Q}Q} = \frac{\gamma_2}{\gamma_2'}\nonumber\\
+    \Longrightarrow\ & \frac{\theta \gamma_2' - \theta' \gamma_2}{\gamma_2' - \gamma_2}\frac{\partial^2 f}{\partial z_1\partial Q}Q  +    \frac{\partial f}{\partial z_1} = 0
+\end{align}
+Recall that we assumed that $\gamma_2\ne \gamma_2'$ and $\theta\ne \theta'$. When $ \theta \gamma_2' - \theta' \gamma_2 = 0$, the left hand side of \eqref{eq:identification} implies that $\frac{\partial f}{\partial z_1} = 0$ for all $z_1$, which contradicts to the fact that $f$ is twice continuously differentiable. When  $ \theta \gamma_2' - \theta' \gamma_2 \ne 0$, \eqref{eq:identification} implies that for $i \ne j$, 
+\begin{align}
+    \frac{\partial }{\partial Q}\left( {\frac{\partial f}{\partial z_{1i}}}/{\frac{\partial f}{\partial z_{1j}}}    \right) = 0
+\end{align}
+which implies when $Q$ and $z$ are separable. However this also contradicts to the assumption.
+Therefore, we can conclude that the parameters are identified.
+
+
+
+\section{Identification under log-log demand}
+
+\subsection{ log-log demand and linear marginal cost}
+Let $Q^*_{mt}$ be a new exogenous variable. The supply relationship can be written as 
+\begin{align*}
+    P_{mt}(1- \theta Q^*_{mt}) = \gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt}.
+\end{align*}
+Take any two different combinations of parameters, $(\theta, \gamma_0, \gamma_1) \ne (\theta, \gamma_0, \gamma_1)$. Without loss of generality, assume that $\theta' > \theta$. Observable equivalence implies that the following two equations
+\begin{align*}
+    P_{mt}(1- \theta Q^*_{mt}) &= \gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt},\\
+    P_{mt}(1- \theta' Q^*_{mt}) &= \gamma_0' + \gamma_1' Q_{mt} + \varepsilon_{mt}
+\end{align*}
+are equivalent for all $(Q^*_{mt}, Q_{mt})$.
+By taking expectation for both sides of equations and combining the equations, we have
+\begin{align}
+    & P_{mt}(1- \theta Q^*_{mt}) = \gamma_0 + \gamma_1 Q_{mt}\nonumber,\\
+    & P_{mt}(1- \theta'Q^*_{mt}) = \gamma_0' + \gamma_1' Q_{mt}\nonumber,\\
+    \Longrightarrow &\log\left(\frac{1- \theta Q^*_{mt}}{1- \theta' Q^*_{mt}} \right)  = \log\left(\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}} \right).
+\end{align}
+By the assumption, the left hand side is concave and increasing in $Q^*_{mt}$. For the left hand side, the derivative with respect to $Q_{mt}$ is 
+\begin{align}
+    \frac{d}{d Q_{mt}} \log\left(\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}} \right) & = \frac{1}{\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}}} \frac{\gamma_1 (\gamma_0' + \gamma_1' Q_{mt}) - \gamma_1' (\gamma_0 + \gamma_1 Q_{mt})}{(\gamma_0' + \gamma_1' Q_{mt})^2}\nonumber\\
+    & = \frac{\gamma_1\gamma_0' - \gamma_1' \gamma_0}{(\gamma_0 + \gamma_1 Q_{mt})(\gamma_0' + \gamma_1' Q_{mt})}. \label{eq:identification_log_linear}
+\end{align}
+Since $\left(\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}} \right)$ can not be negative, $\gamma_0 + \gamma_1 Q_{mt}$ and $\gamma_0' + \gamma_1' Q_{mt}$ should have same sign, which implies that the denominator of \eqref{eq:identification_log_linear} is positive. When $\gamma_1\gamma_0' - \gamma_1' \gamma_0=0$, the right hand side is constant, and both sides cross at most once.
+When $\gamma_1\gamma_0' - \gamma_1' \gamma_0 < 0$, the right hand side is decreasing and concave in $Q_{mt}$, and hence both sides cross at most once.
+When $\gamma_1\gamma_0' - \gamma_1' \gamma_0 >0$, the right hand side is increasing and concave in $Q_{mt}$.
+In this case, when $(Q_{mt}, Q^*_{mt})$ satisfies
+\begin{align*}
+    Q^*_{mt} = \frac{(\gamma_0 - \gamma_0') + (\gamma_1 - \gamma_1')Q_{mt}}{(\theta'\gamma_0 - \theta\gamma_0') + (\theta'\gamma_1 - \theta\gamma_1')Q_{mt}},
+\end{align*}
+both sides coincide, and hence we can not identify the parameters. If not, both sides cross at most twice.
+Therefore, for all cases, when $(Q_{mt}, Q^*_{mt})$ has more than three values, we can identify the parameters.
+
+\subsection{log-log demand and log marginal cost}
+    Take any two different combinations of parameters, $(\theta, \gamma_0, \gamma_1) \ne (\theta', \gamma_0', \gamma_1')$. Without loss of generality, assume that $\theta' > \theta$. Observable equivalence implies that given two equations,
+    \begin{align}
+        \log P_{mt} &= -\log \left(  1 - \theta Q^*_{mt} \right) +\gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt},\\
+        \log P'_{mt} &= -\log \left(  1 - \theta' Q^*_{mt} \right) +\gamma_0' + \gamma_1' Q_{mt} + \varepsilon_{mt},
+    \end{align}
+    $\log P_{mt}$ and $\log P'_{mt}$ are equivalent for all $(Q_{mt}, Q^*_{mt})$.
+    From these two equations, we have
+    \begin{align}
+        &0  = -\log \left( \frac{ 1 - \theta Q^*_{mt}}{ 1 - \theta' Q^*_{mt}} \right) +(\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}\\
+        \Longrightarrow & \log \left( \frac{ 1 - \theta Q^*_{mt}}{ 1 - \theta' Q^*_{mt}} \right)  = (\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}
+    \end{align}
+    The right hand side is linear in $Q_{mt}$ and by assumption, the left hand side is increasing and concave in $Q^*_{mt}$. Thus the left hand side and the right hand side cross at most two pairs of $(Q_{mt}, Q^*_{mt})$. When $(Q_{mt}, Q^*_{mt})$ takes more than three values with positive probability, observable equivalence does not hold.
+    
+    
+\begin{claim}
+    If $f$ is non-decreasing and concave and $g$ is concave, a composite function $h(x) = f(g(x))$ is also a concave function. If $g$ is increasing, $h$ is increasing, and if $g$ is decreasing, $h$ is decreasing.
+\end{claim}
+    
+    
+    
+\bibliographystyle{aer}
+
+\bibliography{conduct_parameter}
+\end{document}
