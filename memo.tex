@@ -297,12 +297,21 @@ Therefore, for all cases, when $(Q_{mt}, Q^*_{mt})$ has more than three values, 
     \end{align}
     $\log P_{mt}$ and $\log P'_{mt}$ are equivalent for all $(Q_{mt}, Q^*_{mt})$.
     From these two equations, we have
-    \begin{align}
-        &0  = -\log \left( \frac{ 1 - \theta Q^*_{mt}}{ 1 - \theta' Q^*_{mt}} \right) +(\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}\\
-        \Longrightarrow & \log \left( \frac{ 1 - \theta Q^*_{mt}}{ 1 - \theta' Q^*_{mt}} \right)  = (\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}
+    \begin{align}\label{eq:identification_convex}
+        &0  = -\log \left( \frac{ 1 - \theta Q^*_{mt}}{ 1 - \theta' Q^*_{mt}} \right) +(\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}
     \end{align}
-    The right hand side is linear in $Q_{mt}$ and by assumption, the left hand side is increasing and concave in $Q^*_{mt}$. Thus the left hand side and the right hand side cross at most two pairs of $(Q_{mt}, Q^*_{mt})$. When $(Q_{mt}, Q^*_{mt})$ takes more than three values with positive probability, observable equivalence does not hold.
+    By solving the equation with respect to $Q^*_{mt}$, we have
+    \begin{align*}
+        Q^*_{mt} \equiv f(Q_{mt}) = \frac{\exp((\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt})}{\theta'\exp((\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}) - \theta }.
+    \end{align*}
+    Denote the graph of $f$ as $G = \{ (Q_{mt}, f(Q_{mt}) \in \mathbb{R}^2 \mid Q_{mt} \in [0,\bar{Q}] \}$.
+    This implies that given $Q_{mt}$, the value of $ Q^*_{mt}$ satisfying \eqref{eq:identification_convex} is uniquely determined and observable equivalence holds only for the combinations of $Q_{mt}$ and $Q^*_{mt}$ in $G$. In other words, any combination of $Q_{mt}$ and $Q^*_{mt}$ not included in $G$ violates observable equivalence.
+    \textcolor{red}{Q: Does $ G$ have zero measure?} \textcolor{blue}{it seems yes. \url{ https://math.stackexchange.com/questions/920101/a-circle-is-a-set-of-measure-zero-generalizations}}
     
+    
+    
+    
+    %This set has measure zero, which implies that identification holds for any $(Q_{mt}, Q^*_{mt})$ almost surely.
     
 \begin{claim}
     If $f$ is non-decreasing and concave and $g$ is concave, a composite function $h(x) = f(g(x))$ is also a concave function. If $g$ is increasing, $h$ is increasing, and if $g$ is decreasing, $h$ is decreasing.
