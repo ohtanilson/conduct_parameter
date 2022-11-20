@@ -77,13 +77,13 @@ To make the problem clear, we define \textit{Bresnahan class} as the set of spec
 \scriptsize
 \begin{tabular}{c|c|c|c} 
  \hline
- Large Class & Class and Paper & Demand: $P_{mt}$ &  Supply: $mc_{imt}$ \\ 
+ Large Class & Class and Papers & Demand: $P_{mt}$ &  Supply: $mc_{imt}$ \\ 
  \hline
  $\theta$ and $\gamma$ are separable &Bresnahan class \citep{merel2009measuring}& Linear  &  Linear \\ 
  $\theta$ and $\gamma$ are separable&? \citep{perloff2012collinearity} & Linear  &  Log-Linear \\  
- $\theta$ and $\gamma$ are nonseparable&Our class \citep{perloff2012collinearity}& log P Linear  &  Linear \\ 
- $\theta$ and $\gamma$ are separable &Lau class \citep{perloff2012collinearity}& log P Linear  &  Log-Linear \\ 
- $\theta$ and $\gamma$ are nonseparable&Our class \citep{perloff2012collinearity}& log Q Linear  &  Linear \\ 
+ $\theta$ and $\gamma$ are nonseparable&Our class & log P Linear  &  Linear \\ 
+ $\theta$ and $\gamma$ are separable &Lau class & log P Linear  &  Log-Linear \\ 
+ $\theta$ and $\gamma$ are nonseparable&Our class & log Q Linear  &  Linear \\ 
  $\theta$ and $\gamma$ are separable&Lau class \citep{coccorese2013multimarket}& log Q Linear  &  Log-Linear\\ 
  $\theta$ and $\gamma$ are nonseparable&Our class\citep{okazaki2022excess,merel2009measuring}\textcolor{blue}{??}& log-log Linear  &  Linear  \textcolor{blue}{??} \\ 
   $\theta$ and $\gamma$ are separable&Lau class \citep{hyde1995can}& log-log Linear  &  Log-Linear\\ 
@@ -106,19 +106,19 @@ To make the problem clear, we define \textit{Bresnahan class} as the set of spec
 \end{align*}
 \end{table}
 
-For linear demand and linear marginal cost case, \cite{perloff2012collinearity} find severe collinearity problem and shows the simulation results that the estimated coefficients are likely to be highly unstable and unreliable due to nearly perfect collinearity. They also suggest that the problem can be avoided if
-at least one of the equations is log-linear or has some other functional form.
+For linear demand and linear marginal cost case, \cite{perloff2012collinearity} find severe collinearity problem and shows the simulation results that the estimated coefficients are likely to be highly unstable and unreliable due to nearly perfect collinearity. They suggest that the problem can be avoided if at least one of the equations is log-linear or has some other functional form.
 
-\textcolor{blue}{We show that their conjecture needs to take much care of specification. Also, we provide additional conditions for identification for non-identified cases.}
-A key in identification is that the conduct parameter and the cost parameters are need to be separable.
-As we will discuss, the class in \citet{bresnahan1982oligopoly} and \citet{lau1982identifying} separates the conduct parameters and the cost parameter, although demand parameters and the conduct parameter are not separated which requires the demand rotation IV.
-But the supply relationship we are considering is
-\begin{align*}
-    P_{mt} \left( 1 + \theta\frac{\partial f(Q_{mt}, Z_{mt})}{\partial Q_{mt}}\right) = mc_{mt}
-\end{align*}
+\textcolor{blue}{We show that their conjecture needs to take much care of specification. Also, we provide additional conditions for identification for non-identified cases.
+A key in identification is that the conduct parameter and the cost parameters are need to be separable.}
+As we will discuss, the class in \citet{bresnahan1982oligopoly} and \citet{lau1982identifying} separates the conduct parameters and the cost parameter, although demand parameters and the conduct parameter are not separated, which requires the demand rotation IV.
+However, the supply relationship we are considering is
+\begin{align}
+    P_{mt} \left( 1 + \theta\frac{\partial f(Q_{mt}, Z_{mt})}{\partial Q_{mt}}\right) = mc_{mt} \label{eq:supply_in_our_class}
+\end{align}
 where $f(Q_{mt},Z_{mt})$ is a function based on the demand relationship, under which not only demand parameters but also marginal cost parameters are not separated from the conduct parameter.
-This class is not trivial because log-log demand is included.
-We illustrate how different identification results the demand and marginal cost specifications induce in Table \ref{tb:summary_of_results}. 
+This class is not trivial because log-log demand is included in the class.
+\textcolor{blue}{We illustrate how different identification results the demand and marginal cost specifications induce in Table \ref{tb:summary_of_results}. }
+
 
 \subsection{Linear demand}
 The inverse demand is defined as linear demand form $P_{mt}=\alpha_0+\alpha_1 Q_{mt}$. Then, $\frac{\partial P\left(Q_{m t}\right)}{\partial Q_{mt}}=\frac{1}{\alpha_1}$. Substituting this into the equilibrium condition, we obtain
@@ -144,6 +144,7 @@ The inverse demand is defined as log-linear demand form $\log P_{mt}=\alpha_0+\a
         & =\frac{\alpha_1 \gamma_0 N_{mt}}{\alpha_1 N_{mt}-\theta}+\frac{\alpha_1 \gamma_1 N_{mt}}{\alpha_1 N_{mt}-\theta} \frac{Q_{mt}}{N_{mt}}\\
         & =\frac{\alpha_1 \gamma_0 N_{mt}}{\alpha_1 N_{mt}-\theta}+\frac{\alpha_1 \gamma_1}{\alpha_1 N_{mt}-\theta} Q_{mt}
     \end{align*}
+    which is the form of Equation \eqref{eq:supply_in_our_class}.
     Then, $A_0\equiv\frac{\alpha_1 \gamma_0 N_{mt}}{\alpha_1 N_{mt}-\theta}$ and $A_1\equiv\frac{\alpha_1 \gamma_1}{\alpha_1 N_{mt}-\theta}$ are identified. However, $\gamma_0,\gamma_1$ and $\theta$ cannot be identified. 
 \subsection{Case 2: Log-log demand and linear marginal cost with demand rotation IV}
 Next, we consider the log-log demand with demand rotation IV as in \cite{bresnahan1982oligopoly}.
@@ -157,6 +158,7 @@ $\log P_{mt}=\alpha_0+(\alpha_1+\alpha_2 Z_{mt}) \log Q_{mt}$. Then, $\frac{\par
         & =\frac{(\alpha_1+\alpha_2 Z_{mt}) \gamma_0 N_{mt}}{(\alpha_1+\alpha_2 Z_{mt}) N_{mt}-\theta}+\frac{(\alpha_1+\alpha_2 Z_{mt}) \gamma_1 N_{mt}}{(\alpha_1+\alpha_2 Z_{mt}) N_{mt}-\theta} \frac{Q_{mt}}{N_{mt}}\\
         &=\frac{(\alpha_1+\alpha_2 Z_{mt}) \gamma_0 N_{mt}}{(\alpha_1+\alpha_2 Z_{mt}) N_{mt}-\theta}+\frac{(\alpha_1+\alpha_2 Z_{mt}) \gamma_1}{(\alpha_1+\alpha_2 Z_{mt}) N_{mt}-\theta} Q_{mt}
     \end{align*}
+    which is the form of Equation \eqref{eq:supply_in_our_class}.
     Then, $B_0 \equiv \frac{(\alpha_1+\alpha_2 Z_{mt}) \gamma_0 N_{mt}}{(\alpha_1+\alpha_2 Z_{mt}) N_{mt}-\theta}$ and $B_1\equiv\frac{(\alpha_1+\alpha_2 Z_{mt}) \gamma_1}{(\alpha_1+\alpha_2 Z_{mt}) N_{mt}-\theta}$ are identified. However, $\gamma_0,\gamma_1$ and $\theta$ cannot be identified even with demand rotation IV.
 
 
@@ -164,7 +166,7 @@ $\log P_{mt}=\alpha_0+(\alpha_1+\alpha_2 Z_{mt}) \log Q_{mt}$. Then, $\frac{\par
 \subsection{Additional identifying assumption}
 
 By assuming that the average marginal cost is linear, we have seen the cases where the joint identification of marginal cost parameters and conduct parameter is impossible.
-Especially, when we take logarithm to the market price, $p_t$, the marginal cost parameters and the conduct parameter becomes nonseparable, and thus identification of these parameters is impossible even when we have a demand rotation IV. 
+Especially, when we take logarithm to the market price, $P_{mt}$, the marginal cost parameters and the conduct parameter becomes nonseparable, and thus identification of these parameters is impossible even when we have a demand rotation IV. We provide additional identifying assumptions: (1) normalization and (2) log-linear marginal cost.
 
 \paragraph{The first aid: Normalization}
 
@@ -194,30 +196,35 @@ For Case 2, when we normalize one of the parameters, we can identify the rest of
 
 Instead of the assumption, let's assume that the log of marginal cost is linear, 
 \begin{align*}
-\log mc_{mt} = \gamma_0 + \gamma_1 \frac{Q_t}{N_{mt}} +\varepsilon_{mt}.
+\log mc_{mt} = \gamma_0 + \gamma_1 \frac{Q_t}{N_{mt}} +\varepsilon_{mt}^{S}.
 \end{align*}
 
 For Case 1, from the first-order condition, we have
     \begin{align*}
         mc_{mt}& = P_{mt}\left( 1-\frac{\theta}{\alpha_1 N_{mt}} \right)\\
-        \Longrightarrow\log P_{mt}  &=  \Gamma_0 + \gamma_1 \frac{Q_t}{N_{mt}} +\varepsilon_{mt} 
+        \Longrightarrow\log P_{mt}  &=  \Gamma_0 + \gamma_1 \frac{Q_t}{N_{mt}} +\varepsilon_{mt}^{S} 
     \end{align*}
     where $\Gamma_0 = -\log \left( 1-\frac{\theta}{\alpha_1 N_{mt}} \right) +\gamma_0$.
-    Since the demand parameters are independently identified by using cost shifters, the value of $\alpha_1$ is known. However, we cannot identify the conduct parameter $\theta$ and cost parameter $\gamma_0$ because only the value of $\Gamma_0$ is identified.
-
-For Case 2, The supply relationship is 
+    Since the demand parameters are independently identified by using cost shifters, the value of $\alpha_1$ is known. However, we cannot identify the conduct parameter $\theta$ and cost parameter $\gamma_0$ because only the value of $\Gamma_0$ is identified. The case faces the same problem in \cite{bresnahan1982oligopoly}.
+    For Case 2, the supply relationship is 
     \begin{align*}
             mc_{mt}& = P_{mt}\left(  1 - \frac{\theta}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}} \right)\\
-            \Longrightarrow \log P_{mt}& = -\log \left(  1 - \frac{\theta}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}} \right) +\gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt}. 
+            \Longrightarrow \log P_{mt}& = -\log \left(  1 - \frac{\theta}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}} \right) +\gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt}^{S}. 
     \end{align*}
-    Again the demand parameters are independently identified. Denote $\frac{1}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}} = Q^*_{mt}$, which is an exogenous variable. The supply relationship is written as 
+    Again the demand parameters are independently identified. Denote $\frac{1}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}} = C_{mt}$, which is an exogenous variable. The supply relationship is written as 
     \begin{align*}
-        \log P_{mt} = -\log \left(  1 - \theta Q^*_{mt} \right) +\gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt}. 
+        \log P_{mt} = -\log \left(  1 - \theta C_{mt} \right) +\gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt}^{S}. 
     \end{align*}
-    The supply relation is now not a linear equation but a nonlinear equation.\textcolor{blue}{(Really??)}
+    which shows that the supply relation is not linear in parameters. \textcolor{blue}{The model does not use the standard identification results of linear regressions.} Instead, we need to assume the following for Method of Moment:
+    \begin{itemize}
+        \item Assume that $1 - \frac{\theta}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}}=0$ for all $m$ and $t$. Also, parameters $(\theta,\gamma_0,\gamma_1)$ are identified.
+    \end{itemize}
+    Given this assumption, the moment condition is constructed as $$m_{mt}(\theta,\gamma_0,\gamma_1)=K_{mt}\left(\log P_{mt} +\log \left(  1 - \frac{\theta}{(\alpha_1+\alpha_2 Z_{mt})N_{mt}} \right) -\gamma_0 - \gamma_1 Q_{mt}\right)$$ where $K_{mt}$ is an instrument orthogonal to supply side shock $\varepsilon_{mt}^{S}$. Then, we can estimate $\theta,\gamma_0,\gamma_1$ by method of moment.
 
 \section{Numerical experimentation}
-
+We provide numerical comparison across specifications. We estimate the model using two-stage least square (2SLS), three-stage least
+squares (3SLS), and nonlinear three-stage least squares (NL3SLS).
+    
 
 
 
