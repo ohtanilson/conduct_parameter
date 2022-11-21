@@ -1,0 +1,275 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=70pt,bmargin=70pt,lmargin=70pt,rmargin=70pt}
+
+%\usepackage{mlmodern}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{stmaryrd}
+\usepackage{csvsimple}
+\usepackage[english]{babel}
+\hyphenation{mis-spec-i-fi-ca-tion}
+\hyphenation{dif-fer-en-ti-a-ble}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= Periwinkle, citecolor = Periwinkle, filecolor = Periwinkle, urlcolor = Periwinkle, pdfpagemode = FullScreen, pagebackref,hypertexnames = true]{hyperref}
+
+\usepackage{natbib} % For reference 
+% https://gking.harvard.edu/files/natnotes2.pdf
+
+
+\setstretch{1.4}
+% Header
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{The Third-Year Paper Proposal}
+%\rhead{Yuri Matsumura}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\theoremstyle{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\argmax}{\operatornamewithlimits{arg\ max}}
+\newcommand{\argmin}{\operatornamewithlimits{arg\ min}}
+
+\newcommand{\bbA}{\mathbb{A}}
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbG}{\mathbb{G}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbJ}{\mathbb{J}}
+\newcommand{\bbK}{\mathbb{K}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbM}{\mathbb{M}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbO}{\mathbb{O}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}} 
+\newcommand{\bbT}{\mathbb{T}} 
+\newcommand{\bbU}{\mathbb{U}} 
+\newcommand{\bbV}{\mathbb{V}}
+\newcommand{\bbW}{\mathbb{W}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bbY}{\mathbb{Y}}
+\newcommand{\bbZ}{\mathbb{Z}}
+
+\newcommand{\0}{\mathbf{0}}
+
+\newcommand{\scrA}{\mathscr{A}}
+\newcommand{\scrB}{\mathscr{B}}
+\newcommand{\scrC}{\mathscr{C}}
+\newcommand{\scrD}{\mathscr{D}}
+\newcommand{\scrE}{\mathscr{E}}
+\newcommand{\scrF}{\mathscr{F}}
+\newcommand{\scrG}{\mathscr{G}}
+\newcommand{\scrH}{\mathscr{H}}
+\newcommand{\scrI}{\mathscr{I}}
+\newcommand{\scrJ}{\mathscr{J}}
+\newcommand{\scrK}{\mathscr{K}}
+\newcommand{\scrL}{\mathscr{L}}
+\newcommand{\scrM}{\mathscr{M}}
+\newcommand{\scrN}{\mathscr{N}}
+\newcommand{\scrO}{\mathscr{O}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\scrQ}{\mathscr{Q}}
+\newcommand{\scrR}{\mathscr{R}}
+\newcommand{\scrS}{\mathscr{S}} 
+\newcommand{\scrT}{\mathscr{T}} 
+\newcommand{\scrU}{\mathscr{U}} 
+\newcommand{\scrV}{\mathscr{V}}
+\newcommand{\scrW}{\mathscr{W}}
+\newcommand{\scrX}{\mathscr{X}}
+\newcommand{\scrY}{\mathscr{Y}}
+\newcommand{\scrZ}{\mathscr{Z}}
+
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}} 
+\newcommand{\calT}{\mathcal{T}} 
+\newcommand{\calU}{\mathcal{U}} 
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+
+\newcommand{\Perms[2]}{\tensor[_{#2}]P{_{#1}}}
+\newcommand{\Combi[2]}{\tensor[_{#2}]C{_{#1}}}
+
+\newcommand{\bmA}{\bm{A}}
+\newcommand{\bmB}{\bm{B}}
+\newcommand{\bmC}{\bm{C}}
+\newcommand{\bmD}{\bm{D}}
+\newcommand{\bmE}{\bm{E}}
+\newcommand{\bmF}{\bm{F}}
+\newcommand{\bmG}{\bm{G}}
+\newcommand{\bmH}{\bm{H}}
+\newcommand{\bmI}{\bm{I}}
+\newcommand{\bmJ}{\bm{J}}
+\newcommand{\bmK}{\bm{K}}
+\newcommand{\bmL}{\bm{L}}
+\newcommand{\bmM}{\bm{M}}
+\newcommand{\bmN}{\bm{N}}
+\newcommand{\bmO}{\bm{O}}
+\newcommand{\bmP}{\bm{P}}
+\newcommand{\bmQ}{\bm{Q}}
+\newcommand{\bmR}{\bm{R}}
+\newcommand{\bmS}{\bm{S}} 
+\newcommand{\bmT}{\bm{T}} 
+\newcommand{\bmU}{\bm{U}} 
+\newcommand{\bmV}{\bm{V}}
+\newcommand{\bmW}{\bm{W}}
+\newcommand{\bmX}{\bm{X}}
+\newcommand{\bmY}{\bm{Y}}
+\newcommand{\bmZ}{\bm{Z}}
+
+
+\newcommand{\bma}{\bm{a}}
+\newcommand{\bmb}{\bm{b}}
+\newcommand{\bmc}{\bm{c}}
+\newcommand{\bmd}{\bm{d}}
+\newcommand{\bme}{\bm{e}}
+\newcommand{\bmf}{\bm{f}}
+\newcommand{\bmg}{\bm{g}}
+\newcommand{\bmh}{\bm{h}}
+\newcommand{\bmi}{\bm{i}}
+\newcommand{\bmj}{\bm{j}}
+\newcommand{\bmk}{\bm{k}}
+\newcommand{\bml}{\bm{l}}
+\newcommand{\bmm}{\bm{m}}
+\newcommand{\bmn}{\bm{n}}
+\newcommand{\bmo}{\bm{o}}
+\newcommand{\bmp}{\bm{p}}
+\newcommand{\bmq}{\bm{q}}
+\newcommand{\bmr}{\bm{r}}
+\newcommand{\bms}{\bm{s}} 
+\newcommand{\bmt}{\bm{t}} 
+\newcommand{\bmu}{\bm{u}} 
+\newcommand{\bmv}{\bm{v}}
+\newcommand{\bmw}{\bm{w}}
+\newcommand{\bmx}{\bm{x}}
+\newcommand{\bmy}{\bm{y}}
+\newcommand{\bmz}{\bm{z}}
+
+\newcommand{\bmal}{\bm{\alpha}}
+\newcommand{\bmbe}{\bm{\beta}}
+\newcommand{\bmga}{\bm{\gamma}}
+\newcommand{\bmvare}{\bm{\varepsilon}}
+\newcommand{\bmth}{\bm{\theta}}
+
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
+
+
+\begin{document}
+
+\begin{itemize}
+    \item Log-log demand : $\log P_{t} = \alpha_0 + (\alpha_1 + \alpha_2 Z_t) \log Q_t + \varepsilon_{Dt}$
+    \item Log marginal cost : $\log mc_{t} = \gamma_0 + \gamma_1 Q_{t} + \varepsilon_{St}$
+    \item The supply side equation is $\log P_{mt}\left(1 + \frac{\theta}{(\alpha_1 + \alpha_2 Z_t)N_{t}}\right) =  \gamma_0 + \gamma_1 Q_{t} + \varepsilon_{St}$
+    \item There are ${2,4,8,10}$ firms in each market. No entry is assumed. The researcher can also observe $T$ markets. 
+    \item The equilibrium quantity is determined by the supply relation.
+\end{itemize}
+
+
+
+Assume that $N$ firms compete in a homogeneous product market. The demand function is given as $\log P_{t} = \alpha_0 + (\alpha_1 + \alpha_2 Z_t) \log Q_t + \varepsilon_{Dt}$ where $Q_t = \sum_{i = 1\ldots N}$
+
+
+
+
+\section{Replication of Perloff and Shen (2012)}
+This paper points out that the conduct parameter can not be estimated accurately when the demand and marginal cost are linear due to multicolinearity. Note that we change the notation from the original paper
+\begin{itemize}
+    \item Demand relation: $p = \alpha_0 - [\alpha_1 + \alpha_2Z] Q + \alpha_3Y + \varepsilon_d$
+    \item Marginal cost: $ MC = \gamma_0  + \gamma_1 Q + \gamma_2 w + \gamma_3 r + \varepsilon_c$
+    \item Supply relation: $p = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z)+ \gamma_1] Q   + \gamma_2 w + \gamma_3 r + \varepsilon_c$
+    \item $w \sim N (3, 1), r \sim N (0, 1), Z \sim N (10, 1)$
+    \item $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_3 = 0, \alpha_0 = 10, \theta = 0.5.$
+    \item $\varepsilon_c\sim N(0,\sigma_d)$, $\varepsilon_d \sim N(0,\sigma_c)$, and $\sigma = \sigma_d = \sigma_c$
+\end{itemize}
+
+From the supply relation and the demand relation, we have
+\begin{align}
+    \alpha_0 - [\alpha_1 + \alpha_2Z] Q + \alpha_3Y + \varepsilon_d = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z)+ \gamma_1] Q   + \gamma_2 w + \gamma_3 r + \varepsilon_c,
+\end{align}
+which gives us the equilibrium aggregate quantity $Q$ such that 
+\begin{align*}
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y - \gamma_0 - \gamma_2 w - \gamma_3 r + (\varepsilon_d - \varepsilon_c)}{(1 + \theta) (\alpha_1 + \alpha_2Z) + \gamma_1}.
+\end{align*}
+
+
+Consider a profit maximization problem of firm $j$ such that 
+\begin{align*}
+    \max_{q_{jt}} \ \pi_{jt}(q_{jt}, q_{-jt}) \equiv (P(Q_t) - mc_{jt})q_{jt},
+\end{align*}
+
+The first-order condition is given as
+
+
+
+
+As $\alpha_3 = 0$, $Y$ can be ignored.
+
+To generate simulation data, after calculating the equilibrium aggregate quantity $Q$ for market $t$, the equilibrium price is obtained from the demand relation.
+To estimate the parameters, we use the two-step least squares estimation. Note that we can separately estimate the parameters in the demand and supply relation. First, regress the exogenous variable $Z$ and the cost shifters $w,r$ on the aggregate quantity $Q$, which gives a predicted value of $Q$ denoted as $\hat{Q}$. Next, estimate the parameters in the demand relation. 
+By regressing $(\alpha_1 + \alpha_2 Z_t) Q, Q, w$ and $r$ on the price $p$, we estimate the parameters in the supply relation.
+
+The two-stage least square estimation 
+\begin{itemize}
+    \item Regress $Q_t = \pi_0 + \pi_1 Z + \pi_2 w + \pi_3 r + \nu$ and obtain $\hat{Q}$
+    \item Estimate the demand parameters by regressing $P_t = \alpha_0 - [\alpha_1 + \alpha_2Z] \hat{Q} + \alpha_3Y + \varepsilon_d$
+    \item Given the demand parameter, regress $p = \gamma_0 + \theta(\hat{\alpha}_1 + \hat{\alpha}_2Z)Q + \gamma_1Q + \gamma_2 w + \gamma_3 r + \varepsilon_c$
+\end{itemize}
+
+
+\end{document}

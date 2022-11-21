@@ -1,0 +1,11 @@
+\ifx\undefined\bysame
+\newcommand{\bysame}{\leavevmode\hbox to\leftmargin{\hrulefill\,\,}}
+\fi
+\begin{thebibliography}{xx}
+
+\harvarditem[Lau]{Lau}{1982}{lau1982identifying}
+{\bf Lau, Lawrence~J}, ``On identifying the degree of competitiveness from
+  industry price and output data,'' {\it Economics Letters}, 1982, {\it 10}
+  (1-2), 93--99.
+
+\end{thebibliography}
