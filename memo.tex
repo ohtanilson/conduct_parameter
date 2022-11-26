@@ -75,6 +75,7 @@
 \newcommand{\bbZ}{\mathbb{Z}}
 
 \newcommand{\0}{\mathbf{0}}
+\newcommand{\rank}{\text{rank }}
 
 \newcommand{\scrA}{\mathscr{A}}
 \newcommand{\scrB}{\mathscr{B}}
@@ -318,7 +319,155 @@ Therefore, for all cases, when $(Q_{mt}, Q^*_{mt})$ has more than three values, 
 \end{claim}
     
     
-    
+
+\section{General Linear System of Equations}
+This section is based on Wooldridge (2010).
+Consider a general linear model of the form 
+\[\bmy_i = \bmX_i \bm{\beta} + \bmu_i\]
+where $\bmy_i$ is a $G\times 1$ vector, $\bmX_i$ is a $G\times K$ matrix, and $\bmu_i$ is the $G\times 1$ vector of errors.
+We allow $\bmX_i$ contains not only exogenous but also endogenous variables that are correlated with $\bmu_i$.
+
+\begin{itemize}
+    \item $E[\bmZ_i^\top \bmu_i] = \bm0$ where $\bmZ_i$ is a $G\times L$ matrix of observable instrumental variables
+    \item $\rank E[\bmZ_i^\top \bmX_i] = K$. The columns of $ E[\bmZ_i^\top \bmX_i]$ is linearly independent. Necessary for the rank condition is the order condition: $L\ge K$.
+\end{itemize}
+  
+\begin{align*}
+    \bmy_i \equiv 
+    \begin{pmatrix}
+        y_{i1}\\
+        y_{i2}\\
+        \vdots\\
+        y_{iG}\\
+    \end{pmatrix},
+    \quad \bmX_i\equiv
+    \begin{pmatrix}
+        \bmx_{i1} & \bm0 & \bm0 & \cdots & \bm0\\
+        \bm0 & \bmx_{i2} & \bm0 & \cdots & \bm0\\
+        \vdots &  &  &  & \vdots\\
+        \bm0 & \bm0 & \bm0 & \cdots & \bmx_{iG}\\
+    \end{pmatrix},
+    \quad \bmu_i\equiv
+    \begin{pmatrix}
+        u_{i1}\\
+        u_{i2}\\
+        \vdots\\
+        u_{iG}\\
+    \end{pmatrix},
+        \quad \bm{\beta}\equiv
+    \begin{pmatrix}
+        \bm{\beta}_{1}\\
+        \bm{\beta}_{2}\\
+        \vdots\\
+        \bm{\beta}_{G}\\
+    \end{pmatrix}
+\end{align*}
+
+The matrix of instruments has a simular structure to $\bmX_i$;
+\begin{align*}
+    \bmZ_i\equiv
+    \begin{pmatrix}
+        \bmz_{i1} & \bm0 & \bm0 & \cdots & \bm0\\
+        \bm0 & \bmz_{i2} & \bm0 & \cdots & \bm0\\
+        \vdots &  &  &  & \vdots\\
+        \bm0 & \bm0 & \bm0 & \cdots & \bmz_{iG}\\
+    \end{pmatrix},
+\end{align*}
+which has dimension $G\times L$ where $L = L_1 + L_2 + \cdots + L_G$.
+For each $i$, 
+\begin{align*}
+    \bmZ_i^\top \bmu_i =
+    \begin{pmatrix}
+        \bmz_{i1} u_{i1}\\
+        \bmz_{i2} u_{i2}\\
+        \vdots\\
+        \bmz_{iG} u_{iG}
+    \end{pmatrix}
+\end{align*}
+and so $E[\bmZ_i^\top \bmu_i] = \bm0$.
+
+\begin{align*}
+    E[\bmZ_i^\top \bmX_i] \equiv
+    \begin{pmatrix}
+        E[\bmz_{i1}^\top \bmx_{i1}] & \bm0 & \bm0 & \cdots & \bm0\\
+        \bm0 & E[\bmz_{i2}^\top \bmx_{i2}] & \bm0 & \cdots & \bm0\\
+        \vdots &  &  &  & \vdots\\
+        \bm0 & \bm0 & \bm0 & \cdots & E[\bmz_{iG}^\top \bmx_{iG}]\\
+    \end{pmatrix},
+\end{align*}
+$E[\bmz_{ig}^\top \bmx_{ig}]$ is a $L_g\times K_g$ matrix. $ E[\bmZ_i^\top \bmX_i]$ should have full column rank where the number of column is $K = K_1 + K_2 + \cdots +K_G$. This holds if and only if $\rank E[\bmz_{ig}^\top \bmx_{ig}] = K_g $ for all $g = 1,\ldots, G$.
+
+To estimate $\bm{\beta}$, we use the orthogonality conditions, $E[\bmZ_i^\top \bmu_i] = \bm0$. Under the assumptions, $\bm{\beta}$ is a unique solution to the linear set population moment conditions
+\begin{align*}
+    E[\bmZ_i^\top (\bmy_i - \bmX_i \bm{\beta})] = \bm0.
+\end{align*}
+
+
+$\hat{\bmW}$ be a $L\times L$ symmetric, positive  semidefinite matrix. A  GMM estimator of $\bm{\beta}$ is a vector $\hat{\bm{\beta}}$ that solves the problem 
+\begin{align*}
+    \min_{\bmb}\ \left[ \sum_{i=1}^N \bmZ_i^\top (\bmy_i - \bmX_i \bmb)  \right]^\top \hat{\bmW} \left[ \sum_{i=1}^N \bmZ_i^\top (\bmy_i - \bmX_i \bmb)  \right]
+\end{align*}
+The unique solution is 
+\[ \bm{\beta} = (\bmX^\top\bmZ\hat{\bmW}\bmZ^\top\bmX)^{-1}\bmX^\top\bmZ\hat{\bmW}\bmZ^\top\bmY,\]
+where $\bmX$ is the $NG\times K$ matrix obtained by stacking $\bmX_i$, $\bmZ$ is the $NG\times L$ matrix obtained by stacking $Z_i$, $\bmY$ is the $NG\times 1 $ vector obtained by stacking $\bmy_i$.
+
+\begin{itemize}
+    \item $\hat{\bmW} \overset{p}{\rightarrow} \bmW$ as $N\rightarrow \infty$, where $\bmW$ is a nonrandom, symmetric, $L\times L$ positive definite matrix.  
+\end{itemize}
+
+\textbf{The system two-stage least squares estimator (S2SLS)}. When the weight matrix is 
+\begin{align*}
+    \hat{\bmW} = \left(N^{-1}\sum_{i=1}^N \bmZ_i^\top \bmZ_i  \right)^{-1} = (\bmZ^\top \bmZ/N)^{-1},
+\end{align*}
+which is a consistent estimator of $E[\bmZ_i^\top \bmZ_i]^{-1}$. The assumption requires that $E[\bmZ_i^\top \bmZ_i]$ exists and be nonsingular.
+The S2SLS estimator is 
+\begin{align*}
+    \hat{\bm{\beta}} = (\bmX^\top\bmZ(\bmZ^\top \bmZ)^{-1}\bmZ^\top\bmX)^{-1}\bmX^\top\bmZ(\bmZ^\top \bmZ)^{-1}\bmZ^\top\bmY
+\end{align*}
+This estimator can be obtained by applying 2SLS by equation. In other words, we estimate the first equation by 2SLS using instrument $\bmz_{i1}$, the second equation by 2SLS using instrument $\bmz_{i2}$, and so on.
+The system 2SLS estimator is not necessarily the asymptotically efficient estimator.
+
+
+
+\textbf{The GMM three-stage least squares estimator (GMM 3SLS)}. To define the 3SLS estimator, let $\hat{\bmu}_i = \bmy_i - \bmX_i \hat{\bm{\beta}}$  be the residuals from an initial estimation, usually system 2SLS. Define the $G\times G$ matrix
+\begin{align*}
+    \hat{\bm{\Omega}}\equiv N^{-1} \sum_{i=1}^N \hat{\bmu}_i\hat{\bmu}_i^\top,
+\end{align*}
+The weight matrix used by 3SLS is 
+\begin{align*}
+    \hat{\bmW} =  \left(N^{-1}\sum_{i=1}^N \bmZ_i^\top \hat{\bm{\Omega}}    \bmZ_i  \right)^{-1} = [\bmZ^\top (\bmI_N \otimes \hat{\bm{\Omega}})\bmZ/N]^{-1}
+\end{align*}
+The 3SLS estimator is
+\begin{align*}
+    \hat{\bm{\beta}} = [\bmX^\top\bmZ(\bmZ^\top (\bmI_N \otimes \hat{\bm{\Omega}})\bmZ)^{-1}\bmZ^\top\bmX]^{-1}\bmX^\top\bmZ(\bmZ^\top (\bmI_N \otimes \hat{\bm{\Omega}})\bmZ)^{-1}\bmZ^\top\bmY
+\end{align*}
+
+
+
+
+
+\textbf{Nonlinear system 2SLS and Nonlinear 3SLS}.
+Let $\bmr(\bmy_i, \bmx_i, \bm{\theta})$ be a $G\times 1$ vector of a generalized residual function.
+Assume that the true parameter $\bm{\theta}_0$ satisfies the orthogonal condition,
+\begin{align*}
+    E[\bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta})] = \bm0.
+\end{align*}
+
+The nonlinear system 2SLS solves
+\begin{align}
+    \min_{\bm{\theta} \in \bm{\Theta}} \ \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]^\top \left[N^{-1}\sum_{i=1}^N \bmZ_i^\top \bmZ_i \right]^{-1} \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]
+\end{align}
+
+After getting the nonlinear 2SLS estimator, construct an matrix 
+\[\hat{\bm{\Omega}} = N^{-1}\sum_{i=1}^N \bmr_i(\hat{\bm{\theta}})^\top \bmr_i(\hat{\bm{\theta}})\]
+where $\hat{\bm{\theta}}$ is the N2SLS estimator.
+The nonlinear 3SLS solves
+\begin{align}
+    \min_{\bm{\theta} \in \bm{\Theta}} \ \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]^\top \left[N^{-1}\sum_{i=1}^N \bmZ_i^\top \hat{\bm{\Omega}}\bmZ_i \right]^{-1} \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]
+\end{align}
+
+
+
 \bibliographystyle{aer}
 
 \bibliography{conduct_parameter}
