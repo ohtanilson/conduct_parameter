@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \renewcommand{\familydefault}{\rmdefault}
@@ -249,7 +249,6 @@ Since $P'(Q) = -(\alpha_1 + \alpha_2Z_t)$, the supply equation is given as
     P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z_t)+ \gamma_1] Q_t   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
 \end{align*}
 
-
 The simulation setting is the following:
 \begin{itemize}
     \item $w \sim N (3, 1), r \sim N (0, 1), Z \sim N (10, 1)$
@@ -302,9 +301,6 @@ which gives the aggregate quantity
 \end{align*}
 To obtain the price, substitute $\log Q_t^*$ into $\log P_t^*$ in the demand equation.\footnote{This procedure follows from \citet{perloff2012collinearity}.}
 
-
-
-
 The simulation setting is the following:
 \begin{itemize}
     \item $w \sim U(1,3), r \sim U(0,1), Z \sim U(5, 10)$
@@ -340,13 +336,18 @@ To apply the system 2SLS and the 3SLS, we use the following demand and supply eq
 \end{align*}
 where $\Psi = \theta(\alpha_1 + \gamma_1)$ and $\Phi = \theta\alpha_2$.
 As additional instruments, two random variables are created by adding additional random variable drawn from the standard normal distribution to $w_t$ and $r_t$, which is denoted by $h_t$ and $k_t$. 
+\begin{itemize}
+    \item The endogenous variable is $Q_t$. 
+    \item The demand instrument is $(Z_t, Z_tQ_t, w_t, r_t, h_t, k_t)$
+    \item The supply instrument is $(Z_t, Z_tQ_t, w_t, r_t, h_t, k_t)$.
+\end{itemize}
 From the supply equation, we can estimate $(\gamma_0, \Psi, \Phi, \gamma_2, \gamma_3)$. 
 Since $\alpha_1$ and $\alpha_2$ are estimated from the demand equation, the conduct parameter $\theta$ and the cost parameter $\gamma_1$ are obtained as 
 \begin{align*}
     \theta = \Phi/\alpha_2, \quad \gamma_1 = \Psi - \theta\alpha_1.
 \end{align*}
 
-When we independently apply the 2SLS estimation to the demand and supply equations, we can estimate $(\alpha_0, \alpha_1, \alpha_2)$ at first. Then by using instruments for the supply equation, we obtain the predicted value of $Q_t$, denoted as $\hat{Q}_t$, in the first-stage, and then we can estimate the parameters in the supply equation by regressing
+When we independently apply the 2SLS estimation to the demand and supply equations, we first estimate the demand parameters $(\alpha_0, \alpha_1, \alpha_2)$. Then by using instruments for the supply equation, we obtain the predicted value of $Q_t$, denoted as $\hat{Q}_t$, in the first-stage, and then we can estimate the parameters in the supply equation by regressing
 \begin{align*}
      P_t = \gamma_0 + \theta(\hat{\alpha}_1 + \hat{\alpha}_2Z_t)\hat{Q}_t+ \gamma_1\hat{Q}_t  + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
 \end{align*}
@@ -354,7 +355,7 @@ where $(\hat{\alpha}_1 + \hat{\alpha}_2Z_t)\hat{Q}_t$ is regarded as an exogenou
 
 
 
-The endogenous variable is $Q_t$. The demand instrument is $(Z_t, Z_tQ_t, w_t, r_t, h_t, k_t)$ and the supply instrument is $(Z_t, Z_tQ_t, w_t, r_t, h_t, k_t)$.
+
 
 \subsection{Estimation in Hyde and Perloff (1995)}
 The demand and supply equations are
