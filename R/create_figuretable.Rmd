@@ -1,0 +1,106 @@
+---
+title: "create_figuretable"
+author: "Suguru Otani"
+date: "2022/12/03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load
+
+```{r,echo=FALSE,results = 'asis'}
+library(magrittr)
+library(ggplot2)
+data <-
+  readRDS(file = here::here("R/data.rds"))
+options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
+grouped_data <-
+  data %>% 
+  dplyr::distinct(
+    group_id_k,
+    .keep_all = T
+  ) %>% 
+  dplyr::select(
+    group_id_k,
+    alpha0_hat:alpha2_hat,
+    gamma0_hat:theta_hat
+  )
+```
+
+
+# Estimation {.tabset}
+
+- Demand equation:
+
+$$
+P_t=\alpha_0-\alpha_1 Q_t-\alpha_2 Z_t Q_t+\varepsilon_{d t}
+$$
+
+- Optimality equation:
+
+$$
+P_t=\gamma_0+\theta\left(\hat{\alpha}_1+\hat{\alpha}_2 Z_t\right) \hat{Q}_t+\gamma_1 \hat{Q}_t+\gamma_2 w_t+\gamma_3 r_t+\varepsilon_{c t}
+$$
+
+- Exogenous variables
+
+$$
+w \sim N(3,1), r \sim N(0,1), Z \sim N(10,1), w_{iv}=w + N(3,1), r_{iv}= r + N(3,1)
+$$
+
+- Parameters
+
+$$
+\alpha_1=\alpha_2=\gamma_0=\gamma_1=\gamma_2=\gamma_3=1, \alpha_0=10, \theta=0.5
+$$
+
+- Errors
+
+$$
+\varepsilon_{c t} \sim N\left(0, \sigma_d\right), \varepsilon_{d t} \sim N\left(0, \sigma_c\right), \text { and } \sigma=\sigma_d=\sigma_c
+$$
+
+- DGP
+
+To generate simulation data, we need to obtain the aggregate quantity $Q_t$. From the supply equation and the demand equation, we have 
+
+$$
+\alpha_0-\left[\alpha_1+\alpha_2 Z_t\right] Q_t+\varepsilon_{d t}=\gamma_0+\left[\theta\left(\alpha_1+\alpha_2 Z_t\right)+\gamma_1\right] Q+\gamma_2 w_t+\gamma_3 r_t+\varepsilon_{c t},
+$$
+
+which gives us the aggregate quantity $Q_t$ as
+
+$$
+Q_t=\frac{\alpha_0-\gamma_0-\gamma_2 w_t-\gamma_3 r_t+\left(\varepsilon_{d t}-\varepsilon_{c t}\right)}{(1+\theta)\left(\alpha_1+\alpha_2 Z_t\right)+\gamma_1}
+$$
+
+The price $P_t$ is given by substituting $Q_t$ into the demand equationship.
+
+![perloff_and_shen2012_table2](../perloff_and_shen_2012_table2.png){#id .class width=150mm}
+
+
+## $\sigma = 1.0$
+
+```{r,echo=FALSE,results = 'asis'}
+modelsummary::datasummary_skim(grouped_data)
+# demand_estimate_table %>% 
+#   modelsummary::modelsummary(
+#     models = .,
+#     stars = TRUE,
+#     booktabs = TRUE,
+#     output = "latex_tabular",
+#     escape = FALSE,
+#     #coef_omit = "factor",
+#     gof_omit = "AIC|BIC|Log.Lik",
+#     add_rows = rows,
+#     coef_map = cm
+#   ) %>% 
+#   gsub("\\multicolumn.*\\\\", "", .) %>% 
+#   kableExtra::save_kable(
+#     file = here::here("figuretable/demand_estimate_results_after_1973_before_1990.tex")
+#   )
+```
+

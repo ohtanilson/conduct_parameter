@@ -1,22 +1,26 @@
 library(magrittr)
 # set constant ----
-#one thousand replications of experiments with 50 observations each
+# one thousand replications of experiments with 50 observations each
 ## set variable ----
 set.seed(1)
-n <-
+n_observation <-
   50
+k_observation <-
+  1000
+nk <-
+  n_observation * k_observation
 ### exogenous variable ----
 w <-
-  rnorm(n, mean = 3, sd = 1)
+  rnorm(nk, mean = 3, sd = 1)
 r <-
-  rnorm(n, mean = 0, sd = 1)
+  rnorm(nk, mean = 0, sd = 1)
 z <-
-  rnorm(n, mean = 10, sd = 1)
+  rnorm(nk, mean = 10, sd = 1)
 ### instrumental variable ----
 iv_w <-
-  w + rnorm(n, mean = 0, sd = 1)
+  w + rnorm(nk, mean = 0, sd = 1)
 iv_r <-
-  r + rnorm(n, mean = 0, sd = 1)
+  r + rnorm(nk, mean = 0, sd = 1)
 
 ## set parameter ----
 theta <-
@@ -39,9 +43,9 @@ gamma3 <-
 sigma <-
   1
 epsilon_c <-
-  rnorm(n, mean = 0, sd = sigma)
+  rnorm(nk, mean = 0, sd = sigma)
 epsilon_d <-
-  rnorm(n, mean = 0, sd = sigma)
+  rnorm(nk, mean = 0, sd = sigma)
 
 
 
@@ -53,9 +57,16 @@ Q <-
 # aggregate price ----  
 P <- 
   alpha0 - (alpha1 + alpha2 * z) * Q + epsilon_d
-  
+
+group_id_k <-
+  rep(
+    c(1:k_observation), 
+    n_observation
+  )
+
 data <-
-  cbind(Q,
+  cbind(group_id_k,
+        Q,
         P,
         w,
         r,
@@ -66,45 +77,128 @@ data <-
 plot(data$Q,
      data$P)
 
+# estimation ----
+## demand ----
+demand_formula <-
+  "P ~ Q + Q:z|z + iv_w + iv_r"
+supply_formula <-
+  paste("P ~ composite_z:Q + Q + w + r|",
+        "composite_z + w + r + iv_w + iv_r")
 res_demand <-
   AER::ivreg(
-    formula = "P ~ Q + Q:z|z + iv_w + iv_r",
+    formula = demand_formula,
      data = data)
+res_demand <-
+  data %>% 
+  split(
+    .$group_id_k
+  ) %>% 
+  purrr::map(
+    ~ AER::ivreg(
+      formula = demand_formula,
+      data = .x)
+  ) %>% 
+  purrr::map(summary)# %>%
+  #purrr::map_dbl("coefficients")
+alpha0_hat <-
+  res_demand %>% 
+  purrr::map_dbl(~coef(.)[1]) 
+alpha1_hat <-
+  res_demand %>% 
+  purrr::map_dbl(~coef(.)[2]) 
+alpha2_hat <-
+  res_demand %>% 
+  purrr::map_dbl(~coef(.)[3]) 
+demand_hat <-
+  cbind(
+    alpha0_hat,
+    alpha1_hat,
+    alpha2_hat
+  ) %>% 
+  tibble::as_tibble() %>% 
+  dplyr::mutate(
+    group_id_k =
+      dplyr::row_number()
+  ) 
 
 data <-
   data %>% 
-  dplyr::mutate(
-    alpha1_hat = res_demand$coefficients["Q"],
-    alpha2_hat = res_demand$coefficients["Q:z"]
+  dplyr::left_join(
+    demand_hat,
+    by = c("group_id_k" = 
+             "group_id_k")
   ) %>% 
   dplyr::mutate(
     composite_z =
       alpha1_hat + 
       alpha2_hat * z
   )
-
+## supply ----
 res_supply <-
   AER::ivreg(
-    formula = paste("P ~ composite_z:Q + Q + w + r|",
-                    "composite_z + w + r + iv_w + iv_r"),
+    formula = supply_formula,
      data = data)
+res_supply <-
+  data %>% 
+  split(
+    .$group_id_k
+  ) %>% 
+  purrr::map(
+    ~ AER::ivreg(
+      formula = supply_formula,
+      data = .x)
+  ) %>% 
+  purrr::map(summary)
+
+gamma0_hat <-
+  res_supply %>% 
+  purrr::map_dbl(~coef(.)[1]) 
+gamma1_hat <-
+  res_supply %>% 
+  purrr::map_dbl(~coef(.)[2]) 
+gamma2_hat <-
+  res_supply %>% 
+  purrr::map_dbl(~coef(.)[3]) 
+gamma3_hat <-
+  res_supply %>% 
+  purrr::map_dbl(~coef(.)[4]) 
+theta_hat <-
+  res_supply %>% 
+  purrr::map_dbl(~coef(.)[5]) 
+supply_hat <-
+  cbind(
+    gamma0_hat,
+    gamma1_hat,
+    gamma2_hat,
+    gamma3_hat,
+    theta_hat
+  ) %>% 
+  tibble::as_tibble() %>% 
+  dplyr::mutate(
+    group_id_k =
+      dplyr::row_number()
+  ) 
 
 data <-
   data %>% 
-  dplyr::mutate(
-    gamma0_hat = res_supply$coefficients["(Intercept)"],
-    gamma1_hat = res_supply$coefficients["Q"],
-    gamma2_hat = res_supply$coefficients["w"],
-    gamma3_hat = res_supply$coefficients["r"],
-    theta_hat = res_supply$coefficients["composite_z:Q"]
+  dplyr::left_join(
+    supply_hat,
+    by = c("group_id_k" = 
+             "group_id_k")
+  ) 
+# merge ----
+grouped_data <-
+  data %>% 
+  dplyr::distinct(
+    group_id_k,
+    .keep_all = T
+  ) %>% 
+  dplyr::select(
+    group_id_k,
+    alpha0_hat:alpha2_hat,
+    gamma0_hat:theta_hat
   )
-
-estimate_table <-
-  list("Demand" = 
-         res_demand,
-       "Supply" = 
-         res_supply
-  )
-modelsummary::modelsummary(
-  estimate_table
-)
+modelsummary::datasummary_skim(grouped_data)
+# save ----
+saveRDS(data,
+        file = "R/data.rds")
