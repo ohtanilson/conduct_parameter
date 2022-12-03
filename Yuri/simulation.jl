@@ -16,11 +16,12 @@ market_parameters = @with_kw (
     γ_1 = 1,
     γ_2 = 1,
     γ_3 = 1,
-    α_3 = 0,
+    α_3 = 1,
     α_0 = 10,
     θ = 0.5,
     σ = 2,
     T = 50,
+    S = 1000,
 )
 
 
@@ -32,6 +33,7 @@ mutable struct market_data
     IV::Matrix{Float64}
     P::Vector{Float64}
     MC::Vector{Float64}
+    Y::Vector{Float64}
 end
 
 
@@ -40,15 +42,16 @@ function simulation_data(parameter)
 
     Random.seed!(1234)
 
-    @unpack α_1, α_2 ,γ_0 , γ_1 ,γ_2 ,γ_3 , α_0, θ,σ ,T = parameter
+    @unpack α_0, α_3, α_1, α_2 ,γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T = parameter
     
-    Q = Float64[];
+    Q = Float64[];N
     P = Float64[];
     MC = Float64[];
     W  = Float64[];
     R  = Float64[];
     Z = Float64[];
-    
+    Y = Float64[];
+
     IV = zeros(T,2);
 
     for t = 1:T
@@ -58,10 +61,11 @@ function simulation_data(parameter)
         h_t = w_t + randn()
         k_t = r_t + randn()
 
+        Y_t = randn()
         ε_c = rand(Normal(0,σ))
         ε_d = rand(Normal(0,σ))
 
-        Q_star = (α_0 - γ_0 - γ_2 * w_t - γ_3 *r_t)/ ((1+θ) * (α_1 + α_2 *z_t) + γ_1)
+        Q_star = (α_0 + α_3 * Y_t - γ_0 - γ_2 * w_t - γ_3 *r_t)/ ((1+θ) * (α_1 + α_2 *z_t) + γ_1)
 
         Q_t = Q_star + (ε_d - ε_c)/((1+θ) * (α_1 + α_2 *z_t) + γ_1) # The aggregate quantity, Q
 
@@ -75,12 +79,11 @@ function simulation_data(parameter)
         push!(W,w_t)
         push!(R,r_t)
         push!(Z,z_t)
+        push!(Y,Y_t)
         IV[t,:] .= (h_t, k_t)
-
     end
 
-
-    data = market_data(Q, W, R, Z, IV, P, MC)
+    data = market_data(Q, W, R, Z, IV, P, MC, Y)
     return data
 end
 
@@ -229,8 +232,8 @@ function Independent_TwoSLS_estimation(parameter, data)
     return α_hat, γ_hat[1:end-1], θ_hat
 end
 
-α_hat, γ_hat, θ_hat = Independent_TwoSLS_estimation(parameter, data)
 
+α_hat, γ_hat, θ_hat = Independent_TwoSLS_estimation(parameter, data)
 
 # Two additional instruments are created by adding an additional random variable drawn from N(0,1) to w and to r
 # p = η + α*w + β*r +[θ * (α_1 + α_2 *z ) + γ] *Q + ε_c # Supply relationship
@@ -239,7 +242,6 @@ data = simulation_data(parameter);
 β_hat, α_hat, γ_hat, θ_hat = TwoSLS_estimation(parameter, data)
 
 β_hat, α_hat, γ_hat, θ_hat = ThreeSLS_estimation(parameter, data)
-
 
 
 
