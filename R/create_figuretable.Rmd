@@ -25,7 +25,7 @@ grouped_data <-
   ) %>% 
   dplyr::select(
     group_id_k,
-    alpha0_hat:alpha2_hat,
+    alpha0_hat:alpha3_hat,
     gamma0_hat:theta_hat
   )
 ```
@@ -36,7 +36,7 @@ grouped_data <-
 - Demand equation:
 
 $$
-P_t=\alpha_0-\alpha_1 Q_t-\alpha_2 Z_t Q_t+\varepsilon_{d t}
+P_t=\alpha_0-\alpha_1 Q_t-\alpha_2 Z_t Q_t+\alpha_3 Y_t+\varepsilon_{d t}
 $$
 
 - Optimality equation:
@@ -48,13 +48,13 @@ $$
 - Exogenous variables
 
 $$
-w \sim N(3,1), r \sim N(0,1), Z \sim N(10,1), w_{iv}=w + N(3,1), r_{iv}= r + N(3,1)
+w \sim N(3,1), r \sim N(0,1), Z \sim N(10,1),Y \sim N(10,1) w_{iv}=w + N(0,1), r_{iv}= r + N(0,1)
 $$
 
 - Parameters
 
 $$
-\alpha_1=\alpha_2=\gamma_0=\gamma_1=\gamma_2=\gamma_3=1, \alpha_0=10, \theta=0.5
+\alpha_1=\alpha_2=\alpha_3=\gamma_0=\gamma_1=\gamma_2=\gamma_3=1, \alpha_0=10, \theta=0.5
 $$
 
 - Errors
@@ -74,7 +74,7 @@ $$
 which gives us the aggregate quantity $Q_t$ as
 
 $$
-Q_t=\frac{\alpha_0-\gamma_0-\gamma_2 w_t-\gamma_3 r_t+\left(\varepsilon_{d t}-\varepsilon_{c t}\right)}{(1+\theta)\left(\alpha_1+\alpha_2 Z_t\right)+\gamma_1}
+Q_t=\frac{\alpha_0+\alpha_3 Y_t-\gamma_0-\gamma_2 w_t-\gamma_3 r_t+\left(\varepsilon_{d t}-\varepsilon_{c t}\right)}{(1+\theta)\left(\alpha_1+\alpha_2 Z_t\right)+\gamma_1}
 $$
 
 The price $P_t$ is given by substituting $Q_t$ into the demand equationship.
