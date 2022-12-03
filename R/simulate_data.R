@@ -4,7 +4,7 @@ library(magrittr)
 ## set variable ----
 set.seed(1)
 n_observation <-
-  50
+  50#50
 k_observation <-
   1000
 nk <-
@@ -45,7 +45,7 @@ gamma3 <-
   1
 ## set error ----
 sigma <-
-  1
+  0.001
 epsilon_c <-
   rnorm(nk, mean = 0, sd = sigma)
 epsilon_d <-
@@ -56,7 +56,8 @@ epsilon_d <-
 # generate data ----
 # aggregate quantity ----
 Q <- 
-  (alpha0 + alpha3 * y - gamma0 - gamma2 * w - gamma3 * r + (epsilon_d - epsilon_c))/
+  (alpha0 + alpha3 * y - gamma0 - gamma2 * w - 
+     gamma3 * r + (epsilon_d - epsilon_c))/
   ((1 + theta) * (alpha1 + alpha2 * z) + gamma1)
 # aggregate price ----  
 P <- 
@@ -139,8 +140,8 @@ data <-
   ) %>% 
   dplyr::mutate(
     composite_z =
-      alpha1_hat + 
-      alpha2_hat * z
+      - (alpha1_hat + 
+      alpha2_hat * z)
   )
 ## supply ----
 res_supply <-
