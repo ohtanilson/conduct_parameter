@@ -5,7 +5,7 @@ library(magrittr)
 estimate_demand <-
   function(target_data,
            target_demand_formula,
-           demand_shifter_dummy = TRUE){
+           demand_shifter_dummy){
     data <-
       target_data
     res_demand <-
@@ -25,10 +25,18 @@ estimate_demand <-
     alpha1_hat <-
       res_demand %>% 
       purrr::map_dbl(~coef(.)[2]) 
+    # note the sign needs to be 
+    # transformed into negative
+    alpha1_hat <-
+      - alpha1_hat
     if(demand_shifter_dummy == TRUE){
+      # note the sign needs to be 
+      # transformed into negative
       alpha2_hat <-
         res_demand %>% 
         purrr::map_dbl(~coef(.)[4]) 
+      alpha2_hat <-
+        - alpha2_hat
       alpha3_hat <-
         res_demand %>% 
         purrr::map_dbl(~coef(.)[3]) 
@@ -48,6 +56,10 @@ estimate_demand <-
       alpha2_hat <-
         res_demand %>% 
         purrr::map_dbl(~coef(.)[3]) 
+      # note the sign needs to be 
+      # transformed into negative
+      alpha2_hat <-
+        - alpha2_hat
       demand_hat <-
         cbind(
           alpha0_hat,
@@ -69,9 +81,7 @@ estimate_demand <-
       ) %>% 
       dplyr::mutate(
         composite_z =
-          # note the sign needs to be 
-          # transformed into negative
-          - (alpha1_hat + 
+          (alpha1_hat + 
                alpha2_hat * z)
       )
     return(data_with_demand_hat)
@@ -121,7 +131,6 @@ estimate_supply <-
         group_id_k =
           dplyr::row_number()
       ) 
-    
     data_with_demand_hat_and_supply_hat <-
       data %>% 
       dplyr::left_join(
@@ -136,7 +145,7 @@ estimate_demand_and_supply <-
   function(target_data,
            target_demand_formula,
            target_supply_formula,
-           demand_shifter_dummy = TRUE){
+           demand_shifter_dummy){
     ## demand ----
     data_with_demand_hat <-
       estimate_demand(
@@ -175,11 +184,10 @@ estimate_demand_and_supply <-
         ) %>% 
         dplyr::select(
           group_id_k,
-          alpha0_hat:alpha2_hat,
+          alpha0_hat:alpha2_hat, # drop alpha3
           gamma0_hat:theta_hat
         )
     }
-    
     return(parameter_hat_table)
   }
 
@@ -250,6 +258,9 @@ for(nn in 1:length(n_observation_list)){
             )
   }
 }
+modelsummary::datasummary_skim(
+  fmt = 3,
+  parameter_hat_table)
 ### with without_demand_shifter_y ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
@@ -309,6 +320,10 @@ for(nn in 1:length(n_observation_list)){
     )
   }
 }
+
+modelsummary::datasummary_skim(
+  fmt = 3,
+  parameter_hat_table)
 
 ## log-linear demand and linear cost ----
 

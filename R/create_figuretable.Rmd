@@ -109,8 +109,20 @@ $$
 - Exogenous variables
 
 $$
-w \sim N(3,1), r \sim N(0,1), Z \sim N(10,1),Y \sim N(10,1) w_{iv}=w + N(0,1), r_{iv}= r + N(0,1)
+w \sim N(3,1), r \sim N(0,1), Z \sim N(10,1),Y \sim N(10,1) 
 $$
+
+- Instrumental variables for supply side with_demand_shifter model
+
+$$
+w_{iv}=w + N(0,1), r_{iv}= r + N(0,1), Y \sim N(10,1)
+$$
+- Instrumental variables  for supply side without_demand_shifter model
+
+$$
+w_{iv}=w + N(0,1), r_{iv}= r + N(0,1)
+$$
+
 
 - Parameters
 
@@ -149,36 +161,52 @@ The price $P_t$ is given by substituting $Q_t$ into the demand equationship.
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_0.001)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_0.001)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_0.001_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_0.001_without_demand_shifter_y)
 ```
 
 #### $n = 100$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_0.001)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_0.001)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_0.001_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_0.001_without_demand_shifter_y)
 ```
 
 #### $n = 200$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_0.001)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_0.001)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_0.001_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_0.001_without_demand_shifter_y)
 ```
 
 #### $n = 1000$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_0.001)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_0.001)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
 ```
 
 
@@ -188,36 +216,52 @@ modelsummary::datasummary_skim(linear_linear_n_1000_sigma_0.001_without_demand_s
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_0.5)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_0.5)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_0.5_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_0.5_without_demand_shifter_y)
 ```
 
 #### $n = 100$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_0.5)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_0.5)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_0.5_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_0.5_without_demand_shifter_y)
 ```
 
 #### $n = 200$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_0.5)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_0.5)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_0.5_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_0.5_without_demand_shifter_y)
 ```
 
 #### $n = 1000$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_0.5)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_0.5)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
 ```
 
 
@@ -229,36 +273,52 @@ modelsummary::datasummary_skim(linear_linear_n_1000_sigma_0.5_without_demand_shi
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_1)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_1_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_1_without_demand_shifter_y)
 ```
 
 #### $n = 100$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_1)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_1_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_1_without_demand_shifter_y)
 ```
 
 #### $n = 200$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_1)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_1_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_1_without_demand_shifter_y)
 ```
 
 #### $n = 1000$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_1)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_1_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_1_without_demand_shifter_y)
 ```
 
 
@@ -268,36 +328,52 @@ modelsummary::datasummary_skim(linear_linear_n_1000_sigma_1_without_demand_shift
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_2)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_50_sigma_2_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_2_without_demand_shifter_y)
 ```
 
 #### $n = 100$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_2)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_100_sigma_2_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_2_without_demand_shifter_y)
 ```
 
 #### $n = 200$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_2)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_200_sigma_2_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_2_without_demand_shifter_y)
 ```
 
 #### $n = 1000$
 
 ```{r,echo=FALSE,results = 'asis'}
 cat("with demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_2)
 cat("without demand shifter y")
-modelsummary::datasummary_skim(linear_linear_n_1000_sigma_2_without_demand_shifter_y)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_2_without_demand_shifter_y)
 ```
 
 
