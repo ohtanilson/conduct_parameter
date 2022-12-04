@@ -4,7 +4,8 @@ library(magrittr)
 # set function ----
 estimate_demand <-
   function(target_data,
-           target_demand_formula){
+           target_demand_formula,
+           demand_shifter_dummy = TRUE){
     data <-
       target_data
     res_demand <-
@@ -24,24 +25,41 @@ estimate_demand <-
     alpha1_hat <-
       res_demand %>% 
       purrr::map_dbl(~coef(.)[2]) 
-    alpha3_hat <-
-      res_demand %>% 
-      purrr::map_dbl(~coef(.)[3]) 
-    alpha2_hat <-
-      res_demand %>% 
-      purrr::map_dbl(~coef(.)[4]) 
-    demand_hat <-
-      cbind(
-        alpha0_hat,
-        alpha1_hat,
-        alpha2_hat,
-        alpha3_hat
-      ) %>% 
-      tibble::as_tibble() %>% 
-      dplyr::mutate(
-        group_id_k =
-          dplyr::row_number()
-      ) 
+    if(demand_shifter_dummy == TRUE){
+      alpha2_hat <-
+        res_demand %>% 
+        purrr::map_dbl(~coef(.)[4]) 
+      alpha3_hat <-
+        res_demand %>% 
+        purrr::map_dbl(~coef(.)[3]) 
+      demand_hat <-
+        cbind(
+          alpha0_hat,
+          alpha1_hat,
+          alpha2_hat,
+          alpha3_hat
+        ) %>% 
+        tibble::as_tibble() %>% 
+        dplyr::mutate(
+          group_id_k =
+            dplyr::row_number()
+        ) 
+    }else{
+      alpha2_hat <-
+        res_demand %>% 
+        purrr::map_dbl(~coef(.)[3]) 
+      demand_hat <-
+        cbind(
+          alpha0_hat,
+          alpha1_hat,
+          alpha2_hat
+        ) %>% 
+        tibble::as_tibble() %>% 
+        dplyr::mutate(
+          group_id_k =
+            dplyr::row_number()
+        ) 
+    }
     data_with_demand_hat <-
       data %>% 
       dplyr::left_join(
@@ -117,14 +135,17 @@ estimate_supply <-
 estimate_demand_and_supply <-
   function(target_data,
            target_demand_formula,
-           target_supply_formula){
+           target_supply_formula,
+           demand_shifter_dummy = TRUE){
     ## demand ----
     data_with_demand_hat <-
       estimate_demand(
         target_data = 
           target_data,
         target_demand_formula =
-          target_demand_formula)
+          target_demand_formula,
+        demand_shifter_dummy =
+          demand_shifter_dummy)
     ## supply ----
     data_with_demand_hat_and_supply_hat <-
       estimate_supply(
@@ -133,19 +154,35 @@ estimate_demand_and_supply <-
         target_supply_formula =
           target_supply_formula)
     ## pick up estimated parameters ----
-    parameter_hat_table <-
-      data_with_demand_hat_and_supply_hat %>% 
-      dplyr::distinct(
-        group_id_k,
-        .keep_all = T
-      ) %>% 
-      dplyr::select(
-        group_id_k,
-        alpha0_hat:alpha3_hat,
-        gamma0_hat:theta_hat
-      )
+    if(demand_shifter_dummy == T){
+      parameter_hat_table <-
+        data_with_demand_hat_and_supply_hat %>% 
+        dplyr::distinct(
+          group_id_k,
+          .keep_all = T
+        ) %>% 
+        dplyr::select(
+          group_id_k,
+          alpha0_hat:alpha3_hat,
+          gamma0_hat:theta_hat
+        )
+    }else{
+      parameter_hat_table <-
+        data_with_demand_hat_and_supply_hat %>% 
+        dplyr::distinct(
+          group_id_k,
+          .keep_all = T
+        ) %>% 
+        dplyr::select(
+          group_id_k,
+          alpha0_hat:alpha2_hat,
+          gamma0_hat:theta_hat
+        )
+    }
+    
     return(parameter_hat_table)
   }
+
 
 # set constant ----
 n_observation_list <-
@@ -155,6 +192,7 @@ sigma_list <-
 
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
+### without without_demand_shifter_y ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -198,7 +236,8 @@ for(nn in 1:length(n_observation_list)){
         target_demand_formula = 
           linear_demand_formula,
         target_supply_formula =
-          linear_demand_linear_supply_formula)
+          linear_demand_linear_supply_formula,
+        demand_shifter_dummy = T)
     # save 
     saveRDS(parameter_hat_table,
             file = paste(
@@ -209,6 +248,65 @@ for(nn in 1:length(n_observation_list)){
               sep = ""
               )
             )
+  }
+}
+### with without_demand_shifter_y ----
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        "_without_demand_shifter_y",
+        sep = ""
+      )
+    cat(filename,"\n")
+    # load 
+    target_data <-
+      readRDS(file = 
+                here::here(
+                  paste(
+                    "R/output/data_",
+                    filename,
+                    ".rds",
+                    sep = ""
+                  )
+                )
+      )
+    # assign(filename,
+    #        temp_data)
+    # estimate 
+    linear_demand_formula <-
+      "P ~ Q + Q:z|z + iv_w + iv_r"
+    linear_demand_linear_supply_formula <-
+      paste("P ~ composite_z:Q + Q + w + r|",
+            "composite_z + w + r + iv_w + iv_r")
+    parameter_hat_table <-
+      estimate_demand_and_supply(
+        target_data =
+          target_data,
+        target_demand_formula = 
+          linear_demand_formula,
+        target_supply_formula =
+          linear_demand_linear_supply_formula,
+        demand_shifter_dummy = F)
+    # save 
+    saveRDS(parameter_hat_table,
+            file = paste(
+              "R/output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
+            )
+    )
   }
 }
 
