@@ -19,9 +19,9 @@ function TwoSLS_estimation_R(data)
     Y = data.y
     
     Z_demand = hcat(ones(T), Z, iv_w, iv_r, Y)
-    Q_hat = Z_demand * inv(Z_demand' * Z_demand)* (Z_demand' * Q)
-    X_d = hcat(ones(T), -Q_hat, -Z .* Q_hat, Y)
-    α_hat = inv(X_d' * X_d) * (X_d' * P)
+    Q_hat = Z_demand * pinv(Z_demand' * Z_demand)* (Z_demand' * Q)
+    X_d = hcat(ones(T), Q_hat, Z .* Q_hat, Y)
+    α_hat = pinv(X_d' * X_d) * (X_d' * P)
 
     #=    
     data_1st = DataFrame(Q = Q, Z = Z, IV_w = iv_w, IV_r = iv_r, Y = Y)
@@ -37,9 +37,9 @@ function TwoSLS_estimation_R(data)
     # Supply side estimation 
 
     Z_supply = hcat(ones(T), W, R, Z, Y)
-    Q_hat = Z_supply * inv(Z_supply' * Z_supply) * Z_supply' *  Q
+    Q_hat = Z_supply * pinv(Z_supply' * Z_supply) * Z_supply' *  Q
     X_s = hcat(ones(T), Q_hat, W, R, (α_hat[2] .+ α_hat[3] .* Z) .* Q_hat)
-    γ_hat = inv(X_s' * X_s) * (X_s' * P)
+    γ_hat = pinv(X_s' * X_s) * (X_s' * P)
 
     θ_hat = γ_hat[end]
 
@@ -47,17 +47,19 @@ function TwoSLS_estimation_R(data)
 
 end
 
-function simulation_2sls_R(t, sigma)
+function simulation_2sls_R(filename, sample_size, sigma)
 
 
-    data = load("../conduct_parameter/R/output/data_linear_linear_n_100_sigma_$sigma.rds")
+    data = load(filename)
+    data = DataFrames.sort(data, [:group_id_k])
+
     α_est = Vector{Float64}[]
     γ_est = Vector{Float64}[]
     θ_est = Float64[]
 
     for s = 1:1000
 
-        data_s = data[(s-1)*t+1:s*t,:]
+        data_s = data[(s-1)*sample_size+1:s*sample_size,:]
 
         α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(data_s)
 
@@ -71,11 +73,9 @@ function simulation_2sls_R(t, sigma)
     γ_est = reduce(vcat, γ_est')
     θ_est = reduce(vcat, θ_est')
 
-    display(α_est)
-
     result = DataFrame(
         σ = sigma,
-        T = t,
+        T = sample_size,
         α_0 = α_est[:,1],
         α_1 = α_est[:,2],
         α_2 = α_est[:,3],
@@ -87,8 +87,23 @@ function simulation_2sls_R(t, sigma)
         θ = θ_est
     )
 
-    describe(result, :mean, :std, :min, :max, :median)
+    return describe(result, :mean, :std, :min, :max, :median)
 
 end
 
-simulation_2sls_R(100, 1)
+
+
+for sigma =  [0.001, 0.5, 1, 2] , sample_size = [50, 100, 200, 1000]
+    filename_begin = "../conduct_parameter/R/output/data_linear_linear_n_"
+    filename_end   = ".rds"
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+    filename = filename_begin*string(sample_size)*"_sigma_"*string(sigma)*filename_end
+
+    result = simulation_2sls_R(filename, sample_size, sigma)
+
+    display(result)
+end

@@ -4,11 +4,6 @@ using JuMP, Ipopt
 using DelimitedFiles, JLD, CSV, DataFrames
 using Plots, Combinatorics, Dates, StatsPlots
 using Parameters: @unpack, @with_kw
-using Logging
-using Econometrics
-
-
-using GLM
 #---------------------------------------------------------------------------------------------------------
 
 market_parameters = @with_kw (
