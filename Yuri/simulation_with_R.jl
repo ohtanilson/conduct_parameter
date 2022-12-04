@@ -5,10 +5,7 @@ using DataFrames, RData
 
 
 
-function TwoSLS_estimation_R(n, sigma,s)
-
-    data = load("../conduct_parameter/R/output/data_linear_linear_n_50_sigma_$sigma.rds")
-    data = data[(s-1)*n+1:s*n,:]
+function TwoSLS_estimation_R(data)
 
     T = size(data, 1)
 
@@ -21,12 +18,10 @@ function TwoSLS_estimation_R(n, sigma,s)
     iv_r = data.iv_r
     Y = data.y
     
-
     Z_demand = hcat(ones(T), Z, iv_w, iv_r, Y)
     Q_hat = Z_demand * inv(Z_demand' * Z_demand)* (Z_demand' * Q)
     X_d = hcat(ones(T), -Q_hat, -Z .* Q_hat, Y)
     α_hat = inv(X_d' * X_d) * (X_d' * P)
-
 
     #=    
     data_1st = DataFrame(Q = Q, Z = Z, IV_w = iv_w, IV_r = iv_r, Y = Y)
@@ -41,7 +36,7 @@ function TwoSLS_estimation_R(n, sigma,s)
 
     # Supply side estimation 
 
-    Z_supply = hcat(ones(T), W, R, (α_hat[2] .+ α_hat[3] .* Z), Y)
+    Z_supply = hcat(ones(T), W, R, Z, Y)
     Q_hat = Z_supply * inv(Z_supply' * Z_supply) * Z_supply' *  Q
     X_s = hcat(ones(T), Q_hat, W, R, (α_hat[2] .+ α_hat[3] .* Z) .* Q_hat)
     γ_hat = inv(X_s' * X_s) * (X_s' * P)
@@ -52,16 +47,19 @@ function TwoSLS_estimation_R(n, sigma,s)
 
 end
 
-function simulation_2sls_R(n, sigma)
+function simulation_2sls_R(t, sigma)
 
 
+    data = load("../conduct_parameter/R/output/data_linear_linear_n_100_sigma_$sigma.rds")
     α_est = Vector{Float64}[]
     γ_est = Vector{Float64}[]
     θ_est = Float64[]
 
     for s = 1:1000
 
-        α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(n,sigma, s)
+        data_s = data[(s-1)*t+1:s*t,:]
+
+        α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(data_s)
 
         push!(α_est, α_est_s)
         push!(γ_est, γ_est_s)
@@ -73,9 +71,11 @@ function simulation_2sls_R(n, sigma)
     γ_est = reduce(vcat, γ_est')
     θ_est = reduce(vcat, θ_est')
 
+    display(α_est)
+
     result = DataFrame(
-        σ = 1,
-        T = 50,
+        σ = sigma,
+        T = t,
         α_0 = α_est[:,1],
         α_1 = α_est[:,2],
         α_2 = α_est[:,3],
@@ -91,4 +91,4 @@ function simulation_2sls_R(n, sigma)
 
 end
 
-simulation_2sls_R(50, 1)
+simulation_2sls_R(100, 1)
