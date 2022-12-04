@@ -17,7 +17,12 @@ estimate_demand <-
         ~ AER::ivreg(
           formula = target_demand_formula,
           data = .x)
-      ) %>% 
+      ) 
+    R2_demand <-
+      res_demand %>% 
+      purrr::map_dbl(~summary(.)$r.squared)
+    res_demand <-
+      res_demand %>% 
       purrr::map(summary)
     alpha0_hat <-
       res_demand %>% 
@@ -45,7 +50,8 @@ estimate_demand <-
           alpha0_hat,
           alpha1_hat,
           alpha2_hat,
-          alpha3_hat
+          alpha3_hat,
+          R2_demand
         ) %>% 
         tibble::as_tibble() %>% 
         dplyr::mutate(
@@ -64,7 +70,8 @@ estimate_demand <-
         cbind(
           alpha0_hat,
           alpha1_hat,
-          alpha2_hat
+          alpha2_hat,
+          R2_demand
         ) %>% 
         tibble::as_tibble() %>% 
         dplyr::mutate(
@@ -100,9 +107,13 @@ estimate_supply <-
         ~ AER::ivreg(
           formula = target_supply_formula,
           data = .x)
-      ) %>% 
+      ) 
+    R2_supply <-
+      res_supply %>% 
+      purrr::map_dbl(~summary(.)$r.squared)
+    res_supply <-
+      res_supply %>% 
       purrr::map(summary)
-    
     gamma0_hat <-
       res_supply %>% 
       purrr::map_dbl(~coef(.)[1]) 
@@ -124,7 +135,8 @@ estimate_supply <-
         gamma1_hat,
         gamma2_hat,
         gamma3_hat,
-        theta_hat
+        theta_hat,
+        R2_supply
       ) %>% 
       tibble::as_tibble() %>% 
       dplyr::mutate(
@@ -173,7 +185,9 @@ estimate_demand_and_supply <-
         dplyr::select(
           group_id_k,
           alpha0_hat:alpha3_hat,
-          gamma0_hat:theta_hat
+          gamma0_hat:theta_hat,
+          R2_demand,
+          R2_supply
         )
     }else{
       parameter_hat_table <-
@@ -185,7 +199,9 @@ estimate_demand_and_supply <-
         dplyr::select(
           group_id_k,
           alpha0_hat:alpha2_hat, # drop alpha3
-          gamma0_hat:theta_hat
+          gamma0_hat:theta_hat,
+          R2_demand,
+          R2_supply
         )
     }
     return(parameter_hat_table)

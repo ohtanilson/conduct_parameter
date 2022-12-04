@@ -152,6 +152,8 @@ $$
 
 The price $P_t$ is given by substituting $Q_t$ into the demand equationship.
 
+![perloff_and_shen2012_table1](../perloff_and_shen_2012_table1.png){#id .class width=150mm}
+
 ![perloff_and_shen2012_table2](../perloff_and_shen_2012_table2.png){#id .class width=150mm}
 
 
