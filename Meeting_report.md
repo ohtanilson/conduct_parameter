@@ -22,8 +22,15 @@
 - PSが議論しているcolinearityが起きる状況でsimulationをおこなう．とりあえず，sample sizeとerror term varianceも変更してみる(16パターン)
 - できれば，log-demand and log mcのシミュレーションも考える
 
-# 12/09/2022
+# 12/05/2022
 
 ## Result
 
-- 
+- ivregを使った場合と2slsを1st-stageと2nd-stageに分けた場合で推定結果が異なる．juliaもRも2slsを使うとivregと結果が変わる一方で，juliaとRの2SLSの結果は似たようなものになる
+- ivregを使った場合とjuliaでS2SLSを使った場合は結果がほぼ一致
+
+## Next Meeting
+
+- ivregとS2SLSが一致する理由を検証する．Perloff and Shen (2012)はS2SLSを使っている可能性がある
+- Simulation settingをmain.texに移す
+- VScodeでtexをコンパイルしたときに出てきたファイルを消す
