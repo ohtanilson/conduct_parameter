@@ -117,6 +117,7 @@ $$
 $$
 w_{iv}=w + N(0,1), r_{iv}= r + N(0,1), Y \sim N(10,1)
 $$
+
 - Instrumental variables  for supply side without_demand_shifter model
 
 $$
