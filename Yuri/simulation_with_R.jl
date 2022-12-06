@@ -55,6 +55,61 @@ function TwoSLS_estimation_R(data)
 
 end
 
+
+
+function TwoSLS_estimation_simultaneous_R(data)
+
+    T = size(data, 1)
+
+    Q = data.Q
+    w = data.w
+    r = data.r
+    z = data.z
+    p = data.P
+    iv_w = data.iv_w
+    iv_r = data.iv_r
+    Y = data.y
+
+    iv = hcat(iv_w, iv_r)
+
+    P = Vector{Float64}[]
+    Z = Matrix{Float64}[]
+    X = Matrix{Float64}[]
+
+    for t = 1:T
+        Z_td = vcat(1, z[t], Y[t], iv[t,:])
+        Z_ts = vcat(1, z[t], w[t], r[t], Y[t])
+
+        Z_t = [Z_td zeros(length(Z_td));  zeros(length(Z_ts)) Z_ts]'
+
+        X_td = vcat(1, -Q[t],-z[t].*Q[t], Y[t])
+        X_ts = vcat(1, Q[t], w[t], r[t], z[t].*Q[t])
+
+        X_t = [X_td zeros(length(X_td)); zeros(length(X_ts)) X_ts]'
+
+        push!(P, vcat(p[t], p[t]))
+        push!(X, X_t)
+        push!(Z, Z_t)
+    end
+
+    Z = reduce(vcat,(Z))
+    X = reduce(vcat,(X))
+    P = reshape(reduce(vcat,transpose.(P))', (T * 2))
+
+    β_hat = inv(X' * Z * inv(Z'Z) * Z' * X) * (X' * Z * inv(Z'Z) * Z' * P)
+
+    α_0_hat, α_1_hat, α_2_hat, α_3_hat = β_hat[1], β_hat[2], β_hat[3], β_hat[4]
+    γ_0_hat, γ_2_hat, γ_3_hat = β_hat[5], β_hat[7], β_hat[8]
+
+    θ_hat = β_hat[9]/α_2_hat
+    γ_1_hat = β_hat[6] - θ_hat * α_1_hat
+
+    #return α_hat, γ_hat[1:end-1], θ_hat
+    return vcat(α_0_hat, α_1_hat, α_2_hat, α_3_hat), vcat(γ_0_hat, γ_1_hat, γ_2_hat, γ_3_hat), θ_hat
+end
+
+
+
 function simulation_2sls_R(filename, sample_size, sigma)
 
 
@@ -69,7 +124,8 @@ function simulation_2sls_R(filename, sample_size, sigma)
 
         data_s = data[(s-1)*sample_size+1:s*sample_size,:]
 
-        α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(data_s)
+        #α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(data_s)
+        α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_simultaneous_R(data_s)
 
         push!(α_est, α_est_s)
         push!(γ_est, γ_est_s)
