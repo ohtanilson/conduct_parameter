@@ -56,7 +56,6 @@ function TwoSLS_estimation_R(data)
 end
 
 
-
 function TwoSLS_estimation_simultaneous_R(data)
 
     T = size(data, 1)
@@ -109,7 +108,6 @@ function TwoSLS_estimation_simultaneous_R(data)
 end
 
 
-
 function simulation_2sls_R(filename, sample_size, sigma)
 
 
@@ -154,8 +152,6 @@ function simulation_2sls_R(filename, sample_size, sigma)
     return describe(result, :mean, :std, :min, :max, :median)
 
 end
-
-
 
 
 for sigma =  [0.001, 0.5, 1, 2] , sample_size = [50, 100, 200, 1000]
