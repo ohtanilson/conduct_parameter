@@ -225,6 +225,65 @@ For Case 1, from the first-order condition, we have
 We provide numerical comparison across specifications. We estimate the model using two-stage least square (2SLS), three-stage least
 squares (3SLS), and nonlinear three-stage least squares (NL3SLS).
     
+\subsection{Replication of Perloff and Shen (2012)}
+This paper points out that the conduct parameter can not be estimated accurately when the demand and marginal cost are linear due to multicolinearity. Note that we change the notation from the original paper.
+
+Assume that the demand equation is linear,
+\[P_t = \alpha_0 - [\alpha_1 + \alpha_2Z_t] Q_t + \alpha_3 Y_t + \varepsilon_{dt}\]
+and the marginal cost function is also linear, 
+\[MC_t = \gamma_0  + \gamma_1 Q + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}.\]
+Since $P'(Q) = -(\alpha_1 + \alpha_2Z_t)$, the supply equation is given as
+\begin{align*}
+    P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z_t)+ \gamma_1] Q_t   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
+\end{align*}
+
+The simulation setting is the following:
+\begin{itemize}
+    \item $w \sim N (3, 1), r \sim N (0, 1), Z \sim N (10, 1)$
+    \item $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
+    \item $\varepsilon_{ct}\sim N(0,\sigma_d)$, $\varepsilon_{dt} \sim N(0,\sigma_c)$, and $\sigma = \sigma_d = \sigma_c$
+\end{itemize}
+
+To generate simulation data, we need to obtain the aggregate quantity $Q_t$.
+From the supply equation and the demand equation, we have
+\begin{align}
+    \alpha_0 - [\alpha_1 + \alpha_2Z_t] Q_t + \alpha_3 Y_t + \varepsilon_{dt} = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z_t)+ \gamma_1] Q   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct},
+\end{align}
+which gives us the aggregate quantity $Q_t$ as 
+\begin{align*}
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + (\varepsilon_{dt} - \varepsilon_{ct})}{(1 + \theta) (\alpha_1 + \alpha_2Z_t) + \gamma_1}.
+\end{align*}
+The price $P_t$ is given by substituting $Q_t$ into the demand equationship.
+
+
+
+
+
+\subsubsection{Estimation in Perloff and Shen (2012)}
+To apply the system 2SLS and the 3SLS, we use the following demand and supply equations:
+\begin{align*}
+    &P_t = \alpha_0 - \alpha_1Q_t - \alpha_2Z_t Q_t + \alpha_3 Y_t + \varepsilon_{dt}\\
+    &P_t = \gamma_0 + \Psi Q_t  + \Phi Z_tQ_t  + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}.
+\end{align*}
+where $\Psi = \theta(\alpha_1 + \gamma_1)$ and $\Phi = \theta\alpha_2$.
+As additional instruments, two random variables are created by adding additional random variable drawn from the standard normal distribution to $w_t$ and $r_t$, which is denoted by $h_t$ and $k_t$. 
+\begin{itemize}
+    \item The endogenous variable is $Q_t$. 
+    \item The demand instrument is $(Z_t, Y_t, h_t, k_t)$
+    \item The supply instrument is $(Z_t, w_t, r_t, Y_t)$.
+\end{itemize}
+From the supply equation, we can estimate $(\gamma_0, \Psi, \Phi, \gamma_2, \gamma_3)$. 
+Since $\alpha_1$ and $\alpha_2$ are estimated from the demand equation, the conduct parameter $\theta$ and the cost parameter $\gamma_1$ are obtained as 
+\begin{align*}
+    \theta = \Phi/\alpha_2, \quad \gamma_1 = \Psi - \theta\alpha_1.
+\end{align*}
+
+When we independently apply the 2SLS estimation to the demand and supply equations, we first estimate the demand parameters $(\alpha_0, \alpha_1, \alpha_2)$. Then by using instruments for the supply equation, we obtain the predicted value of $Q_t$, denoted as $\hat{Q}_t$, in the first-stage, and then we can estimate the parameters in the supply equation by regressing
+\begin{align*}
+     P_t = \gamma_0 + \theta(\hat{\alpha}_1 + \hat{\alpha}_2Z_t)\hat{Q}_t+ \gamma_1\hat{Q}_t  + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
+\end{align*}
+where $(\hat{\alpha}_1 + \hat{\alpha}_2Z_t)\hat{Q}_t$ is regarded as an exogenous variable. In this case, $\theta$ and $\gamma_1$ can be estimated as the coefficient in the supply equation.
+
 
 
 
@@ -315,6 +374,4 @@ Therefore, we can conclude that the parameters are identified.
 
 \bibliography{conduct_parameter}
 
-
-% https://github.com/Yuri-Matsumura
 \end{document}
