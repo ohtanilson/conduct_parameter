@@ -316,8 +316,9 @@ Then the log marginal cost is,
 \end{align*}
 Since $P'(Q_t) = - (\alpha_1 + \alpha_2 Z_t) \frac{P}{Q} $,  the supply equation is given as
 \begin{align*}
-    &P_t = \theta_t (\alpha_1 + \alpha_2 Z_t) \frac{P_t}{Q_t} Q_t + mc_t\\
-    \Longrightarrow &\log P_t  = \log(1 - \theta(\alpha_1 + \alpha_2 Z_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}
+    P_t &= \theta_t (\alpha_1 + \alpha_2 Z_t) \frac{P_t}{Q_t} Q_t + mc_t\\
+    P_t  \left(1 -  \theta_t (\alpha_1 + \alpha_2 Z_t)Q_t\right) & = mc_t\\
+    \Longrightarrow \log P_t + \log(1 - \theta(\alpha_1 + \alpha_2 Z_t)) & =  \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}
 \end{align*}
 
 To generate simulation data, we need to obtain the aggregate quantity $Q_t$.
@@ -350,7 +351,7 @@ Note that while \citet{hyde1995can} collects the data of $w, r,$ and $Z$, we dra
 The demand and supply equations are
 \begin{align*}
     &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z_t\log Q_t + \alpha_3 \log Y_t \varepsilon_{dt},\\
-    &\log P_t  = \log(1 - \theta(\alpha_1 + \alpha_2 Z_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+    &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
 \end{align*}
 As we can immediately see, the supply equation is a nonlinear equation.
 We assume two moment conditions $E[\bmZ_{dt} \varepsilon_{dt}] = \bm0 $ and $ E[\bmZ_{st} \varepsilon_{st}] =\bm0$ where $\bmZ_{dt}$ is the vector of instruments for the demand equation and $\bmZ_{st}$ the vector of instruments for the supply equation.
