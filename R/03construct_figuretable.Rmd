@@ -73,7 +73,18 @@ for(nn in 1:length(n_observation_list)){
         `$R^{2}$ (demand)` =
           R2_demand,
         `$R^{2}$ (supply)` =
-          R2_supply)
+          R2_supply) %>% 
+      dplyr::mutate(
+        filename =
+          paste("(",
+                nn,
+                ") ",
+                "$n=",
+                temp_nn,
+                "$",
+                sep = ""
+                )
+        )
     assign(
       filename,
       temp_data) 
@@ -132,7 +143,18 @@ for(nn in 1:length(n_observation_list)){
         `$R^{2}$ (demand)` =
           R2_demand,
         `$R^{2}$ (supply)` =
-          R2_supply)
+          R2_supply) %>% 
+      dplyr::mutate(
+        filename =
+          paste("(",
+                nn,
+                ") ",
+                "$n=",
+                temp_nn,
+                "$",
+                sep = ""
+                )
+        )
     assign(
       filename,
       temp_data)
@@ -153,7 +175,8 @@ create_table_with_demand_shifter <-
   `$\\theta$`+
   `$R^{2}$ (demand)`+
   `$R^{2}$ (supply)` ) ~
-  (Mean + SD)*Arguments(na.rm = TRUE)
+  filename * (Mean + SD)*Arguments(na.rm = TRUE)
+    
     filelocation <-
       paste("R/figuretable/",
                 deparse(
@@ -164,11 +187,12 @@ create_table_with_demand_shifter <-
                 as.character(),
                 ".tex",
                 sep = "")
+      
     target_data %>%
       modelsummary::datasummary(
         f_with_demand_shifter,
         escape = FALSE,
-        fmt = 4,
+        fmt = 3,
         data = .,
         output = "latex_tabular"
         ) %>%
@@ -181,7 +205,7 @@ create_table_with_demand_shifter <-
       modelsummary::datasummary(
         f_with_demand_shifter,
         data = target_data,
-        fmt = 4,
+        fmt = 3,
         notes = filelocation)
     return(res)
   }
@@ -200,7 +224,7 @@ create_table_without_demand_shifter <-
   `$\\theta$`+
   `$R^{2}$ (demand)`+
   `$R^{2}$ (supply)` ) ~
-  (Mean + SD)*Arguments(na.rm = TRUE)
+  filename * (Mean + SD)*Arguments(na.rm = TRUE)
     filelocation <-
       paste("R/figuretable/",
                 deparse(
@@ -215,7 +239,7 @@ create_table_without_demand_shifter <-
       modelsummary::datasummary(
         f_without_demand_shifter,
         escape = FALSE,
-        fmt = 4,
+        fmt = 3,
         data = .,
         output = "latex_tabular"
         ) %>%
@@ -228,7 +252,7 @@ create_table_without_demand_shifter <-
       modelsummary::datasummary(
         f_without_demand_shifter,
         data = target_data,
-        fmt = 4,
+        fmt = 3,
         notes = filelocation)
     return(res)
   }
@@ -244,50 +268,81 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ### with demand shifter {.tabset}
 
 ```{r,echo=FALSE,results = 'asis'}
-create_table_with_demand_shifter(linear_linear_n_50_sigma_0.001)
-create_table_with_demand_shifter(linear_linear_n_100_sigma_0.001)
-create_table_with_demand_shifter(linear_linear_n_200_sigma_0.001)
-create_table_with_demand_shifter(linear_linear_n_1000_sigma_0.001)
+linear_linear_sigma_0.001 <-
+  rbind(linear_linear_n_50_sigma_0.001,
+        linear_linear_n_100_sigma_0.001,
+        linear_linear_n_200_sigma_0.001,
+        linear_linear_n_1000_sigma_0.001)
+create_table_with_demand_shifter(
+  linear_linear_sigma_0.001
+)
+linear_linear_sigma_0.5 <-
+  rbind(linear_linear_n_50_sigma_0.5,
+        linear_linear_n_100_sigma_0.5,
+        linear_linear_n_200_sigma_0.5,
+        linear_linear_n_1000_sigma_0.5)
+create_table_with_demand_shifter(
+  linear_linear_sigma_0.5
+)
 
-create_table_with_demand_shifter(linear_linear_n_50_sigma_0.5)
-create_table_with_demand_shifter(linear_linear_n_100_sigma_0.5)
-create_table_with_demand_shifter(linear_linear_n_200_sigma_0.5)
-create_table_with_demand_shifter(linear_linear_n_1000_sigma_0.5)
+linear_linear_sigma_1 <-
+  rbind(linear_linear_n_50_sigma_1,
+        linear_linear_n_100_sigma_1,
+        linear_linear_n_200_sigma_1,
+        linear_linear_n_1000_sigma_1)
+create_table_with_demand_shifter(
+  linear_linear_sigma_1
+)
 
-create_table_with_demand_shifter(linear_linear_n_50_sigma_1)
-create_table_with_demand_shifter(linear_linear_n_100_sigma_1)
-create_table_with_demand_shifter(linear_linear_n_200_sigma_1)
-create_table_with_demand_shifter(linear_linear_n_1000_sigma_1)
+linear_linear_sigma_2 <-
+  rbind(linear_linear_n_50_sigma_2,
+        linear_linear_n_100_sigma_2,
+        linear_linear_n_200_sigma_2,
+        linear_linear_n_1000_sigma_2)
+create_table_with_demand_shifter(
+  linear_linear_sigma_2
+)
 
-create_table_with_demand_shifter(linear_linear_n_50_sigma_2)
-create_table_with_demand_shifter(linear_linear_n_100_sigma_2)
-create_table_with_demand_shifter(linear_linear_n_200_sigma_2)
-create_table_with_demand_shifter(linear_linear_n_1000_sigma_2)
 ```
 
 
 ### without demand shifter {.tabset}
 
 ```{r,echo=FALSE,results = 'asis'}
-create_table_without_demand_shifter(linear_linear_n_50_sigma_0.001_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_100_sigma_0.001_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_200_sigma_0.001_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
+linear_linear_sigma_0.001_without_demand_shifter_y <-
+  rbind(linear_linear_n_50_sigma_0.001_without_demand_shifter_y,
+        linear_linear_n_100_sigma_0.001_without_demand_shifter_y,
+        linear_linear_n_200_sigma_0.001_without_demand_shifter_y,
+        linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
+create_table_without_demand_shifter(
+  linear_linear_sigma_0.001_without_demand_shifter_y
+)
+linear_linear_sigma_0.5_without_demand_shifter_y <-
+  rbind(linear_linear_n_50_sigma_0.5_without_demand_shifter_y,
+        linear_linear_n_100_sigma_0.5_without_demand_shifter_y,
+        linear_linear_n_200_sigma_0.5_without_demand_shifter_y,
+        linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
+create_table_without_demand_shifter(
+  linear_linear_sigma_0.5_without_demand_shifter_y
+)
 
-create_table_without_demand_shifter(linear_linear_n_50_sigma_0.5_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_100_sigma_0.5_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_200_sigma_0.5_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
+linear_linear_sigma_1_without_demand_shifter_y <-
+  rbind(linear_linear_n_50_sigma_1_without_demand_shifter_y,
+        linear_linear_n_100_sigma_1_without_demand_shifter_y,
+        linear_linear_n_200_sigma_1_without_demand_shifter_y,
+        linear_linear_n_1000_sigma_1_without_demand_shifter_y)
+create_table_without_demand_shifter(
+  linear_linear_sigma_1_without_demand_shifter_y
+)
 
-create_table_without_demand_shifter(linear_linear_n_50_sigma_1_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_100_sigma_1_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_200_sigma_1_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_1000_sigma_1_without_demand_shifter_y)
-
-create_table_without_demand_shifter(linear_linear_n_50_sigma_2_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_100_sigma_2_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_200_sigma_2_without_demand_shifter_y)
-create_table_without_demand_shifter(linear_linear_n_1000_sigma_2_without_demand_shifter_y)
+linear_linear_sigma_2_without_demand_shifter_y <-
+  rbind(linear_linear_n_50_sigma_2_without_demand_shifter_y,
+        linear_linear_n_100_sigma_2_without_demand_shifter_y,
+        linear_linear_n_200_sigma_2_without_demand_shifter_y,
+        linear_linear_n_1000_sigma_2_without_demand_shifter_y)
+create_table_without_demand_shifter(
+  linear_linear_sigma_2_without_demand_shifter_y
+)
 ```
 
 
