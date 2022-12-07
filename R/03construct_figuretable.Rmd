@@ -187,13 +187,24 @@ create_table_with_demand_shifter <-
                 as.character(),
                 ".tex",
                 sep = "")
-      
+    new_rows <- 
+      data.frame(
+        "",
+        '$n =$',
+        "50",
+        '$n =$',
+        "100",
+        '$n =$',
+        "200",
+        '$n =$',
+        "1000")
     target_data %>%
       modelsummary::datasummary(
         f_with_demand_shifter,
         escape = FALSE,
         fmt = 3,
         data = .,
+        add_rows = new_rows,
         output = "latex_tabular"
         ) %>%
       gsub("\\multicolumn.*\\\\", "", .) %>%
@@ -206,6 +217,7 @@ create_table_with_demand_shifter <-
         f_with_demand_shifter,
         data = target_data,
         fmt = 3,
+        add_rows = new_rows,
         notes = filelocation)
     return(res)
   }
@@ -235,12 +247,24 @@ create_table_without_demand_shifter <-
                 as.character(),
                 ".tex",
                 sep = "")
+    new_rows <- 
+      data.frame(
+        "",
+        '$n =$',
+        "50",
+        '$n =$',
+        "100",
+        '$n =$',
+        "200",
+        '$n =$',
+        "1000")
     target_data %>%
       modelsummary::datasummary(
         f_without_demand_shifter,
         escape = FALSE,
         fmt = 3,
         data = .,
+        add_rows = new_rows,
         output = "latex_tabular"
         ) %>%
       gsub("\\multicolumn.*\\\\", "", .) %>%
@@ -253,6 +277,7 @@ create_table_without_demand_shifter <-
         f_without_demand_shifter,
         data = target_data,
         fmt = 3,
+        add_rows = new_rows,
         notes = filelocation)
     return(res)
   }
