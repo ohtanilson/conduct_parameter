@@ -1,0 +1,296 @@
+---
+title: "03construct_figuretable"
+author: "Suguru Otani"
+date: "2022/12/03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load
+
+```{r,echo=FALSE,results = 'asis'}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+library(modelsummary) # for N in datasummary
+# set constant ----
+n_observation_list <-
+  c(50, 100, 200, 1000)
+sigma_list <-
+  c(0.001, 0.5, 1.0, 2.0)
+# with demand shifter
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        sep = ""
+      )
+    temp_data <-
+      readRDS(file =
+                here::here(
+                  paste(
+                    "R/output/",
+                    "parameter_hat_table",
+                    filename,
+                    ".rds",
+                    sep = ""
+                    )
+                  )
+              )
+    temp_data <-
+      temp_data %>% 
+      dplyr::rename(
+        `$\\alpha_{0}$` =
+          alpha0_hat,
+        `$\\alpha_{1}$` =
+          alpha1_hat,
+        `$\\alpha_{2}$` =
+          alpha2_hat,
+        `$\\alpha_{3}$` =
+          alpha3_hat,
+        `$\\gamma_{0}$` =
+          gamma0_hat,
+        `$\\gamma_{1}$` =
+          gamma1_hat,
+        `$\\gamma_{2}$` =
+          gamma2_hat,
+        `$\\gamma_{3}$` =
+          gamma3_hat,
+        `$\\theta$` =
+          theta_hat,
+        `$R^{2}$ (demand)` =
+          R2_demand,
+        `$R^{2}$ (supply)` =
+          R2_supply)
+    assign(
+      filename,
+      temp_data) 
+  }
+}
+# without demand shifter
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        "_without_demand_shifter_y",
+        sep = ""
+      )
+    temp_data <-
+      readRDS(file =
+                here::here(
+                  paste(
+                    "R/output/",
+                    "parameter_hat_table",
+                    filename,
+                    ".rds",
+                    sep = ""
+                    )
+                  )
+              )
+    temp_data <-
+      temp_data %>% 
+      dplyr::rename(
+        `$\\alpha_{0}$` =
+          alpha0_hat,
+        `$\\alpha_{1}$` =
+          alpha1_hat,
+        `$\\alpha_{2}$` =
+          alpha2_hat,
+        # `$\\alpha_{3}$` =
+        #   alpha3_hat,
+        `$\\gamma_{0}$` =
+          gamma0_hat,
+        `$\\gamma_{1}$` =
+          gamma1_hat,
+        `$\\gamma_{2}$` =
+          gamma2_hat,
+        # `$\\gamma_{3}$` =
+        #   gamma3_hat,
+        `$\\theta$` =
+          theta_hat,
+        `$R^{2}$ (demand)` =
+          R2_demand,
+        `$R^{2}$ (supply)` =
+          R2_supply)
+    assign(
+      filename,
+      temp_data)
+  }
+}
+
+create_table_with_demand_shifter <-
+  function(target_data){
+    f_with_demand_shifter <-
+  (`$\\alpha_{0}$` +
+  `$\\alpha_{1}$`+
+  `$\\alpha_{2}$`+
+  `$\\alpha_{3}$`+
+  `$\\gamma_{0}$`+
+  `$\\gamma_{1}$`+
+  `$\\gamma_{2}$`+
+  `$\\gamma_{3}$`+
+  `$\\theta$`+
+  `$R^{2}$ (demand)`+
+  `$R^{2}$ (supply)` ) ~
+  (Mean + SD)*Arguments(na.rm = TRUE)
+    filelocation <-
+      paste("R/figuretable/",
+                deparse(
+                  substitute(
+                    target_data
+                    )
+                  ),
+                as.character(),
+                ".tex",
+                sep = "")
+    target_data %>%
+      modelsummary::datasummary(
+        f_with_demand_shifter,
+        escape = FALSE,
+        fmt = 4,
+        data = .,
+        output = "latex_tabular"
+        ) %>%
+      gsub("\\multicolumn.*\\\\", "", .) %>%
+      kableExtra::save_kable(
+        file = here::here(
+          filelocation)
+        )
+    res <-
+      modelsummary::datasummary(
+        f_with_demand_shifter,
+        data = target_data,
+        fmt = 4,
+        notes = filelocation)
+    return(res)
+  }
+
+create_table_without_demand_shifter <-
+  function(target_data){
+    f_without_demand_shifter <-
+  (`$\\alpha_{0}$` +
+  `$\\alpha_{1}$`+
+  `$\\alpha_{2}$`+
+  #`$\\alpha_{3}$`+
+  `$\\gamma_{0}$`+
+  `$\\gamma_{1}$`+
+  `$\\gamma_{2}$`+
+  #`$\\gamma_{3}$`+
+  `$\\theta$`+
+  `$R^{2}$ (demand)`+
+  `$R^{2}$ (supply)` ) ~
+  (Mean + SD)*Arguments(na.rm = TRUE)
+    filelocation <-
+      paste("R/figuretable/",
+                deparse(
+                  substitute(
+                    target_data
+                    )
+                  ),
+                as.character(),
+                ".tex",
+                sep = "")
+    target_data %>%
+      modelsummary::datasummary(
+        f_without_demand_shifter,
+        escape = FALSE,
+        fmt = 4,
+        data = .,
+        output = "latex_tabular"
+        ) %>%
+      gsub("\\multicolumn.*\\\\", "", .) %>%
+      kableExtra::save_kable(
+        file = here::here(
+          filelocation)
+        )
+    res <-
+      modelsummary::datasummary(
+        f_without_demand_shifter,
+        data = target_data,
+        fmt = 4,
+        notes = filelocation)
+    return(res)
+  }
+
+options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
+```
+
+
+# Estimation {.tabset}
+
+## linear-demand linear-cost {.tabset}
+
+### with demand shifter {.tabset}
+
+```{r,echo=FALSE,results = 'asis'}
+create_table_with_demand_shifter(linear_linear_n_50_sigma_0.001)
+create_table_with_demand_shifter(linear_linear_n_100_sigma_0.001)
+create_table_with_demand_shifter(linear_linear_n_200_sigma_0.001)
+create_table_with_demand_shifter(linear_linear_n_1000_sigma_0.001)
+
+create_table_with_demand_shifter(linear_linear_n_50_sigma_0.5)
+create_table_with_demand_shifter(linear_linear_n_100_sigma_0.5)
+create_table_with_demand_shifter(linear_linear_n_200_sigma_0.5)
+create_table_with_demand_shifter(linear_linear_n_1000_sigma_0.5)
+
+create_table_with_demand_shifter(linear_linear_n_50_sigma_1)
+create_table_with_demand_shifter(linear_linear_n_100_sigma_1)
+create_table_with_demand_shifter(linear_linear_n_200_sigma_1)
+create_table_with_demand_shifter(linear_linear_n_1000_sigma_1)
+
+create_table_with_demand_shifter(linear_linear_n_50_sigma_2)
+create_table_with_demand_shifter(linear_linear_n_100_sigma_2)
+create_table_with_demand_shifter(linear_linear_n_200_sigma_2)
+create_table_with_demand_shifter(linear_linear_n_1000_sigma_2)
+```
+
+
+### without demand shifter {.tabset}
+
+```{r,echo=FALSE,results = 'asis'}
+create_table_without_demand_shifter(linear_linear_n_50_sigma_0.001_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_100_sigma_0.001_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_200_sigma_0.001_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
+
+create_table_without_demand_shifter(linear_linear_n_50_sigma_0.5_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_100_sigma_0.5_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_200_sigma_0.5_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
+
+create_table_without_demand_shifter(linear_linear_n_50_sigma_1_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_100_sigma_1_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_200_sigma_1_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_1000_sigma_1_without_demand_shifter_y)
+
+create_table_without_demand_shifter(linear_linear_n_50_sigma_2_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_100_sigma_2_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_200_sigma_2_without_demand_shifter_y)
+create_table_without_demand_shifter(linear_linear_n_1000_sigma_2_without_demand_shifter_y)
+```
+
+
+## log-linear-demand log-linear-cost {.tabset}
+
+
