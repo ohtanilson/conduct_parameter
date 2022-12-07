@@ -189,7 +189,7 @@ create_table_with_demand_shifter <-
                 sep = "")
     new_rows <- 
       data.frame(
-        "",
+        "Sample size",
         '$n =$',
         "50",
         '$n =$',
@@ -249,7 +249,7 @@ create_table_without_demand_shifter <-
                 sep = "")
     new_rows <- 
       data.frame(
-        "",
+        "Sample size",
         '$n =$',
         "50",
         '$n =$',
