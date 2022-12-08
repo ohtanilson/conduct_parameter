@@ -375,8 +375,11 @@ target_data_k <-
   target_data %>% 
   dplyr::filter(
     group_id_k == 1
+  ) %>% 
+  dplyr::mutate(
+    Qz =
+      Q * z
   )
-
 ## interaction ----
 res_ivreg <-
   AER::ivreg(
@@ -390,11 +393,18 @@ target_data_k$Q_hat <-
   fitted.values(
     res_lm_first_stage
     )
+res_lm_first_stage_interaction <-
+  lm(
+    formula = "Qz ~ y + z + iv_w + iv_r",
+    data = target_data_k)
+target_data_k$Q_hat_z <-
+  fitted.values(
+    res_lm_first_stage_interaction
+  )
 res_lm_second_stage <-
   lm(
-    formula = "P ~ Q_hat + Q_hat:z + y",
+    formula = "P ~ Q_hat + Q_hat_z + y",
     data = target_data_k)
-
 ## no interaction ----
 res_ivreg_no_interaction <-
   AER::ivreg(
@@ -412,7 +422,6 @@ res_lm_second_stage_no_interaction <-
   lm(
     formula = "P ~ Q_hat + y",
     data = target_data_k)
-
 ## compare ----
 res_ivreg$coefficients
 res_lm_second_stage$coefficients
