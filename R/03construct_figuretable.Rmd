@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load
 
-```{r,echo=FALSE,results = 'asis'}
+```{r,echo=FALSE,results = "asis"}
 rm(list = ls())
 library(magrittr)
 library(ggplot2)
@@ -189,14 +189,14 @@ create_table_with_demand_shifter <-
                 sep = "")
     new_rows <- 
       data.frame(
-        "Sample size",
-        '$n =$',
+        "Sample size (n)",
+        "",
         "50",
-        '$n =$',
+        "",
         "100",
-        '$n =$',
+        "",
         "200",
-        '$n =$',
+        "",
         "1000")
     target_data %>%
       modelsummary::datasummary(
@@ -249,14 +249,14 @@ create_table_without_demand_shifter <-
                 sep = "")
     new_rows <- 
       data.frame(
-        "Sample size",
-        '$n =$',
+        "Sample size (n)",
+        "",
         "50",
-        '$n =$',
+        "",
         "100",
-        '$n =$',
+        "",
         "200",
-        '$n =$',
+        "",
         "1000")
     target_data %>%
       modelsummary::datasummary(
@@ -292,7 +292,7 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 ### with demand shifter {.tabset}
 
-```{r,echo=FALSE,results = 'asis'}
+```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001 <-
   rbind(linear_linear_n_50_sigma_0.001,
         linear_linear_n_100_sigma_0.001,
@@ -333,7 +333,7 @@ create_table_with_demand_shifter(
 
 ### without demand shifter {.tabset}
 
-```{r,echo=FALSE,results = 'asis'}
+```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001_without_demand_shifter_y <-
   rbind(linear_linear_n_50_sigma_0.001_without_demand_shifter_y,
         linear_linear_n_100_sigma_0.001_without_demand_shifter_y,
