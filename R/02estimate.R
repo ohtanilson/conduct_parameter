@@ -341,6 +341,7 @@ modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table)
 
+
 ## log-linear demand and linear cost ----
 
 ## log-linear demand and log-linear cost ----
@@ -348,3 +349,72 @@ modelsummary::datasummary_skim(
 ## linear demand and log-linear cost ----
 
 
+
+# test AER::ivreg, lm(2sls) ----
+filename <-
+  paste(
+    "linear_linear_",
+    "n_",
+    50,
+    "_sigma_",
+    1,
+    sep = ""
+  )
+target_data <-
+  readRDS(file = 
+            here::here(
+              paste(
+                "R/output/data_",
+                filename,
+                ".rds",
+                sep = ""
+              )
+            )
+  )
+target_data_k <-
+  target_data %>% 
+  dplyr::filter(
+    group_id_k == 1
+  )
+
+## interaction ----
+res_ivreg <-
+  AER::ivreg(
+    formula = "P ~ Q + Q:z + y|y + z + iv_w + iv_r",
+    data = target_data_k)
+res_lm_first_stage <-
+  lm(
+    formula = "Q ~ y + z + iv_w + iv_r",
+    data = target_data_k)
+target_data_k$Q_hat <-
+  fitted.values(
+    res_lm_first_stage
+    )
+res_lm_second_stage <-
+  lm(
+    formula = "P ~ Q_hat + Q_hat:z + y",
+    data = target_data_k)
+
+## no interaction ----
+res_ivreg_no_interaction <-
+  AER::ivreg(
+    formula = "P ~ Q + y|y + z + iv_w + iv_r",
+    data = target_data_k)
+res_lm_first_stage_no_interaction <-
+  lm(
+    formula = "Q ~ y + z + iv_w + iv_r",
+    data = target_data_k)
+target_data_k$Q_hat <-
+  fitted.values(
+    res_lm_first_stage_no_interaction
+  )
+res_lm_second_stage_no_interaction <-
+  lm(
+    formula = "P ~ Q_hat + y",
+    data = target_data_k)
+
+## compare ----
+res_ivreg$coefficients
+res_lm_second_stage$coefficients
+res_ivreg_no_interaction$coefficients
+res_lm_second_stage_no_interaction$coefficients
