@@ -46,5 +46,7 @@
 
 - 投稿の候補としては最初にJournl of applied econometricsで，無理だったらReview of Industrial Organizationか？
   - Deamnd Shifterを入れると問題がなくなる理由を理論的に説明できる必要はある．
-- log modelに関してはdemandパラメーターはdemand functionがlinearなので，2SLSで推定．Supplyに関しては非線形なので，GMMでweight matrix $W = (Z^\top Z)^{-1}/N$　として推定．
-  - JuliaのJuMP + IPOPTを使って2SLSでdemand parameterとsupply parameterを同時に推定するコードは書いている．
+- log modelに関してはliner modelと同様にdemandとsupplyを別々に推定すること
+  - demandパラメーターはdemand functionがlinearなので，2SLSで推定．
+  - Supply equationは非線形なので，GMMでweight matrix $W = (Z^\top Z)^{-1}/N$　として推定．
+  - JuliaのJuMP + IPOPTを使って2SLSでdemand parameterとsupply parameterをsimultaneous equationで推定するコードはすでに書いている．（参考）
