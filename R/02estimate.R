@@ -93,6 +93,8 @@ estimate_demand <-
       )
     return(data_with_demand_hat)
   }
+
+
 estimate_supply <-
   function(target_data_with_demand_hat,
            target_supply_formula){
@@ -216,7 +218,7 @@ sigma_list <-
 
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
-### without without_demand_shifter_y ----
+### with demand_shifter_y ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -277,7 +279,7 @@ for(nn in 1:length(n_observation_list)){
 modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table)
-### with without_demand_shifter_y ----
+### without demand_shifter_y ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -341,16 +343,132 @@ modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table)
 
-
-## log-linear demand and linear cost ----
-
 ## log-linear demand and log-linear cost ----
 
-## linear demand and log-linear cost ----
+### with demand_shifter_y ----
+temp_nn <-
+  n_observation_list[1]
+temp_sigma <-
+  sigma_list[1]
+filename <-
+  paste(
+    "loglinear_loglinear_",
+    "n_",
+    temp_nn,
+    "_sigma_",
+    temp_sigma,
+    sep = ""
+  )
+cat(filename,"\n")
+# load 
+target_data <-
+  readRDS(file = 
+            here::here(
+              paste(
+                "R/output/data_",
+                filename,
+                ".rds",
+                sep = ""
+              )
+            )
+  )
+# assign(filename,
+#        temp_data)
+# estimate 
+target_data <-
+  target_data %>% 
+  dplyr::mutate(
+    logP = log(P),
+    logQ = log(Q)
+  )
+linear_demand_formula <-
+  "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
+res_demand <-
+  target_data %>% 
+  split(
+    .$group_id_k
+  ) %>% 
+  purrr::map(
+    ~ AER::ivreg(
+      formula = "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r",
+      data = .x)
+  ) 
+
+
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "loglinear_loglinear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        sep = ""
+      )
+    cat(filename,"\n")
+    # load 
+    target_data <-
+      readRDS(file = 
+                here::here(
+                  paste(
+                    "R/output/data_",
+                    filename,
+                    ".rds",
+                    sep = ""
+                  )
+                )
+      )
+    # assign(filename,
+    #        temp_data)
+    # estimate 
+    target_data <-
+      target_data %>% 
+      dplyr::mutate(
+        logP = log(P),
+        logQ = log(Q)
+      )
+    linear_demand_formula <-
+      "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
+    estimate_demand(
+      target_data,
+      target_demand_formula =
+        linear_demand_formula,
+      demand_shifter_dummy = T)
+    linear_demand_linear_supply_formula <-
+      paste("P ~ composite_z:Q + Q + w + r|",
+            "composite_z + w + r + y")
+    parameter_hat_table <-
+      estimate_demand_and_supply(
+        target_data =
+          target_data,
+        target_demand_formula = 
+          linear_demand_formula,
+        target_supply_formula =
+          linear_demand_linear_supply_formula,
+        demand_shifter_dummy = T)
+    # save 
+    saveRDS(parameter_hat_table,
+            file = paste(
+              "R/output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
+            )
+    )
+  }
+}
 
 
 
-# test AER::ivreg, lm(2sls) ----
+
+
+# appendix: test AER::ivreg, lm(2sls) ----
 filename <-
   paste(
     "linear_linear_",

@@ -25,7 +25,7 @@ sigma_list <-
 
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
-### without without_demand_shifter_y ----
+### with demand_shifter_y ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -54,8 +54,35 @@ for(nn in 1:length(n_observation_list)){
                   )
                 )
       )
+    assign(
+      filename,
+      target_data)
   }
 }
+
+generate_plot <-
+  function(
+    data
+  ){
+    temp <-
+      data %>% 
+      dplyr::filter(group_id_k < 10)
+    x <-
+      ggplot(temp,
+            aes(x = Q, y = P)) + 
+      geom_point(alpha = 0.3) + 
+      stat_smooth(method = "lm",
+                    se = FALSE) +
+      theme_classic() + 
+      scale_color_viridis_d() +
+      theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+      #ggtitle("Freight rate (CPI adjusted to 1995)") +
+      theme(plot.title = element_text(hjust = 0.5)) +
+      xlab("Q") + 
+      ylab("P")
+    return(x)
+  }
 
 options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ```
@@ -65,20 +92,103 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 ## linear-demand linear-cost {.tabset}
 
-### with demand shifter {.tabset}
+### n = 50 {.tabset}
 
-```{r,echo=FALSE,results = "asis"}
-
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_50_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_50_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_50_sigma_1
+  )
+generate_plot(
+    linear_linear_n_50_sigma_2
+  )
 ```
 
 
-### without demand shifter {.tabset}
+### n = 100
 
-```{r,echo=FALSE,results = "asis"}
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_100_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_100_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_100_sigma_1
+  )
+generate_plot(
+    linear_linear_n_100_sigma_2
+  )
+```
 
+
+### n = 200 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_200_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_200_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_200_sigma_1
+  )
+generate_plot(
+    linear_linear_n_200_sigma_2
+  )
+```
+
+
+### n = 1000 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_1000_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_1000_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_1000_sigma_1
+  )
+generate_plot(
+    linear_linear_n_1000_sigma_2
+  )
 ```
 
 
 ## log-linear-demand log-linear-cost {.tabset}
 
+### n = 50 {.tabset}
 
+```{r,echo=TRUE,results = "asis"}
+
+```
+
+
+### n = 100
+
+```{r,echo=TRUE,results = "asis"}
+
+```
+
+
+### n = 200 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+
+```
+
+
+### n = 1000 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+
+```
