@@ -27,8 +27,9 @@ function TwoSLS_estimation_R(data)
     Y = data.y
     
     Z_demand = hcat(ones(T), Z, iv_w, iv_r, Y)
-    Q_hat = Z_demand * pinv(Z_demand' * Z_demand)* (Z_demand' * Q)
-    X_d = hcat(ones(T), Q_hat, Z .* Q_hat, Y)
+    QZ_hat = Z_demand * inv(Z_demand' * Z_demand) * Z_demand' * (Z .* Q)
+    Q_hat = Z_demand * inv(Z_demand' * Z_demand) * Z_demand' *  Q
+    X_d = hcat(ones(T), -Q_hat, -QZ_hat, Y)
     α_hat = pinv(X_d' * X_d) * (X_d' * P)
 
     #=    
@@ -45,8 +46,9 @@ function TwoSLS_estimation_R(data)
     # Supply side estimation 
 
     Z_supply = hcat(ones(T), W, R, Z, Y)
-    Q_hat = Z_supply * pinv(Z_supply' * Z_supply) * Z_supply' *  Q
-    X_s = hcat(ones(T), Q_hat, W, R, (α_hat[2] .+ α_hat[3] .* Z) .* Q_hat)
+    Q_hat = Z_supply * inv(Z_supply' * Z_supply) * Z_supply' *  Q
+    QZ_hat = Z_supply * inv(Z_supply' * Z_supply) * Z_supply' *  ((α_hat[2] .+ α_hat[3] .* Z) .*Q)
+    X_s = hcat(ones(T), Q_hat, W, R,  QZ_hat)
     γ_hat = pinv(X_s' * X_s) * (X_s' * P)
 
     θ_hat = γ_hat[end]
@@ -122,8 +124,8 @@ function simulation_2sls_R(filename, sample_size, sigma)
 
         data_s = data[(s-1)*sample_size+1:s*sample_size,:]
 
-        #α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(data_s)
-        α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_simultaneous_R(data_s)
+        α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_R(data_s)
+        #α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_simultaneous_R(data_s)
 
         push!(α_est, α_est_s)
         push!(γ_est, γ_est_s)
@@ -152,7 +154,6 @@ function simulation_2sls_R(filename, sample_size, sigma)
     return describe(result, :mean, :std, :min, :max, :median)
 
 end
-
 
 for sigma =  [0.001, 0.5, 1, 2] , sample_size = [50, 100, 200, 1000]
     filename_begin = "../conduct_parameter/R/output/data_linear_linear_n_"

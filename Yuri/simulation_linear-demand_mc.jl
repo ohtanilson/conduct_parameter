@@ -81,7 +81,7 @@ end
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
-function TwoSLS_estimation(parameter, data)
+function linear_2SLS(parameter, data)
 
     Q = data.Q
     W = data.W
@@ -94,8 +94,9 @@ function TwoSLS_estimation(parameter, data)
     @unpack  T = parameter
 
     Z_demand = hcat(ones(T), Z, IV, Y)
+    QZ_hat = Z_demand * inv(Z_demand' * Z_demand) * Z_demand' * (Z .* Q)
     Q_hat = Z_demand * inv(Z_demand' * Z_demand) * Z_demand' *  Q
-    X_d = hcat(ones(T), -Q_hat, -Z .* Q_hat, Y)
+    X_d = hcat(ones(T), -Q_hat, -QZ_hat, Y)
     α_hat = inv(X_d' * X_d) * (X_d' * P)
 
     
@@ -103,7 +104,8 @@ function TwoSLS_estimation(parameter, data)
 
     Z_supply = hcat(ones(T), W, R, Z, Y)
     Q_hat = Z_supply * inv(Z_supply' * Z_supply) * Z_supply' *  Q
-    X_s = hcat(ones(T), Q_hat, W, R, (α_hat[2] .+ α_hat[3] .* Z) .* Q_hat)
+    QZ_hat = Z_supply * inv(Z_supply' * Z_supply) * Z_supply' *  ((α_hat[2] .+ α_hat[3] .* Z) .*Q)
+    X_s = hcat(ones(T), Q_hat, W, R,  QZ_hat)
     γ_hat = inv(X_s' * X_s) * (X_s' * P)
     
     θ_hat = γ_hat[end]
@@ -111,11 +113,11 @@ function TwoSLS_estimation(parameter, data)
     return α_hat, γ_hat[1:end-1], θ_hat
 end
 
-function simulation_2sls()
+function simulation_2SLS()
 
     Results = []
 
-    for sigma in [0.001, 0.5, 1, 2], t in [50, 100, 200, 1000]
+    for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2] 
         
 
         parameter = market_parameters(σ = sigma, T = t)
@@ -127,7 +129,7 @@ function simulation_2sls()
 
         for s = 1:S
             data_s = simulation_data(parameter, s);
-            α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation(parameter, data_s)
+            α_est_s, γ_est_s, θ_est_s = linear_2SLS(parameter, data_s)
 
             push!(α_est, α_est_s)
             push!(γ_est, γ_est_s)
@@ -158,7 +160,7 @@ function simulation_2sls()
     return Results
 end
 
-function TwoSLS_estimation_simultaneous(parameter, data)
+function linear_2SLS_simultaneous(parameter, data)
 
 
     @unpack T = parameter
@@ -208,7 +210,7 @@ function TwoSLS_estimation_simultaneous(parameter, data)
 end
 
 
-function simulation_2sls_simultaneous()
+function simulation_2SLS_simultaneous()
 
     Results = []
 
@@ -225,7 +227,7 @@ function simulation_2sls_simultaneous()
 
         for s = 1:S
             data_s = simulation_data(parameter, s);
-            α_est_s, γ_est_s, θ_est_s = TwoSLS_estimation_simultaneous(parameter, data_s)
+            α_est_s, γ_est_s, θ_est_s = linear_2SLS_simultaneous(parameter, data_s)
 
             push!(α_est, α_est_s)
             push!(γ_est, γ_est_s)
@@ -257,7 +259,14 @@ function simulation_2sls_simultaneous()
 end
 
 
-function ThreeSLS_estimation_simultaneous(parameter, data)
+
+
+
+
+#--------------------------------------------------------------------------------------------------------
+
+
+function linear_3SLS_simultaneous(parameter, data)
 
     @unpack T = parameter
 
@@ -320,7 +329,7 @@ end
 
 
 
-function simulation_3sls_simultaneous()
+function simulation_3SLS_simultaneous()
 
     Results = []
 
@@ -384,16 +393,16 @@ We conduct three estimation methods
 
 """
 
-linear_2SLS_reuslt  = simulation_2sls()
-linear_S2SLS_reuslt = simulation_2sls_simultaneous()
-linear_3SLS_reuslt  = simulation_3sls_simultaneous()
+linear_2SLS_reuslt  = simulation_2SLS()
+linear_S2SLS_reuslt = simulation_2SLS_simultaneous()
+linear_3SLS_reuslt  = simulation_3SLS_simultaneous() 
 
 
 #= 
 
 
 
-function Tsls_model(s)
+function TSLS_model(s)
 
     α = [1, 2, 3, 4]
     γ = [1, 2, 3, 4]
@@ -438,7 +447,7 @@ end
 
 α_IV = Vector{Float64}[]
 for s = 1:1000
-    α_IV_s =  Tsls_model(s)
+    α_IV_s =  TSLS_model(s)
 
     push!(α_IV, α_IV_s)
 end
