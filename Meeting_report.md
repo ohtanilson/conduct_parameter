@@ -34,3 +34,19 @@
 - ivregとS2SLSが一致する理由を検証する．Perloff and Shen (2012)はS2SLSを使っている可能性がある
 - Simulation settingをmain.texに移す
 - VScodeでtexをコンパイルしたときに出てきたファイルを消す
+
+# 12/12/2022
+
+## Result
+
+- ドラフトの構成はこのままでOK．
+- log demand and log mcのパラメーターの設定はPerloff and Shenと同じにしたほうが良い．
+
+## Next Meeting
+
+- 投稿の候補としては最初にJournl of applied econometricsで，無理だったらReview of Industrial Organizationか？
+  - Deamnd Shifterを入れると問題がなくなる理由を理論的に説明できる必要はある．
+- log modelに関してはliner modelと同様にdemandとsupplyを別々に推定すること
+  - demandパラメーターはdemand functionがlinearなので，2SLSで推定．
+  - Supply equationは非線形なので，GMMでweight matrix $W = (Z^\top Z)^{-1}/N$　として推定．
+  - JuliaのJuMP + IPOPTを使って2SLSでdemand parameterとsupply parameterをsimultaneous equationで推定するコードはすでに書いている．（参考）
