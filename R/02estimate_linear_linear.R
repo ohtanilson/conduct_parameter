@@ -95,6 +95,7 @@ estimate_demand <-
   }
 
 
+
 estimate_supply <-
   function(target_data_with_demand_hat,
            target_supply_formula){
@@ -154,6 +155,76 @@ estimate_supply <-
       ) 
     return(data_with_demand_hat_and_supply_hat)
   }
+
+estimate_supply_loglinear <-
+  function(target_data_with_demand_hat){
+    data <-
+      target_data_with_demand_hat
+    g <-
+      function(theta,
+               data){
+        constant <- 
+          data[,"constant"]
+        y <- 
+          data[,"y"]
+        logQ <-
+          data[,"logQ"]
+        logP <-
+          data[,"logP"]
+        w <-
+          data[,"w"]
+        r <-
+          data[,"r"]
+        z <-
+          data[,"z"]
+        iv_w <-
+          data[,"iv_w"]
+        iv_r <-
+          data[,"iv_r"]
+        composite_z <-
+          data[,"composite_z"]
+        linear_terms <-
+          theta[1] * constant + 
+          theta[2] * logQ +
+          theta[3] * log(w) +
+          theta[4] * log(r) 
+        nonlinear_term <-
+          - log(1 - theta[5] *
+                  composite_z)
+        u <- 
+          c(logP - 
+              (nonlinear_term +
+              linear_terms)
+            )
+        return(u * y)
+      }
+    model_gmm_lm <-
+      momentfit::momentModel(
+        g = g,
+        x = data %>% 
+          dplyr::mutate(constant = 1) %>% 
+          #dplyr::select(y, intercept, x1, x2, x3) %>% 
+          as.matrix(),
+        theta0 = runif(5)
+        )
+    fit_gmm_lm <-
+      momentfit::gmmFit(
+        model_gmm_lm
+        )
+    summary(fit_gmm_lm)
+    
+    res_supply <-
+      data %>% 
+      split(
+        .$group_id_k
+      ) %>% 
+      purrr::map(
+        ~ momentfit::gmmFit(
+          formula = target_supply_formula,
+          data = .x)
+      ) 
+  }
+
 
 estimate_demand_and_supply <-
   function(target_data,
@@ -263,7 +334,7 @@ for(nn in 1:length(n_observation_list)){
           linear_demand_formula,
         target_supply_formula =
           linear_demand_linear_supply_formula,
-        demand_shifter_dummy = T)
+        demand_shifter_dummy = TRUE)
     # save 
     saveRDS(parameter_hat_table,
             file = paste(
@@ -375,95 +446,84 @@ target_data <-
 # assign(filename,
 #        temp_data)
 # estimate 
-target_data <-
-  target_data %>% 
-  dplyr::mutate(
-    logP = log(P),
-    logQ = log(Q)
-  )
-linear_demand_formula <-
+## demand ----
+target_demand_formula =
   "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
-res_demand <-
-  target_data %>% 
-  split(
-    .$group_id_k
-  ) %>% 
-  purrr::map(
-    ~ AER::ivreg(
-      formula = "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r",
-      data = .x)
-  ) 
-
-
-for(nn in 1:length(n_observation_list)){
-  for(ss in 1:length(sigma_list)){
-    temp_nn <-
-      n_observation_list[nn]
-    temp_sigma <-
-      sigma_list[ss]
-    filename <-
-      paste(
-        "loglinear_loglinear_",
-        "n_",
-        temp_nn,
-        "_sigma_",
-        temp_sigma,
-        sep = ""
-      )
-    cat(filename,"\n")
-    # load 
-    target_data <-
-      readRDS(file = 
-                here::here(
-                  paste(
-                    "R/output/data_",
-                    filename,
-                    ".rds",
-                    sep = ""
-                  )
-                )
-      )
-    # assign(filename,
-    #        temp_data)
-    # estimate 
-    target_data <-
-      target_data %>% 
-      dplyr::mutate(
-        logP = log(P),
-        logQ = log(Q)
-      )
-    linear_demand_formula <-
-      "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
-    estimate_demand(
+data_with_demand_hat <-
+  estimate_demand(
+    target_data = 
       target_data,
-      target_demand_formula =
-        linear_demand_formula,
-      demand_shifter_dummy = T)
-    linear_demand_linear_supply_formula <-
-      paste("P ~ composite_z:Q + Q + w + r|",
-            "composite_z + w + r + y")
-    parameter_hat_table <-
-      estimate_demand_and_supply(
-        target_data =
-          target_data,
-        target_demand_formula = 
-          linear_demand_formula,
-        target_supply_formula =
-          linear_demand_linear_supply_formula,
-        demand_shifter_dummy = T)
-    # save 
-    saveRDS(parameter_hat_table,
-            file = paste(
-              "R/output/",
-              "parameter_hat_table",
-              filename,
-              ".rds",
-              sep = ""
-            )
-    )
-  }
-}
+    target_demand_formula =
+      target_demand_formula,
+    demand_shifter_dummy =
+      TRUE)
+## supply ----
+data_with_demand_hat_and_supply_hat <-
+  estimate_supply(
+    target_data_with_demand_hat =
+      data_with_demand_hat,
+    target_supply_formula =
+      target_supply_formula)
 
+# 
+# for(nn in 1:length(n_observation_list)){
+#   for(ss in 1:length(sigma_list)){
+#     temp_nn <-
+#       n_observation_list[nn]
+#     temp_sigma <-
+#       sigma_list[ss]
+#     filename <-
+#       paste(
+#         "loglinear_loglinear_",
+#         "n_",
+#         temp_nn,
+#         "_sigma_",
+#         temp_sigma,
+#         sep = ""
+#       )
+#     cat(filename,"\n")
+#     # load 
+#     target_data <-
+#       readRDS(file = 
+#                 here::here(
+#                   paste(
+#                     "R/output/data_",
+#                     filename,
+#                     ".rds",
+#                     sep = ""
+#                   )
+#                 )
+#       )
+#     # assign(filename,
+#     #        temp_data)
+#     # estimate 
+#     loglinear_demand_formula <-
+#       "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
+#     
+#     loglinear_demand_loglinear_supply_formula <-
+#       paste("P ~ composite_z:Q + logQ + log(w) + log(r)|",
+#             "composite_z + log(w) + log(r) + y")
+#     parameter_hat_table <-
+#       estimate_demand_and_supply(
+#         target_data =
+#           target_data,
+#         target_demand_formula = 
+#           loglinear_demand_formula,
+#         target_supply_formula =
+#           loglinear_demand_loglinear_supply_formula,
+#         demand_shifter_dummy = TRUE)
+#     # save 
+#     saveRDS(parameter_hat_table,
+#             file = paste(
+#               "R/output/",
+#               "parameter_hat_table",
+#               filename,
+#               ".rds",
+#               sep = ""
+#             )
+#     )
+#   }
+# }
 
 
 

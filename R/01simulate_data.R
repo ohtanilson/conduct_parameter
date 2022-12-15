@@ -17,19 +17,36 @@ generate_data <-
     nk <-
       n_observation * k_observation
     ### exogenous variable ----
-    w <-
-      rnorm(nk, mean = 3, sd = 1)
-    r <-
-      rnorm(nk, mean = 0, sd = 1)
-    y <-
-      rnorm(nk, mean = 0, sd = 1)
-    z <-
-      rnorm(nk, mean = 10, sd = 1)
-    ### instrumental variable ----
-    iv_w <-
-      w + rnorm(nk, mean = 0, sd = 1)
-    iv_r <-
-      r + rnorm(nk, mean = 0, sd = 1)
+    if(specification == "linear_linear"){
+      w <-
+        rnorm(nk, mean = 3, sd = 1)
+      r <-
+        rnorm(nk, mean = 0, sd = 1)
+      y <-
+        rnorm(nk, mean = 0, sd = 1)
+      z <-
+        rnorm(nk, mean = 10, sd = 1)
+      ### instrumental variable ----
+      iv_w <-
+        w + rnorm(nk, mean = 0, sd = 1)
+      iv_r <-
+        r + rnorm(nk, mean = 0, sd = 1)
+    }else{
+      w <-
+        runif(nk, min = 1, max = 3)
+      r <-
+        runif(nk, min = 0, max = 1)
+      y <-
+        runif(nk, min = 1, max = 3)
+      z <-
+        runif(nk, min = 0, max = 1)
+      ### instrumental variable ----
+      iv_w <-
+        w + rnorm(nk, mean = 0, sd = 1)
+      iv_r <-
+        r + rnorm(nk, mean = 0, sd = 1)
+    }
+    
     
     ## set parameter ----
     theta <-
@@ -104,7 +121,7 @@ generate_data <-
         # aggregate price
         # log_p_t = α_0 - (α_1 + α_2 * z_t )* log_Q_t  +
         # α_3 * y_t + ε_d # The demand function
-        P <- 
+        logP <- 
           #exp(
             alpha0 - (alpha1 + alpha2 * z) * logQ + 
               alpha3 * y + epsilon_d
@@ -386,6 +403,7 @@ for(nn in 1:length(n_observation_list)){
         temp_nn,
         "_sigma_",
         temp_sigma,
+        "_without_demand_shifter_y",
         ".rds",
         sep = ""
       )
