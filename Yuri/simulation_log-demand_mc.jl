@@ -57,7 +57,7 @@ function simulation_data_log(parameter,s)
 
     for t = 1:T
         r_t = rand(Uniform(0,1))
-        z_t = rand(Uniform(-1,0))
+        z_t = log(rand(Uniform(0,1)))
         w_t = rand(Uniform(1,3))
         iv_w_t = w_t + randn()
         iv_r_t = r_t + randn()
@@ -94,6 +94,7 @@ function GMM_estimation_simultaneous(T, P, Z, X, X_s, X_d, Ω)
     set_optimizer_attribute(model, "tol", 1e-15)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+    set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
     @variable(model, 0 <= θ <= 1)
 
@@ -116,7 +117,20 @@ function GMM_estimation_simultaneous(T, P, Z, X, X_s, X_d, Ω)
     γ_hat = value.(β)[K_d+1:end]
     θ_hat = value.(θ)
 
-    return α_hat, γ_hat, θ_hat
+    #=
+    if termination_status(model) == OPTIMAL
+
+        α_hat = value.(β)[1:K_d]
+        γ_hat = value.(β)[K_d+1:end]
+        θ_hat = value.(θ)
+
+        return α_hat, γ_hat, θ_hat
+    else
+        error("The model was not solved correctly.")
+    end
+    =#
+
+    return α_hat, γ_hat, θ_hat, result_count(model)
 end
 
 
@@ -167,15 +181,16 @@ function nonlinear_2SLS(parameter, data)
 
     Ω = inv(Z'Z/T)
 
-    α_hat, γ_hat, θ_hat = GMM_estimation_simultaneous(T, P, Z, X, X_s, X_d, Ω)
+    α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, P, Z, X, X_s, X_d, Ω)
 
-    return α_hat, γ_hat, θ_hat
+    return α_hat, γ_hat, θ_hat, status
 end
 
 
 function simulation_nonlinear_2SLS()
 
     Results = []
+    Result_status = []
 
     for t in [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
         
@@ -186,19 +201,23 @@ function simulation_nonlinear_2SLS()
         α_est = Vector{Float64}[]
         γ_est = Vector{Float64}[]
         θ_est = Float64[]
+        status = Int64[]
 
         for s = 1:S
             data_log_s = simulation_data_log(parameter, s);
-            α_est_s, γ_est_s, θ_est_s = nonlinear_2SLS(parameter, data_log_s)
+            α_est_s, γ_est_s, θ_est_s, status_s = nonlinear_2SLS(parameter, data_log_s)
         
             push!(α_est, α_est_s)
             push!(γ_est, γ_est_s)
             push!(θ_est, θ_est_s)
+            push!(status,status_s)
         end
         
         α_est = reduce(vcat, α_est')
         γ_est = reduce(vcat, γ_est')
         θ_est = reduce(vcat, θ_est')
+
+        push!(Result_status, status)
 
         result = DataFrame(
         T = t,
@@ -217,7 +236,7 @@ function simulation_nonlinear_2SLS()
 
     end
 
-    return Results
+    return Results, Result_status
 end
 
 
@@ -330,13 +349,13 @@ nonlinear_2SLS(test_parameter, test_data)
 
 test = GMM_function_separate(test_data, test_parameter);
 test_plot = plot(contour([0:0.01:1;], [-10:0.01:10;],test,
-    xlabel="theta", ylabel="gammma_0",
+    xlabel="θ", ylabel="γ_0",
     title="Value of GMM, N =200, σ = 1"))
     vline!([0.5], linestyle=:dash)
     hline!([1], linestyle=:dash)
 
 
-savefig(test_plot, "gmm_value_plot.pdf")
+savefig(test_plot, "gmm_value_plot_200_1.pdf")
 
 #=
 plot([0:0.01:2;], test)
@@ -352,9 +371,11 @@ heatmap([0:0.01:1;], [0:0.01:2;], test,
 
 =#
 
+nonlinear_2sls_result_status = reduce(vcat, nonlinear_2sls_result_status);
 
+count(nonlinear_2sls_result_status, )
 
-#nonlinear_2sls_result = simulation_nonlinear_2SLS()
+# @time nonlinear_2sls_result, nonlinear_2sls_result_status = simulation_nonlinear_2SLS() 
 
 # save(nonlinear_2sls_result, "home/yuri/conduct_parameter/Yuri/nonlinear_2sls_result.jld")
 
@@ -404,10 +425,18 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d)
 
     optimize!(model)
     
-    γ_hat = value.(γ)
-    θ_hat = value.(θ)
 
-    return α_hat, γ_hat, θ_hat
+    if termination_status(model) == OPTIMAL || termination_status(model) == LOCALLY_SOLVED
+
+        γ_hat = value.(γ)
+        θ_hat = value.(θ)
+    
+        return α_hat, γ_hat, θ_hat
+    else
+        error("IPOPT is terminated due to ",termination_status(model))
+
+    end
+
 end
 
 
@@ -511,11 +540,11 @@ function simulation_nonlinear_2SLS_separate()
 end
 
 
-# test_parameter = market_parameters_log(T = 200)
-# test_data = simulation_data_log(test_parameter, 1) 
-# nonlinear_2SLS_separate(test_parameter, test_data)
+test_parameter = market_parameters_log(T = 200);
+test_data = simulation_data_log(test_parameter, 1);
+nonlinear_2SLS_separate(test_parameter, test_data)
 
-nonlinear_2sls_separate_result = simulation_nonlinear_2SLS_separate()
+#  nonlinear_2sls_separate_result = simulation_nonlinear_2SLS_separate()
 
 
 #-------------------------------------------------------------------------------------------
