@@ -74,9 +74,10 @@ Second, it does not check the effect of increasing the sample size.
 
 %現状 - 2%
 The second model is the model with log demand and log marginal cost.
-The identification strategy in \cite{bresnahan1982oligopoly} and \cite{lau1982identifying} can not be used for this model because they assume that the conduct parameter enters the supply equation linearly although it enters the supply equation non-linearly in the model with log demand and log marginal cost.
+The identification strategy is provided by \citet{lau1982identifying}.
 %問題 - 2%
-\cite{hyde1995can} conduct a simulation of the model, but it also has the same problem in the \cite{perloff2012collinearity} because it lacks the demand shifter in the supply side estimation.
+\cite{hyde1995can} conduct a simulation of the model, but the paper does not show the simulation result but shows the result of hypothesis tests based on the simulation result.
+Furthermore, it still has the same problem in the \cite{perloff2012collinearity} because it lacks the demand shifter in the supply-side estimation.
 
 
 
@@ -126,13 +127,15 @@ Then we assume that the error terms satisfy the mean independence condition $E[\
 
 
 \section{Identification of the conduct parameter}
-\subsection{Linear demand and linear marginal cost}
+The identification of the conduct parameter in a linear model is considered by \cite{bresnahan1982oligopoly} and the identification in a general model which includes the log model is considered by \cite{lau1982identifying}.
+Here we review the identification in \cite{bresnahan1982oligopoly} to see the importance of an instrument variable called the demand rotation IV.
+
 Assume that the demand function and the marginal cost function are linear
 \begin{align}
     P_{t}=\alpha_0 - \alpha_1 Q_{t} + \alpha_2 Y_t + \varepsilon_{dt},\\
     MC_{t} = \gamma_0 + \gamma_1 Q_t + \gamma_3 W_t + \varepsilon_{ct}.
 \end{align}
-As we have the demand-side instruments $Z_{dt}$, we can identify the parameters in the demand equation easily and can regard the value of the parameters as given.
+As we have the demand-side instruments $Z_{dt}$, we can identify the parameters in the demand equation easily and regard the value of the parameters as given.
 Now consider the identification of the parameter in the supply equation.
 By substituting $P_t'= - \alpha_1$ into the supply equation, we obtain
 \begin{align}
@@ -154,7 +157,7 @@ By substituting $\partial P_t/\partial Q_t = -(\alpha_1+\alpha_2 Z^R_t)$ into th
 \end{align}
 Since $\alpha_1$ and $\alpha_2$ are identified from the demand equation and $(\gamma_1 - \theta\alpha_1)$ and $\theta \alpha_1$ are identified, we can identify $\theta$ and $\gamma_1$ separately.
 
-\subsection{Log demand and log marginal cost}
+
 
 \section{Simulation Setting}
 
@@ -171,7 +174,7 @@ The supply equation is given as
 \end{align}
 From the supply equation and the demand equation, we can represent the aggregate quantity $Q_t$ based on the parameters and the exogenous variables as   
 \begin{align}
-    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + (\varepsilon_{dt} - \varepsilon_{ct})}{(1 + \theta) (\alpha_1 + \alpha_2Z^R_t) + \gamma_1}.
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + \varepsilon_{dt} - \varepsilon_{ct}}{(1 + \theta) (\alpha_1 + \alpha_2Z^R_t) + \gamma_1}.
 \end{align}
 
 Assume that the exogenous and instrument variables are drawn from normal distributions; $ Y_t \sim N(0,1)$, $w_t \sim N (3, 1)$, $r_t \sim N (0, 1)$, $ Z^R_t \sim N (10, 1)$.
@@ -202,24 +205,17 @@ The \texttt{ivreg} package automatically detects that the endogenous variables a
 
 \subsection{Log demand and log marginal cost}
 
-Note that while \citet{hyde1995can} collects the data of $w, r,$ and $Z$, we draw them from the uniform distributions. 
-
-
-\citet{hyde1995can} considers a model with log demand and a Cobb-Douglas cost function. 
+Considers a model with log demand and a Cobb-Douglas cost function. 
 The demand equation is given as a log-demand, 
 \begin{align}
     \log P_{t} = \alpha_0 - (\alpha_1 + \alpha_2 Z^R_t) \log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt}.
 \end{align}
-The cost function has a Cobb-Douglas form such that 
-\begin{align}
+The log marginal cost is given as 
+\footnote{\cite{hyde1995can} consider a Cobb-Douglas cost function such that \begin{align*}
     C_t = A^{-1/\gamma} \gamma \left(\frac{w_t}{\alpha}\right)^{\frac{\alpha}{\gamma}} \left(\frac{r_t}{\beta}\right)^{\frac{\beta}{\gamma}} Q_t^{\frac{1}{\gamma}}e^{\varepsilon_{ct}},
-\end{align}
-where $\alpha + \beta = \gamma$.
-Then the log marginal cost is,
+\end{align*} where $\alpha + \beta = \gamma$, and derive the log marginal cost function.}
 \begin{align}
-    \log MC_t &= -\frac{1}{\gamma}\log A + \frac{1-\gamma}{\gamma}\log Q_t + \frac{\alpha}{\gamma} \log \left(\frac{w_t}{\alpha}\right) + \frac{\beta}{\gamma} \log \left(\frac{r_t}{\beta}\right) + \varepsilon_{ct}\nonumber\\
-        & = \left( -\frac{1}{\gamma}\log A - \frac{\alpha}{\gamma}\log \alpha -  \frac{\beta}{\gamma}\log\beta    \right) + \frac{1-\gamma}{\gamma}\log Q_t + \frac{\alpha}{\gamma} \log w_t + \frac{\beta}{\gamma} \log r_t + \varepsilon_{ct}\nonumber \\
-        &\equiv \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+    \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
 \end{align}
 Since $P'(Q) = - (\alpha_1 + \alpha_2 Z^R) \frac{P}{Q} $, the supply equation is given as
 \begin{align}
@@ -231,14 +227,12 @@ and by taking logarithm, we obtain
 \end{align}
 From the supply equation and the demand equation, the log aggregate quantity is given as 
 \begin{align}
-    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^R_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t}{\gamma_1+ \alpha_1 + \alpha_2 Z^R_t + \varepsilon_{dt} - \varepsilon_{ct}}.
+    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^R_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t + \varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z^R_t }.
 \end{align}
 
 Assume that the exogenous in the cost side and instrument variables are drawn from uniform distributions; $w \sim U(1,3)$,$r \sim U(0,1)$, and $Z \sim U(5, 10)$. The demand shifter $Y_t$ is drawn from the standard normal distribution.
-The value of the conduct parameter is $\theta = 0.5$. 
-The other parameter values are $A = 1.2$, $\alpha/\gamma = 1/3$, $\beta/\gamma = 2/3$, $\alpha_0 = 1.8$, $\alpha_1 = 1.2$, $\alpha_2 = -0.5$, and $\alpha_3 = 1$.
-Since $\alpha + \beta = \gamma$, we assume that $\alpha = 1, \beta = 2, \gamma = 3$.
 The error term are drawn from a normal distribution with mean zero and standard deviation $\sigma$; $\varepsilon_{ct}\sim N(0,\sigma)$, $\varepsilon_{dt} \sim N(0,\sigma)$.
+We use the same parameter values in the linear model.
 
 
 
