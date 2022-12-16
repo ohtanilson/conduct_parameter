@@ -57,7 +57,7 @@ function simulation_data_log(parameter,s)
 
     for t = 1:T
         r_t = rand(Uniform(0,1))
-        z_t = -rand(Uniform(5,10))
+        z_t = rand(Uniform(-1,0))
         w_t = rand(Uniform(1,3))
         iv_w_t = w_t + randn()
         iv_r_t = r_t + randn()
@@ -94,9 +94,8 @@ function GMM_estimation_simultaneous(T, P, Z, X, X_s, X_d, Ω)
     set_optimizer_attribute(model, "tol", 1e-15)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-    set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-    @variable(model, θ)
+    @variable(model, 0 <= θ <= 1)
 
     r = Any[];
     g = Any[];
@@ -325,16 +324,19 @@ function GMM_function_separate(data, parameter)
     #return GMM_value
 end
 
+test_parameter = market_parameters_log(T = 200, σ = 1)
+test_data = simulation_data_log(test_parameter, 1);
+nonlinear_2SLS(test_parameter, test_data)
 
 test = GMM_function_separate(test_data, test_parameter);
-plot(contour([0:0.01:1;], [-10:0.01:10;],test,
+test_plot = plot(contour([0:0.01:1;], [-10:0.01:10;],test,
     xlabel="theta", ylabel="gammma_0",
-    title="Value of GMM, N =1000, σ = 0.01"))
+    title="Value of GMM, N =200, σ = 1"))
     vline!([0.5], linestyle=:dash)
     hline!([1], linestyle=:dash)
 
 
-
+savefig(test_plot, "gmm_value_plot.pdf")
 
 #=
 plot([0:0.01:2;], test)
@@ -352,13 +354,9 @@ heatmap([0:0.01:1;], [0:0.01:2;], test,
 
 
 
-# test_parameter = market_parameters_log(T = 1000, σ = 0.01)
-# test_data = simulation_data_log(test_parameter, 1);
-# nonlinear_2SLS(test_parameter, test_data)
+#nonlinear_2sls_result = simulation_nonlinear_2SLS()
 
-nonlinear_2sls_result = simulation_nonlinear_2SLS()
-
-save(nonlinear_2sls_result, "home/yuri/conduct_parameter/Yuri/nonlinear_2sls_result.jld")
+# save(nonlinear_2sls_result, "home/yuri/conduct_parameter/Yuri/nonlinear_2sls_result.jld")
 
 
 
