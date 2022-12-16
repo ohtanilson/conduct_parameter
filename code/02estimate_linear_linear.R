@@ -311,7 +311,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file = 
                 here::here(
                   paste(
-                    "code/output/data_",
+                    "output/data_",
                     filename,
                     ".rds",
                     sep = ""
@@ -338,7 +338,7 @@ for(nn in 1:length(n_observation_list)){
     # save 
     saveRDS(parameter_hat_table,
             file = paste(
-              "code/output/",
+              "output/",
               "parameter_hat_table",
               filename,
               ".rds",
@@ -373,7 +373,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file = 
                 here::here(
                   paste(
-                    "code/output/data_",
+                    "output/data_",
                     filename,
                     ".rds",
                     sep = ""
@@ -400,7 +400,7 @@ for(nn in 1:length(n_observation_list)){
     # save 
     saveRDS(parameter_hat_table,
             file = paste(
-              "code/output/",
+              "output/",
               "parameter_hat_table",
               filename,
               ".rds",
@@ -436,7 +436,7 @@ target_data <-
   readRDS(file = 
             here::here(
               paste(
-                "code/output/data_",
+                "output/data_",
                 filename,
                 ".rds",
                 sep = ""
@@ -457,6 +457,16 @@ data_with_demand_hat <-
       target_demand_formula,
     demand_shifter_dummy =
       TRUE)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  data_with_demand_hat %>% 
+    dplyr::select(
+      group_id_k,
+      alpha0_hat:R2_demand
+    ) %>% 
+    dplyr::distinct(group_id_k,
+                    .keep_all = T)
+  ) 
 ## supply ----
 data_with_demand_hat_and_supply_hat <-
   estimate_supply(
@@ -487,7 +497,7 @@ data_with_demand_hat_and_supply_hat <-
 #       readRDS(file = 
 #                 here::here(
 #                   paste(
-#                     "code/output/data_",
+#                     "output/data_",
 #                     filename,
 #                     ".rds",
 #                     sep = ""
@@ -515,7 +525,7 @@ data_with_demand_hat_and_supply_hat <-
 #     # save 
 #     saveRDS(parameter_hat_table,
 #             file = paste(
-#               "code/output/",
+#               "output/",
 #               "parameter_hat_table",
 #               filename,
 #               ".rds",
@@ -542,7 +552,7 @@ target_data <-
   readRDS(file = 
             here::here(
               paste(
-                "code/output/data_",
+                "output/data_",
                 filename,
                 ".rds",
                 sep = ""
