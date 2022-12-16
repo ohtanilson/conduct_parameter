@@ -311,7 +311,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file = 
                 here::here(
                   paste(
-                    "R/output/data_",
+                    "code/output/data_",
                     filename,
                     ".rds",
                     sep = ""
@@ -338,7 +338,7 @@ for(nn in 1:length(n_observation_list)){
     # save 
     saveRDS(parameter_hat_table,
             file = paste(
-              "R/output/",
+              "code/output/",
               "parameter_hat_table",
               filename,
               ".rds",
@@ -373,7 +373,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file = 
                 here::here(
                   paste(
-                    "R/output/data_",
+                    "code/output/data_",
                     filename,
                     ".rds",
                     sep = ""
@@ -400,7 +400,7 @@ for(nn in 1:length(n_observation_list)){
     # save 
     saveRDS(parameter_hat_table,
             file = paste(
-              "R/output/",
+              "code/output/",
               "parameter_hat_table",
               filename,
               ".rds",
@@ -436,7 +436,7 @@ target_data <-
   readRDS(file = 
             here::here(
               paste(
-                "R/output/data_",
+                "code/output/data_",
                 filename,
                 ".rds",
                 sep = ""
@@ -487,7 +487,7 @@ data_with_demand_hat_and_supply_hat <-
 #       readRDS(file = 
 #                 here::here(
 #                   paste(
-#                     "R/output/data_",
+#                     "code/output/data_",
 #                     filename,
 #                     ".rds",
 #                     sep = ""
@@ -515,7 +515,7 @@ data_with_demand_hat_and_supply_hat <-
 #     # save 
 #     saveRDS(parameter_hat_table,
 #             file = paste(
-#               "R/output/",
+#               "code/output/",
 #               "parameter_hat_table",
 #               filename,
 #               ".rds",
@@ -542,7 +542,7 @@ target_data <-
   readRDS(file = 
             here::here(
               paste(
-                "R/output/data_",
+                "code/output/data_",
                 filename,
                 ".rds",
                 sep = ""

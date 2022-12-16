@@ -47,7 +47,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file = 
                 here::here(
                   paste(
-                    "R/output/data_",
+                    "code/output/data_",
                     filename,
                     ".rds",
                     sep = ""
@@ -81,7 +81,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file = 
                 here::here(
                   paste(
-                    "R/output/data_",
+                    "code/output/data_",
                     filename,
                     ".rds",
                     sep = ""

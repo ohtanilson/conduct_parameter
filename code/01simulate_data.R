@@ -301,7 +301,7 @@ for(nn in 1:length(n_observation_list)){
       )
     filename <-
       paste(
-        "R/output/data_linear_linear_",
+        "code/output/data_linear_linear_",
         "n_",
         temp_nn,
         "_sigma_",
@@ -332,7 +332,7 @@ for(nn in 1:length(n_observation_list)){
       )
     filename <-
       paste(
-        "R/output/data_linear_linear_",
+        "code/output/data_linear_linear_",
         "n_",
         temp_nn,
         "_sigma_",
@@ -366,7 +366,7 @@ for(nn in 1:length(n_observation_list)){
       )
     filename <-
       paste(
-        "R/output/data_loglinear_loglinear_",
+        "code/output/data_loglinear_loglinear_",
         "n_",
         temp_nn,
         "_sigma_",
@@ -398,7 +398,7 @@ for(nn in 1:length(n_observation_list)){
       )
     filename <-
       paste(
-        "R/output/data_loglinear_loglinear_",
+        "code/output/data_loglinear_loglinear_",
         "n_",
         temp_nn,
         "_sigma_",

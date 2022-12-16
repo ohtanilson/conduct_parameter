@@ -41,7 +41,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file =
                 here::here(
                   paste(
-                    "R/output/",
+                    "code/output/",
                     "parameter_hat_table",
                     filename,
                     ".rds",
@@ -111,7 +111,7 @@ for(nn in 1:length(n_observation_list)){
       readRDS(file =
                 here::here(
                   paste(
-                    "R/output/",
+                    "code/output/",
                     "parameter_hat_table",
                     filename,
                     ".rds",
@@ -178,7 +178,7 @@ create_table_with_demand_shifter <-
   filename * (Mean + SD)*Arguments(na.rm = TRUE)
     
     filelocation <-
-      paste("R/figuretable/",
+      paste("code/figuretable/",
                 deparse(
                   substitute(
                     target_data
@@ -238,7 +238,7 @@ create_table_without_demand_shifter <-
   `$R^{2}$ (supply)` ) ~
   filename * (Mean + SD)*Arguments(na.rm = TRUE)
     filelocation <-
-      paste("R/figuretable/",
+      paste("code/figuretable/",
                 deparse(
                   substitute(
                     target_data
