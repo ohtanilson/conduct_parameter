@@ -371,11 +371,14 @@ heatmap([0:0.01:1;], [0:0.01:2;], test,
 
 =#
 
-nonlinear_2sls_result_status = reduce(vcat, nonlinear_2sls_result_status);
 
-count(nonlinear_2sls_result_status, )
+
+
 
 # @time nonlinear_2sls_result, nonlinear_2sls_result_status = simulation_nonlinear_2SLS() 
+
+# nonlinear_2sls_result_status = reduce(vcat, nonlinear_2sls_result_status);
+
 
 # save(nonlinear_2sls_result, "home/yuri/conduct_parameter/Yuri/nonlinear_2sls_result.jld")
 
@@ -605,7 +608,6 @@ function nonlinear_3SLS(parameter, data)
     Ω = inv(Z'Z/T)
 
     α_2sls, γ_2sls, θ_2sls = GMM_estimation(T, P, Z, X, X_s, X_d, Ω)
-
 
 
     u_d = P .- sum(α_2sls[k] .* X_d[:,k] for k = 1:K_d)

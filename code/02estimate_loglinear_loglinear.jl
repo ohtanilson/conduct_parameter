@@ -379,7 +379,6 @@ describe(separate_test)
 
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
-    #=
     # Load the simulation data from the rds files
     filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
     filename_end   = ".rds"
@@ -393,16 +392,15 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     data = load(filename)
     data = DataFrames.sort(data, [:group_id_k])
 
-    =#
 
-    # Load the simulation data from the csv files
-    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-    filename_end   = "_with_demand_shifter_y.csv"
-    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-    data = DataFrame(CSV.File(file_name))
+    #Uncomment the following lines to load the simulation data from the csv files
+        #filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+        #filename_end   = ".csv"
+        #file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+        #data = DataFrame(CSV.File(file_name))
 
     # Set parameter values
-    parameter = market_parameters(T = t, σ = sigma)
+    parameter = market_parameters_log(T = t, σ = sigma)
     
     # Estimation based on 2SLS
     estimation_result = simulation_nonlinear_2SLS_separate(parameter, data)
@@ -412,11 +410,34 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
     # Save the estimation result as csv file. The file is saved at "output" folder
     filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-    filename_end   = "_with_demand_shifter_y.csv"
+    filename_end   = ".csv"
     file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
     CSV.write(file_name, estimation_result)
+    
 end
+
+
+
+# Check the summary of the eatimation result
+for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+    filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
+    filename_end   = ".csv"
+    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+    estimation_result = DataFrame(CSV.File(file_name))
+
+    display(describe(estimation_result))
+
+end
+
+
+
+
 
 
 
