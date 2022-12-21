@@ -560,7 +560,8 @@ fun <-
     theta[3] * log(w) +
     theta[4] * log(r) 
   nonlinear_term <-
-    - log(1 - theta[5] *
+    #- log(1 - theta[5] *
+    - log(1 - 0.01 *        
             composite_z)
   u <- 
     c(logP - 
@@ -571,69 +572,43 @@ fun <-
 }
 # fun = function(x) 
 #   x[1]*exp(-(x[1]^2 + x[2]^2)) + (x[1]^2 + x[2]^2)/20
-pracma::fminunc(x0 = c(1, 1, 1, 1, 0.1), 
+pracma::fminunc(x0 = c(1, 1, 1, 1), 
                 fun)
 
 
-# 
-# for(nn in 1:length(n_observation_list)){
-#   for(ss in 1:length(sigma_list)){
-#     temp_nn <-
-#       n_observation_list[nn]
-#     temp_sigma <-
-#       sigma_list[ss]
-#     filename <-
-#       paste(
-#         "loglinear_loglinear_",
-#         "n_",
-#         temp_nn,
-#         "_sigma_",
-#         temp_sigma,
-#         sep = ""
-#       )
-#     cat(filename,"\n")
-#     # load 
-#     target_data <-
-#       readRDS(file = 
-#                 here::here(
-#                   paste(
-#                     "output/data_",
-#                     filename,
-#                     ".rds",
-#                     sep = ""
-#                   )
-#                 )
-#       )
-#     # assign(filename,
-#     #        temp_data)
-#     # estimate 
-#     loglinear_demand_formula <-
-#       "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
-#     
-#     loglinear_demand_loglinear_supply_formula <-
-#       paste("P ~ composite_z:Q + logQ + log(w) + log(r)|",
-#             "composite_z + log(w) + log(r) + y")
-#     parameter_hat_table <-
-#       estimate_demand_and_supply(
-#         target_data =
-#           target_data,
-#         target_demand_formula = 
-#           loglinear_demand_formula,
-#         target_supply_formula =
-#           loglinear_demand_loglinear_supply_formula,
-#         demand_shifter_dummy = TRUE)
-#     # save 
-#     saveRDS(parameter_hat_table,
-#             file = paste(
-#               "output/",
-#               "parameter_hat_table",
-#               filename,
-#               ".rds",
-#               sep = ""
-#             )
-#     )
-#   }
-# }
+
+# find numerical error point ----
+constant <- 
+  data[,"constant"]
+y <- 
+  data[,"y"]
+logQ <-
+  data[,"logQ"]
+logP <-
+  data[,"logP"]
+w <-
+  data[,"w"]
+r <-
+  data[,"r"]
+z <-
+  data[,"z"]
+iv_w <-
+  data[,"iv_w"]
+iv_r <-
+  data[,"iv_r"]
+composite_z <-
+  data[,"composite_z"]
+linear_terms <-
+  theta[1] * constant + 
+  theta[2] * logQ +
+  theta[3] * log(w) +
+  theta[4] * log(r) 
+nonlinear_term <-
+  #- log(1 - theta[5] *
+  - log(1 - 0.5 *        
+          composite_z)
+nonlinear_term
+
 
 
 
