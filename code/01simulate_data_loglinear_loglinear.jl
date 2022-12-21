@@ -115,10 +115,10 @@ for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2]
         sigma = Int64(sigma)
     end
 
-    @unpack α_1, α_2 = parameter;
+    @unpack α_1, α_2, θ = parameter;
 
     # Save the simulation data if the demand function is downward sloping
-    if sum(0 .<= -(α_1 .+ α_2 * data.z)) == 0
+    if sum(0 .<= - (α_1 .+ α_2 * data.z)) == 0 && sum(1 .- θ * (α_1 .+ α_2 * data.z) .<= 0) == 0 
 
         file_name = "../conduct_parameter/output/data_loglinear_loglinear_n_"*string(t)*"_sigma_"*string(sigma)*"_with_demand_shifter_y"*".csv"
 

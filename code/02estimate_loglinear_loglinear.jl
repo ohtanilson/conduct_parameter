@@ -109,7 +109,14 @@ function GMM_estimation_simultaneous(T, P, Z, X, X_s, X_d, Ω)
     end
     =#
 
-    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+
+        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    else 
+        error("The estimation result violates the model assumption ")
+
+    end
+    
 end
 
 
@@ -254,7 +261,14 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d)
     γ_hat = value.(γ)
     θ_hat = value.(θ)
 
-    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+
+    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+
+        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    else 
+        error("The estimation result violates the model assumption ")
+
+    end
 end
 
 
@@ -357,23 +371,6 @@ end
 
 
 
-
-#---------------------------------------------------------------------------------------------
-
-# For testing the functions
-
-parameter = market_parameters_log();
-data = simulation_data_log(parameter);
-
-@time simultaneous_test = simulation_nonlinear_2SLS_simultaneous(parameter, data)
-
-@time separate_test = simulation_nonlinear_2SLS_separate(parameter, data)
-
-describe(simultaneous_test)
-describe(separate_test)
-
-
-
 #---------------------------------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 
@@ -434,14 +431,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     display(describe(estimation_result))
 
 end
-
-
-
-
-
-
-
-
 
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -574,5 +563,17 @@ test_plot = plot(contour([0:0.01:0.501;], [-10:0.01:10;],test,
 
 
 
+#---------------------------------------------------------------------------------------------
+# For testing the functions
+
+parameter = market_parameters_log();
+data = simulation_data_log(parameter);
+
+@time simultaneous_test = simulation_nonlinear_2SLS_simultaneous(parameter, data)
+
+@time separate_test = simulation_nonlinear_2SLS_separate(parameter, data)
+
+describe(simultaneous_test)
+describe(separate_test)
 
 
