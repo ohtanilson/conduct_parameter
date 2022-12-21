@@ -500,7 +500,7 @@ for(nn in 1:length(n_observation_list)){
     # assign(filename,
     #        temp_data)
     # estimate
-    loglinear_demand_formula <-
+    target_demand_formula <-
       "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
     data_with_demand_hat <-
       estimate_demand(
