@@ -49,8 +49,8 @@ end
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
     α_1 = 1,
-    α_2 = 1,
-    α_3 = 1,
+    α_2 = 0.1,
+    α_3 = 0.1,
     γ_0 = 1,  # Marginal cost parameter
     γ_1 = 1,
     γ_2 = 1,
@@ -123,13 +123,13 @@ end
 function estimation_nonlinear_2SLS_simultaneous(parameter, data)
     @unpack T = parameter
 
-    Q  = data.Q
+    Q  = data.logQ
     w  = data.w
     r  = data.r
     z  = data.z
     iv_w = data.iv_w
     iv_r = data.iv_r
-    p  = data.P
+    p  = data.logP
     y  = data.y
 
     iv = hcat(iv_w, iv_r)
@@ -145,11 +145,11 @@ function estimation_nonlinear_2SLS_simultaneous(parameter, data)
     for t = 1:T
 
         Z_dt = vcat(1, z[t], iv[t,:], y[t])
-        Z_st = vcat(1, z[t], w[t], r[t], y[t])
+        Z_st = vcat(1, z[t], log(w[t]), log(r[t]), y[t])
         Z_t = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
 
         X_dt = vcat(1, -Q[t], -z[t].*Q[t], y[t])
-        X_st = vcat(1, Q[t], w[t], r[t], z[t])
+        X_st = vcat(1, Q[t], log(w[t]), log(r[t]), z[t])
         X_t  = [X_dt zeros(length(X_dt));  zeros(length(X_st)) X_st]'
 
         push!(P, p[t])
@@ -275,13 +275,13 @@ end
 function estimation_nonlinear_2SLS_separate(parameter, data)
     @unpack T = parameter
 
-    Q  = data.Q
+    Q  = data.logQ
     w  = data.w
     r  = data.r
     z  = data.z
     iv_w = data.iv_w
     iv_r = data.iv_r
-    p  = data.P
+    p  = data.logP
     y  = data.y
 
     iv = hcat(iv_w, iv_r)
@@ -297,11 +297,11 @@ function estimation_nonlinear_2SLS_separate(parameter, data)
     for t = 1:T
 
         Z_dt = vcat(1, z[t], iv[t,:], y[t])
-        Z_st = vcat(1, z[t], w[t], r[t], y[t])
+        Z_st = vcat(1, z[t], log(w[t]), log(r[t]), y[t])
         Z_t = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
 
         X_dt = vcat(1, -Q[t], -z[t].*Q[t], y[t])
-        X_st = vcat(1, Q[t], w[t], r[t], z[t])
+        X_st = vcat(1, Q[t], log(w[t]), log(r[t]), z[t])
         X_t  = [X_dt zeros(length(X_dt));  zeros(length(X_st)) X_st]'
 
         push!(P, p[t])
@@ -377,7 +377,7 @@ end
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
     # Load the simulation data from the rds files
-    filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
+    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
     filename_end   = ".rds"
 
     if sigma == 1 || sigma == 2
@@ -445,13 +445,13 @@ function GMM_function_separate(parameter, data)
     γ = [γ_0 , γ_1 ,γ_2 ,γ_3]
     α = [α_0, α_1, α_2, α_3]
 
-    Q  = data.Q
+    Q  = data.logQ
     w  = data.w
     r  = data.r
     z  = data.z
     iv_w = data.iv_w
     iv_r = data.iv_r
-    p  = data.P
+    p  = data.logP
     y  = data.y
 
     iv = hcat(iv_w, iv_r)
@@ -467,11 +467,11 @@ function GMM_function_separate(parameter, data)
     for t = 1:T
 
         Z_dt = vcat(1, z[t], iv[t,:], y[t])
-        Z_st = vcat(1, z[t], w[t], r[t], y[t])
+        Z_st = vcat(1, z[t], log(w[t]), log(r[t]), y[t])
         Z_t = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
 
         X_dt = vcat(1, -Q[t], -z[t].*Q[t], y[t])
-        X_st = vcat(1, Q[t], w[t], r[t], z[t])
+        X_st = vcat(1, Q[t], log(w[t]), log(r[t]), z[t])
         X_t  = [X_dt zeros(length(X_dt));  zeros(length(X_st)) X_st]'
 
         push!(P, p[t])
@@ -501,7 +501,7 @@ function GMM_function_separate(parameter, data)
     GMM_value = []
 
 
-    for θ_hat = [0:0.01:0.501;], γ_hat = [-10:0.01:10;]
+    for θ_hat = [0:0.01:0.6;], γ_hat = [-10:0.01:10;]
 
         r = P .- γ_hat .-sum(γ[k] .* X_s[:,k] for k = 2:K_s-1) + log.(1 .- θ_hat .*(α_1 .+ α_2 .* X_s[:, end]) ) 
 
@@ -513,43 +513,62 @@ function GMM_function_separate(parameter, data)
     end
 
 
-#=
-    for θ_hat = [0:0.01:1;]
+    #=
+        for θ_hat = [0:0.01:1;]
 
-        r = P .-sum(γ[k] .* X_s[:,k] for k = 1:K_s-1) + log.(1 .- θ_hat .*(α[2] .+ α[3] .* X_s[:, end]) ) 
+            r = P .-sum(γ[k] .* X_s[:,k] for k = 1:K_s-1) + log.(1 .- θ_hat .*(α[2] .+ α[3] .* X_s[:, end]) ) 
 
-        g = sum(Z_s[t,:] .* r[t] for t = 1:T)
+            g = sum(Z_s[t,:] .* r[t] for t = 1:T)
 
-        gmm_value = sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s)
+            gmm_value = sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s)
 
-        push!(GMM_value, gmm_value)
-    end
+            push!(GMM_value, gmm_value)
+        end
 
-    for γ_hat = [0:0.01:2;]
+        for γ_hat = [0:0.01:2;]
 
-        r = P .- γ_hat .-sum(γ[k] .* X_s[:,k] for k = 2:K_s-1) + log.(1 .- θ.*(α[2] .+ α[3] .* X_s[:, end]) ) 
+            r = P .- γ_hat .-sum(γ[k] .* X_s[:,k] for k = 2:K_s-1) + log.(1 .- θ.*(α[2] .+ α[3] .* X_s[:, end]) ) 
 
-        g = sum(Z_s[t,:] .* r[t] for t = 1:T)
+            g = sum(Z_s[t,:] .* r[t] for t = 1:T)
 
-        gmm_value = sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s)
+            gmm_value = sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s)
 
-        push!(GMM_value, gmm_value)
-    end
+            push!(GMM_value, gmm_value)
+        end
 
-=#
+    =#
 
-    return reshape(GMM_value, (length([-10:0.01:10;]), length([0:0.01:0.501;])))
+    return reshape(GMM_value, (length([-10:0.01:10;]), length([0:0.01:0.6;])))
     #return GMM_value
 end
 
 
+#---------------------------------------------------------------------------------------------
+# For testing the functions (Need to load the functions in 01simulate_data file)
 
-data_s = data[1:50,:]
+parameter = market_parameters_log(T = 1000, σ = 1);
+data = simulation_data_log(parameter);
 
-test = estimation_nonlinear_2SLS_simultaneous(parameter, data_s)
+data = load("../conduct_parameter/output/data_loglinear_loglinear_n_1000_sigma_1.rds");
+
+describe(data)
+
+
+@time simultaneous_test = simulation_nonlinear_2SLS_simultaneous(parameter, data);
+describe(simultaneous_test)
+
+
+
+@time separate_test = simulation_nonlinear_2SLS_separate(parameter, data);
+describe(separate_test)
+
+
+# Draw the contour set of the GMM function
+
+
 
 test = GMM_function_separate(parameter, data);
-test_plot = plot(contour([0:0.01:0.501;], [-10:0.01:10;],test,
+test_plot = plot(contour([0:0.01:0.6;], [-10:0.01:10;],test,
     xlabel="θ", ylabel="γ_0",
     title="Value of GMM, N =200, σ = 1"))
     vline!([0.5], linestyle=:dash)
@@ -563,17 +582,6 @@ test_plot = plot(contour([0:0.01:0.501;], [-10:0.01:10;],test,
 
 
 
-#---------------------------------------------------------------------------------------------
-# For testing the functions
 
-parameter = market_parameters_log();
-data = simulation_data_log(parameter);
-
-@time simultaneous_test = simulation_nonlinear_2SLS_simultaneous(parameter, data)
-
-@time separate_test = simulation_nonlinear_2SLS_separate(parameter, data)
-
-describe(simultaneous_test)
-describe(separate_test)
 
 

@@ -88,6 +88,55 @@ function simulation_data(parameter)
 end
 
 
+function simulation_data_without_demand_shifter(parameter)
+
+
+
+    @unpack α_0, α_1, α_2, γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T, S = parameter
+    
+    Q = Float64[];
+    P = Float64[];
+    W = Float64[];
+    R = Float64[];
+    Z = Float64[];
+    IV_W = Float64[];
+    IV_R = Float64[];
+
+    group_id = Int64[];
+
+    for s = 1:S
+        Random.seed!(s * 12345)
+
+        for t = 1:T
+            z_t = rand(Normal(10,1))
+            w_t = rand(Normal(3,1))
+            r_t = rand(Normal(0,1))
+            iv_w_t = w_t + randn()
+            iv_r_t = r_t + randn()
+
+            ε_d = rand(Normal(0,σ))
+            ε_c = rand(Normal(0,σ))
+
+            Q_t = (α_0  - γ_0 - γ_2 * w_t - γ_3 * r_t + ε_d - ε_c)/((1+θ) * (α_1 + α_2 *z_t) + γ_1)
+
+            p_t = α_0 - α_1 * Q_t  - α_2 * z_t * Q_t + ε_d 
+
+            push!(group_id, s)
+            push!(Q, Q_t)
+            push!(P, p_t)
+            push!(W, w_t)
+            push!(R, r_t)
+            push!(Z, z_t)
+            push!(IV_W, iv_w_t)
+            push!(IV_R, iv_r_t)
+        end
+    end
+
+    data = DataFrame(group_id_k = group_id, Q = Q, P = P, w = W, r = R, z = Z, iv_w = IV_W, iv_r = IV_R)
+
+    return data
+end
+
 
 
 
@@ -96,18 +145,25 @@ end
 
 
 # Plot the scatter plot of P and Q
-plot(scatter(data.P, data.Q, ms=2, ma=0.2), ylabel = "P", xlabel = "Q")
+#plot(scatter(data.P, data.Q, ms=2, ma=0.2), ylabel = "P", xlabel = "Q")
 
+# Simulation with demand shifter
 # Generate the simulation data and save the data as CSV file        
 for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2] 
         
     parameter = market_parameters(T = t, σ = sigma);
     data = simulation_data(parameter);
 
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+
     @unpack α_1, α_2 = parameter;
     if sum(0 .<= -(α_1 .+ α_2 * data.z)) == 0
 
-        file_name = "../conduct_parameter/output/data_linear_linear_n_"*string(t)*"_sigma_"*string(sigma)*"_with_demand_shifter_y"*".csv"
+        file_name = "../conduct_parameter/output/data_linear_linear_n_"*string(t)*"_sigma_"*string(sigma)*".csv"
 
         CSV.write(file_name, data)
     else
@@ -116,3 +172,25 @@ for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2]
 end
 
 
+# Simulation without demand shifter y
+# Generate the simulation data and save the data as CSV file
+for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2] 
+        
+    parameter = market_parameters(T = t, σ = sigma);
+    data = simulation_data_without_demand_shifter(parameter);
+
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+    @unpack α_1, α_2 = parameter;
+    if sum(0 .<= -(α_1 .+ α_2 * data.z)) == 0
+
+        file_name = "../conduct_parameter/output/data_linear_linear_n_"*string(t)*"_sigma_"*string(sigma)*"_without_demand_shifter_y"*".csv"
+
+        CSV.write(file_name, data)
+    else
+        error("The demand function is not downward sloping")
+    end
+end
