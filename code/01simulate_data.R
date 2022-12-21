@@ -31,6 +31,25 @@ generate_data <-
         w + rnorm(nk, mean = 0, sd = 1)
       iv_r <-
         r + rnorm(nk, mean = 0, sd = 1)
+      ## set parameter ----
+      theta <-
+        0.5
+      alpha0 <-
+        10
+      alpha1 <-
+        1
+      alpha2 <-
+        1
+      alpha3 <-
+        1
+      gamma0 <-
+        1
+      gamma1 <-
+        1
+      gamma2 <-
+        1
+      gamma3 <-
+        1
     }else{
       w <-
         runif(nk, min = 1, max = 3)
@@ -46,29 +65,26 @@ generate_data <-
         w + rnorm(nk, mean = 0, sd = 1)
       iv_r <-
         r + rnorm(nk, mean = 0, sd = 1)
+      ## set parameter ----
+      theta <-
+        0.5
+      alpha0 <-
+        10
+      alpha1 <-
+        1
+      alpha2 <-
+        0.1#1
+      alpha3 <-
+        0.1#1
+      gamma0 <-
+        1
+      gamma1 <-
+        1
+      gamma2 <-
+        1
+      gamma3 <-
+        1
     }
-    
-    
-    ## set parameter ----
-    theta <-
-      0.5
-    alpha0 <-
-      10
-    alpha1 <-
-      1
-    alpha2 <-
-      1
-    alpha3 <-
-      1
-    gamma0 <-
-      1
-    gamma1 <-
-      1
-    gamma2 <-
-      1
-    gamma3 <-
-      1
-    
     ## set error ----
     sigma <-
       target_sigma
