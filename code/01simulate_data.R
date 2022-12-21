@@ -37,7 +37,8 @@ generate_data <-
       r <-
         runif(nk, min = 0, max = 1)
       y <-
-        runif(nk, min = 1, max = 3)
+        #runif(nk, min = 1, max = 3)
+        rnorm(nk, mean = 0, sd = 1)
       z <-
         runif(nk, min = 0, max = 1)
       ### instrumental variable ----
