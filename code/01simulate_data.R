@@ -67,15 +67,15 @@ generate_data <-
         r + rnorm(nk, mean = 0, sd = 1)
       ## set parameter ----
       theta <-
-        0.5
+        0.3#0.5
       alpha0 <-
         10
       alpha1 <-
-        1
+        1#1
       alpha2 <-
         0.1#1
       alpha3 <-
-        0.1#1
+        1
       gamma0 <-
         1
       gamma1 <-

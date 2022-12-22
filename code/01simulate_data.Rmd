@@ -150,6 +150,21 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 ## linear-demand linear-cost {.tabset}
 
+\begin{align}
+    P_t = \alpha_0 - (\alpha_1 + \alpha_2Z^R_t)Q_t + \alpha_3 Y_t + \varepsilon_{dt},\\
+    MC_t = \gamma_0  + \gamma_1 Q + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct},
+\end{align}
+where $w_t$ and $r_t$ are excluded cost shifter.
+The supply equation is given as
+\begin{align}
+    P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^R_t)+ \gamma_1] Q_t   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
+\end{align}
+
+From the supply equation and the demand equation, we can represent the aggregate quantity $Q_t$ based on the parameters and the exogenous variables as   
+\begin{align}
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + \varepsilon_{dt} - \varepsilon_{ct}}{(1 + \theta) (\alpha_1 + \alpha_2Z^R_t) + \gamma_1}.
+\end{align}
+
 ### n = 50 {.tabset}
 
 ```{r,echo=TRUE,results = "asis"}
@@ -223,6 +238,37 @@ generate_plot(
 
 
 ## log-linear-demand log-linear-cost {.tabset}
+
+Considers a model with log demand and a Cobb-Douglas cost function. 
+The demand equation is given as a log-demand, 
+\begin{align}
+    \log P_{t} = \alpha_0 - (\alpha_1 + \alpha_2 Z^R_t) \log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt}.
+\end{align}
+The log marginal cost is given as 
+\footnote{\cite{hyde1995can} consider a Cobb-Douglas cost function such that \begin{align*}
+    C_t = A^{-1/\gamma} \gamma \left(\frac{w_t}{\alpha}\right)^{\frac{\alpha}{\gamma}} \left(\frac{r_t}{\beta}\right)^{\frac{\beta}{\gamma}} Q_t^{\frac{1}{\gamma}}e^{\varepsilon_{ct}},
+\end{align*} where $\alpha + \beta = \gamma$, and derive the log marginal cost function.}
+\begin{align}
+    \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+\end{align}
+Since $P'(Q) = - (\alpha_1 + \alpha_2 Z^R) \frac{P}{Q} $, the supply equation is given as
+\begin{align}
+    P_t &= \theta_t (\alpha_1 + \alpha_2 Z^R_t) \frac{P_t}{Q_t} Q_t + mc_t,
+\end{align}
+and by taking logarithm, we obtain
+\begin{align}
+    \log P_t & = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}
+\end{align}
+From the supply equation and the demand equation, the log aggregate quantity is given as 
+\begin{align}
+    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^R_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t + \varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z^R_t }.
+\end{align}
+
+
+\begin{align}
+    &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t \varepsilon_{dt},\\
+    &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+\end{align}
 
 ### n = 50 {.tabset}
 

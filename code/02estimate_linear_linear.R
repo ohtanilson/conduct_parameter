@@ -561,7 +561,7 @@ fun <-
     theta[4] * log(r) 
   nonlinear_term <-
     #- log(1 - theta[5] *
-    - log(1 - 0.01 *        
+    - log(1 - 0.3 *        
             composite_z)
   u <- 
     c(logP - 
@@ -572,8 +572,8 @@ fun <-
 }
 # fun = function(x) 
 #   x[1]*exp(-(x[1]^2 + x[2]^2)) + (x[1]^2 + x[2]^2)/20
-pracma::fminunc(x0 = c(1, 1, 1, 1), 
-                fun)
+# pracma::fminunc(x0 = c(1, 1, 1, 1), 
+#                 fun)
 
 
 
@@ -605,10 +605,10 @@ linear_terms <-
   theta[4] * log(r) 
 nonlinear_term <-
   #- log(1 - theta[5] *
-  - log(1 - 0.5 *        
+  - log(1 - 0.3 *        
           composite_z)
-nonlinear_term
 
+sum(is.na(nonlinear_term))
 
 
 
