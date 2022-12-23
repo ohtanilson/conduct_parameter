@@ -4,6 +4,7 @@ using JuMP, Ipopt
 using DelimitedFiles, JLD, CSV, DataFrames
 using Plots, Combinatorics, Dates, StatsPlots
 using Parameters: @unpack, @with_kw
+using GLM
 
 
 #---------------------------------------------------------------------------------------------------------
@@ -14,13 +15,11 @@ Generate a simulation data under log demand and log marginal cost model
 
 """
 
-
-
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
     α_1 = 1,
-    α_2 = 0.1,
-    α_3 = 0.1,
+    α_2 = 1,
+    α_3 = 1,
     γ_0 = 1,  # Marginal cost parameter
     γ_1 = 1,
     γ_2 = 1,
@@ -148,12 +147,57 @@ end
 
 #---------------------------------------------------------------------------------------------------------------------
 
+# Plotting logP and logQ
 
-# parameter = market_parameters_log();
-# data = simulation_data_log(parameter);
+for theta = [0.1:0.1:0.9;]
 
-# Plot the scatter plot of P and Q
-# plot(scatter(data.P, data.Q, ms=2, ma=0.2), ylabel = "P", xlabel = "Q")
+    parameter_plot = market_parameters_log(θ = theta, α_2 = 0.1);
+
+    data_plot = simulation_data_log(parameter_plot);
+
+    # Plot the scatter plot of P and Q
+
+    ols_plot = lm(@formula(logP ~ 1 + logQ), data_plot[1:500,:])
+    plot_logP_logQ = plot(scatter(data_plot.logP[1:500], data_plot.logQ[1:500], ms=2, ma=0.2), ylabel = "logP", xlabel = "logQ", aspect_ratio=:equal, title = " θ =  $theta")
+    plot!(data_plot.logQ[1:500], predict(ols_plot), label = "OLS")
+
+    savefig(plot_logP_logQ, "../conduct_parameter/Yuri/plot_theta_$theta.pdf")
+
+end
+
+
+
+
+
+
+
+# Generate the simulation data and save the data as CSV file
+# Simulation data wit demand shifter y  
+for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2] 
+        
+    parameter_plot = market_parameters_log(T = t, σ = sigma, α_2 = 0.1);
+    data_plot = simulation_data_log(parameter_plot);
+
+
+    ols_plot = lm(@formula(logP ~ 1 + logQ), data_plot[1:(t*10),:])
+    plot_logP_logQ = plot(scatter(data_plot.logP[1:t*10], data_plot.logQ[1:t*10], ms=2, ma=0.2), ylabel = "logP", xlabel = "logQ", aspect_ratio=:equal, title = " t =  $t, σ = $sigma")
+    plot!(data_plot.logQ[1:t*10], predict(ols_plot), label = "OLS")
+
+    filename = "../conduct_parameter/Yuri/plot_"*string(t)*"_and_"*string(sigma)*".pdf"
+
+    savefig(plot_logP_logQ, filename)
+    
+end
+
+
+
+
+
+#---------------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 # Generate the simulation data and save the data as CSV file
 # Simulation data wit demand shifter y  

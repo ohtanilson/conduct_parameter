@@ -48,9 +48,9 @@ end
 
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
-    α_1 = 1,
+    α_1 = 0.1,
     α_2 = 0.1,
-    α_3 = 0.1,
+    α_3 = 1,
     γ_0 = 1,  # Marginal cost parameter
     γ_1 = 1,
     γ_2 = 1,
@@ -267,7 +267,6 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d)
         return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
     else 
         error("The estimation result violates the model assumption ")
-
     end
 end
 
