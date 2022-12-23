@@ -242,7 +242,7 @@ We use the same parameter values in the linear model.
 \subsubsection{Estimation in Hyde and Perloff (1995)}
 The demand and supply equations are
 \begin{align}
-    &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t \varepsilon_{dt},\\
+    &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt},\\
     &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
 \end{align}
 As we can immediately see, the supply equation is a nonlinear equation.
@@ -283,6 +283,21 @@ But as the increase in the sample size dramatically improves the standard deviat
 \subsection{Log demand and log marginal cost}
 
 
+\paragraph{Yuri Julia}
+\begin{itemize}
+    \item $w \sim U(1,3)$,$r \sim U(0,1)$, and $Z \sim U(0, 1)$. The demand shifter $Y_t$ is drawn from the standard normal distribution
+    \item Two additional random variables are created by adding a random variable drawn from the standard normal distribution to $w$ and $r$
+\end{itemize}
+
+
+
+\paragraph{Suguru R}
+\begin{itemize}
+    \item $w\sim U(1,3) $, $r\sim U(0,1) $, $y\sim N(0,1) $, $z\sim U(0,1) $, $iv_{w}=w+N(0,1) $, $iv_{r}=r+N(0,1) $
+    \item $\theta=0.3$ and $\alpha_2=0.1$ and other parameters are the same as linear case
+\end{itemize}
+
+
 
     
 \section{Conclusion}
@@ -314,10 +329,10 @@ XXX
   \begin{center}
       \caption{Estimation results without demand shifter}
       \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
-      \subfloat[$\sigma=0.001$]{\input{R/figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
-      \subfloat[$\sigma=0.5$]{\input{R/figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
-      \subfloat[$\sigma=1.0$]{\input{R/figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
-    \subfloat[$\sigma=2.0$]{\input{R/figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
+      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
   \end{center}\footnotesize
   Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$
 \end{table} 
@@ -327,10 +342,10 @@ XXX
   \begin{center}
       \caption{Estimation results with demand shifter}
       \label{tb:linear_linear_sigma_1} 
-      \subfloat[$\sigma=0.001$]{\input{R/figuretable/linear_linear_sigma_0.001}}\\
-      \subfloat[$\sigma=0.5$]{\input{R/figuretable/linear_linear_sigma_0.5}}\\
-      %\subfloat[$\sigma=1.0$]{\input{R/figuretable/linear_linear_sigma_1}}\\
-    \subfloat[$\sigma=2.0$]{\input{R/figuretable/linear_linear_sigma_2}}
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5}}\\
+      %\subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2}}
   \end{center}\footnotesize
   Note: True parameters: $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
 \end{table} 
