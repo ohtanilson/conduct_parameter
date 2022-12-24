@@ -11,10 +11,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load
 
-```{r,echo=FALSE,results = "asis"}
+```{r,echo=FALSE,results = "hide"}
 rm(list = ls())
 library(magrittr)
 library(ggplot2)
+# we need to use old version of modelsummary for latex output
+if(1 == 1){
+  devtools::install_version(
+    "modelsummary",
+    version = "0.9.4", 
+    repos = "http://cran.us.r-project.org")
+  }
 library(modelsummary) # for N in datasummary
 # set constant ----
 n_observation_list <-
