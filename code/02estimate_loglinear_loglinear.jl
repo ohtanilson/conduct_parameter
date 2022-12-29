@@ -405,49 +405,6 @@ for estimation_method = estimation_methods
 
 end
 
-# Check the summary of the eatimation result
-for estimation_method = estimation_methods
-    
-    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
-        # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        filename_end   = ".rds"
-
-        if sigma == 1 || sigma == 2
-            sigma = Int64(sigma)
-        end
-
-        filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-        data = load(filename)
-        data = DataFrames.sort(data, [:group_id_k])
-
-
-
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        estimation_result = DataFrame(CSV.File(file_name))
-
-        parameter = market_parameters_log(T = t, σ = sigma)
-
-        @unpack θ, S = parameter
-
-        rate_satisfy_assumption = 1 - sum(sum(1 .- θ .*(estimation_result.α_1[s] .+ estimation_result.α_2[s] .* data.z[(s-1)*t+1:s*t,:]) .<= 0)  for s = 1:S)/(S*t)
-
-        #@show rate_satisfy_assumption
-
-        display(describe(estimation_result))
-
-        display(plot(histogram(estimation_result.θ)))
-
-    end
-    
-    println("------------------------------------------------------------------------------------\n")
-end
-
 
 #-----------------------------------------------------------------------------------------------------------------------
 
