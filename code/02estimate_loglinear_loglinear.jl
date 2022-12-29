@@ -65,7 +65,7 @@ market_parameters_log = @with_kw (
 
 #---------------------------------------------------------------------------------------------------------
 
-function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method)
+function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
     L = size(Z, 2)
     K_s = size(X_s, 2)
@@ -79,7 +79,13 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
     set_optimizer_attribute(model, "acceptable_tol", 1e-12)
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-    @variable(model, θ)
+
+    if estimation_method[3] == :theta_constraint
+
+        @variable(model, 0 <= θ <= 1)
+    else
+        @variable(model, θ)
+    end
 
     r = Any[];
     g = Any[];
@@ -92,7 +98,7 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
         push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
     end
 
-    if estimation_method[2] == :constraint
+    if estimation_method[2] == :log_constraint
         for t = 1:T
             @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
         end
@@ -119,7 +125,7 @@ end
 
 #---------------------------------------------------------------------------------------------
 
-function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method)
+function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
     @unpack θ = parameter
 
@@ -176,7 +182,12 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             set_optimizer_attribute(model, "acceptable_tol", 1e-12)
             set_silent(model)
             @variable(model, γ[k = 1:K_s-1])
-            @variable(model, θ)
+
+            if estimation_method[3] == :theta_constraint
+                @variable(model, 0 <= θ <= 1)
+            else
+                @variable(model, θ)
+            end
 
             r = Any[];
             g = Any[];
@@ -188,7 +199,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
                 push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
             end
 
-            if estimation_method[2] == :constraint
+            if estimation_method[2] == :log_constraint
 
                 for t = 1:T
                     @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
@@ -222,7 +233,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 end
 
 
-function estimation_nonlinear_2SLS(parameter, data, estimation_method)
+function estimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol})
     @unpack T = parameter
 
     Q  = data.logQ
@@ -280,7 +291,7 @@ function estimation_nonlinear_2SLS(parameter, data, estimation_method)
 end
 
 
-function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol})
+function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol})
 
     @unpack T, S, σ = parameter 
 
@@ -346,7 +357,7 @@ describe(separate_constraint_test)
 
 #--------------------------------------------------------------------------------------------------------------
 #estimation_methods = [(:separate,:non_constraint), (:separate,:constraint), (:simultaneous,:non_constraint), (:simultaneous,:constraint)];
-estimation_methods = [(:separate,:non_constraint), (:separate,:constraint)];
+estimation_methods = [(:separate,:log_constraint, :theta_constraint), (:separate,:log_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint), (:separate,:non_constraint, :non_constraint)];
 #estimation_methods = [(:simultaneous,:non_constraint), (:simultaneous,:constraint)];
 
 
@@ -380,17 +391,18 @@ for estimation_method = estimation_methods
         @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
 
         # Save the estimation result as csv file. The file is saved at "output" folder
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])
+        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
-
-        println("")
-
     end
+    println("\n")
+    println("----------------------------------------------------------------------------------\n")
+
+
 end
 
 # Check the summary of the eatimation result
@@ -413,7 +425,7 @@ for estimation_method = estimation_methods
 
 
 
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])
+        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
@@ -428,9 +440,11 @@ for estimation_method = estimation_methods
         #@show rate_satisfy_assumption
 
         display(describe(estimation_result))
+
+        display(plot(histogram(estimation_result.θ)))
+
     end
-
-
+    
     println("------------------------------------------------------------------------------------\n")
 end
 
