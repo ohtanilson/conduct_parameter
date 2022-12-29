@@ -50,3 +50,25 @@
   - demandパラメーターはdemand functionがlinearなので，2SLSで推定．
   - Supply equationは非線形なので，GMMでweight matrix $W = (Z^\top Z)^{-1}/N$　として推定．
   - JuliaのJuMP + IPOPTを使って2SLSでdemand parameterとsupply parameterをsimultaneous equationで推定するコードはすでに書いている．（参考）
+
+
+# 12/23/2022
+
+## Result
+
+- logの中身の仮定が満たされないもののシミュレーションに関してはMPECとしてinequality constraintを書くべき
+
+## Next Meeting
+
+- Rmarkdownの改善(modelsummary package update)
+- ８パターンのシミュレーション(), conduct parameterには制約をおかない
+  - DGPがうまくいく
+    - separate + without constraint
+    - separate + with constraint
+    - simultaneous + constraint
+    - simultaneous + without constraint
+  - DGPが上手く行かない
+    - 同上
+- ロバストじゃない（logの中身が負になる）シミュレーションのセッティングを考える
+    - alpha1, alpha2, theta
+
