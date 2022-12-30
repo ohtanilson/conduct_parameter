@@ -18,15 +18,18 @@ market_parameters_log = @with_kw (
     γ_3 = 1,
     θ = 0.3,  # Conduct paramter
     σ = 1,    # Standard deviation of the error term
-    T = 50,   # Number of markets
+    T = 50,   # Number of markets   
     S = 1000, # Number of simulation
 )
 
 parameter = market_parameters_log()
 
 
-estimation_methods = [(:separate,:log_constraint, :theta_constraint), (:separate,:log_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint), (:separate,:non_constraint, :non_constraint)];
+estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
 
+
+
+#-----------------------------------------------------------------------------------------
 # Check the summary of the eatimation result
 for estimation_method = estimation_methods
     
@@ -44,8 +47,6 @@ for estimation_method = estimation_methods
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
-
-
 
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
@@ -67,6 +68,9 @@ for estimation_method = estimation_methods
     println("------------------------------------------------------------------------------------\n")
 end
 
+
+
+#-----------------------------------------------------------------------------------------
 # Draw histograms consisting of the estimation reuslt of θ within [-2, 3]
 
 histogram_result_theta = []
@@ -79,21 +83,15 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
     end
-
-    histo_result = density(xlims = [-2, 3],  title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
     
-    #histo_result = histogram(xlims = [-2, 3], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    histo_result = histogram(xlims = [-2, 3], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    #histo_result = density(xlims = [-2, 3],  title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
     
     vline!([θ], label = "true value : θ = $θ")
 
     for estimation_method = estimation_methods
 
-        # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        filename_end   = ".rds"
-
-
-
+        # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
@@ -123,11 +121,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
             end
         end
 
-        #histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5)
-
-
-        density!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, alpha = 0.5)
-
+        histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5, bins = -2:0.1:3)
+        #density!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, alpha = 0.5)
     end
 
     push!(histogram_result_theta, histo_result)
@@ -141,3 +136,128 @@ end
    
 # Put all histograms in one plot
 #plot(histogram_result_theta...,  layout=(4,4), legend= true, size = (3000,3000))
+
+
+
+#-----------------------------------------------------------------------------------------
+# Draw the contour plot of the GMM value function with respect to the conduct parameter and the constant in the marginal cost function
+function contour_set_of_GMM(parameter, data)
+    
+
+    @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T = parameter
+
+    γ = [γ_0 , γ_1 ,γ_2 ,γ_3]
+    α = [α_0, α_1, α_2, α_3]
+
+    Q  = data.logQ
+    w  = data.w
+    r  = data.r
+    z  = data.z
+    iv_w = data.iv_w
+    iv_r = data.iv_r
+    p  = data.logP
+    y  = data.y
+
+    iv = hcat(iv_w, iv_r)
+
+    X_d = []
+    X_s = []
+    X   = []
+    Z   = []
+    Z_d = []
+    Z_s = []
+    P   = []
+
+    for t = 1:T
+
+        Z_dt = vcat(1, z[t], iv[t,:], y[t])
+        Z_st = vcat(1, z[t], log(w[t]), log(r[t]), y[t])
+        Z_t = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
+
+        X_dt = vcat(1, -Q[t], -z[t].*Q[t], y[t])
+        X_st = vcat(1, Q[t], log(w[t]), log(r[t]), z[t])
+        X_t  = [X_dt zeros(length(X_dt));  zeros(length(X_st)) X_st]'
+
+        push!(P, p[t])
+        push!(X_d, X_dt')
+        push!(X_s, X_st')
+        push!(X, X_t)
+        push!(Z, Z_t)
+        push!(Z_d, Z_dt')
+        push!(Z_s, Z_st')
+    end
+
+    Z   = reduce(vcat,(Z))
+    X   = reduce(vcat,(X))
+    X_d = reduce(vcat,(X_d))
+    X_s = reduce(vcat,(X_s))
+    Z_d = reduce(vcat,(Z_d))
+    Z_s = reduce(vcat,(Z_s))
+
+    L = size(Z, 2)
+    L_d = size(Z_d,2)
+    L_s = size(Z_s,2)
+    K_s = size(X_s, 2)
+    K_d = size(X_d, 2)
+
+    Ω = inv(Z_s' * Z_s)/T
+
+    GMM_value = []
+
+
+    for θ_hat = [-2:0.01:0.7;], γ_hat = [-10:0.01:10;]
+
+        r = P .- γ_hat .-sum(γ[k] .* X_s[:,k] for k = 2:K_s-1) + log.(1 .- θ_hat .*(α_1 .+ α_2 .* X_s[:, end]) ) 
+
+        g = sum(Z_s[t,:] .* r[t] for t = 1:T)
+
+        gmm_value = sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s)
+
+        push!(GMM_value, gmm_value)
+    end
+
+    return reshape(GMM_value, (length([-10:0.01:10;]), length([-2:0.01:0.7;])))
+end
+
+
+for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
+    @unpack θ, γ_0 = parameter
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+    
+    # Load the simulation data from the rds files
+    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+    filename_end   = ".rds"
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+    filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+    data = load(filename)
+    data = DataFrames.sort(data, [:group_id_k])
+    data = data[1:t,:]
+
+    contour_gmm = contour_set_of_GMM(parameter, data);
+    plot_contour = plot(contour([-2:0.01:0.7;], [-10:0.01:10;], contour_gmm,
+        xlabel="θ", ylabel="γ_0",
+        title="N =$t, σ = $sigma"))
+        vline!([θ], linestyle=:dash, label = "true θ")
+        hline!([γ_0], linestyle=:dash, label = "true γ_0")
+
+    filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
+    filename_end   = ".png"
+    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+    savefig(plot_contour, file_name)
+end
+
+
+
+
+
+
+
