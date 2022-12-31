@@ -72,14 +72,21 @@
 - ロバストじゃない（logの中身が負になる）シミュレーションのセッティングを考える
     - alpha1, alpha2, theta
 
+# 12/30/2022
+
 ## Next Meeting
 
 - Table 1,2：perloff and shenの結果はetaが載っていない、supply side instrumentの指定がないので直接比較はできないが、おそらく我々のwithout demand shifterのgamma0の結果を誤って入れているのではないか？
 
 - Table 3: linearはperloff and shenと違って、正しく推定できる
 - Table 4: Perloff and Shenでのsuggestion通りやるとlog linearで[0,1]制約入れれば平均としてはうまく言ってるように見える
-- Figure 1: ただそれは実はうまいってない。[0,1]に入らないシミュレーションidが端点0、1に落ちただけ。これをdetectするためには[0,1]制約は使えるが、0=perfect competitive, 1=collusiveを推定するのは推定できていないケースと混じって難しくなる。
+- Figure 1: [01]constraintありとなしの二色。ただそれは実はうまいってない。[0,1]に入らないシミュレーションidが端点0、1に落ちただけ。これをdetectするためには[0,1]制約は使えるが、0=perfect competitive, 1=collusiveを推定するのは推定できていないケースと混じって難しくなる。
 - Figure 2: loglinearで識別できない理由（gamma0, thetaのカントール図）
 
-- 
 - セカンドドラフトで最後のセクション足す要素は、DGP変える
+
+
+## Submission list
+- Journal of Applied Econometrics
+- Review of Industrial Organization
+- International Journal of Industrial Organization (セカンドドラフトの最後のセクション次第で追加で出せそう。0=perfect competitive, 1=collusiveを推定するのは推定できていないケースと混じって難しくなるのを解決する)
