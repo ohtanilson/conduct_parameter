@@ -128,7 +128,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     push!(histogram_result_theta, histo_result)
 
     filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
-    filename_end   = ".png"
+    filename_end   = ".pdf"
     file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
     savefig(histo_result, file_name)
@@ -249,7 +249,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         hline!([γ_0], linestyle=:dash, label = "true γ_0")
 
     filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
-    filename_end   = ".png"
+    filename_end   = ".pdf"
     file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
     savefig(plot_contour, file_name)
