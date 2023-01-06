@@ -37,14 +37,14 @@
 \newtheorem{example}{Example}
 
 \title{Conduct Parameter Project}
-\author{Yuri Matsumura \and Suguru Otani \footnote{Department of Economics, Rice University.}}
+\author{Yuri Matsumura \and Suguru Otani \footnote{Department of Economics, Rice University. Matsumura: \texttt{\href{mailto:Yuri.Matsumura@rice.edu}{Yuri.Matsumura@rice.edu}}}}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-    We revisit the conduct parameter estimation in homogenous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. However, we show that the standard estimation procedure is sensitive to the data generating process (DGP) widely used in Industrial Organization literature. As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
+    We revisit the conduct parameter estimation in homogenous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. However, we show that the standard estimation procedure is sensitive to the data generating process (DGP) widely used in Industrial Organization literature. %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
 \end{abstract}
 
 \section{Introduction}
@@ -282,36 +282,54 @@ But as the increase in the sample size dramatically improves the standard deviat
 
 \subsection{Log demand and log marginal cost}
 
+Table \ref{tb:loglinear_loglinear_sigma_1} provides estimation results of log linear demand specifications with demand shifter. We additionally restrict the range of conduct parameter $\theta$ to $[0,1]$, that is discussed in the next section. We find that the means of demand and cost parameters are improved by increasing sample sizes. However, if $\sigma=0.5$, SD of conduct parameter $\theta$ is unexpectedly large. Unfortunately, SD does not decrease as the sample size increases. We investigate why the problem occurs in the next section.
 
-\paragraph{Yuri Julia}
-\begin{itemize}
-    \item $w \sim U(1,3)$,$r \sim U(0,1)$, and $Z \sim U(0, 1)$. The demand shifter $Y_t$ is drawn from the standard normal distribution
-    \item Two additional random variables are created by adding a random variable drawn from the standard normal distribution to $w$ and $r$
-\end{itemize}
+\section{Nonidentification problem in log linear demand specification}
+
+We provide the reason why estimated conduct parameter $\theta$ has large SD even if the sample size increases. Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2} illustrates the distribution of estimated $\theta$ for each sample sets of 1000 simulations with and without $[0,1]$ constraint. The left panel shows the case of $\sigma=0.5$. We find that estimated $\theta$ is less than 0 for the large portion of simulation data without $[0,1]$ domain restriction on $\theta$. The right panel shows the case of $\sigma=2$ which is worse than the case of $\sigma=0.5$. Estimated $\theta$ is out of $[-2,3]$ for the 28\% of whole simulation data. 
+
+Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} illustrates the contor map of typical one of the nonidentified simulation samples. Given the results in Table \ref{tb:loglinear_loglinear_sigma_1}, we fix $\gamma_1$, $\gamma_2$, $\gamma_3$ to the true values and focus on the evaluated GMM objective function at each $\gamma_0$ and $\theta$ which have large SD. The grid size is XXX. We numerically find that $\gamma_0$ and $\theta$ are not point-identified for the simulation samples because these two parameters are balancing.
+
+The above results that $\theta$ estimated by OLS, i.e., without $[0,1]$ domain restriction on $\theta$ can be out of $[0,1]$ are known to the literature. For example, \cite{okazaki2022excess} show that estimated $\theta$ is out of $[0,1]$ and the authors explain that conduct parameter estimation is imprecise. Our paper provides the reason that $\theta$ in log linear specification is potentially nonidentified for the specific data even if we add $[0,1]$ domain restriction. Furthermore, detecting collusion or perfect competitive market is imprecise. Thus, the suggestion of log linear specification in \cite{perloff2012collinearity} adds another identification problem. 
+
+In summary, we conclude that only the linear model achieve properly estimate conduct parameter in homogenous good markets. 
 
 
 
-\paragraph{Suguru R}
-\begin{itemize}
-    \item $w\sim U(1,3) $, $r\sim U(0,1) $, $y\sim N(0,1) $, $z\sim U(0,1) $, $iv_{w}=w+N(0,1) $, $iv_{r}=r+N(0,1) $
-    \item $\theta=0.3$ and $\alpha_2=0.1$ and other parameters are the same as linear case
-\end{itemize}
 
-\section{MPEC for constrained GMM}
+% \paragraph{Yuri Julia}
+% \begin{itemize}
+%     \item $w \sim U(1,3)$,$r \sim U(0,1)$, and $Z \sim U(0, 1)$. The demand shifter $Y_t$ is drawn from the standard normal distribution
+%     \item Two additional random variables are created by adding a random variable drawn from the standard normal distribution to $w$ and $r$
+% \end{itemize}
 
-\begin{itemize}
-    \item separate
-    \item separate, [0,1]constraint
-    \item separate, logconstraint
-    \item separate, [0,1]constraint,logconstraint
-\end{itemize}
+
+
+% \paragraph{Suguru R}
+% \begin{itemize}
+%     \item $w\sim U(1,3) $, $r\sim U(0,1) $, $y\sim N(0,1) $, $z\sim U(0,1) $, $iv_{w}=w+N(0,1) $, $iv_{r}=r+N(0,1) $
+%     \item $\theta=0.3$ and $\alpha_2=0.1$ and other parameters are the same as linear case
+% \end{itemize}
+
+% \section{MPEC for constrained GMM}
+
+% \begin{itemize}
+%     \item separate
+%     \item separate, [0,1]constraint
+%     \item separate, logconstraint
+%     \item separate, [0,1]constraint,logconstraint
+% \end{itemize}
 
     
 \section{Conclusion}
 
 XXX
 
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
 \appendix
+
 
 
 \begin{table}[!htbp]
@@ -371,13 +389,32 @@ XXX
 \end{table} 
 
 
+\begin{figure}[!ht]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.png}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.png}
+  \caption{Estimated conduct parameter $\theta$.}
+  \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
+  \end{center}
+  \footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{figure} 
+
+\begin{figure}[!ht]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/contour_loglinear_loglinear_n_1000_sigma_0.5.png}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/contour_loglinear_loglinear_n_1000_sigma_2.png}
+  \caption{Contor map of GMM objective function}
+  \label{fg:contour_loglinear_loglinear_n_1000_sigma_2} 
+  \end{center}
+  \footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{figure} 
 
 
-
-
-
-\bibliographystyle{aer}
-
-\bibliography{conduct_parameter}
 
 \end{document}
