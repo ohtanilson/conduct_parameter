@@ -205,7 +205,7 @@ function contour_set_of_GMM(parameter, data)
     GMM_value = []
 
 
-    for θ_hat = [-2:0.01:0.7;], γ_hat = [-10:0.01:10;]
+    for θ_hat = [0.2:0.0001:0.4;], γ_hat = [0:0.0001:1.2;]
 
         r = P .- γ_hat .-sum(γ[k] .* X_s[:,k] for k = 2:K_s-1) + log.(1 .- θ_hat .*(α_1 .+ α_2 .* X_s[:, end]) ) 
 
@@ -216,7 +216,7 @@ function contour_set_of_GMM(parameter, data)
         push!(GMM_value, gmm_value)
     end
 
-    return reshape(GMM_value, (length([-10:0.01:10;]), length([-2:0.01:0.7;])))
+    return reshape(GMM_value, (length([0:0.0001:1.2;]), length([0.2:0.0001:0.4;])))
 end
 
 
@@ -256,6 +256,47 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 end
 
 
+
+
+
+@time for t = [100, 1000], sigma =  [0.5, 1, 2]
+    @unpack θ, γ_0, S = parameter
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+    
+    # Load the simulation data from the rds files
+    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+    filename_end   = ".rds"
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+    filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+    data = load(filename)
+    data = DataFrames.sort(data, [:group_id_k])
+    data = data[1:t,:]
+    contour_gmm = contour_set_of_GMM(parameter, data);
+    plot_contour = plot(contour([0.2:0.0001:0.4;], [0:0.0001:1.2;], contour_gmm,
+        xlabel="θ", ylabel="γ_0",
+        title="N =$t, σ = $sigma"))
+        vline!([θ], linestyle=:dash, label = "true θ")
+        hline!([γ_0], linestyle=:dash, label = "true γ_0")
+
+    display(plot_contour)
+
+
+#    filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
+#    filename_end   = ".pdf"
+#    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+#    savefig(plot_contour, file_name)
+
+    print("----------------------------------------------------------\n")
+end
 
 
 
