@@ -44,7 +44,7 @@
 \maketitle
 
 \begin{abstract}
-    We revisit the conduct parameter estimation in homogenous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. However, we show that the standard estimation procedure is sensitive to the data generating process (DGP) widely used in Industrial Organization literature. %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
+    We revisit the conduct parameter estimation in homogenous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. However, we show that the standard estimation procedure is sensitive to the data generating process (DGP) such as log linear models widely used in Industrial Organization literature and recommended by \cite{perloff2012collinearity}. Based on numerical investigation, we recommend to use linear model for practice because log linear models add another identification problem. %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
 \end{abstract}
 
 \section{Introduction}
@@ -325,10 +325,6 @@ In summary, we conclude that only the linear model achieve properly estimate con
 
 XXX
 
-\bibliographystyle{aer}
-\bibliography{conduct_parameter}
-
-\appendix
 
 
 
@@ -389,12 +385,12 @@ XXX
 \end{table} 
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width = 0.45\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.png}
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}
   \includegraphics[width = 0.45\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.png}
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}
   \caption{Estimated conduct parameter $\theta$.}
   \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
   \end{center}
@@ -402,12 +398,12 @@ XXX
   Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
 \end{figure} 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width = 0.45\textwidth]
-  {figuretable/contour_loglinear_loglinear_n_1000_sigma_0.5.png}
+  {figuretable/contour_loglinear_loglinear_n_1000_sigma_0.5.pdf}
   \includegraphics[width = 0.45\textwidth]
-  {figuretable/contour_loglinear_loglinear_n_1000_sigma_2.png}
+  {figuretable/contour_loglinear_loglinear_n_1000_sigma_2.pdf}
   \caption{Contor map of GMM objective function}
   \label{fg:contour_loglinear_loglinear_n_1000_sigma_2} 
   \end{center}
@@ -415,6 +411,8 @@ XXX
   Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
 \end{figure} 
 
-
+\newpage
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
 
 \end{document}
