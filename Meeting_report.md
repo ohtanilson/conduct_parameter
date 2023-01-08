@@ -85,6 +85,14 @@
 
 - セカンドドラフトで最後のセクション足す要素は、DGP変える
 
+# 01/06/2023
+
+## Next Meeting
+
+- Nonidentification problemをtheoretical proofが必要, lauのチェックでconduct parameterの識別のみ、他のパラメタは真値で止まってるだけなのではないか？joint identificationだとわからないのでは？
+- 参照しない数式番号を消す
+- 
+
 
 ## Submission list
 - Journal of Applied Econometrics
