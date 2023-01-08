@@ -36,64 +36,56 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{example}{Example}
 
-\title{Conduct Parameter Project}
-\author{Yuri Matsumura \and Suguru Otani \footnote{Department of Economics, Rice University. Matsumura: \texttt{\href{mailto:Yuri.Matsumura@rice.edu}{Yuri.Matsumura@rice.edu}}}}
+\title{Revisiting Perloff and Shen (2012): Optimistic results on conduct
+parameter estimation in homogeneous goods markets}
+\author{Yuri Matsumura\footnote{Department of Economics, Rice University. Matsumura: \texttt{\href{mailto:Yuri.Matsumura@rice.edu}{Yuri.Matsumura@rice.edu}}} \and Suguru Otani \footnote{Department of Economics, Rice University. Otani: \texttt{\href{mailto:so19@rice.edu}{so19@rice.edu}}}}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-    We revisit the conduct parameter estimation in homogenous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. However, we show that the standard estimation procedure is sensitive to the data generating process (DGP) such as log linear models widely used in Industrial Organization literature and recommended by \cite{perloff2012collinearity}. Based on numerical investigation, we recommend to use linear model for practice because log linear models add another identification problem. %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
+    We revisit the conduct parameter estimation in homogeneous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. We show that the standard estimation procedure is sensitive to the data generating process (DGP) such as log-linear models widely used in Industrial Organization literature and recommended by \cite{perloff2012collinearity}. Based on numerical investigation, we recommend using linear model as a valid specification because log-linear models add another identification problem. %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
 \end{abstract}
 
 \section{Introduction}
 %主題%
-Measuring competitiveness in markets is one of the important tasks in Empirical Industrial Organization literature.
+\textcolor{blue}{Measuring competitiveness in markets is one of the important tasks in Empirical Industrial Organization (IO) literature.
 Markup is regarded as a useful measure of competitiveness. 
-However, markup cannot be measured directly from data because data usually lack information about marginal cost.
-Therefore, the researchers have tried to estimate the markup in markets.
+However, markup cannot be measured directly from data because data usually lack information about marginal cost and conduct parameter determining market structure such as cournot competition.
+Therefore, the researchers have tried to estimate the markup and conduct parameter in markets.}
 
 % Conduct parameter estimationを何とつなげて書くべきか？ Market powerと絡めるのか，market strucutureなのか？
 
 
-The literature has considered two types of models.
-
+The literature has considered two popular specifications of the model for conduct parameter estimation in homogeneous good markets.\footnote{\textcolor{blue}{As a similar strand of the literature, there is growing literature on conduct parameter estimation in differentiated goods markets. For example, see XXX.}}
 %現状 - 1%
 The first one is the model with linear demand and linear marginal cost.
-\citet{bresnahan1982oligopoly} considers the identification of conduct parameter in this model.
-However, \citet{perloff2012collinearity} shows that the model in \citet{bresnahan1982oligopoly} is suffered from the multicollinear problem when the error terms in the demand and supply equations are zero and claims that the model parameters can not be estimated.
+\citet{bresnahan1982oligopoly} considers the identification of conduct parameter in this model. 
+\citet{perloff2012collinearity} shows that the model in \citet{bresnahan1982oligopoly} is suffered from the multicollinearity problem when the error terms in the demand and supply equations are zero and claims that the model parameters cannot be estimated.
 While the situation where the multicollinearity problem arises hardly happens not only in simulation studies but also in practice, the paper still claims that the near collinearity problem contaminates the estimation.
-Then by conducting Monte Carlo simulations, the parameter shows that the marginal cost parameters and the conduct parameter can not be estimated accurately.
+By conducting Monte Carlo simulations, the authors show that the marginal cost parameters and the conduct parameter cannot be accurately estimated.
 To avoid the multicollinearity problem and nearly perfect collinearity problem, the paper recommends using log-linear or some other functional form for at least one of the equations.
 %問題 -1%
-However, the simulation in \cite{perloff2012collinearity} has some problems.
+However, we find that the simulation in \cite{perloff2012collinearity} has some problems.
 First, the estimation of the supply equation lacks the excluded demand shifter.
 Second, it does not check the effect of increasing the sample size.
 
 
 %現状 - 2%
-The second model is the model with log demand and log marginal cost.
+The second model uses log-linear demand and log-linear marginal cost that is recommended by \cite{perloff2012collinearity} as a valid specification for identification.
 The identification strategy is provided by \citet{lau1982identifying}.
 %問題 - 2%
-\cite{hyde1995can} conduct a simulation of the model, but the paper does not show the simulation result but shows the result of hypothesis tests based on the simulation result.
-Furthermore, it still has the same problem in the \cite{perloff2012collinearity} because it lacks the demand shifter in the supply-side estimation.
-
-
+\cite{hyde1995can} conduct a simulation of the model, but the paper does not show the simulation result itself but shows the result of hypothesis tests based on the simulation result.
+But the simulation still has the same problem in \cite{perloff2012collinearity} because it lacks the demand shifter in the supply-side estimation.
 
 
 %結果%
-To check the accuracy of the estimation of models with the conduct parameter, we reexamine the simulation model in \cite{perloff2012collinearity} and \cite{perloff2012collinearity}.
-First, our simulation successfully replicates the result in \cite{perloff2012collinearity}.
-Then our simulation results confirm that the accuracy of the estimation is improved by including a demand shifter in the supply equation estimation.
-Given the standard deviation of the error terms, when the sample size is more than 100, the accuracy of the estimation is also improved.
+To fill in the gap between popular specifications in applied economists and theoretical and numerical discussions, we provide  unified numerical simulation results.
+%To check the accuracy of the estimation of models with the conduct parameter, we reexamine the simulation model in \cite{perloff2012collinearity}.
+First, our simulation replicates the result in \cite{perloff2012collinearity} by complementing some details which they did not mention on instrument construction. We confirm that the accuracy of the estimation holds by including a demand shifter in the supply equation estimation properly. Given the standard deviation of the error terms, when the sample size is more than 100, the accuracy of the estimation is also improved. In this sense, \cite{perloff2012collinearity} provides correct theoretical results but incorrect numerical simulation results.
 
-Next, we conduct the simulation of the model with log demand and log marginal cost...
-
-
-The rest of the paper ...
-
-
+Second, we conduct the simulation of the model with log-linear demand and log-linear marginal cost that is suggested by \cite{perloff2012collinearity}. We numerically show that standard OLS regression gives incorrect conduct parameter out of range of $[0,1]$ because the specification may add another identification problem of the conduct parameter and constant term of marginal costs. The non-identification results of the log-linear specification are mistakenly reported in IO literature as imprecise estimation results, for example, \cite{okazaki2022excess}. Thus, we conclude that the linear specification is a valid specification for the conduct parameter estimation in homogeneous good markets.
 
 \section{Model}
 The researcher has data with $T$ markets with homogeneous products.
@@ -119,9 +111,9 @@ Let's consider an econometric model of the quantity competition.
 Assume that the demand function and the marginal cost function are written as 
 \begin{align}
     P_t = f(Q_t, Y_t, \varepsilon_{dt}, \alpha)\\
-    MC_t = g(Q_t, W_t, \varepsilon_{ct}, \beta)
+    MC_t = g(Q_t, W_t, \varepsilon_{ct}, \gamma)
 \end{align}
-where $Y_t$ and $W_t$ are the vector of exogenous variables, $\varepsilon_{dt}$ and $\varepsilon_{ct}$ the error terms, and $\alpha$ and $\beta$ are the vector of parameters
+where $Y_t$ and $W_t$ are the vector of exogenous variables, $\varepsilon_{dt}$ and $\varepsilon_{ct}$ the error terms, and $\alpha$ and $\gamma$ are the vector of parameters
 We also have the vector of the demand-side instrument variables $Z_{dt}$ and the vector of the supply-side instrument variables $Z_{ct}$.
 Then we assume that the error terms satisfy the mean independence condition $E[\varepsilon_{dt}\mid Y_t, Z_{dt}] = E[\varepsilon_{ct} \mid W_t, Z_{ct}] =0$.
 
@@ -159,7 +151,7 @@ Since $\alpha_1$ and $\alpha_2$ are identified from the demand equation and $(\g
 
 
 
-\section{Simulation Setting}
+\section{Simulation and Estimation Setting}
 
 \subsection{Linear demand and linear cost}
 Assume that a linear demand function and a linear marginal cost function such that
@@ -183,24 +175,10 @@ The value of the conduct parameter is $\theta = 0.5$, the value of the constant 
 The error terms follow the normal distribution with mean zero and with standard deviation $\sigma$; $\varepsilon_{ct}\sim N(0,\sigma)$, $\varepsilon_{dt} \sim N(0,\sigma)$.
 We change the value of $\sigma$ to see how the variation of the error terms affects the accuracy of the estimation.
 
-Note that while the aggregate quantity is changed by the change in $Y_t$ as $\alpha_3 =1$, \cite{perloff2012collinearity} assumes $\alpha_3 = 0$, that is, their simulation ignores the exogenous variable $Y_t$.
-However, we don't have any exogenous demand shifter to estimate the supply equation in that case.
-Our results emphasize the role of the exogenous demand shifter in the estimation of the supply equation.
 
 
 
-\subsubsection{Estimation}
-%To estimate the parameters in the demand equation and the supply equation, \cite{perloff2012collinearity} applies the 2SLS, the 3SLS, and the nonlinear 3SLS.
-%Since \cite{perloff2012collinearity} only shows the results based on the 2SLS and the 3SLS, we also focus on these estimation methods.
 
-We separately apply the 2SLS to each equation.
-The instrument variables for the demand estimation are $Z_{dt} = (Z^R_t, Y_t, h_t, k_t)$.
-The instrument variables for the supply estimation are $Z_{ct} = (Z^R_t, w_t, r_t, Y_t)$. 
-To see the role of the demand shifter $Y_t$, we show the estimation results with and without $Y_t$.
-
-To conduct the simulation, we generate 1000 data sets by using R and estimate the equations by using the \texttt{ivreg} package in R.
-Note that an important feature of the model is that we have an interaction term of the endogenous variable $Q_t$ and the instrument variable $Z^R_t$.
-The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_t$ and the interaction term $Z^R_tQ_t$ and runs the first stage regression for each endogenous variable by using the same instruments.\footnote{To confirm this, we manually wrote R code that implements the 2SLS. When the first stage includes only the regression of $Q_t$, the estimation results from our code differ from the results from \texttt{ivreg}. But when we modified the code so that regress $Z^R_tQ_t$ on the instrument variables and estimate the second stage by using the predicted values of $Q_t$ and $Z^R_tQ_t$, the result from our code and the result from \texttt{ivreg} coincided.}
 
 
 \subsection{Log demand and log marginal cost}
@@ -211,9 +189,9 @@ The demand equation is given as a log-demand,
     \log P_{t} = \alpha_0 - (\alpha_1 + \alpha_2 Z^R_t) \log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt}.
 \end{align}
 The log marginal cost is given as 
-\footnote{\cite{hyde1995can} consider a Cobb-Douglas cost function such that \begin{align*}
-    C_t = A^{-1/\gamma} \gamma \left(\frac{w_t}{\alpha}\right)^{\frac{\alpha}{\gamma}} \left(\frac{r_t}{\beta}\right)^{\frac{\beta}{\gamma}} Q_t^{\frac{1}{\gamma}}e^{\varepsilon_{ct}},
-\end{align*} where $\alpha + \beta = \gamma$, and derive the log marginal cost function.}
+% \footnote{\cite{hyde1995can} consider a Cobb-Douglas cost function such that \begin{align*}
+%     C_t = A^{-1/\gamma} \gamma \left(\frac{w_t}{\alpha}\right)^{\frac{\alpha}{\gamma}} \left(\frac{r_t}{\beta}\right)^{\frac{\beta}{\gamma}} Q_t^{\frac{1}{\gamma}}e^{\varepsilon_{ct}},
+% \end{align*} where $\alpha + \beta = \gamma$, and derive the log marginal cost function.}
 \begin{align}
     \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
 \end{align}
@@ -230,51 +208,151 @@ From the supply equation and the demand equation, the log aggregate quantity is 
     \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^R_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t + \varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z^R_t }.
 \end{align}
 
-Assume that the exogenous in the cost side and instrument variables are drawn from uniform distributions; $w \sim U(1,3)$,$r \sim U(0,1)$, and $Z \sim U(5, 10)$. The demand shifter $Y_t$ is drawn from the standard normal distribution.
+Assume that the exogenous in the cost side and instrument variables are drawn from uniform distributions; $w \sim U(1,3)$,$r \sim U(0,1)$, and $Z \sim U(0, 1)$. 
+The demand shifter $Y_t$ is drawn from the standard normal distribution.
 The error term are drawn from a normal distribution with mean zero and standard deviation $\sigma$; $\varepsilon_{ct}\sim N(0,\sigma)$, $\varepsilon_{dt} \sim N(0,\sigma)$.
-We use the same parameter values in the linear model.
+The value of the conduct parameter is $\theta = 0.3$, the value of $\alpha_0$ and $\alpha_2$ in the demand equation are $\alpha_0 = 10, \alpha_2 = 0.1$, and the value of the rest of the parameters is one; $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1$.
+The similar specification is investigated in \cite{hyde1995can}.
 
 
 
 
 
 
-\subsubsection{Estimation in Hyde and Perloff (1995)}
-The demand and supply equations are
-\begin{align}
-    &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt},\\
-    &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
-\end{align}
-As we can immediately see, the supply equation is a nonlinear equation.
-We assume two moment conditions $E[Z_{dt} \varepsilon_{dt}] = \bm0 $ and $ E[Z_{st} \varepsilon_{st}] =\bm0$ where $Z_{dt}$ is the vector of instruments for the demand equation and $Z_{st}$ the vector of instruments for the supply equation.
-Based on the moment conditions, we can apply the generalized method of moments.
-We consider two estimators; the nonlinear system 2SLS estimator and the nonlinear 3SLS estimator.\footnote{See Wooldridge (2010), Ch 14.}
+% \subsubsection{Estimation in Hyde and Perloff (1995)}
+% The demand and supply equations are
+% \begin{align}
+%     &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt},\\
+%     &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+% \end{align}
+% As we can immediately see, the supply equation is a nonlinear equation.
+% We assume two moment conditions $E[Z_{dt} \varepsilon_{dt}] = \bm0 $ and $ E[Z_{ct} \varepsilon_{ct}] =\bm0$ where $Z_{dt}$ is the vector of instruments for the demand equation and $Z_{ct}$ the vector of instruments for the supply equation.
+% Based on the moment conditions, we can apply the generalized method of moments.
+% We consider two estimators; the nonlinear system 2SLS estimator and the nonlinear 3SLS estimator.\footnote{See Wooldridge (2010), Ch 14.}
+
+
+\subsection{Estimation procedure}
+%To estimate the parameters in the demand equation and the supply equation, \cite{perloff2012collinearity} applies the 2SLS, the 3SLS, and the nonlinear 3SLS.
+%Since \cite{perloff2012collinearity} only shows the results based on the 2SLS and the 3SLS, we also focus on these estimation methods.
+
+The estimation of both the linear model and the log-linear model is based on the 2SLS estimation.
+The instrument variables for the demand estimation are $Z_{dt} = (Z^R_t, Y_t, h_t, k_t)$ and the instrument variables for the supply estimation are $Z_{ct} = (Z^R_t, w_t, r_t, Y_t)$.
+
+To conduct the simulation of the linear model, we generate 1000 data sets by using R and estimate the equations by using the \texttt{ivreg} package in R.
+We separately estimate the demand and the supply equation.
+Note that an important feature of the model is that we have an interaction term of the endogenous variable $Q_t$ and the instrument variable $Z^R_t$.
+The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_t$ and the interaction term $Z^R_tQ_t$ and runs the first stage regression for each endogenous variable by using the same instruments.
+\footnote{To confirm this, we manually wrote R code that implements the 2SLS. 
+When the first stage includes only the regression of $Q_t$, the estimation results from our code differ from the results from \texttt{ivreg}. 
+But when we modified the code so that regress $Z^R_tQ_t$ on the instrument variables and estimate the second stage by using the predicted values of $Q_t$ and $Z^R_tQ_t$, the result from our code and the result from \texttt{ivreg} coincided.}
+
+To conduct the simulation of the log-linear model, we also generate 1000 data sets by using R. 
+Since the demand equation is linear, we estimate the demand parameters as in the linear model.
+In contrast, the supply side equation is nonlinear, and hence we apply the generalized method of moments with the moment condition $E[Z_{ct} \varepsilon_{ct}] = 0$.
+Note that for the supply estimation, we substitute the demand estimation result.
+The GMM estimator is obtained as a solution to the minimization problem.
+To solve the minimization problem, we use Julia.
+We formulate the minimization problem via \texttt{JuMP} and solve the problem by using the nonlinear solver \texttt{IOPOT.jl}.
 
 
 
 \section{Results}
 
-
 \subsection{The linear demand and linear marginal cost model}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{Estimation results in Table 2 of from \cite{perloff2012collinearity}}
+    \label{tb:linear_linear_sigma_Perloff_Shen} 
+        \begin{tabular}{cllll}
+            \hline\hline
+            & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
+            $\alpha_0$ & $10.00(0.001)$ & $9.96(0.33)$ & $9.86(0.65)$ & $9.46(1.20)$ \\
+            $\alpha_1$ & $1.00(0.004)$ & $0.99(1.98)$ & $0.97(3.96)$ & $0.88(7.80)$ \\
+            $\alpha_2$ & $1.00(0.004)$ & $0.99(0.21)$ & $0.97(0.42)$ & $0.87(0.82)$ \\
+            $\gamma_1$ & $0.46(0.88)$ & $0.46(0.91)$ & $0.47(0.93)$ & $0.49(1.04)$ \\
+            $\gamma_2$ & $5.85(7.89)$ & $5.85(8.15)$ & $5.78(8.21)$ & $5.73(8.66)$ \\
+            $\theta$ & $-0.31(1.31)$ & $-0.29(1.34)$ & $0.09(11.48)$ & $-1.53(30.41)$ \\
+            \hline
+        \end{tabular}
+\end{table}
+
+First, we check and replicate the result in \citet{perloff2012collinearity}.
+The simulation setting in \cite{perloff2012collinearity} is different from our simulation setting; while we assume that the value of the coefficient $\alpha_3$ of $Y_t$ is one, \cite{perloff2012collinearity} assumes $\alpha_3 = 0$ and does not include $Y_t$ to generate their simulation data
+In this case, we don't have any exogenous demand shifter for the supply estimation.
+
 Table \ref{tb:linear_linear_sigma_Perloff_Shen} is quoted from \cite{perloff2012collinearity}.
+The sample size in each simulation data is 50 and the table shows the mean and the standard deviation of the 2SLS estimators from 1000 simulations.
 It shows that the demand estimation becomes accurate as the value of $\sigma$ decreases.
 In contrast, the supply-side estimation is still biased and the standard deviation of the conduct parameter becomes larger as the value of $\sigma$ increases.
 
-Table \ref{tb:linear_linear_sigma_1_without_demand_shifter_y} shows our 2SLS estimation results without the demand shifter. 
-This result uses the same simulation setting with \citet{perloff2012collinearity}.
-The results show that while the demand parameter can be accurately estimated even though the value of $\sigma$ becomes larger, the supply side parameter is biased.
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Estimation results without demand shifter}
+      \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
+      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$
+\end{table} 
+
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Estimation results with demand shifter}
+      \label{tb:linear_linear_sigma_1} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5}}\\
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
+\end{table} 
+
+\begin{table}[!htbp]
+  \ContinuedFloat  %% <-- new
+  \begin{center}
+      \caption{Estimation results with demand shifter (Continued)}
+      \label{tb:linear_linear_sigma_1} 
+      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2}}
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
+\end{table} 
+
+
+
+
+
+
+
+
+
+
+
+
+Table \ref{tb:linear_linear_sigma_1_without_demand_shifter_y} shows our replication results.
+Each panel shows the simulation result under different standard deviations of the error terms, $\varepsilon_{dt}$ and $\varepsilon_{ct}$.
+This result uses the same data generation process with \citet{perloff2012collinearity}, but for the estimation, we complement what the authors do not mention on instrument construction.
+To see if we can correctly replicate the result in \cite{perloff2012collinearity}, let's focus on the first two columns in each panel.
+These two columns show the mean and the standard deviation of the simulation result when the sample size is 50.
+The result is while the demand parameter can be accurately estimated even though the value of $\sigma$ becomes larger, the supply side parameter is biased.
 Especially, when $\sigma$ is large and the sample size is small, the standard deviation of the parameters in the supply-side equation becomes large.
 Thus we can correctly replicate the result in \citet{perloff2012collinearity}.
-Unlike in \cite{perloff2012collinearity}, we also change the sample size.
-As it is expected, the increase in the sample size given a value of $\sigma$ improves the standard deviation of the parameter in the supply equation. 
-But no estimation result can find the true values of the parameter.
+As \cite{perloff2012collinearity} fixes its sample size to 50, we also see the effect of changing the sample size.
+As it is expected, the increase in the sample size given a value of $\sigma$ decreases the value of the standard deviation of the parameter in the supply equation.
+But no simulation result is colse to the true values of the supply parameter and the conduct parameter.
+These results are consistent with \cite{perloff2012collinearity}.
 
-Next, Table \ref{tb:linear_linear_sigma_1} shows the 2SLS estimation results with the demand shifter.
+However, we show that their pessimistic result can be easily resolved just by adding a demand shifter and increasing the sample size.
+Table \ref{tb:linear_linear_sigma_1} shows the 2SLS estimation results with the demand shifter.
+The results are based on the simulation setting explained in section 4.
 When $\sigma = 0.001$, Panel (a) shows that the estimation of all parameters is quite accurate.
 Especially, when the sample size is large, the standard deviations of all parameters are less than 0.001.
-When $\sigma = 2$ and $n = 50$, Panel (d) shows that the supply-side estimation is biased.
+When $\sigma = 2$ and the sample size is 50, Panel (d) shows that the supply-side estimation is still biased.
 The value of $\gamma_1$, the coefficient  of $Q_t$ in the supply equation, is far from the true value $\gamma_1 = 1$ and the standard deviation is much larger than the standard deviation in the model without $Y_t$.
-But as the increase in the sample size dramatically improves the standard deviation, and when the sample size is $n = 1000$, all parameters are estimated more accurately than the result in the model without $Y_t$.
+But as the sample size increase, the standard deviation is dramatically improved, and when the sample size is 1000, all parameters are estimated more accurately than the result in the model without $Y_t$.
 
 
 
@@ -282,17 +360,70 @@ But as the increase in the sample size dramatically improves the standard deviat
 
 \subsection{Log demand and log marginal cost}
 
-Table \ref{tb:loglinear_loglinear_sigma_1} provides estimation results of log linear demand specifications with demand shifter. We additionally restrict the range of conduct parameter $\theta$ to $[0,1]$, that is discussed in the next section. We find that the means of demand and cost parameters are improved by increasing sample sizes. However, if $\sigma=0.5$, SD of conduct parameter $\theta$ is unexpectedly large. Unfortunately, SD does not decrease as the sample size increases. We investigate why the problem occurs in the next section.
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Estimation results with demand shifter (log-linear)}
+      \label{tb:loglinear_loglinear_sigma_1} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5}}\\
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{table} 
 
-\section{Nonidentification problem in log linear demand specification}
+\begin{table}[!htbp]
+  \ContinuedFloat  %% <-- new
+  \begin{center}
+      \caption{Estimation results with demand shifter (log-linear) (Continued)}
+      \label{tb:loglinear_loglinear_sigma_1} 
+      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2}}
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{table} 
 
-We provide the reason why estimated conduct parameter $\theta$ has large SD even if the sample size increases. Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2} illustrates the distribution of estimated $\theta$ for each sample sets of 1000 simulations with and without $[0,1]$ constraint. The left panel shows the case of $\sigma=0.5$. We find that estimated $\theta$ is less than 0 for the large portion of simulation data without $[0,1]$ domain restriction on $\theta$. The right panel shows the case of $\sigma=2$ which is worse than the case of $\sigma=0.5$. Estimated $\theta$ is out of $[-2,3]$ for the 28\% of whole simulation data. 
+Table \ref{tb:loglinear_loglinear_sigma_1} provides the simulation results of log-linear demand specifications with a demand shifter. 
+We additionally restrict the range of conduct parameter $\theta$ to $[0,1]$, whose effect is discussed in the next section. 
+We find that the means of demand and cost parameters are improved by increasing sample sizes. 
+However, if $\sigma=0.5$, standard deviation of conduct parameter $\theta$ is unexpectedly large. 
+Unfortunately, standard deviation does not decrease as the sample size increases. We investigate why the problem occurs in the next section.
 
-Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} illustrates the contor map of typical one of the nonidentified simulation samples. Given the results in Table \ref{tb:loglinear_loglinear_sigma_1}, we fix $\gamma_1$, $\gamma_2$, $\gamma_3$ to the true values and focus on the evaluated GMM objective function at each $\gamma_0$ and $\theta$ which have large SD. The grid size is XXX. We numerically find that $\gamma_0$ and $\theta$ are not point-identified for the simulation samples because these two parameters are balancing.
+\section{A problem in log-linear demand specification}
 
-The above results that $\theta$ estimated by OLS, i.e., without $[0,1]$ domain restriction on $\theta$ can be out of $[0,1]$ are known to the literature. For example, \cite{okazaki2022excess} show that estimated $\theta$ is out of $[0,1]$ and the authors explain that conduct parameter estimation is imprecise. Our paper provides the reason that $\theta$ in log linear specification is potentially nonidentified for the specific data even if we add $[0,1]$ domain restriction. Furthermore, detecting collusion or perfect competitive market is imprecise. Thus, the suggestion of log linear specification in \cite{perloff2012collinearity} adds another identification problem. 
+\begin{figure}[!htbp]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}
+  \caption{Estimated conduct parameter $\theta$.}
+  \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
+  \end{center}
+  \footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{figure} 
 
-In summary, we conclude that only the linear model achieve properly estimate conduct parameter in homogenous good markets. 
+\begin{figure}[!htbp]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/contour_loglinear_loglinear_n_1000_sigma_0.5.pdf}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/contour_loglinear_loglinear_n_1000_sigma_2.pdf}
+  \caption{Contour map of GMM objective function}
+  \label{fg:contour_loglinear_loglinear_n_1000_sigma_2} 
+  \end{center}
+  \footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{figure} 
+
+We provide the reason why estimated conduct parameter $\theta$ has large standard deviation even if the sample size increases. Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2} illustrates the distribution of estimated $\theta$ for each sample sets of 1000 simulations with and without $[0,1]$ constraint. The left panel shows the case of $\sigma=0.5$. We find that estimated $\theta$ is less than 0 for the large portion of simulation data without $[0,1]$ domain restriction on $\theta$. The right panel shows the case of $\sigma=2$ which is worse than the case of $\sigma=0.5$. Estimated $\theta$ is out of $[-2,3]$ for the 28\% of whole simulation data. 
+
+Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} illustrates the contour map of typical one of the nonidentified simulation samples. Given the results in Table \ref{tb:loglinear_loglinear_sigma_1}, we fix $\gamma_1$, $\gamma_2$, and $\gamma_3$ to the true values and focus on the evaluated GMM objective function at each $\gamma_0$ and $\theta$ which have large standard deviation. 
+The grid size is 0.01.
+We numerically find that $\gamma_0$ and $\theta$ are not point-identified for the simulation samples because these two parameters are balancing.
+
+The above results that $\theta$ estimated by OLS, i.e., without $[0,1]$ domain restriction on $\theta$ can be out of $[0,1]$ are known to the literature. For example, \cite{okazaki2022excess} show that estimated $\theta$ is out of $[0,1]$ and the authors explain that conduct parameter estimation is imprecise. Our paper provides the reason that $\theta$ in log-linear specification is potentially impossible to be jointly identified with cost parameter $\gamma_0$ for the specific data even if we add $[0,1]$ domain restriction. Furthermore, detecting collusion or perfect competitive market is imprecise. \cite{merel2009measuring} uses log-linear specifications and the estimated $\theta$ is 0.002 with 0.007 standard error, which means perfect competitive markets. This may encounter non-identification problem and estimation fails in the boundary as in Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2}. Thus, the suggestion of log-linear specification in \cite{perloff2012collinearity} adds another identification problem. 
+
+In summary, we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
 
 
 
@@ -323,96 +454,11 @@ In summary, we conclude that only the linear model achieve properly estimate con
     
 \section{Conclusion}
 
-XXX
+We revisit the conduct parameter estimation in homogeneous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. Based on numerical investigation, we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
 
 
-
-
-\begin{table}[!htbp]
-    \centering
-    \caption{Estimation results in Table 2 of from \cite{perloff2012collinearity}}
-    \label{tb:linear_linear_sigma_Perloff_Shen} 
-        \begin{tabular}{cllll}
-            \hline\hline
-            & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
-            $\alpha_0$ & $10.00(0.001)$ & $9.96(0.33)$ & $9.86(0.65)$ & $9.46(1.20)$ \\
-            $\alpha_1$ & $1.00(0.004)$ & $0.99(1.98)$ & $0.97(3.96)$ & $0.88(7.80)$ \\
-            $\alpha_2$ & $1.00(0.004)$ & $0.99(0.21)$ & $0.97(0.42)$ & $0.87(0.82)$ \\
-            $\gamma_1$ & $0.46(0.88)$ & $0.46(0.91)$ & $0.47(0.93)$ & $0.49(1.04)$ \\
-            $\gamma_2$ & $5.85(7.89)$ & $5.85(8.15)$ & $5.78(8.21)$ & $5.73(8.66)$ \\
-            $\theta$ & $-0.31(1.31)$ & $-0.29(1.34)$ & $0.09(11.48)$ & $-1.53(30.41)$ \\
-            \hline
-        \end{tabular}
-\end{table}
-
-
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{Estimation results without demand shifter}
-      \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$
-\end{table} 
-
-
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{Estimation results with demand shifter}
-      \label{tb:linear_linear_sigma_1} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5}}\\
-      %\subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2}}
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
-\end{table} 
-
-
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{Estimation results with demand shifter (Log linear)}
-      \label{tb:loglinear_loglinear_sigma_1} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5}}\\
-      %\subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2}}
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{table} 
-
-
-\begin{figure}[!htbp]
-  \begin{center}
-  \includegraphics[width = 0.45\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}
-  \includegraphics[width = 0.45\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}
-  \caption{Estimated conduct parameter $\theta$.}
-  \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
-  \end{center}
-  \footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{figure} 
-
-\begin{figure}[!htbp]
-  \begin{center}
-  \includegraphics[width = 0.45\textwidth]
-  {figuretable/contour_loglinear_loglinear_n_1000_sigma_0.5.pdf}
-  \includegraphics[width = 0.45\textwidth]
-  {figuretable/contour_loglinear_loglinear_n_1000_sigma_2.pdf}
-  \caption{Contor map of GMM objective function}
-  \label{fg:contour_loglinear_loglinear_n_1000_sigma_2} 
-  \end{center}
-  \footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{figure} 
-
-\newpage
 \bibliographystyle{aer}
 \bibliography{conduct_parameter}
+
 
 \end{document}
