@@ -19,14 +19,10 @@ function termination_status_code(status)
     LOCALLY_SOLVED,            # 4
     LOCALLY_INFEASIBLE,        # 5
     INFEASIBLE_OR_UNBOUNDED,   # 6
-
-    #Solved to relaxed tolerances
     ALMOST_OPTIMAL,            # 7
     ALMOST_INFEASIBLE,         # 8
     ALMOST_DUAL_INFEASIBLE,    # 9
     ALMOST_LOCALLY_SOLVED,     # 10
-
-    #Limits
     ITERATION_LIMIT,           # 11
     TIME_LIMIT,                # 12
     NODE_LIMIT,                # 13
@@ -35,17 +31,15 @@ function termination_status_code(status)
     OBJECTIVE_LIMIT,           # 16
     NORM_LIMIT,                # 17
     OTHER_LIMIT,               # 18
-
-    #Problematic
     SLOW_PROGRESS,             # 19
     NUMERICAL_ERROR,           # 20
     INVALID_MODEL,             # 21
     INVALID_OPTION,            # 22
     INTERRUPTED,               # 23
-    OTHER_ERROR                # 24
+    OTHER_ERROR,               # 24
     ]
 
-    for i = 1:length(status_code)
+    for i = eachindex(status_code)
         if (status == status_code[i]) == true
             return i
             break
@@ -232,6 +226,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         # Check if the supply estimation result satisfies the assumption
         if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
 
+            termination_status_code(termination_status(model))
             return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
         else 
             error("The estimation result violates the model assumption ")
@@ -326,10 +321,14 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
     status_indicator = []
 
     for i = eachindex(status)
-        if status[i] <= 7
-            push!(status_indicator, 1)
+        if status[i] !== missing
+            if status[i] <= 7
+                push!(status_indicator, 1)
+            else
+                push!(status_indicator, 0)
+            end
         else
-            push!(status_indicator, 0)
+            push!(status_indicator, missing)
         end
     end
 
@@ -348,10 +347,10 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
     status = status,
     status_indicator = status_indicator)
 
+    error("stop")
     return estimation_result
 
 end
-
 
 #=
 
