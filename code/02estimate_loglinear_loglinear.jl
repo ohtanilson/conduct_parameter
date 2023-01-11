@@ -10,6 +10,8 @@ using Parameters: @unpack, @with_kw
 
 function termination_status_code(status)
 
+    # See https://jump.dev/JuMP.jl/stable/moi/reference/models/#MathOptInterface.TerminationStatusCode
+    
     status_code = [
     OPTIMAL,                   # 1
     INFEASIBLE,                # 2
@@ -17,10 +19,14 @@ function termination_status_code(status)
     LOCALLY_SOLVED,            # 4
     LOCALLY_INFEASIBLE,        # 5
     INFEASIBLE_OR_UNBOUNDED,   # 6
+
+    #Solved to relaxed tolerances
     ALMOST_OPTIMAL,            # 7
     ALMOST_INFEASIBLE,         # 8
     ALMOST_DUAL_INFEASIBLE,    # 9
     ALMOST_LOCALLY_SOLVED,     # 10
+
+    #Limits
     ITERATION_LIMIT,           # 11
     TIME_LIMIT,                # 12
     NODE_LIMIT,                # 13
@@ -29,6 +35,8 @@ function termination_status_code(status)
     OBJECTIVE_LIMIT,           # 16
     NORM_LIMIT,                # 17
     OTHER_LIMIT,               # 18
+
+    #Problematic
     SLOW_PROGRESS,             # 19
     NUMERICAL_ERROR,           # 20
     INVALID_MODEL,             # 21
@@ -315,6 +323,16 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
     θ_est = reduce(vcat, θ_est')
     status = reduce(vcat, status)
 
+    status_indicator = []
+
+    for i = eachindex(status)
+        if status[i] <= 7
+            push!(status_indicator, 1)
+        else
+            push!(status_indicator, 0)
+        end
+    end
+
     estimation_result = DataFrame(
     T = T,
     σ = σ,
@@ -327,7 +345,8 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
     γ_2 = γ_est[:,3],
     γ_3 = γ_est[:,4],
     θ = θ_est,
-    status = status)
+    status = status,
+    status_indicator = status_indicator)
 
     return estimation_result
 
@@ -357,8 +376,7 @@ describe(separate_constraint_test)
 
 #--------------------------------------------------------------------------------------------------------------
 #estimation_methods = [(:separate,:non_constraint), (:separate,:constraint), (:simultaneous,:non_constraint), (:simultaneous,:constraint)];
-estimation_methods = [(:separate,:log_constraint, :theta_constraint), (:separate,:log_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint), (:separate,:non_constraint, :non_constraint)];
-#estimation_methods = [(:simultaneous,:non_constraint), (:simultaneous,:constraint)];
+estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
 
 
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
@@ -401,8 +419,6 @@ for estimation_method = estimation_methods
     end
     println("\n")
     println("----------------------------------------------------------------------------------\n")
-
-
 end
 
 

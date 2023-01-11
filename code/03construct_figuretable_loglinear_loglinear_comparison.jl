@@ -349,33 +349,33 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         estimation_result  = dropmissing(estimation_result, :θ);
         estimation_status = deepcopy(estimation_result.status)
 
-        #=
-        estimation_status = deepcopy(estimation_result.status)
+        estimation_status = []
 
-        for i = eachindex(estimation_status)
-            if estimation_status[i] == 4
-                estimation_status[i] = 1
+        for i = eachindex(estimation_result.status_indicator)
+            if estimation_result.status_indicator[i] == 1
+                push!(estimation_status, "Without Error")
             else
-                estimation_status[i] = 0
+                push!(estimation_status, "With Error")
             end
         end
 
-        =#
-        constraint = estimation_method[3]
+        if  estimation_method[3] == :theta_constraint
+            constraint = "with constraint"
+        else
+            constraint = "without constraint"
+        end
 
         estimation_plot = plot(scatter(estimation_result.θ, estimation_result.γ_0,  group = estimation_status, alpha = 0.7), xlabel = "θ", ylable = "γ_0", size = (500, 400), title = " n = $t, σ = $sigma, $constraint")
 
         display(estimation_plot)
 
-        #histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5, bins = -2:0.1:3)
+        filename_estimation = "_"*String(estimation_method[3])
+        filename_begin = "../conduct_parameter/figuretable/scatter_theta_gamma_all_simulation_loglinear_loglinear_n_"
+        filename_end   = ".pdf"
+        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+
+        savefig(estimation_plot, file_name)
     end
-
-    #push!(histogram_result_theta, histo_result)
-    filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
-    filename_end   = ".pdf"
-    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    #savefig(histo_result, file_name)
 end
 
 
@@ -461,7 +461,6 @@ function value_GMM(parameter, data, estimation_result)
         gmm_value_true = sum( g_true[l] *Ω[l,k] * g_true[k] for l = 1:L_s, k = 1:L_s)
         gmm_value_estimated = sum( g_estimated[l] *Ω[l,k] * g_estimated[k] for l = 1:L_s, k = 1:L_s)
 
-
         difference_theta = abs(θ_hat - θ)
         difference_gamma = abs(γ_hat - γ_0)
         difference_gmm_value = abs(gmm_value_true - gmm_value_estimated)
@@ -511,34 +510,43 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
             label_title = "estimation without constraint"
         end
 
-        data = dropmissing(data, :logQ)
-        estimation_result = dropmissing(estimation_result, :θ);
 
         number_sample = size(estimation_result,1)
 
         for s = 1:number_sample
-
-            data_s = data[(s-1)*t+1:s*t,:]
             estimation_result_s = estimation_result[s,:]
-            diff_theta, diff_gamma, diff_gmm_value = value_GMM(parameter, data_s, estimation_result_s);
+            if estimation_result_s.θ !== missing || estimation_result_s.status_indicator === 1
+                data_s = data[(s-1)*t+1:s*t,:]
+                diff_theta, diff_gamma, diff_gmm_value = value_GMM(parameter, data_s, estimation_result_s);
 
-            push!(difference_theta, diff_theta)
-            push!(difference_gamma, diff_gamma)
-            push!(difference_gmm_value, diff_gmm_value)
+                push!(difference_theta, diff_theta)
+                push!(difference_gamma, diff_gamma)
+                push!(difference_gmm_value, diff_gmm_value)
+            end
         end
 
-        constraint = estimation_method[3]
-        
+        if  estimation_method[3] == :theta_constraint
+            constraint = "with constraint"
+        else
+            constraint = "without constraint"
+        end
+
+
+        filename_estimation = "_"*String(estimation_method[3])
+        filename_begin = "../conduct_parameter/figuretable/diff_gmm_value_loglinear_loglinear_n_"
+        filename_end   = ".pdf"
+        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+    
+
         df = DataFrame(theta = difference_theta, gamma = difference_gamma, gmm_value = difference_gmm_value)
-        df |> @vlplot(:circle, x=:theta, y=:gamma, color = {:gmm_value, scale={scheme=:plasma}}, 
-        title = "n = $t, σ = $sigma, $constraint")|> display
+        df |> @vlplot(:circle, 
+            x={:theta, title = "|Estimated θ - true θ|"}, 
+            y={:gamma, title = "|Estimated γ_0 - true γ_0|"}, 
+            color = {:gmm_value, title = "diff. GMM value", scale={scheme=:plasma}},
+            title = "n = $t, σ = $sigma, $constraint", xtitle = "difference"
+        )|> save(file_name)
+    
     end
 
 
-
-    filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
-    filename_end   = ".pdf"
-    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    #savefig(plot_contour, file_name)
 end
