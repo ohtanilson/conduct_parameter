@@ -347,7 +347,6 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
     status = status,
     status_indicator = status_indicator)
 
-    error("stop")
     return estimation_result
 
 end
