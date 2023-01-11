@@ -90,11 +90,22 @@
 ## Next Meeting
 
 - Nonidentification problemをtheoretical proofが必要, lauのチェックでconduct parameterの識別のみ、他のパラメタは真値で止まってるだけなのではないか？joint identificationだとわからないのでは？
-- 参照しない数式番号を消す
-- 
 
+# 01/10/2023
+
+## Next Meeting
+- 参照しない数式番号を消す
+- Figure1のnumerically solvedできていないケースを別にして色分けして反映
+- contor mapを置く意味は、GMMの目的関数がthetaとgamma0でバランスしてしまう一例を示すため。
+- scatter plot(X軸=thetaの真値との差, Y軸=gamma0の真値との差, pointの色はGMMの真値との差で分ける)を置く意味は、全simulation idで識別できないケースを示すため。
+- Wooldridgeをreferenceに入れる
+
+## second draft issue (Isabelleに訊いてみる)
+- DGPを変えて実験して解決策が見つかるか？rotation IVの分散を上げる
+- DGPのthetaを変える
 
 ## Submission list
 - Journal of Applied Econometrics
 - Review of Industrial Organization
 - International Journal of Industrial Organization (セカンドドラフトの最後のセクション次第で追加で出せそう。0=perfect competitive, 1=collusiveを推定するのは推定できていないケースと混じって難しくなるのを解決する)
+- Economic letters
