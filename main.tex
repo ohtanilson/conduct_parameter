@@ -55,7 +55,6 @@ Conduct parameter is regarded as a useful measure of competitiveness.
 However, it cannot be measured directly from data because data usually lack information about marginal cost.
 Therefore, the researchers have tried to identify and estimate the conduct parameter.
 
-
 The literature has considered two popular specifications of the model for conduct parameter estimation in homogeneous good markets; one is the model with linear demand and linear marginal cost and the other is the model with log-linear demand and log-linear marginal cost.\footnote{\textcolor{blue}{As a similar strand of the literature, there is growing literature on conduct parameter estimation in differentiated goods markets. For example, see XXX.}}
 
 %現状 - 1%
@@ -66,13 +65,13 @@ By conducting Monte Carlo simulations, the paper shows that the marginal cost pa
 To avoid the multicollinearity problem and nearly perfect collinearity, the paper recommends using log-linear or some other functional form for at least one of the equations.
 %問題 -1%
 However, we find that the simulation in \cite{perloff2012collinearity} has some problems.
-First, the estimation of the supply equation lacks an excluded demand shifter.
+First, their estimation of the supply equation lacks an excluded demand shifter.
 Second, the paper does not check the effect of increasing the sample size. 
 
 %現状 - 2%
 As for the log-linear model, which is recommended by \cite{perloff2012collinearity} as a valid specification for identification, the identification strategy is provided by \citet{lau1982identifying}.
 %問題 - 2%
-\cite{hyde1995can} conduct a simulation of the model, but the paper does not show the simulation result itself, but the result of hypothesis tests based on the simulation result.
+\cite{hyde1995can} conduct a simulation of the model, but the paper does not show the simulation result itself. Instead, the result of hypothesis tests based on the simulation result.
 However, the simulation still has the same problem in \cite{perloff2012collinearity} because it lacks the demand shifter in the supply-side estimation.
 
 %結果%
@@ -251,9 +250,9 @@ But when we modified the code so that regress $Z^R_tQ_t$ on the instrument varia
 
 To conduct the simulation of the log-linear model, we also generate 1000 data sets by using R. 
 Since the demand equation is linear, we estimate the demand parameters as in the linear model.
-In contrast, the supply side equation is nonlinear, and hence we apply the generalized method of moments with the moment condition $E[Z_{ct} \varepsilon_{ct}] = 0$.
+In contrast, the supply side equation is nonlinear, and hence we apply the generalized method of moments (GMM) with the moment condition $E[Z_{ct} \varepsilon_{ct}] = 0$.
 Note that for the supply estimation, we substitute the demand estimation result.
-The GMM estimator is obtained as a solution to the minimization problem.
+The GMM estimator is obtained as a solution to the minimization problem.\footnote{See Ch.14 of \citet{wooldridge2010econometric} for the detail.}
 To solve the minimization problem, we use Julia.
 We formulate the minimization problem via \texttt{JuMP} and solve the problem by using the nonlinear solver \texttt{IPOPT.jl}.
 
@@ -389,9 +388,9 @@ We provide the reason why estimated conduct parameter $\theta$ has large standar
 
 \begin{figure}[!htbp]
   \begin{center}
-  \includegraphics[width = 0.45\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}
-  \includegraphics[width = 0.45\textwidth]
+  \includegraphics[width = 0.65\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}\\
+  \includegraphics[width = 0.65\textwidth]
   {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}
   \caption{Estimated conduct parameter $\theta$.}
   \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
@@ -452,7 +451,7 @@ In summary, we conclude that only the linear model can achieve a proper estimati
     
 \section{Conclusion}
 
-We revisit the conduct parameter estimation in homogeneous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. Based on numerical investigation, we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
+We revisit the conduct parameter estimation in homogeneous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. We also show that log linear model recommended by \cite{perloff2012collinearity} has another identification problem. Based on numerical investigation, we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
 
 
 \bibliographystyle{aer}
