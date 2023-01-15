@@ -487,6 +487,12 @@ create_table_loglinear_with_demand_shifter <-
     new_rows <-
       rbind(locally_solved_row,
             sample_size_row)
+    # pick up locally solved id
+    target_data <-
+      target_data %>% 
+       dplyr::filter(
+         status_indicator == 1
+       )
     target_data %>%
       modelsummary::datasummary(
         f_with_demand_shifter,
