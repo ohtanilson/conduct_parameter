@@ -3,6 +3,7 @@
 \usepackage{amsmath,setspace,geometry}
 \usepackage{amsfonts}
 \usepackage[shortlabels]{enumitem}
+\usepackage{adjustbox}
 %\usepackage[dvipdfmx]{hyperref,graphicx}
 \usepackage{graphicx}
 \usepackage{bbm}
@@ -314,7 +315,7 @@ But as the sample size increases, the standard deviation is dramatically improve
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Estimation results without demand shifter}
+      \caption{Estimation results of the linear model without demand shifter}
       \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
       \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
       \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
@@ -325,7 +326,7 @@ But as the sample size increases, the standard deviation is dramatically improve
 \begin{table}[!htbp]
   \ContinuedFloat  %% <-- new
   \begin{center}
-      \caption{Estimation results without demand shifter}
+      \caption{Estimation results of the linear model without demand shifter (Continued)}
       \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
       \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
     \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
@@ -335,7 +336,7 @@ But as the sample size increases, the standard deviation is dramatically improve
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Estimation results with demand shifter}
+      \caption{Estimation results of the linear model with demand shifter}
       \label{tb:linear_linear_sigma_1} 
       \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001}}\\
       \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5}}\\
@@ -346,7 +347,7 @@ But as the sample size increases, the standard deviation is dramatically improve
 \begin{table}[!htbp]
   \ContinuedFloat  %% <-- new
   \begin{center}
-      \caption{Estimation results with demand shifter (Continued)}
+      \caption{Estimation results of the linear model with demand shifter (Continued)}
       \label{tb:linear_linear_sigma_1} 
       \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1}}\\
     \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2}}
@@ -362,48 +363,48 @@ The means of the conduct parameter take some extreme values in each panel.
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Estimation results with demand shifter without $[0,1]$ constraint on $\theta$ (log-linear)}
+      \caption{Estimation results of the log-lienar model with demand shifter}
       \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint} 
       \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint.tex}}\\
       \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint}}\\
   \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ We omit the case of $n=1000$ and $\sigma=1,2$ for the sake of a space.
 \end{table} 
 
-\begin{table}[!htbp]
-  \ContinuedFloat  %% <-- new
-  \begin{center}
-      \caption{Estimation results with demand shifter without $[0,1]$ constraint on $\theta$ (log-linear) (Continued)}
-      \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint} 
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint}}
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{table} 
+\begin{adjustbox}{angle=90}
+    \begin{table}[!htbp]
+       \ContinuedFloat  %% <-- new
+       \begin{center}
+           \caption{Estimation results of the log-lienar model with demand shifter (Continued)}
+           \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint} 
+           \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint}}\\
+         \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint}}
+       \end{center}\footnotesize
+       Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ We omit the case of $n=1000$ for the sake of a space.
+     \end{table} 
+\end{adjustbox}
 
 
+%\begin{table}[!htbp]
+%  \begin{center}
+%      \caption{Estimation results with demand shifter with $[0,1]$ constraint on $\theta$ (log-linear)}
+%      \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint} 
+%      \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint.tex}}\\
+%      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint}}\\
+%  \end{center}\footnotesize
+%  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+%\end{table} 
 
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{Estimation results with demand shifter with $[0,1]$ constraint on $\theta$ (log-linear)}
-      \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint.tex}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint}}\\
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{table} 
-
-\begin{table}[!htbp]
-  \ContinuedFloat  %% <-- new
-  \begin{center}
-      \caption{Estimation results with demand shifter with $[0,1]$ constraint on $\theta$ (log-linear) (Continued)}
-      \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint} 
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint}}
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{table} 
-
+%\begin{table}[!htbp]
+%  \ContinuedFloat  %% <-- new
+%  \begin{center}
+%      \caption{Estimation results with demand shifter with $[0,1]$ constraint on $\theta$ (log-linear) (Continued)}
+%      \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint} 
+%      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint}}\\
+%    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint}}
+%  \end{center}\footnotesize
+%  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+%\end{table} 
 
 \section{A problem in log-linear demand specification}
 
