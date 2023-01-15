@@ -105,6 +105,7 @@
 ## Next Meeting
 - 表記ブレ、Z_{t}^{R}, inverse demand function or demand function, log linear or log-linear
 - 表記直し、\varepsilon_{dt},\varepsilon_{ct}, w, r
+- 文頭のButはダメ。パラグラフ頭のHoweverもだめ。
 
 ## second draft issue (Isabelleに訊いてみる)
 - DGPを変えて実験して解決策が見つかるか？rotation IVの分散を上げる
