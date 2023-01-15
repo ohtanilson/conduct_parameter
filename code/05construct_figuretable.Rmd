@@ -466,8 +466,8 @@ create_table_loglinear_with_demand_shifter <-
         "Sample size (n)",
         "",
         "50",
-        "",
-        "100",
+        # "",
+        # "100",
         "",
         "200")
     locally_solved_row <- 
@@ -475,8 +475,8 @@ create_table_loglinear_with_demand_shifter <-
         "Solved (\\%)",
         "",
         locally_solved_list[1,2],
-        "",
-        locally_solved_list[2,2],
+        # "",
+        # locally_solved_list[2,2],
         "",
         locally_solved_list[3,2])
     }
@@ -619,8 +619,8 @@ create_table_loglinear_with_demand_shifter(
 loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <-
   rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
         loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint#,
-        #loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint
+        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint
@@ -629,8 +629,8 @@ create_table_loglinear_with_demand_shifter(
 loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <-
   rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
         loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint#,
-        #loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint
+        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint
@@ -639,8 +639,8 @@ create_table_loglinear_with_demand_shifter(
 loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <-
   rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
         loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint#,
-        #loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint
+        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint
