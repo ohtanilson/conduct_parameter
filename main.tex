@@ -198,11 +198,11 @@ The log demand equation and log marginal cost are given as:
 \end{align}
 Since $\partial P_t/\partial Q_t = - (\alpha_1 + \alpha_2 Z^R) (P_t/Q_t) $, \textcolor{blue}{the supply equation is given as:}
 \begin{align}
-    P_t &= \theta_t (\alpha_1 + \alpha_2 Z^R_t) \frac{P_t}{Q_t} Q_t + mc_t.\label{eq:log_linear_supply_equation}
+    P_t &= \theta_t (\alpha_1 + \alpha_2 Z^R_t) \frac{P_t}{Q_t} Q_t + mc_t.\label{eq:supply_equation_loglinear}
 \end{align}
 \textcolor{blue}{By taking logarithm???}, we obtain
 \begin{align}
-    \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct} \label{eq:supply_equation_loglinear}
+    \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct} \label{eq:log_linear_supply_equation}
 \end{align}
 By substituting the log linear demand equation \eqref{eq:log_linear_demand} into the supply equation \eqref{eq:log_linear_supply_equation}, the log aggregate quantity is given as 
 \begin{align}
@@ -408,20 +408,32 @@ But as the sample size increases, the standard deviation is dramatically improve
 
 
 \subsection{Log demand and log marginal cost}
-Table \ref{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint} provides the simulation results of log-linear demand specifications with a demand shifter. 
+Table \ref{tb:loglinear_loglinear_non_constraint} provides the simulation results of log-linear demand specifications with a demand shifter. 
 We can see that the estimation of the conduct parameter \eqref{eq:supply_equation_loglinear} fails as $\sigma$ becomes large. 
 When the standard deviation $\sigma = 0.001$, the estimation results are accurate as in the linear model.
 However, when $\sigma$ becomes larger, the mean and the standard deviation of the conduct parameter estimator take unrealistic values.
-As the sample size increase, the standard deviation becomes small, but still quite large.
+As the sample size increase, the standard deviation becomes small, but these are still quite large.
 
+Figure \ref{fg:histogram_loglinear_loglinear_no_constraint} illustrates the histograms of the conduct parameter from all simulations.
+Panel (a) and (b) fix the sample size in each simulation as 1000 but each panel has different values of the standard deviation, $\sigma = 0.5$ and $2$.
+In each panel, the histograms have a peak abound the true parameter, but we also see samples whose values are either less than zero or larger than one.
+Note that theoretically, the conduct parameter takes values between zero and one.
+When $\sigma = 0.5$, no estimation result exceeds one, but we have values less than zero.
+About 21\% of the simulations are out of $[0,1]$.
+When $\sigma = 2$, more results are out of $[0,1]$, which is about 50\% of the simulations.
+In both histograms, the minimum value is XXXX.
 
+Previous papers also point out that the value of the conduct parameter estimation falls in out of $[0,1]$.
+For example, \citet{okazaki2022excess} estimate the conduct parameter with a log-linear model in their appendix and show that estimated $\theta$ is out of $[0,1]$.
+The authors state that the conduct parameter estimation is imprecise.
+In the next section, we will discuss why such extreme values happen.
 
-
+%Table: Estimation result of log-linear model
 \begin{landscape}
     \begin{table}[!htbp]
       \begin{center}
           \caption{Estimation results of the log linear model with demand shifter}
-          \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint} 
+          \label{tb:loglinear_loglinear_non_constraint} 
           \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint.tex}}\\
           \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint}}\\
       \end{center}\footnotesize
@@ -442,6 +454,20 @@ As the sample size increase, the standard deviation becomes small, but still qui
     \end{table} 
 \end{landscape}
 
+
+%Figure: histogram of the estimation result of log-linear model
+\begin{figure}[!htbp]
+  \begin{center}
+  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}}\\
+  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}}
+  \caption{Histograms of the estimation result of the conduct parameter.}
+  \label{fg:histogram_loglinear_loglinear_no_constraint} 
+  \end{center}
+  \footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{figure}
 
 
 
@@ -470,20 +496,7 @@ As the sample size increase, the standard deviation becomes small, but still qui
 
 
 
-\begin{figure}[!htbp]
-  \begin{center}
-  \subfloat[]{\includegraphics[width = 0.7\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}}\\
-  \subfloat[]{\includegraphics[width = 0.7\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}}
-  \caption{Estimated conduct parameter $\theta$.}
-  \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
-  \end{center}
-  \footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
-\end{figure} 
-
-
+% The Contour map of the GMM objective function
 \begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width = 0.45\textwidth]
@@ -498,42 +511,30 @@ As the sample size increase, the standard deviation becomes small, but still qui
 \end{figure} 
 
 
-
-We provide the reason why the estimated conduct parameter has a large standard deviation even if the sample size increases. 
-Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2} illustrates histograms of the conduct parameter from all simulations.
-Panel (a) and (b) fix the sample size in each simulation as 1000 but each panel has different values of the standard deviation, $\sigma = 0.5$ and $2$.
-Each panel has two histograms of the conduct parameter from the estimation with and without parameter constraint $\theta \in [0,1]$.
-
-As for without constraint, the histogram has a peak abound the true parameter, but we also see samples whose values are less than zero and larger than one.
-Note that theoretically, the range of the conduct parameter is between zero and one. 
-While the range of the histograms is $\theta \in [-2, 3]$,  we also observe extreme values such as $\hat{\theta} = -10^{15}$ and $10^{8}$.
-
-% About XX% of simulation result is out of the theoretical parameter range [0,1].
+First, note that in Table \ref{tb:loglinear_loglinear_non_constraint}, the mean of $\gamma_0$, which is the constant term in the log-linear marginal cost function, is also away from the true parameter and the standard deviation is also large compared with other marginal cost parameters. 
+Recall that the first and the second term in the supply equation \eqref{eq:log_linear_supply_equation} is $-\log(1 - \theta(\alpha_1 + \alpha_2 Z_t^R)) + \gamma_0$.
+As the first term is always negative, for any negative value of $\theta$, we can find a value of $\gamma_0$ that cancel out the first and the second term each other.
+Especially when the other estimated parameters are close to the true value, by adjusting the value of $\theta$ and $\gamma_0$ so as to cancel out the first and the second term, we can make the value of the GMM objective function under the estimated parameters close to the value of the GMM objective function under the true parameter.
 
 
-Why do such extreme values happen without the parameter constraint?
 Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} illustrates the contour map of the GMM objective function  with respect to $\gamma_0$ and $\theta$.
 To draw the map, we fix the other demand and cost parameter values to the true values and set the grid size to 0.01.
-we can see that the contour map has a flat region around the true parameters.
-Especially, even though we change the value of $\theta$, the GMM value does not change around the true value of $\gamma_0$.
+We can see that the contour map has a flat region around the true parameters.
+Especially, even though we vary the value of $\theta$, the GMM value does not change around the true value of $\gamma_0$.
 
 As we mentioned, the value of the estimator of the conduct parameter can take very large or very small values.
 Do such values minimize the GMM objective function?
 To check this, for each simulation, we the absolute difference between the true parameter values and the value of the estimators and the absolute difference between the value of the GMM objective function under the true parameter values and the estimation result.
 Figure \ref{fg:diff_gmm_loglinear_loglinear} shows the plot of these differences. 
-Each dot corresponds to each simulation and the color of each dot represents the value of the difference. 
-The darker a dot is, the lower the difference is.
-We expect that when the difference between the true parameter value and the estimation result is small, the difference of the value of the GMM function is samll, which implies that the color of the dot is darker. 
+Each dot corresponds to each simulation and the color of each dot represents the value of the difference of the GMM objective function. 
+The darker a dot is, the smaller the difference is.
+We expect that when the difference between the true parameter value and the estimation result is small, the difference in the value of the GMM function is small, which implies that the color of the dot is darker. 
 However, we can see dark dots even when the difference in the conduct parameter is large.
 For example, when $\sigma = 0.5$, dark dots appear when the difference is more than 5000.
 Furthermore, when $\sigma = 2$, dark dots appear even when the difference is more than 100,000.
 
-While \citet{lau1982identifying} shows the joint identification result of the conduct parameter and the cost parameter in a general case, given Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} and \ref{fg:diff_gmm_loglinear_loglinear}, we see that the estimation of the conduct parameter and the cost parameter without imposing parameter restriction faces difficulties.
 
-
-
-
-
+% The difference between the GMM under the true and the estimated
 \begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width = 0.45\textwidth]
@@ -548,10 +549,33 @@ While \citet{lau1982identifying} shows the joint identification result of the co
 \end{figure} 
 
 
+While \citet{lau1982identifying} shows the joint identification result of the conduct parameter and the cost parameter in a general case, given Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} and \ref{fg:diff_gmm_loglinear_loglinear}, we see that the estimation of the conduct parameter and the cost parameter  become imprecise.
+Then, the next question is if we can obtain accurate results by imposing the parameter restriction, $[0,1]$.
+Our conclusion is no.
+
+Figure \ref{fg:histogram_loglinear_loglinear_with_constraint} puts the histograms of the result of the conduct parameter estimation with parameter constraint on Figure \ref{fg:histogram_loglinear_loglinear_no_constraint}.
+For the values in $(0,1)$, the shape of histogram is the same with Figure XXXXXX, but we can see the spike at $\theta = 0$ and $\theta = 1$.
+This is simply because the estimation results out of the bound
 
 
-The above results that $\theta$ estimated by OLS, i.e., without $[0,1]$ domain restriction on $\theta$ can be out of $[0,1]$ are known to the literature. 
-For example, \cite{okazaki2022excess} show that estimated $\theta$ is out of $[0,1]$ and the authors explain that conduct parameter estimation is imprecise.
+%Figure: histogram of the estimation result of log-linear model
+\begin{figure}[!htbp]
+  \begin{center}
+  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_theta_constraint.pdf}}\\
+  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_theta_constraint.pdf}}
+  \caption{Histograms of the conduct parameter with and without constraint.}
+  \label{fg:histogram_loglinear_loglinear_with_constraint} 
+  \end{center}
+  \footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
+\end{figure}
+
+
+
+
+
 
 
 
@@ -569,10 +593,6 @@ Thus, the suggestion of log-linear specification in \cite{perloff2012collinearit
 
 
 
-Next, Figure %constraint付きのヒストグラム
-is the histograms of the conduct parameter from the estimations with parameter constraint, $\theta \in [0,1]$.
-For the values in $(0,1)$, the shape of histogram is the same with Figure XXXXXX, but we can see the spike at $\theta = 0$ and $\theta = 1$.
-This is simply because the estimation results out of the bound
 
 
 
