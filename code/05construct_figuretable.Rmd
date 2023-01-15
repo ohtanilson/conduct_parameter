@@ -445,7 +445,7 @@ create_table_loglinear_with_demand_shifter <-
         "1000")
     locally_solved_row <- 
       data.frame(
-        "Solved (%)",
+        "Solved (\\%)",
         "",
         locally_solved_list[1,2],
         "",
