@@ -16,7 +16,7 @@ rm(list = ls())
 library(magrittr)
 library(ggplot2)
 # we need to use old version of modelsummary for latex output
-if(1 == 1){
+if(1 == 0){
   devtools::install_version(
     "modelsummary",
     version = "0.9.4", 
@@ -28,7 +28,8 @@ n_observation_list <-
   c(50, 100, 200, 1000)
 sigma_list <-
   c(0.001, 0.5, 1.0, 2.0)
-# with demand shifter
+
+# linear with demand shifter
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -98,92 +99,7 @@ for(nn in 1:length(n_observation_list)){
   }
 }
 
-for(nn in 1:length(n_observation_list)){
-  for(ss in 1:length(sigma_list)){
-    temp_nn <-
-      n_observation_list[nn]
-    temp_sigma <-
-      sigma_list[ss]
-    filename <-
-      paste(
-        "loglinear_loglinear_",
-        "n_",
-        temp_nn,
-        "_sigma_",
-        temp_sigma,
-        sep = ""
-      )
-    temp_data <-
-      readr::read_csv(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table_",
-                    filename,
-                    ".csv",
-                    sep = ""
-                    )
-                  )
-              )
-    # drop T and sigma
-    temp_data <-
-      temp_data[,-c(1,2,12)]
-    colnames(temp_data) <-
-      c("alpha0_hat",
-        "alpha1_hat",
-        "alpha2_hat",
-        "alpha3_hat",
-        "gamma0_hat",
-        "gamma1_hat",
-        "gamma2_hat",
-        "gamma3_hat",
-        "theta_hat")
-    temp_data <-
-      temp_data %>% 
-      dplyr::rename(
-        `$\\alpha_{0}$` =
-          alpha0_hat,
-        `$\\alpha_{1}$` =
-          alpha1_hat,
-        `$\\alpha_{2}$` =
-          alpha2_hat,
-        `$\\alpha_{3}$` =
-          alpha3_hat,
-        `$\\gamma_{0}$` =
-          gamma0_hat,
-        `$\\gamma_{1}$` =
-          gamma1_hat,
-        `$\\gamma_{2}$` =
-          gamma2_hat,
-        `$\\gamma_{3}$` =
-          gamma3_hat,
-        `$\\theta$` =
-          theta_hat#,
-        # `$R^{2}$ (demand)` =
-        #   R2_demand,
-        # `$R^{2}$ (supply)` =
-        #   R2_supply
-        ) %>% 
-      dplyr::mutate(
-        filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                )
-        )
-    assign(
-      filename,
-      temp_data) 
-  }
-}
-
-
-
-# without demand shifter
+# linear without demand shifter
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -253,6 +169,113 @@ for(nn in 1:length(n_observation_list)){
       temp_data)
   }
 }
+constraint_list <-
+  c("_separate_non_constraint_non_constraint",
+    "_separate_non_constraint_theta_constraint")
+# loglinear with constraint
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    for(cc in 1:length(constraint_list)){
+      temp_nn <-
+        n_observation_list[nn]
+      temp_sigma <-
+        sigma_list[ss]
+      temp_constraint <-
+        constraint_list[cc]
+      filename <-
+        paste(
+          "loglinear_loglinear_",
+          "n_",
+          temp_nn,
+          "_sigma_",
+          temp_sigma,
+          temp_constraint,
+          sep = ""
+          )
+      temp_data <-
+        readr::read_csv(
+          file =
+            here::here(
+              paste(
+                "output/",
+                "parameter_hat_table_",
+                filename,
+                ".csv",
+                sep = ""
+                )
+              ),
+          show_col_types = FALSE
+          )
+      # drop T, sigma, status
+      temp_data <-
+        temp_data[
+          ,-c(1, # T
+              2, # sigma
+              12 # status
+              )]
+      colnames(temp_data) <-
+        c("alpha0_hat",
+          "alpha1_hat",
+          "alpha2_hat",
+          "alpha3_hat",
+          "gamma0_hat",
+          "gamma1_hat",
+          "gamma2_hat",
+          "gamma3_hat",
+          "theta_hat",
+          "status_indicator")
+      temp_data <-
+        temp_data %>% 
+        dplyr::rename(
+          `$\\alpha_{0}$` =
+            alpha0_hat,
+          `$\\alpha_{1}$` =
+            alpha1_hat,
+          `$\\alpha_{2}$` =
+            alpha2_hat,
+          `$\\alpha_{3}$` =
+            alpha3_hat,
+          `$\\gamma_{0}$` =
+            gamma0_hat,
+          `$\\gamma_{1}$` =
+            gamma1_hat,
+          `$\\gamma_{2}$` =
+            gamma2_hat,
+          `$\\gamma_{3}$` =
+            gamma3_hat,
+          `$\\theta$` =
+            theta_hat#,
+        # `$R^{2}$ (demand)` =
+        #   R2_demand,
+        # `$R^{2}$ (supply)` =
+        #   R2_supply
+        ) %>% 
+      dplyr::mutate(
+        filename =
+          paste("(",
+                nn,
+                ") ",
+                "$n=",
+                temp_nn,
+                "$",
+                sep = ""
+                ),
+        locally_solved_percent =
+          sum(status_indicator,
+              na.rm = TRUE)/
+          dim(temp_data)[1]
+        )
+    assign(
+      filename,
+      temp_data) 
+    
+    }
+  }
+}
+
+
+
+
 
 create_table_with_demand_shifter <-
   function(target_data){
@@ -269,7 +292,6 @@ create_table_with_demand_shifter <-
   `$R^{2}$ (demand)`+
   `$R^{2}$ (supply)` ) ~
   filename * (Mean + SD)*Arguments(na.rm = TRUE)
-    
     filelocation <-
       paste("figuretable/",
                 deparse(
@@ -315,68 +337,6 @@ create_table_with_demand_shifter <-
     return(res)
   }
 
-
-create_table_loglinear_with_demand_shifter <-
-  function(target_data){
-    f_with_demand_shifter <-
-  (`$\\alpha_{0}$` +
-  `$\\alpha_{1}$`+
-  `$\\alpha_{2}$`+
-  `$\\alpha_{3}$`+
-  `$\\gamma_{0}$`+
-  `$\\gamma_{1}$`+
-  `$\\gamma_{2}$`+
-  `$\\gamma_{3}$`+
-  `$\\theta$`#+
-  #`$R^{2}$ (demand)`+
-  #`$R^{2}$ (supply)` 
-  ) ~
-  filename * (Mean + SD)*Arguments(na.rm = TRUE)
-    
-    filelocation <-
-      paste("figuretable/",
-                deparse(
-                  substitute(
-                    target_data
-                    )
-                  ),
-                as.character(),
-                ".tex",
-                sep = "")
-    new_rows <- 
-      data.frame(
-        "Sample size (n)",
-        "",
-        "50",
-        "",
-        "100",
-        "",
-        "200",
-        "",
-        "1000")
-    target_data %>%
-      modelsummary::datasummary(
-        f_with_demand_shifter,
-        escape = FALSE,
-        fmt = 3,
-        data = .,
-        add_rows = new_rows,
-        output = "latex_tabular"
-        ) %>%
-      gsub("\\multicolumn.*\\\\", "", .) %>%
-      kableExtra::save_kable(
-        file = here::here(
-          filelocation)
-        )
-    res <-
-      modelsummary::datasummary(
-        f_with_demand_shifter,
-        data = target_data,
-        fmt = 3,
-        add_rows = new_rows,
-        notes = filelocation)
-    return(res)
-  }
 
 
 
@@ -439,6 +399,92 @@ create_table_without_demand_shifter <-
         notes = filelocation)
     return(res)
   }
+
+create_table_loglinear_with_demand_shifter <-
+  function(target_data){
+    f_with_demand_shifter <-
+  (`$\\alpha_{0}$` +
+  `$\\alpha_{1}$`+
+  `$\\alpha_{2}$`+
+  `$\\alpha_{3}$`+
+  `$\\gamma_{0}$`+
+  `$\\gamma_{1}$`+
+  `$\\gamma_{2}$`+
+  `$\\gamma_{3}$`+
+  `$\\theta$`#+
+  #`$R^{2}$ (demand)`+
+  #`$R^{2}$ (supply)` 
+  ) ~
+  filename * (Mean + SD)*Arguments(na.rm = TRUE)
+    filelocation <-
+      paste("figuretable/",
+                deparse(
+                  substitute(
+                    target_data
+                    )
+                  ),
+                as.character(),
+                ".tex",
+                sep = "")
+    locally_solved_list <-
+      target_data %>% 
+      dplyr::distinct(
+        filename,
+        locally_solved_percent
+      )
+    sample_size_row <-
+      data.frame(
+        "Sample size (n)",
+        "",
+        "50",
+        "",
+        "100",
+        "",
+        "200",
+        "",
+        "1000")
+    locally_solved_row <- 
+      data.frame(
+        "Solved (%)",
+        "",
+        locally_solved_list[1,2],
+        "",
+        locally_solved_list[2,2],
+        "",
+        locally_solved_list[3,2],
+        "",
+        locally_solved_list[4,2])
+    # keep consistency of colnames for latex
+    colnames(locally_solved_row) <-
+      colnames(sample_size_row)
+    new_rows <-
+      rbind(locally_solved_row,
+            sample_size_row)
+    target_data %>%
+      modelsummary::datasummary(
+        f_with_demand_shifter,
+        escape = FALSE,
+        fmt = 3,
+        data = .,
+        add_rows = new_rows,
+        output = "latex_tabular"
+        ) %>%
+      gsub("\\multicolumn.*\\\\", "", .) %>%
+      kableExtra::save_kable(
+        file = here::here(
+          filelocation)
+        )
+    res <-
+      modelsummary::datasummary(
+        f_with_demand_shifter,
+        data = target_data,
+        fmt = 3,
+        add_rows = new_rows,
+        notes = filelocation)
+    return(res)
+  }
+
+
 
 options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ```
@@ -529,44 +575,85 @@ create_table_without_demand_shifter(
 ```
 
 
-## log-linear-demand log-linear-cost {.tabset}
+## log-linear-demand log-linear-cost with demand shifter {.tabset}
 
-### with demand shifter {.tabset}
+### _separate_non_constraint_non_constraint {.tabset}
 
 ```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001 <-
-  rbind(loglinear_loglinear_n_50_sigma_0.001,
-        loglinear_loglinear_n_100_sigma_0.001,
-        loglinear_loglinear_n_200_sigma_0.001,
-        loglinear_loglinear_n_1000_sigma_0.001)
+loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter(
-  loglinear_loglinear_sigma_0.001
+  loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint
 )
-loglinear_loglinear_sigma_0.5 <-
-  rbind(loglinear_loglinear_n_50_sigma_0.5,
-        loglinear_loglinear_n_100_sigma_0.5,
-        loglinear_loglinear_n_200_sigma_0.5,
-        loglinear_loglinear_n_1000_sigma_0.5)
+loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter(
-  loglinear_loglinear_sigma_0.5
-)
-
-loglinear_loglinear_sigma_1 <-
-  rbind(loglinear_loglinear_n_50_sigma_1,
-        loglinear_loglinear_n_100_sigma_1,
-        loglinear_loglinear_n_200_sigma_1,
-        loglinear_loglinear_n_1000_sigma_1)
-create_table_loglinear_with_demand_shifter(
-  loglinear_loglinear_sigma_1
+  loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint
 )
 
-loglinear_loglinear_sigma_2 <-
-  rbind(loglinear_loglinear_n_50_sigma_2,
-        loglinear_loglinear_n_100_sigma_2,
-        loglinear_loglinear_n_200_sigma_2,
-        loglinear_loglinear_n_1000_sigma_2)
+loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter(
-  loglinear_loglinear_sigma_2
+  loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
+        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter(
+  loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint
+)
+
+```
+
+
+### _separate_non_constraint_theta_constraint {.tabset}
+
+```{r,echo=FALSE,results = "asis"}
+loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter(
+  loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint
+)
+loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter(
+  loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint
+)
+
+loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_100_sigma_1_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter(
+  loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint
+)
+
+loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint <-
+  rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_100_sigma_2_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
+        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter(
+  loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint
 )
 
 ```
