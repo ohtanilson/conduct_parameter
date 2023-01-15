@@ -345,20 +345,20 @@ In contrast, the supply-side estimation is still biased and the standard deviati
 
 Table \ref{tb:linear_linear_sigma_1_without_demand_shifter_y} shows our replication results.
 Each panel shows the simulation result under different standard deviations of the error terms.
-This result uses the same data generation process with \citet{perloff2012collinearity}, but for the estimation, we complement what the authors do not mention on instrument construction.
+This result uses the same data generation process as \citet{perloff2012collinearity}. However, for the estimation, we complement what the authors do not mention on instrument construction.
 To see if we can correctly replicate the result in \cite{perloff2012collinearity}, let's focus on the first two columns in each panel.
 These two columns show the mean and the standard deviation of the simulation result when the sample size is 50.
 The result is while the demand parameter can be accurately estimated even though the value of $\sigma$ becomes larger, the supply side parameter is biased.
 Especially, when $\sigma$ is large and the sample size is small, the standard deviation of the parameters in the supply-side equation becomes large.
-Thus we can correctly replicate the result in \citet{perloff2012collinearity}.
-As \cite{perloff2012collinearity} fixes its sample size to 50, we also see the effect of changing the sample size.
-As it is expected, the increase in the sample size given a value of $\sigma$ decreases the value of the standard deviation of the parameter in the supply equation.
-But no simulation result is close to the true values of the supply parameter and the conduct parameter.
+\textcolor{blue}{Thus we can correctly replicate the result in \citet{perloff2012collinearity}.}
+As \cite{perloff2012collinearity} fix the sample size to 50, we also see the effect of changing the sample size.
+As expected, increasing the sample size given a value of $\sigma$ decreases the standard deviation of the parameter in the supply equation.
+But no simulation result is close to the true values of the supply parameters and the conduct parameter.
 These results are consistent with \cite{perloff2012collinearity}.
 
 However, we show that their pessimistic result can be easily resolved just by adding a demand shifter and increasing the sample size.
 Table \ref{tb:linear_linear_sigma_1} shows the 2SLS estimation results with the demand shifter.
-The results are based on the simulation setting explained in Section \ref{sec:simulation_and_estimation_setting}.
+The simulation setting is explained in Section \ref{sec:simulation_and_estimation_setting}.
 When $\sigma = 0.001$, Panel (a) shows that the estimation of all parameters is quite accurate.
 Especially, when the sample size is large, the standard deviations of all parameters are less than 0.001.
 When $\sigma = 2$ and the sample size is 50, Panel (d) shows that the supply-side estimation is still biased.
@@ -430,8 +430,7 @@ The authors state that the conduct parameter estimation is imprecise.
 In the next section, we will discuss why such extreme values happen.
 
 %Table: Estimation result of log-linear model
-\begin{landscape}
-    \begin{table}[!htbp]
+\begin{table}[!htbp]
       \begin{center}
           \caption{Estimation results of the log linear model with demand shifter}
           \label{tb:loglinear_loglinear_non_constraint} 
@@ -439,11 +438,9 @@ In the next section, we will discuss why such extreme values happen.
           \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint}}\\
       \end{center}\footnotesize
       Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ 
-    \end{table} 
-\end{landscape}
+\end{table} 
 
-\begin{landscape}
-    \begin{table}[!htbp]
+\begin{table}[!htbp]
         \ContinuedFloat  %% <-- new
             \begin{center}
                 \caption{Estimation results of the log linear model with demand shifter (Continued)}
@@ -453,7 +450,6 @@ In the next section, we will discuss why such extreme values happen.
             \end{center}\footnotesize
         Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ 
     \end{table} 
-\end{landscape}
 
 
 %Figure: histogram of the estimation result of log-linear model
