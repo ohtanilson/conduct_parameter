@@ -47,7 +47,7 @@ Parameter Estimation in Homogeneous Goods Markets\textcolor{blue}{: Linear Model
 \maketitle
 
 \begin{abstract}
-    We revisit the conduct parameter estimation in homogeneous goods market. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. We also investigate log-linear models widely used in Industrial Organization literature and recommended by \cite{perloff2012collinearity} and find other estimation problems. Based on numerical investigation, we recommend using a linear model as a valid specification . %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
+    We revisit the conduct parameter estimation in homogeneous goods market. In contrast to the pessimistic simulation results of linear models shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. We also investigate log-linear models widely used in Industrial Organization literature and recommended by \cite{perloff2012collinearity} and find other estimation problems. Based on numerical investigation, we recommend using a linear model as a valid specification. %As a remedy, we propose MPEC approach \citep{su2012constrained,dube2012improving} for simultaneous equation GMM with inequality constraint and show its robustness to the DGP.
 \end{abstract}
 
 \section{Introduction}
@@ -85,8 +85,8 @@ Given these problems in the simulations, we revisit the estimation of the conduc
 %To fill in the gap between popular specifications in applied economists and theoretical and numerical discussions, we provide unified numerical simulation results.
 First, we replicate the result in \cite{perloff2012collinearity} by complementing some details which they did not mention on instrument construction. 
 We confirm that the accuracy of the estimation holds by including a demand shifter in the supply equation estimation properly. 
-Given the standard deviation of the error terms, when the sample size is more than 100, the accuracy of the estimation is also improved.
-In this sense, \cite{perloff2012collinearity} provides correct theoretical results but incorrect numerical simulation results.
+Given the standard deviation of the error terms fixed, when the sample size is more than 100, the accuracy of the estimation is also improved.
+In this sense, \cite{perloff2012collinearity} provides correct theoretical results, but incorrect numerical simulation results.
 
 Second, we conduct the simulation of the model with log-linear demand and log-linear marginal cost that is suggested by \cite{perloff2012collinearity}. 
 We numerically show that standard OLS regression estimates an incorrect conduct parameter out of range of $[0,1]$ because the specification may add another identification problem of the conduct parameter and constant term of marginal costs. 
@@ -99,14 +99,14 @@ The researcher has data with $T$ markets with homogeneous products.
 Assume that there are $N_t$ firms in each market.
 Let $t = 1,\ldots, T$ be the index of markets and $j = 1, \ldots, N_t$ be the index of firms in market $t$.
 Firm $j$ solves a profit maximization problem such that
-\begin{align}
+\begin{align*}
     \max_{q_{jt}} \ \pi_{jt}(q_{jt}, q_{-jt}) \equiv (P(Q_t) - mc_{jt}(q_{jt}))q_{jt},\nonumber
-\end{align}
+\end{align*}
 where $Q_t = \sum_{j = 1}^{N_t} q_{jt}$ is the aggregate quantity, $P(Q_t)$ the inverse demand function, and $mc_{jt}(q_{jt})$ the marginal cost function.
 From the maximization problem, we obtain the first-order condition,
-\begin{align}
+\begin{align*}
     0 = P(Q_{t}) - mc_{jt}(q_{jt}) + \theta_i P'(Q_{t})q_{jt},\nonumber
-\end{align}
+\end{align*}
 where $\theta_{it} = 1 + \sum_{k\ne j}\frac{\partial q_{kt}}{\partial q_{jt}}$, which is called conduct parameter.
 \textcolor{blue}{By summing up the first-order condition across firms}, we obtain the supply equation 
 \begin{align}
@@ -130,30 +130,30 @@ The identification of the conduct parameter in a linear model is considered by \
 Here we review the identification in \cite{bresnahan1982oligopoly} to see the importance of an instrument variable called the demand rotation IV.
 
 Assume that the demand function \eqref{eq:demand} and the marginal cost function \eqref{eq:marginal_cost} are linear
-\begin{align}
+\begin{align*}
     P_{t}=\alpha_0 - \alpha_1 Q_{t} + \alpha_2 Y_t + \varepsilon_{dt},\\
     MC_{t} = \gamma_0 + \gamma_1 Q_t + \gamma_3 W_t + \varepsilon_{ct}.
-\end{align}
+\end{align*}
 As we have the demand-side instruments $Z_{dt}$, we can identify the parameters in the demand equation easily and regard the value of the parameters as given.
 Now consider the identification of the parameter in the supply equation.
 By substituting $\partial P_t/\partial Q_t = - \alpha_1$ into the supply equation \eqref{eq:supply_relation}, we obtain
-\begin{align}
+\begin{align*}
     P_{t}&=\gamma_0+\gamma_1 Q_t + \theta\alpha_1 Q_t + \gamma_3 Y_t + \varepsilon_{ct} =\gamma_0+\left(\gamma_1- \theta\alpha_1\right) Q_t + \gamma_3 Y_t + \varepsilon_{ct} \nonumber
-\end{align}
+\end{align*}
 Then, the value of $(\gamma_1- \theta\alpha_1)$ is identified, but $\theta$ and $\gamma_1$ cannot be identified separately.
 
 \cite{bresnahan1982oligopoly} provides the trick to identify $\theta$. 
 Assume that the inverse demand is given as 
-\begin{align}
+\begin{align*}
     P_{t}=\alpha_0 - (\alpha_1+\alpha_2 Z^R_t) Q_{t} + \alpha_3 Y_t + \varepsilon_{dt},
-\end{align}
+\end{align*}
 where $Z^R_t$ is called demand rotation IV.
 Again, the demand parameters are identified.
 By substituting $\partial P_t/\partial Q_t = -(\alpha_1+\alpha_2 Z^R_t)$ into the supply equation \eqref{eq:supply_relation}, we obtain
-\begin{align}
+\begin{align*}
     P_{t}&=\gamma_0+\gamma_1 Q_t + \theta (\alpha_1+\alpha_2 Z^R_t) Q_t + \gamma_3 W_t + \varepsilon_{ct} \nonumber\\
     &= \gamma_0 + (\gamma_1 + \theta \alpha_1) Q_t + \theta\alpha_1 Z^R_tQ_t + \gamma_3 W_t + \varepsilon_{ct}   \nonumber
-\end{align}
+\end{align*}
 Since $\alpha_1$ and $\alpha_2$ are identified from the demand equation and $(\gamma_1 + \theta\alpha_1)$ and $\theta \alpha_1$ are identified, we can identify $\theta$ and $\gamma_1$ separately.
 
 
@@ -172,9 +172,9 @@ where $w_t$ and $r_t$ are excluded cost shifter.
     P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^R_t)+ \gamma_1] Q_t   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}\label{eq:linear_supply_equation}
 \end{align}
 By substituting the linear demand equation \eqref{eq:linear_demand} into the supply equation \eqref{eq:linear_supply_equation}, we can represent the aggregate quantity $Q_t$ based on the parameters and the exogenous variables as   
-\begin{align}
+\begin{align*}
     Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + \varepsilon_{dt} - \varepsilon_{ct}}{(1 + \theta) (\alpha_1 + \alpha_2Z^R_t) + \gamma_1}.
-\end{align}
+\end{align*}
 
 Assume that the exogenous and instrument variables are drawn from normal distributions; $ Y_t \sim N(0,1)$, $w_t \sim N (3, 1)$, $r_t \sim N (0, 1)$, $ Z^R_t \sim N (10, 1)$.
 \textcolor{blue}{As additional instruments, two random variables are created by adding an additional random variable drawn from the standard normal distribution to $w_t$ and $r_t$, which is denoted by $h_t$ and $k_t$.}
@@ -197,17 +197,17 @@ The log demand equation and log marginal cost are given as:
     \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.\label{eq:log_linear_marginal_cost}
 \end{align}
 Since $\partial P_t/\partial Q_t = - (\alpha_1 + \alpha_2 Z^R) (P_t/Q_t) $, \textcolor{blue}{the supply equation is given as:}
-\begin{align}
-    P_t &= \theta_t (\alpha_1 + \alpha_2 Z^R_t) \frac{P_t}{Q_t} Q_t + mc_t.\label{eq:supply_equation_loglinear}
-\end{align}
+\begin{align*}
+    P_t &= \theta_t (\alpha_1 + \alpha_2 Z^R_t) \frac{P_t}{Q_t} Q_t + mc_t.
+\end{align*}
 \textcolor{blue}{By taking logarithm???}, we obtain
 \begin{align}
     \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct} \label{eq:log_linear_supply_equation}
 \end{align}
 By substituting the log linear demand equation \eqref{eq:log_linear_demand} into the supply equation \eqref{eq:log_linear_supply_equation}, the log aggregate quantity is given as 
-\begin{align}
+\begin{align*}
     \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^R_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t + \varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z^R_t }.
-\end{align}
+\end{align*}
 
 
 % Assume that the exogenous in the cost side and instrument variables are drawn from uniform distributions; $w \sim U(1,3)$, $r \sim U(0,1)$, and $Z \sim U(0, 1)$. 
@@ -219,7 +219,8 @@ By substituting the log linear demand equation \eqref{eq:log_linear_demand} into
 \subsection{Parameter and distribution setting}
 
 We set the true parameters and distributions as in Table \ref{tb:parameter_setting}. 
-As for the linear specification, we follow the setting of \cite{perloff2012collinearity} \textcolor{blue}{except for the coefficient of the demand shifter XXX.}
+As for the linear specification, we follow the setting of \cite{perloff2012collinearity} \textcolor{blue}{The paper does not provide any details of construction of a demand shifter. We compare the model without and with a demand shifter.}
+
 As for the log linear specification, we need to use different DGP from the linear specification to generate reasonable data through the logarithmic transformation. 
 We confirm that the both settings provide downward log demand curves.
 The similar specification is investigated in \cite{hyde1995can}.
@@ -246,7 +247,7 @@ We change the value of $\sigma$ to see how the variation of the error terms affe
             \hline
         \end{tabular}
     }
-    \subfloat[Distribution]{
+    \subfloat[Distributions]{
     \begin{tabular}{crr}
             \hline
             & linear & log linear \\
@@ -276,10 +277,10 @@ We change the value of $\sigma$ to see how the variation of the error terms affe
 
 % \subsubsection{Estimation in Hyde and Perloff (1995)}
 % The demand and supply equations are
-% \begin{align}
+% \begin{align*}
 %     &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt},\\
 %     &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
-% \end{align}
+% \end{align*}
 % As we can immediately see, the supply equation is a nonlinear equation.
 % We assume two moment conditions $E[Z_{dt} \varepsilon_{dt}] = \bm0 $ and $ E[Z_{ct} \varepsilon_{ct}] =\bm0$ where $Z_{dt}$ is the vector of instruments for the demand equation and $Z_{ct}$ the vector of instruments for the supply equation.
 % Based on the moment conditions, we can apply the generalized method of moments.
@@ -458,9 +459,9 @@ In the next section, we will discuss why such extreme values happen.
 %Figure: histogram of the estimation result of log-linear model
 \begin{figure}[!htbp]
   \begin{center}
-  \subfloat[]{\includegraphics[width = 0.7\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}}\\
-  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  \subfloat[]{\includegraphics[width = 0.5\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}}
+  \subfloat[]{\includegraphics[width = 0.5\textwidth]
   {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}}
   \caption{Histograms of the estimation result of the conduct parameter.}
   \label{fg:histogram_loglinear_loglinear_no_constraint} 
@@ -532,7 +533,7 @@ We expect that when the difference between the true parameter value and the esti
 However, we can see dark dots even when the difference in the conduct parameter is large.
 For example, when $\sigma = 0.5$, dark dots appear when the difference is more than 5000.
 Furthermore, when $\sigma = 2$, dark dots appear even when the difference is more than 100,000.
-
+While \citet{lau1982identifying} shows the joint identification result of the conduct parameter and the cost parameter in a general case, given Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} and \ref{fg:diff_gmm_loglinear_loglinear}, we see that the estimation of the conduct parameter and the cost parameter  become imprecise.
 
 % The difference between the GMM under the true and the estimated
 \begin{figure}[!htbp]
@@ -549,21 +550,27 @@ Furthermore, when $\sigma = 2$, dark dots appear even when the difference is mor
 \end{figure} 
 
 
-While \citet{lau1982identifying} shows the joint identification result of the conduct parameter and the cost parameter in a general case, given Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} and \ref{fg:diff_gmm_loglinear_loglinear}, we see that the estimation of the conduct parameter and the cost parameter  become imprecise.
+
+
 Then, the next question is if we can obtain accurate results by imposing the parameter restriction, $[0,1]$.
 Our conclusion is no.
-
 Figure \ref{fg:histogram_loglinear_loglinear_with_constraint} puts the histograms of the result of the conduct parameter estimation with parameter constraint on Figure \ref{fg:histogram_loglinear_loglinear_no_constraint}.
-For the values in $(0,1)$, the shape of histogram is the same with Figure XXXXXX, but we can see the spike at $\theta = 0$ and $\theta = 1$.
-This is simply because the estimation results out of the bound
+For the values in $(0,1)$, the shape of the histograms is the same as Figure  \ref{fg:histogram_loglinear_loglinear_no_constraint}, but we can see the spike around $\theta = 0$ and $1$.
+This is simply because all estimation results out of the bound in the estimation without constraint are gathered at the corner points of the constraint.
+The literature interprets $\theta = 0$ and $1$ as perfect competition and collusion, respectively.
+Thus, putting the parameter constraint on the conduct parameter makes the estimation imprecise especially when the true conduct parameter means markets are perfectly competitive or collusive.
+For example, \cite{merel2009measuring} uses log-linear specifications, and the estimated $\theta$ is 0.002 with 0.007 standard error, which means perfect competitive markets. 
+The estimation may fail in the boundary as in Figure \ref{fg:histogram_loglinear_loglinear_with_constraint}. 
+
+In summary, the suggestion of log-linear specification in \cite{perloff2012collinearity} adds another problem in its estimation, and we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
 
 
-%Figure: histogram of the estimation result of log-linear model
+%Figure: histogram of the estimation result of log-linear model with constraint
 \begin{figure}[!htbp]
   \begin{center}
-  \subfloat[]{\includegraphics[width = 0.7\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_theta_constraint.pdf}}\\
-  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  \subfloat[]{\includegraphics[width = 0.5\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_theta_constraint.pdf}}
+  \subfloat[]{\includegraphics[width = 0.5\textwidth]
   {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_theta_constraint.pdf}}
   \caption{Histograms of the conduct parameter with and without constraint.}
   \label{fg:histogram_loglinear_loglinear_with_constraint} 
@@ -581,22 +588,6 @@ This is simply because the estimation results out of the bound
 
 
 
-Our paper provides the reason that $\theta$ in log-linear specification is potentially impossible to be jointly identified with cost parameter $\gamma_0$ for the specific data even if we add $[0,1]$ domain restriction. 
-
-
-
-
-Furthermore, detecting collusion or perfect competitive market is imprecise. 
-\cite{merel2009measuring} uses log-linear specifications and the estimated $\theta$ is 0.002 with 0.007 standard error, which means perfect competitive markets. 
-This may encounter non-identification problem and estimation fails in the boundary as in Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2}. 
-Thus, the suggestion of log-linear specification in \cite{perloff2012collinearity} adds another identification problem. 
-
-
-
-
-
-
-In summary, we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
 
 
 
