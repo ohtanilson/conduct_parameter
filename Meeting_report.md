@@ -100,6 +100,12 @@
 - scatter plot(X軸=thetaの真値との差, Y軸=gamma0の真値との差, pointの色はGMMの真値との差で分ける)を置く意味は、全simulation idで識別できないケースを示すため。
 - Wooldridgeをreferenceに入れる
 
+# 01/15/2023
+
+## Next Meeting
+- 表記ブレ、Z_{t}^{R}, inverse demand function or demand function, log linear or log-linear
+- 表記直し、\varepsilon_{dt},\varepsilon_{ct}, w, r
+
 ## second draft issue (Isabelleに訊いてみる)
 - DGPを変えて実験して解決策が見つかるか？rotation IVの分散を上げる
 - DGPのthetaを変える
