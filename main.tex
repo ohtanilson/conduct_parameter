@@ -55,7 +55,7 @@ Conduct parameter is regarded as a useful measure of competitiveness.
 However, it cannot be measured directly from data because data usually lack information about marginal cost.
 Therefore, the researchers have tried to identify and estimate the conduct parameter.
 
-The literature has considered two popular specifications of the model for conduct parameter estimation in homogeneous good markets; one is the model with linear demand and linear marginal cost and the other is the model with log-linear demand and log-linear marginal cost.\footnote{\textcolor{blue}{As a similar strand of the literature, there is growing literature on conduct parameter estimation in differentiated goods markets. For example, see XXX.}}
+The literature has considered two popular specifications of the model for conduct parameter estimation in homogeneous good markets; one is the model with linear demand and linear marginal cost and the other is the model with log-linear demand and log-linear marginal cost.\footnote{As a similar strand of the literature, there is growing literature on conduct parameter estimation in differentiated goods markets. For example, see \cite{gandhi2021empirical}.}
 
 %現状 - 1%
 As for the linear model, \citet{bresnahan1982oligopoly} considers the identification of conduct parameter in this model. 
@@ -203,7 +203,7 @@ Since $P'(Q) = - (\alpha_1 + \alpha_2 Z^R) \frac{P}{Q} $, the supply equation is
 \end{align}
 and by taking logarithm, we obtain
 \begin{align}
-    \log P_t & = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}
+    \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct} \label{eq:supply_equation_loglinear}
 \end{align}
 From the supply equation and the demand equation, the log aggregate quantity is given as 
 \begin{align}
@@ -252,7 +252,7 @@ To conduct the simulation of the log-linear model, we also generate 1000 data se
 Since the demand equation is linear, we estimate the demand parameters as in the linear model.
 In contrast, the supply side equation is nonlinear, and hence we apply the generalized method of moments (GMM) with the moment condition $E[Z_{ct} \varepsilon_{ct}] = 0$.
 Note that for the supply estimation, we substitute the demand estimation result.
-The GMM estimator is obtained as a solution to the minimization problem.\footnote{See Ch.14 of \citet{wooldridge2010econometric} for the detail.}
+The GMM estimator is obtained as a solution to the minimization problem.\footnote{For the detail, see Ch.14 of \citet{wooldridge2010econometric}.}
 To solve the minimization problem, we use Julia.
 We formulate the minimization problem via \texttt{JuMP} and solve the problem by using the nonlinear solver \texttt{IPOPT.jl}.
 
@@ -263,33 +263,35 @@ We formulate the minimization problem via \texttt{JuMP} and solve the problem by
 \subsection{The linear demand and linear marginal cost model}
 
 \begin{table}[!htbp]
-    \centering
     \caption{Estimation results in Table 2 of from \cite{perloff2012collinearity}}
-    \label{tb:linear_linear_sigma_Perloff_Shen} 
+    \label{tb:linear_linear_sigma_Perloff_Shen}
+    \begin{center}
         \begin{tabular}{cllll}
-            \hline\hline
+            \hline
             & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
-            $\alpha_0$ & $10.00(0.001)$ & $9.96(0.33)$ & $9.86(0.65)$ & $9.46(1.20)$ \\
-            $\alpha_1$ & $1.00(0.004)$ & $0.99(1.98)$ & $0.97(3.96)$ & $0.88(7.80)$ \\
-            $\alpha_2$ & $1.00(0.004)$ & $0.99(0.21)$ & $0.97(0.42)$ & $0.87(0.82)$ \\
-            $\gamma_1$ & $0.46(0.88)$ & $0.46(0.91)$ & $0.47(0.93)$ & $0.49(1.04)$ \\
-            $\gamma_2$ & $5.85(7.89)$ & $5.85(8.15)$ & $5.78(8.21)$ & $5.73(8.66)$ \\
-            $\theta$ & $-0.31(1.31)$ & $-0.29(1.34)$ & $0.09(11.48)$ & $-1.53(30.41)$ \\
+            $\alpha_0$ & $10.00\ (0.001)$ & $9.96\ (0.33)$ & $9.86\ (0.65)$ & $9.46(1.20)$ \\
+            $\alpha_1$ & $1.00\ (0.004)$ & $0.99\ (1.98)$ & $0.97\ (3.96)$ & $0.88(7.80)$ \\
+            $\alpha_2$ & $1.00\ (0.004)$ & $0.99\ (0.21)$ & $0.97\ (0.42)$ & $0.87\ (0.82)$ \\
+            $\gamma_1$ & $0.46\ (0.88)$ & $0.46\ (0.91)$ & $0.47\ (0.93)$ & $0.49\ (1.04)$ \\
+            $\gamma_2$ & $5.85\ (7.89)$ & $5.85\ (8.15)$ & $5.78\ (8.21)$ & $5.73\ (8.66)$ \\
+            $\theta$ & $-0.31\ (1.31)$ & $-0.29\ (1.34)$ & $0.09\ (11.48)$ & $-1.53\ (30.41)$ \\
             \hline
         \end{tabular}
+    \end{center}\footnotesize
+    Note: True parameters: $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_3 = 0,  \theta = 0.5$. \citet{perloff2012collinearity} exclude $Y_t$. We change the parameter notations from the original paper.
 \end{table}
 
-First, we check and replicate the result in \citet{perloff2012collinearity}.
-The simulation setting in \cite{perloff2012collinearity} is different from our simulation setting; while we assume that the value of the coefficient $\alpha_3$ of $Y_t$ is one, \cite{perloff2012collinearity} assumes $\alpha_3 = 0$ and does not include $Y_t$ to generate their simulation data
-In this case, we don't have any exogenous demand shifter for the supply estimation.
+First, we replicate the result in \citet{perloff2012collinearity}.
+The simulation setting in \cite{perloff2012collinearity} is different from our simulation setting; while we assume that the value of the coefficient $\alpha_3$ of $Y_t$ is one, \cite{perloff2012collinearity} does not include $Y_t$ to generate their simulation data and assumes $\alpha_3 = 0$.
+In this case, any exogenous demand shifter is used for the supply estimation.
 
-Table \ref{tb:linear_linear_sigma_Perloff_Shen} is quoted from \cite{perloff2012collinearity}.
+Table \ref{tb:linear_linear_sigma_Perloff_Shen} is quoted from \cite{perloff2012collinearity}, although we modify some notations.
 The sample size in each simulation data is 50 and the table shows the mean and the standard deviation of the 2SLS estimators from 1000 simulations.
-It shows that the demand estimation becomes accurate as the value of $\sigma$ decreases.
+It shows that the demand estimation becomes accurate as the value of the standard deviation of the error terms $\sigma$ decreases.
 In contrast, the supply-side estimation is still biased and the standard deviation of the conduct parameter becomes larger as the value of $\sigma$ increases.
 
 Table \ref{tb:linear_linear_sigma_1_without_demand_shifter_y} shows our replication results.
-Each panel shows the simulation result under different standard deviations of the error terms, $\varepsilon_{dt}$ and $\varepsilon_{ct}$.
+Each panel shows the simulation result under different standard deviations of the error terms.
 This result uses the same data generation process with \citet{perloff2012collinearity}, but for the estimation, we complement what the authors do not mention on instrument construction.
 To see if we can correctly replicate the result in \cite{perloff2012collinearity}, let's focus on the first two columns in each panel.
 These two columns show the mean and the standard deviation of the simulation result when the sample size is 50.
@@ -355,10 +357,9 @@ But as the sample size increases, the standard deviation is dramatically improve
 
 \subsection{Log demand and log marginal cost}
 Table \ref{tb:loglinear_loglinear_sigma_1} provides the simulation results of log-linear demand specifications with a demand shifter. 
-We additionally restrict the range of conduct parameter $\theta$ to $[0,1]$, whose effect is discussed in the next section. 
-We find that the means of demand and cost parameters are improved by increasing sample sizes. 
-However, if $\sigma=0.5$, standard deviation of conduct parameter $\theta$ is unexpectedly large. 
-Unfortunately, standard deviation does not decrease as the sample size increases. We investigate why the problem occurs in the next section.
+We find that the estimation of the supply equation \eqref{eq:supply_equation_loglinear} fails completely.
+The means of the conduct parameter take some extreme values in each panel.
+
 
 \begin{table}[!htbp]
   \begin{center}
@@ -384,14 +385,14 @@ Unfortunately, standard deviation does not decrease as the sample size increases
 
 \section{A problem in log-linear demand specification}
 
-We provide the reason why estimated conduct parameter $\theta$ has large standard deviation even if the sample size increases. Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2} illustrates the distribution of estimated $\theta$ for each sample sets of 1000 simulations with and without $[0,1]$ constraint. The left panel shows the case of $\sigma=0.5$. We find that estimated $\theta$ is less than 0 for the large portion of simulation data without $[0,1]$ domain restriction on $\theta$. The right panel shows the case of $\sigma=2$ which is worse than the case of $\sigma=0.5$. Estimated $\theta$ is out of $[-2,3]$ for the 28\% of whole simulation data. 
+
 
 \begin{figure}[!htbp]
   \begin{center}
-  \includegraphics[width = 0.65\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}\\
-  \includegraphics[width = 0.65\textwidth]
-  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}
+  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5.pdf}}\\
+  \subfloat[]{\includegraphics[width = 0.7\textwidth]
+  {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2.pdf}}
   \caption{Estimated conduct parameter $\theta$.}
   \label{fg:histogram_loglinear_loglinear_n_1000_sigma_2} 
   \end{center}
@@ -399,13 +400,14 @@ We provide the reason why estimated conduct parameter $\theta$ has large standar
   Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$
 \end{figure} 
 
+
 \begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width = 0.45\textwidth]
   {figuretable/contour_loglinear_loglinear_n_1000_sigma_0.5.pdf}
   \includegraphics[width = 0.45\textwidth]
   {figuretable/contour_loglinear_loglinear_n_1000_sigma_2.pdf}
-  \caption{Contour map of GMM objective function}
+  \caption{Contour map of GMM objective function without parameter constraint}
   \label{fg:contour_loglinear_loglinear_n_1000_sigma_2} 
   \end{center}
   \footnotesize
@@ -414,11 +416,82 @@ We provide the reason why estimated conduct parameter $\theta$ has large standar
 
 
 
-Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} illustrates the contour map of typical one of the nonidentified simulation samples. Given the results in Table \ref{tb:loglinear_loglinear_sigma_1}, we fix $\gamma_1$, $\gamma_2$, and $\gamma_3$ to the true values and focus on the evaluated GMM objective function at each $\gamma_0$ and $\theta$ which have large standard deviation. 
-The grid size is 0.01.
-We numerically find that $\gamma_0$ and $\theta$ are not point-identified for the simulation samples because these two parameters are balancing.
+We provide the reason why the estimated conduct parameter has a large standard deviation even if the sample size increases. 
+Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2} illustrates histograms of the conduct parameter from all simulations.
+Panel (a) and (b) fix the sample size in each simulation as 1000 but each panel has different values of the standard deviation, $\sigma = 0.5$ and $2$.
+Each panel has two histograms of the conduct parameter from the estimation with and without parameter constraint $\theta \in [0,1]$.
 
-The above results that $\theta$ estimated by OLS, i.e., without $[0,1]$ domain restriction on $\theta$ can be out of $[0,1]$ are known to the literature. For example, \cite{okazaki2022excess} show that estimated $\theta$ is out of $[0,1]$ and the authors explain that conduct parameter estimation is imprecise. Our paper provides the reason that $\theta$ in log-linear specification is potentially impossible to be jointly identified with cost parameter $\gamma_0$ for the specific data even if we add $[0,1]$ domain restriction. Furthermore, detecting collusion or perfect competitive market is imprecise. \cite{merel2009measuring} uses log-linear specifications and the estimated $\theta$ is 0.002 with 0.007 standard error, which means perfect competitive markets. This may encounter non-identification problem and estimation fails in the boundary as in Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2}. Thus, the suggestion of log-linear specification in \cite{perloff2012collinearity} adds another identification problem. 
+As for without constraint, the histogram has a peak abound the true parameter, but we also see samples whose values are less than zero and larger than one.
+Note that theoretically, the range of the conduct parameter is between zero and one. 
+While the range of the histograms is $\theta \in [-2, 3]$,  we also observe extreme values such as $\hat{\theta} = -10^{15}$ and $10^{8}$.
+
+% About XX% of simulation result is out of the theoretical parameter range [0,1].
+
+
+Why do such extreme values happen without the parameter constraint?
+Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} illustrates the contour map of the GMM objective function  with respect to $\gamma_0$ and $\theta$.
+To draw the map, we fix the other demand and cost parameter values to the true values and set the grid size to 0.01.
+we can see that the contour map has a flat region around the true parameters.
+Especially, even though we change the value of $\theta$, the GMM value does not change around the true value of $\gamma_0$.
+
+As we mentioned, the value of the estimator of the conduct parameter can take very large or very small values.
+Do such values minimize the GMM objective function?
+To check this, for each simulation, we the absolute difference between the true parameter values and the value of the estimators and the absolute difference between the value of the GMM objective function under the true parameter values and the estimation result.
+Figure \ref{fg:diff_gmm_loglinear_loglinear} shows the plot of these differences. 
+Each dot corresponds to each simulation and the color of each dot represents the value of the difference. 
+The darker a dot is, the lower the difference is.
+We expect that when the difference between the true parameter value and the estimation result is small, the difference of the value of the GMM function is samll, which implies that the color of the dot is darker. 
+However, we can see dark dots even when the difference in the conduct parameter is large.
+For example, when $\sigma = 0.5$, dark dots appear when the difference is more than 5000.
+Furthermore, when $\sigma = 2$, dark dots appear even when the difference is more than 100,000.
+
+While \citet{lau1982identifying} shows the joint identification result of the conduct parameter and the cost parameter in a general case, given Figure \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} and \ref{fg:diff_gmm_loglinear_loglinear}, we see that the estimation of the conduct parameter and the cost parameter without imposing parameter restriction faces difficulties.
+
+
+
+
+
+\begin{figure}[!htbp]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}
+  \caption{The difference of the GMM objective function under true parameter and the estimation result}
+  \label{fg:diff_gmm_loglinear_loglinear} 
+  \end{center}
+  \footnotesize
+  Note: The x-axis is the difference between the value of conduct parameter estimator and the true conduct parameter. The y-axis is the difference between the value of estimator of $\gamma_0$ and the true parameter. Each dot represents the value of difference of the GMM objective function under the true parameters' values and the values of the estimator. 
+\end{figure} 
+
+
+
+
+The above results that $\theta$ estimated by OLS, i.e., without $[0,1]$ domain restriction on $\theta$ can be out of $[0,1]$ are known to the literature. 
+For example, \cite{okazaki2022excess} show that estimated $\theta$ is out of $[0,1]$ and the authors explain that conduct parameter estimation is imprecise.
+
+
+
+
+
+Our paper provides the reason that $\theta$ in log-linear specification is potentially impossible to be jointly identified with cost parameter $\gamma_0$ for the specific data even if we add $[0,1]$ domain restriction. 
+
+
+
+
+Furthermore, detecting collusion or perfect competitive market is imprecise. 
+\cite{merel2009measuring} uses log-linear specifications and the estimated $\theta$ is 0.002 with 0.007 standard error, which means perfect competitive markets. 
+This may encounter non-identification problem and estimation fails in the boundary as in Figure \ref{fg:histogram_loglinear_loglinear_n_1000_sigma_2}. 
+Thus, the suggestion of log-linear specification in \cite{perloff2012collinearity} adds another identification problem. 
+
+
+
+Next, Figure %constraint付きのヒストグラム
+is the histograms of the conduct parameter from the estimations with parameter constraint, $\theta \in [0,1]$.
+For the values in $(0,1)$, the shape of histogram is the same with Figure XXXXXX, but we can see the spike at $\theta = 0$ and $\theta = 1$.
+This is simply because the estimation results out of the bound
+
+
 
 In summary, we conclude that only the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets. 
 

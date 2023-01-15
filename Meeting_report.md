@@ -109,3 +109,8 @@
 - Review of Industrial Organization
 - International Journal of Industrial Organization (セカンドドラフトの最後のセクション次第で追加で出せそう。0=perfect competitive, 1=collusiveを推定するのは推定できていないケースと混じって難しくなるのを解決する)
 - Economic letters
+- 
+
+
+
+
