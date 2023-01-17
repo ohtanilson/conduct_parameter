@@ -27,7 +27,7 @@ parameter = market_parameters_log()
 
 estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
 
-
+@unpack θ = parameter
 
 #-----------------------------------------------------------------------------------------
 # Check the summary of the eatimation result
@@ -71,8 +71,8 @@ end
 
 
 #-----------------------------------------------------------------------------------------
-# Draw histograms consisting of the estimation reuslt of θ within [-2, 3]
-@unpack θ = parameter
+# Draw histograms consisting of the estimation reuslt of θ within [0, 1]
+
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
 
@@ -80,10 +80,11 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         sigma = Int64(sigma)
     end
     
-    histo_result = histogram(xlims = [-2, 3], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))vline!([θ], label = "true value : θ = $θ")
+    histo_result = histogram(xlims = [0, 1], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    vline!(histo_result, [θ], label = "true value : θ = $θ")
 
     for estimation_method = estimation_methods
-
+        
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
@@ -91,39 +92,41 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
-        # count the number of the estimation result out of [-2, 3]
+        # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
+        estimation_result = filter(row -> (row.status_indicator == 1), estimation_result)
+
         number_non_missing = size(estimation_result.θ,1)
-        number_out_range   = number_non_missing  - count(x -> (-2 <= x <= 3), estimation_result.θ)
+        number_out_range   = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
         rate_out_range     = "$number_out_range/$number_non_missing"
         
         estimation_result = filter(x -> (-2 <= x <= 3), estimation_result.θ)
 
+
         if estimation_method[2] == :log_constraint
             if estimation_method[3] == :theta_constraint
-                label_title = "both constraints ($rate_out_range are out of [-2,3])"
+                label_title = "both constraints ($rate_out_range are out of [0, 1])"
             else
-                label_title = "only log constraint ($rate_out_range are out of [-2,3])"
+                label_title = "only log constraint ($rate_out_range are out of [0, 1])"
             end
         else
             if estimation_method[3] == :theta_constraint
-                label_title = "only theta constraint ($rate_out_range are out of [-2,3])"
-
+                label_title = "with constraint ($rate_out_range are out of [0, 1])"
             else
-                label_title = "no constraint ($rate_out_range are out of [-2,3])"
+                label_title = "no constraint ($rate_out_range are out of [0, 1])"
             end
         end
 
         histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5, bins = -2:0.1:3)
+
+        filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
+        filename_end   = ".pdf"
+        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*"_"*String(estimation_method[3])filename_end
+
+        display(histo_result)
+
+        savefig(histo_result, file_name)
     end
-
-    push!(histogram_result_theta, histo_result)
-
-    filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
-    filename_end   = ".pdf"
-    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    savefig(histo_result, file_name)
 end
 
 
@@ -286,7 +289,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         hline!([γ_0], linestyle=:dash, label = "true γ_0")
 
 
-
     for estimation_method = estimation_methods
 
         # Load the estimation result
@@ -302,7 +304,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         else
             label_title = "estimation without constraint"
         end
-        # count the number of the estimation result out of [-2, 3]
+        # count the number of the estimation result out of [0, 1]
         scatter!([estimation_result.θ[1]], [estimation_result.γ_0[1]], lable = label_title)
 
     end
@@ -323,7 +325,7 @@ end
 #-------------------------------------------------------------------------------
 
 # Plotting the estimation result of theta and gamma_0 for all simulations
-@unpack θ = parameter
+
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
 
@@ -331,8 +333,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         sigma = Int64(sigma)
     end
     
-    #histo_result = histogram(xlims = [-2, 3], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
-    #histo_result = density(xlims = [-2, 3],  title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    #histo_result = histogram(xlims = [0, 1], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    #histo_result = density(xlims = [0, 1],  title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
     
     #vline!([θ], label = "true value : θ = $θ")
 
@@ -345,7 +347,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
-        # count the number of the estimation result out of [-2, 3]
+        # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
         estimation_status = deepcopy(estimation_result.status)
 

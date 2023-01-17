@@ -13,30 +13,30 @@ function termination_status_code(status)
     # See https://jump.dev/JuMP.jl/stable/moi/reference/models/#MathOptInterface.TerminationStatusCode
     
     status_code = [
-    OPTIMAL,                   # 1
-    INFEASIBLE,                # 2
-    DUAL_INFEASIBLE,           # 3
-    LOCALLY_SOLVED,            # 4
-    LOCALLY_INFEASIBLE,        # 5
-    INFEASIBLE_OR_UNBOUNDED,   # 6
-    ALMOST_OPTIMAL,            # 7
-    ALMOST_INFEASIBLE,         # 8
-    ALMOST_DUAL_INFEASIBLE,    # 9
-    ALMOST_LOCALLY_SOLVED,     # 10
-    ITERATION_LIMIT,           # 11
-    TIME_LIMIT,                # 12
-    NODE_LIMIT,                # 13
-    SOLUTION_LIMIT,            # 14
-    MEMORY_LIMIT,              # 15
-    OBJECTIVE_LIMIT,           # 16
-    NORM_LIMIT,                # 17
-    OTHER_LIMIT,               # 18
-    SLOW_PROGRESS,             # 19
-    NUMERICAL_ERROR,           # 20
-    INVALID_MODEL,             # 21
-    INVALID_OPTION,            # 22
-    INTERRUPTED,               # 23
-    OTHER_ERROR,               # 24
+        JuMP.MathOptInterface.OPTIMAL,                   # 1
+        JuMP.MathOptInterface.INFEASIBLE,                # 2
+        JuMP.MathOptInterface.DUAL_INFEASIBLE,           # 3
+        JuMP.MathOptInterface.LOCALLY_SOLVED,            # 4
+        JuMP.MathOptInterface.LOCALLY_INFEASIBLE,        # 5
+        JuMP.MathOptInterface.INFEASIBLE_OR_UNBOUNDED,   # 6
+        JuMP.MathOptInterface.ALMOST_OPTIMAL,            # 7
+        JuMP.MathOptInterface.ALMOST_INFEASIBLE,         # 8
+        JuMP.MathOptInterface.ALMOST_DUAL_INFEASIBLE,    # 9
+        JuMP.MathOptInterface.ALMOST_LOCALLY_SOLVED,     # 10
+        JuMP.MathOptInterface.ITERATION_LIMIT,           # 11
+        JuMP.MathOptInterface.TIME_LIMIT,                # 12
+        JuMP.MathOptInterface.NODE_LIMIT,                # 13
+        JuMP.MathOptInterface.SOLUTION_LIMIT,            # 14
+        JuMP.MathOptInterface.MEMORY_LIMIT,              # 15
+        JuMP.MathOptInterface.OBJECTIVE_LIMIT,           # 16
+        JuMP.MathOptInterface.NORM_LIMIT,                # 17
+        JuMP.MathOptInterface.OTHER_LIMIT,               # 18
+        JuMP.MathOptInterface.SLOW_PROGRESS,             # 19
+        JuMP.MathOptInterface.NUMERICAL_ERROR,           # 20
+        JuMP.MathOptInterface.INVALID_MODEL,             # 21
+        JuMP.MathOptInterface.INVALID_OPTION,            # 22
+        JuMP.MathOptInterface.INTERRUPTED,               # 23
+        JuMP.MathOptInterface.OTHER_ERROR                # 24
     ]
 
     for i = eachindex(status_code)
@@ -46,7 +46,6 @@ function termination_status_code(status)
         end
     end
 end
-
 
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
@@ -226,7 +225,6 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         # Check if the supply estimation result satisfies the assumption
         if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
 
-            termination_status_code(termination_status(model))
             return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
         else 
             error("The estimation result violates the model assumption ")
@@ -351,25 +349,6 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
 
 end
 
-#=
-
-parameter = market_parameters_log(T = 1000, σ = 1);
-data = load("../conduct_parameter/output/data_loglinear_loglinear_n_1000_sigma_1.rds");
-
-describe(data)
-
-@time simultaneous_test = simulation_nonlinear_2SLS(parameter, data, (:simultaneous, :non_constraint));
-describe(simultaneous_test)
-@time separate_test = simulation_nonlinear_2SLS(parameter, data, (:separate, :non_constraint));
-describe(separate_test)
-
-@time simultaneous_constraint_test = simulation_nonlinear_2SLS(parameter, data,  (:simultaneous, :constraint));
-describe(simultaneous_constraint_test)
-@time separate_constraint_test = simulation_nonlinear_2SLS(parameter, data, (:separate, :constraint));
-describe(separate_constraint_test)
-
-
-=#
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -419,6 +398,27 @@ for estimation_method = estimation_methods
     println("----------------------------------------------------------------------------------\n")
 end
 
+
+
+#=
+
+parameter = market_parameters_log(T = 1000, σ = 1);
+data = load("../conduct_parameter/output/data_loglinear_loglinear_n_1000_sigma_1.rds");
+
+describe(data)
+
+@time simultaneous_test = simulation_nonlinear_2SLS(parameter, data, (:simultaneous, :non_constraint));
+describe(simultaneous_test)
+@time separate_test = simulation_nonlinear_2SLS(parameter, data, (:separate, :non_constraint));
+describe(separate_test)
+
+@time simultaneous_constraint_test = simulation_nonlinear_2SLS(parameter, data,  (:simultaneous, :constraint));
+describe(simultaneous_constraint_test)
+@time separate_constraint_test = simulation_nonlinear_2SLS(parameter, data, (:separate, :constraint));
+describe(separate_constraint_test)
+
+
+=#
 
 #-----------------------------------------------------------------------------------------------------------------------
 
