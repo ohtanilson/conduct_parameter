@@ -213,6 +213,54 @@ end
 
 
 
+# Check the contour figure for global range
+
+# Check the contour figure for global range
+for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
+    @unpack θ, γ_0 = parameter
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+    
+    # Load the simulation data from the rds files
+    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+    filename_end   = ".rds"
+
+    if sigma == 1 || sigma == 2
+        sigma = Int64(sigma)
+    end
+
+    filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+    data = load(filename)
+    data = DataFrames.sort(data, [:group_id_k])
+    data = data[1:t,:]
+
+    theta_range = [-2:0.01:0.7;] 
+    gamma_range = [-10:0.01:10;]
+
+    contour_gmm = contour_set_of_GMM(parameter, data, theta_range, gamma_range);
+    plot_contour = plot(contour(theta_range, gamma_range, contour_gmm,
+        xlabel="θ", ylabel="γ_0",
+        title="N =$t, σ = $sigma"))
+        vline!([θ], linestyle=:dash, label = "true θ")
+        hline!([γ_0], linestyle=:dash, label = "true γ_0")
+
+    display(plot_contour)
+
+    filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
+    filename_end   = ".pdf"
+    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+    savefig(plot_contour, file_name)
+end
+
+
+
+#=
+
+
 # Check the contour figure for local range
 @time for t = [100, 1000], sigma =  [0.5, 1]
     @unpack θ, γ_0, S = parameter
@@ -256,69 +304,9 @@ end
 end
 
 
-# Check the contour figure for global range
-for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-    @unpack θ, γ_0 = parameter
-
-    if sigma == 1 || sigma == 2
-        sigma = Int64(sigma)
-    end
-    
-    # Load the simulation data from the rds files
-    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-    filename_end   = ".rds"
-
-    if sigma == 1 || sigma == 2
-        sigma = Int64(sigma)
-    end
-
-    filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    data = load(filename)
-    data = DataFrames.sort(data, [:group_id_k])
-    data = data[1:t,:]
-
-    theta_range = [-2:0.01:0.7;] 
-    gamma_range = [-10:0.01:10;]
-
-    contour_gmm = contour_set_of_GMM(parameter, data, theta_range, gamma_range);
-    plot_contour = plot(contour(theta_range, gamma_range, contour_gmm,
-        xlabel="θ", ylabel="γ_0",
-        title="N =$t, σ = $sigma"))
-        vline!([θ], linestyle=:dash, label = "true θ")
-        hline!([γ_0], linestyle=:dash, label = "true γ_0")
 
 
-    for estimation_method = estimation_methods
-
-        # Load the estimation result
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        estimation_result = DataFrame(CSV.File(file_name))
-
-        if estimation_method[3] == :theta_constraint
-            label_title = "estimation with constraint"
-
-        else
-            label_title = "estimation without constraint"
-        end
-        # count the number of the estimation result out of [0, 1]
-        scatter!([estimation_result.θ[1]], [estimation_result.γ_0[1]], lable = label_title)
-
-    end
-
-
-    display(plot_contour)
-
-    filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
-    filename_end   = ".pdf"
-    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    #savefig(plot_contour, file_name)
-end
-
+=#
 
 
 
@@ -517,7 +505,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         for s = 1:number_sample
             estimation_result_s = estimation_result[s,:]
-            if estimation_result_s.θ !== missing || estimation_result_s.status_indicator === 1
+            if estimation_result_s.θ !== missing && estimation_result_s.status_indicator == 1
                 data_s = data[(s-1)*t+1:s*t,:]
                 diff_theta, diff_gamma, diff_gmm_value = value_GMM(parameter, data_s, estimation_result_s);
 
@@ -532,7 +520,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         else
             constraint = "without constraint"
         end
-
 
         filename_estimation = "_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/figuretable/diff_gmm_value_loglinear_loglinear_n_"
@@ -549,6 +536,4 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         )|> save(file_name)
     
     end
-
-
 end
