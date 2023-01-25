@@ -50,7 +50,7 @@ for estimation_method = estimation_methods
 
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
+        filename_end   = "_zero_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -88,7 +88,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
+        filename_end   = "_zero_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -101,7 +101,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         rate_out_range     = "$number_out_range/$number_non_missing"
         
         estimation_result = filter(x -> (-2 <= x <= 3), estimation_result.θ)
-
 
         if estimation_method[2] == :log_constraint
             if estimation_method[3] == :theta_constraint
@@ -331,7 +330,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
+        filename_end   = "_zero_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -489,7 +488,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
+        filename_end   = "_zero_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -542,210 +541,3 @@ end
 
 
 #= 
-
-
-function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
-    
-    @unpack θ = parameter
-
-    QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
-    Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  Q
-    X_dd = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end])
-    α_hat = inv(X_dd' * X_dd) * (X_dd' * P)
-
-    L = size(Z, 2)
-    L_d = size(Z_d,2)
-    L_s = size(Z_s,2)
-    K_s = size(X_s, 2)
-    K_d = size(X_d, 2)
-
-
-    γ_true = [1.0, 1.0, 1.0, 1.0]
-
-    sample_violatiton_index = Int64[]
-
-    # Pick up the index of market under which the inside of the log has a negative value
-    for t = 1:T
-        if 1 .- θ .*(α_hat[2] .+ α_hat[3] .* X_s[t,end]) <= 0
-            push!(sample_violatiton_index, t)
-        end
-    end
-
-    # If all markets do not satisfy the assumption, stop the supply estimation and rerutns missing values
-    if length(sample_violatiton_index) == T
-
-        γ_hat = repeat([missing], K_s-1)
-        θ_hat = missing
-
-        return α_hat, γ_hat, θ_hat, missing
-
-    else
-        
-        # Drop the samples that violate the assumption
-        if  1 <= length(sample_violatiton_index)
-
-            sample_index = setdiff([1:T;], sample_violatiton_index)
-
-            Z_s = Z_s[sample_index, :]
-            X_s = X_s[sample_index, :]
-            T = length(sample_index)
-            L_s = size(Z_s,2)
-            K_s = size(X_s, 2)
-        end
-
-        #Check if the weight matrix can be obtained
-        if rank(Z_s' * Z_s) == L_s
-            
-            Ω = inv(Z_s' * Z_s)/T
-
-            model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 1e-15)
-            set_optimizer_attribute(model, "max_iter", 1000)
-            set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-            set_silent(model)
-            @variable(model, γ[k = 1:K_s-1], start = γ_true[k])
-
-            if estimation_method[3] == :theta_constraint
-                @variable(model, 0 <= θ <= 1)
-            else
-                @variable(model, θ, start = 0.3)
-            end
-
-            r = Any[];
-            g = Any[];
-            for t =1:T
-                push!(r, @NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
-            end
-
-            for l = 1:L_s
-                push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
-            end
-
-            if estimation_method[2] == :log_constraint
-
-                for t = 1:T
-                    @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
-                end
-            end
-
-            @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
-
-            optimize!(model)
-            
-            γ_hat = value.(γ)
-            θ_hat = value.(θ)
-        else
-
-            # If the weight matrix can not be obtained, return missing values
-            γ_hat = repeat([missing], K_s-1)
-            θ_hat = missing
-
-            return α_hat, γ_hat, θ_hat, missing
-        end
-
-        # Check if the supply estimation result satisfies the assumption
-        if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-
-            return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-        else 
-            error("The estimation result violates the model assumption ")
-        end
-    end
-
-end
-
-
-#---------
-
-data_original = load("/Users/yurimatsumura/GitHub/conduct_parameter/output/data_loglinear_loglinear_n_1000_sigma_2.rds")
-
-data_original = sort(data_original, :group_id_k)
-
-@unpack T, S = parameter
-
-status_index = 0
-
-θ_est        = []
-status_ipopt = []
-
-
-for s = 1:500
-    
-    data = deepcopy(data_original[(s-1)*T+1:s*T,:])
-    #data = deepcopy(data_original[(997-1)*1000+1:997*1000,:])
-    parameter = market_parameters_log(T = 1000, σ = 2)
-
-
-    Q  = data.logQ
-    w  = data.w
-    r  = data.r
-    z  = data.z
-    iv_w = data.iv_w
-    iv_r = data.iv_r
-    p  = data.logP
-    y  = data.y
-
-    iv = hcat(iv_w, iv_r)
-
-    X_d = []
-    X_s = []
-    X   = []
-    Z   = []
-    Z_d = []
-    Z_s = []
-    P   = []
-
-    for t = 1:T
-
-        Z_dt = vcat(1, z[t], iv[t,:], y[t])
-        Z_st = vcat(1, z[t], log(w[t]), log(r[t]), y[t])
-        Z_t = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
-
-        X_dt = vcat(1, -Q[t], -z[t].*Q[t], y[t])
-        X_st = vcat(1, Q[t], log(w[t]), log(r[t]), z[t])
-        X_t  = [X_dt zeros(length(X_dt));  zeros(length(X_st)) X_st]'
-
-        push!(P, p[t])
-        push!(X_d, X_dt')
-        push!(X_s, X_st')
-        push!(X, X_t)
-        push!(Z, Z_t)
-        push!(Z_d, Z_dt')
-        push!(Z_s, Z_st')
-    end
-
-    Z   = reduce(vcat,(Z))
-    X   = reduce(vcat,(X))
-    X_d = reduce(vcat,(X_d))
-    X_s = reduce(vcat,(X_s))
-    Z_d = reduce(vcat,(Z_d))
-    Z_s = reduce(vcat,(Z_s))
-
-
-
-    α_est_s, γ_est_s, θ_est_s, status_s = estimation_nonlinear_2SLS(parameter, data, (:separate, :non_constraint, :non_constraint))
-
-    @show s, status_s
-
-    if status_s === 1
-        status_index += 1
-    end
-
-
-    push!(θ_est, θ_est_s)
-    push!(status_ipopt, status_s)
-
-end
-
-
-df = DataFrame(θ_est = θ_est, status = status_ipopt)
-
-df = dropmissing(df)
-
-df_ls = df[(df.status .== 4), :]
-df_nls = df[(df.status .== 11), :]
-
-count(x -> x <= 7, df_ls.status)
-
-plot_test = histogram(filter(x -> (-2 <= x <= 3), df_ls.θ_est), bins = -2:0.1:3)
-histogram(df_nls.θ_est)
