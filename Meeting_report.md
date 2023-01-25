@@ -112,9 +112,8 @@
 - DGPのthetaを変える
 
 ## Submission list
-- Journal of Applied Econometrics
+
 - Review of Industrial Organization
-- International Journal of Industrial Organization (セカンドドラフトの最後のセクション次第で追加で出せそう。0=perfect competitive, 1=collusiveを推定するのは推定できていないケースと混じって難しくなるのを解決する)
 - Economic letters
 - 
 
@@ -124,3 +123,36 @@
 ## Next Meeting
 
 - 松村: Rの最新版のコードを元にデータを作り直して，juliaでの結果を回す．完了したら，outputを大谷と共有
+
+
+# 01/20/2023
+
+## Isabelleからのコメント
+ - $R^2$の値がマイナスに大きいのは気になる
+ - log-linear modelでのsolvedの説明を詳しくしたほうがいいのと，なぜsolvedが少ないのか詳しく．
+ - linearとlog-linearでconduct parameterが違うのはなぜ？
+
+
+
+
+## Next meeting (23/01/21)
+
+- section 1: intruduction (600 words -> 384)
+  - 
+- section 2: model (266 words -> 267)
+- section 3: identification and simulation setting (955 words　-> 617)　
+- section 4+ 5: result (1299 words -> 751)
+- section 6: conclusion (83 words)
+
+384 + 267 + 617 + 751 + 83 on 230120
+366 + 254 + 581 + 688 + 83 = 1972 by Suguru on 230120
+349 + 177 + 580 + 646 + 83 + (114) Reference = 1949 by Yuri on 230121
+
+## Next meeting (23/01/27)
+
+RMSE, biasのtable作る, current version on arxiv, runs convergedに変える[Otani]
+Locally solvedの改善 [Matsumura]
+
+- 解けなかったIDに関して，初期値を変えてみる．
+  - trueを当てたときと，その他の初期値を見たほうがいい．
+  - acknowledgement作る
