@@ -94,7 +94,7 @@ Firm $j$ solves a profit maximization problem:
 where $Q_t = \sum_{j = 1}^{N_t} q_{jt}$ is the aggregate quantity, $P_t(Q_{t})$ the demand function, and $MC_{jt}(q_{jt})$ the marginal cost function.
 From the maximization problem, we obtain the first-order condition:
 \begin{align*}
-    0 = P_t(Q_{t}) - MC{jt}(q_{jt}) + \theta_j \frac{\partial P_t}{\partial Q_t}q_{jt},\nonumber
+    0 = P_t(Q_{t}) - MC_{jt}(q_{jt}) + \theta_j \frac{\partial P_t}{\partial Q_t}q_{jt},\nonumber
 \end{align*}
 where $\theta_{jt} = 1 + \sum_{k\ne j}\frac{\partial q_{kt}}{\partial q_{jt}}$, which is called conduct parameter.
 The first-order conditions for each firm are weighted by market shares and added up. 
@@ -243,8 +243,8 @@ To solve the minimization problem, we formulate the minimization problem via \te
         \begin{tabular}{cllll}
             \hline
             & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
-            $\alpha_0$ & $10.00\ (0.001)$ & $9.96\ (0.33)$ & $9.86\ (0.65)$ & $9.46(1.20)$ \\
-            $\alpha_1$ & $1.00\ (0.004)$ & $0.99\ (1.98)$ & $0.97\ (3.96)$ & $0.88(7.80)$ \\
+            $\alpha_0$ & $10.00\ (0.001)$ & $9.96\ (0.33)$ & $9.86\ (0.65)$ & $9.46 (1.20)$ \\
+            $\alpha_1$ & $1.00\ (0.004)$ & $0.99\ (1.98)$ & $0.97\ (3.96)$ & $0.88 (7.80)$ \\
             $\alpha_2$ & $1.00\ (0.004)$ & $0.99\ (0.21)$ & $0.97\ (0.42)$ & $0.87\ (0.82)$ \\
             $\gamma_1$ & $0.46\ (0.88)$ & $0.46\ (0.91)$ & $0.47\ (0.93)$ & $0.49\ (1.04)$ \\
             $\gamma_2$ & $5.85\ (7.89)$ & $5.85\ (8.15)$ & $5.78\ (8.21)$ & $5.73\ (8.66)$ \\
@@ -333,7 +333,7 @@ Thus, imprecise results reported in \cite{perloff2012collinearity} are due to th
 \subsection{Log-linear demand and log-linear marginal cost}\label{subsec:log_linear_demand_and_log_linear_marginal_cost}
 Table \ref{tb:loglinear_loglinear_non_constraint} provides the simulation results of log-linear demand specifications with a demand shifter.
 We calculate the mean and standard deviation only from the simulation data whose GMM minimization problems are locally solved. 
-First, we cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2.0$, we can solve 32.6\% of the 1000 simulated data.
+First, we cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2.0$, we can solve 36.6\% of the 1000 simulated data.
 Second, we can see that the estimation of the conduct parameter fails as $\sigma$ becomes large. 
 When $\sigma$ becomes larger, the mean and standard deviation of the conduct parameter estimator take unreasonable values.
 Only when the standard deviation $\sigma = 0.001$, the estimation results are accurate as in the linear model. 
@@ -420,8 +420,8 @@ Each dot corresponds to each simulation and the color of each dot represents the
 The darker a dot is, the smaller the difference is.
 We expect that when the difference between the true parameter value and the estimation result is small, the difference in the value of the GMM function is small, which implies that the color of the dot is darker. 
 However, we can see dark dots even when the difference in the conduct parameter is large.
-For example, when $\sigma = 0.5$, dark dots appear when the difference is more than 5000.
-When $\sigma = 2$, dark dots appear even when the difference is more than 100,000.
+For example, when $\sigma = 0.5$, dark dots appear when the difference is more than 10.
+When $\sigma = 2$, dark dots appear even when the difference is more than 20.
 While \citet{lau1982identifying} shows the joint identification result of the conduct parameter and the cost parameter in a general case, Figures \ref{fg:contour_loglinear_loglinear_n_1000_sigma_2} and \ref{fg:diff_gmm_loglinear_loglinear} imply that the estimation of the conduct parameter and the cost parameter becomes imprecise.
 
 
