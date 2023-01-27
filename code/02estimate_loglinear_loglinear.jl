@@ -60,8 +60,8 @@ market_parameters_log = @with_kw (
     σ = 1,    # Standard deviation of the error term
     T = 50,   # Number of markets
     S = 1000, # Number of simulation
-    start_θ = θ,
-    start_γ = [γ_0, γ_1, γ_2, γ_3]
+    start_θ = 0.0,
+    start_γ = [0.0, 0.0, 0.0, 0.0]
 )
 
 
@@ -361,7 +361,7 @@ end
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 
 
-# Estimation start from the true value
+# Estimation start from with zero starting values
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
@@ -394,7 +394,7 @@ for estimation_method = estimation_methods
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_true_start.csv"
+        filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
@@ -402,98 +402,3 @@ for estimation_method = estimation_methods
     println("\n")
     println("----------------------------------------------------------------------------------\n")
 end
-
-
-
-#------------------------------------------------------------------------------------------------------------
-
-# Estimate the parameters with zero starting values
-for estimation_method = estimation_methods
-    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
-        # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        filename_end   = ".rds"
-
-        if sigma == 1 || sigma == 2
-            sigma = Int64(sigma)
-        end
-
-        filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-        data = load(filename)
-        data = DataFrames.sort(data, [:group_id_k])
-
-        #Uncomment the following lines to load the simulation data from the csv files
-            #filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-            #filename_end   = ".csv"
-            #file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-            #data = DataFrame(CSV.File(file_name))
-
-        # Set parameter values
-        parameter = market_parameters_log(T = t, σ = sigma, start_θ = 0, start_γ = zeros(4))
-        
-        # Estimation based on 2SLS
-        @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
-
-        # Save the estimation result as csv file. The file is saved at "output" folder
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_zero_start.csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-
-        CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
-    end
-    println("\n")
-    println("----------------------------------------------------------------------------------\n")
-end
-
-
-
-
-
-# Estimate the parameters with different starting values
-for estimation_method = estimation_methods
-    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
-        # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        filename_end   = ".rds"
-
-        if sigma == 1 || sigma == 2
-            sigma = Int64(sigma)
-        end
-
-        filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-        data = load(filename)
-        data = DataFrames.sort(data, [:group_id_k])
-
-        #Uncomment the following lines to load the simulation data from the csv files
-            #filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-            #filename_end   = ".csv"
-            #file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-            #data = DataFrame(CSV.File(file_name))
-
-        # Set parameter values
-        parameter = market_parameters_log(T = t, σ = sigma, start_θ = 0, start_γ = zeros(4))
-
-        # Estimation based on 2SLS
-        @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
-
-        # Save the estimation result as csv file. The file is saved at "output" folder
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_random_start.csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-
-        CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
-    end
-    println("\n")
-    println("----------------------------------------------------------------------------------\n")
-end
-
-
-

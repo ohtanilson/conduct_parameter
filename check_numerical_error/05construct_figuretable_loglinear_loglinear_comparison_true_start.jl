@@ -50,7 +50,7 @@ for estimation_method = estimation_methods
 
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_zero_start.csv"
+        filename_end   = "_true_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -88,7 +88,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
+        filename_end   = "_true_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -98,10 +98,10 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         number_non_missing = size(estimation_result.θ,1)
         number_out_range   = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
-        rate_out_range     = round(number_out_range/number_non_missing * 100, digits = 3)
-        rate_out_range     = "$rate_out_range %"
+        rate_out_range     = "$number_out_range/$number_non_missing"
         
         estimation_result = filter(x -> (-2 <= x <= 3), estimation_result.θ)
+
 
         if estimation_method[2] == :log_constraint
             if estimation_method[3] == :theta_constraint
@@ -120,7 +120,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5, bins = -2:0.1:3)
 
         filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
-        filename_end   = ".pdf"
+        filename_end   = "_true_start.pdf"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*"_"*String(estimation_method[3])filename_end
 
         display(histo_result)
@@ -250,10 +250,10 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     display(plot_contour)
 
     filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
-    filename_end   = ".pdf"
+    filename_end   = "_true_start.pdf"
     file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
-    savefig(plot_contour, file_name)
+    #savefig(plot_contour, file_name)
 end
 
 
@@ -296,7 +296,7 @@ end
     display(plot_contour)
 
     filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
-    filename_end   = "_focus.pdf"
+    filename_end   = "_focus_true_start.pdf"
     file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
     savefig(plot_contour, file_name)
@@ -331,7 +331,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_zero_start.csv"
+        filename_end   = "_true_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -361,10 +361,10 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         filename_estimation = "_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/figuretable/scatter_theta_gamma_all_simulation_loglinear_loglinear_n_"
-        filename_end   = ".pdf"
+        filename_end   = "_true_start.pdf"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
-        savefig(estimation_plot, file_name)
+        #savefig(estimation_plot, file_name)
     end
 end
 
@@ -489,7 +489,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_zero_start.csv"
+        filename_end   = "_true_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
 
@@ -523,7 +523,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         filename_estimation = "_"*String(estimation_method[3])
         filename_begin = "../conduct_parameter/figuretable/diff_gmm_value_loglinear_loglinear_n_"
-        filename_end   = ".pdf"
+        filename_end   = "_true_start.pdf"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
     
 
