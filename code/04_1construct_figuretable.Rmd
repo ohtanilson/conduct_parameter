@@ -304,7 +304,7 @@ create_table_with_demand_shifter <-
                 sep = "")
     new_rows <- 
       data.frame(
-        "Sample size (n)",
+        "Sample size ($T$)",
         "",
         "50",
         "",
@@ -367,7 +367,7 @@ create_table_without_demand_shifter <-
                 sep = "")
     new_rows <- 
       data.frame(
-        "Sample size (n)",
+        "Sample size ($T$)",
         "",
         "50",
         "",
@@ -440,7 +440,7 @@ create_table_loglinear_with_demand_shifter <-
     if(col_dim == 4){
       sample_size_row <-
       data.frame(
-        "Sample size (n)",
+        "Sample size ($T$)",
         "",
         "50",
         "",
@@ -463,7 +463,7 @@ create_table_loglinear_with_demand_shifter <-
     }else{
       sample_size_row <-
       data.frame(
-        "Sample size (n)",
+        "Sample size ($T$)",
         "",
         "50",
         # "",

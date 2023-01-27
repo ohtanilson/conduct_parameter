@@ -397,7 +397,7 @@ create_table_with_demand_shifter_bias_rmse <-
     }
     new_rows <-
       data.frame(
-        #"Sample size (n)",
+        #"Sample size ($T$)",
         "",
         "50",
         "",
@@ -413,7 +413,7 @@ create_table_with_demand_shifter_bias_rmse <-
         all_bias_rmse,
         new_rows)
     rownames(all_bias_rmse_for_latex)[10] <-
-      "Sample size (n)"
+      "Sample size ($T$)"
     filelocation <-
       paste("figuretable/",
                 deparse(
@@ -570,7 +570,7 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     }
     new_rows <-
       data.frame(
-        #"Sample size (n)",
+        #"Sample size ($T$)",
         "",
         "50",
         "",
@@ -609,7 +609,7 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     rownames(all_bias_rmse_for_latex)[10] <-
       "Runs converged (\\%)"
     rownames(all_bias_rmse_for_latex)[11] <-
-      "Sample size (n)"
+      "Sample size ($T$)"
     filelocation <-
       paste("figuretable/",
                 deparse(
