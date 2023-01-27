@@ -217,10 +217,10 @@ Thus, imprecise results reported in PS are due to the lack of demand shifters an
 \end{table} 
 
 Table \ref{tb:loglinear_loglinear_non_constraint} provides the results of the log-linear model with a demand shifter.
-We calculate the mean and standard deviation only from the simulation data whose GMM minimization problems are locally solved. 
+We calculate the bias and Root-mean-squared error (RMSE) only from the simulation data whose GMM minimization problems are locally solved. 
 First, we often cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2$, we can solve 36.6\% of the 1000 simulated data.\footnote{The results depends on the tolerance level of the optimization. If we use some loose level, i.e., $10e-6$, we can solve all the simulated data, but we face the same problem discussed in Section \ref{sec:results}. See the details in Appendix \ref{sec:appendix}.}
 Second, the estimation of the conduct parameter fails as $\sigma$ becomes large. 
-When $\sigma$ becomes larger, the mean and standard deviation of the conduct parameter estimator take unreasonable values.
+When $\sigma$ becomes larger, the bias and RMSE of the conduct parameter estimator take unreasonable values.
 
 Figure \ref{fg:histogram_loglinear_loglinear_no_constraint} illustrates the histograms of the estimated conduct parameter from all simulations.
 In each panel, the histogram has a peak around the true parameter.
@@ -236,7 +236,7 @@ Previous papers including \citet{okazaki2022excess} also point out that the valu
           \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint_bias_rmse}}\\
             \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint_bias_rmse}}
       \end{center}\footnotesize
-      Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ We calculate the mean and standard deviation only from the simulation data whose GMM minimization problems are locally solved.  
+      Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ We calculate the bias and RMSE only from the simulation data whose GMM minimization problems are locally solved.  
 \end{table} 
 
 
