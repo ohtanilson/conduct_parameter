@@ -34,7 +34,8 @@
 \newtheorem{example}{Example}
 
 \title{Revisiting Conduct Parameter Estimation in Homogeneous Goods Markets: At Least, Linear Model is Valid}
-\author{Yuri Matsumura\footnote{Department of Economics, Rice University. Matsumura: \texttt{\href{mailto:Yuri.Matsumura@rice.edu}{Yuri.Matsumura@rice.edu}}} \and Suguru Otani \footnote{Department of Economics, Rice University. Otani: \texttt{\href{mailto:so19@rice.edu}{so19@rice.edu}}}}
+\author{Yuri Matsumura\footnote{Department of Economics, Rice University. Matsumura: \texttt{\href{mailto:Yuri.Matsumura@rice.edu}{Yuri.Matsumura@rice.edu}}} \and Suguru Otani \footnote{Department of Economics, Rice University. Otani: \texttt{\href{mailto:so19@rice.edu}{so19@rice.edu}}\\
+Declarations of interest: none}}
 
 \begin{document}
 
@@ -69,8 +70,8 @@ Given these problems, we revisit the estimation of the conduct parameter in homo
 We confirm that the accuracy of the estimation holds by including a demand shifter in the supply equation estimation properly. 
 When the sample size is more than 100, the accuracy of the estimation is also improved.
 
-Next, we examine the log-linear model and numerically show that standard regression estimates an incorrect conduct parameter because the specification adds another estimation problem.
-Thus, we conclude that the linear model is a valid specification for the conduct parameter estimation in homogeneous good markets.
+Next, we examine the log-linear model and numerically show that standard regression estimates an incorrect conduct parameter because the specification adds other estimation problems.
+Thus, we conclude that the linear model is at least a valid specification for the conduct parameter estimation in homogeneous good markets.
 
 % 366 words by Suguru
 
@@ -97,7 +98,7 @@ We also have the demand-side and supply-side instrument variables $Z^{d}_{t}$ an
 
 %254 words by Suguru
 
-\section{Identification of the conduct parameter}
+\section{Linear model and log-linear model}
 
 \subsection{Linear demand and linear cost}
 Assume that linear demand and cost functions are specified as:
@@ -194,7 +195,7 @@ The instrument variables for the demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, 
 
 %581words by Suguru
 
-\section{Results}
+\section{Results}\label{sec:results}
 
 Table \ref{tb:linear_linear_sigma_1} shows the results of the linear model with the demand shifter.
 Panel (a) shows that when $\sigma = 0.001$, the estimation of all parameters is quite accurate.
@@ -208,16 +209,16 @@ Thus, imprecise results reported in PS are due to the lack of demand shifters an
   \begin{center}
       \caption{Results of the linear model with demand shifter}
       \label{tb:linear_linear_sigma_1} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2}}
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_bias_rmse.tex}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_bias_rmse}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
   \end{center}\footnotesize
   Note: True parameters: $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
 \end{table} 
 
 Table \ref{tb:loglinear_loglinear_non_constraint} provides the results of the log-linear model with a demand shifter.
 We calculate the mean and standard deviation only from the simulation data whose GMM minimization problems are locally solved. 
-First, we often cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2$, we can solve 36.6\% of the 1000 simulated data.
+First, we often cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2$, we can solve 36.6\% of the 1000 simulated data.\footnote{The results depends on the tolerance level of the optimization. If we use some loose level, i.e., $10e-6$, we can solve all the simulated data, but we face the same problem discussed in Section \ref{sec:results}. See the details in Appendix \ref{sec:appendix}.}
 Second, the estimation of the conduct parameter fails as $\sigma$ becomes large. 
 When $\sigma$ becomes larger, the mean and standard deviation of the conduct parameter estimator take unreasonable values.
 
@@ -231,9 +232,9 @@ Previous papers including \citet{okazaki2022excess} also point out that the valu
       \begin{center}
           \caption{Results of the log-linear model with demand shifter}
           \label{tb:loglinear_loglinear_non_constraint} 
-          \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint.tex}}\\
-          \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint}}\\
-            \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint}}
+          \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint_bias_rmse.tex}}\\
+          \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint_bias_rmse}}\\
+            \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint_bias_rmse}}
       \end{center}\footnotesize
       Note: True parameters: $\alpha_1 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_2 = 0.1,  \theta = 0.3.$ We calculate the mean and standard deviation only from the simulation data whose GMM minimization problems are locally solved.  
 \end{table} 
@@ -282,12 +283,25 @@ While \citet{lau1982identifying} shows the joint identification of the conduct a
 We revisit the conduct parameter estimation in homogeneous goods markets. In contrast to the pessimistic simulation results shown in PS, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. We also show that the log-linear model recommended by PS has another estimation problem. Based on the numerical investigation, we conclude that at least the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets.
 % 82 words
 
+\paragraph{Acknowledgments}
+We thank Jeremy Fox for his valuable advice. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
+% 26 words
+
 \bibliographystyle{aer}
 \bibliography{conduct_parameter}
 
 \newpage
 \appendix
-\section{Other experiments (Online appendix)}
+
+\section{Details for our numerical settings and other experiments (Online appendix)}\label{sec:appendix}
+
+\subsection{Details for our numerical settings}
+
+tolerance
+
+
+\subsection{Other experiments}
+
 \begin{table}[!htbp]
     \caption{Estimation results in Table 2 of from PS}
     \label{tb:linear_linear_sigma_Perloff_Shen}
@@ -335,7 +349,7 @@ These results are consistent with PS.
       \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
       \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
   \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$
+  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$. For comparison, we report mean and SD.
 \end{table} 
 
 \begin{table}[!htbp]
@@ -345,7 +359,7 @@ These results are consistent with PS.
       \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
     \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
   \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$
+  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$. For comparison, we report mean and SD.
 \end{table} 
 
 \begin{figure}[!htbp]
