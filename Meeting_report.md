@@ -156,3 +156,23 @@ Locally solvedの改善 [Matsumura]
 - 解けなかったIDに関して，初期値を変えてみる．
   - trueを当てたときと，その他の初期値を見たほうがいい．
   - acknowledgement作る
+ 
+
+## Next meeting (23/01/30, 17:00)
+
+WP for Jeremy
+- figuretable in appendixの更新
+- arxivへのupdateはJeremy commentと英文校正を終わったら。2月中にsubmit.
+
+1. The math mistakes start almost immediately in the paper. The marginal cost in the first display equation depends on quantity so that profit function has an integral over quantity levels. Suguru fixed this in a recent presentation for his job paper but here the same mistake occurs. The second display equation is the FOC for the profit maximization problem. Again, marginal cost depends on quantity but there is no derivative of marginal cost that shows up in this FOC. I suspect the entire paper has many more mistakes like this. You guys have to be able to write a paper without math mistakes. As we saw yesterday, Qiran is able to do so! [done]
+
+2. In the tables of estimation results, please report biases and RMSEs instead of means and variances. [done]
+
+3. The discussion of the results in Section 4.1 should illustrate the claims with for specific numbers from the tables. You shouldn’t just make broad claims about the results and expect the reader to go looking for specific numbers to justify the brand claims. [done]
+
+4. In Section 4.2, I don’t know what you mean by "we can solve 36.6% of the 1000 simulated data”. This seems to be important to your findings in Section 4.2. [done]
+
+5. I would want to see you present this paper to the group to understand what you are doing and what the likely cause of your results is in Section 4.2 and Section 5. If you can show me a draft of this without math mistakes and with biases and RMSEs in the tables, we can schedule you a presentation slot in the group that is out of presentation order. [done]
+
+
+351 + 177 + 583 + 594 + 83 + 115 + 29

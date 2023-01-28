@@ -66,70 +66,10 @@ market_parameters_log = @with_kw (
 
 
 #estimation_methods = [(:separate,:non_constraint), (:separate,:constraint), (:simultaneous,:non_constraint), (:simultaneous,:constraint)];
-estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
+estimation_methods = [(:separate,:non_constraint, :non_constraint)];
 
 
 #---------------------------------------------------------------------------------------------------------
-
-function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
-    
-    L = size(Z, 2)
-    K_s = size(X_s, 2)
-    K_d = size(X_d, 2)
-
-    Ω = inv(Z' * Z)/T
-
-    model = Model(Ipopt.Optimizer)
-    set_optimizer_attribute(model, "tol", 1e-15)
-    set_optimizer_attribute(model, "max_iter", 1000)
-    set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-    set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s-1])
-
-    if estimation_method[3] == :theta_constraint
-
-        @variable(model, 0 <= θ <= 1)
-    else
-        @variable(model, θ)
-    end
-
-    r = Any[];
-    g = Any[];
-    for t =1:T
-        push!(r, @NLexpression(model, P[t]- sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
-        push!(r, @NLexpression(model, P[t]- sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1) + log(1 - θ *(β[2] + β[3] * X[2*t, end]) ) ) )
-    end
-
-    for l = 1:L
-        push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
-    end
-
-    if estimation_method[2] == :log_constraint
-        for t = 1:T
-            @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
-        end
-    end
-
-    @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L, k = 1:L))
-
-    optimize!(model)
-    
-    α_hat = value.(β)[1:K_d]
-    γ_hat = value.(β)[K_d+1:end]
-    θ_hat = value.(θ)
-
-    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-
-        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    else 
-        error("The estimation result violates the model assumption ")
-
-    end
-    
-end
-
-
-#---------------------------------------------------------------------------------------------
 
 function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
@@ -183,10 +123,10 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 1e-15)
+            set_optimizer_attribute(model, "tol", 10^(-14))
             set_optimizer_attribute(model, "max_iter", 1000)
             set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-            #et_silent(model)
+            set_silent(model)
             @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
             if estimation_method[3] == :theta_constraint
@@ -395,7 +335,7 @@ for estimation_method = estimation_methods
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
-        filename_begin = "../conduct_parameter/check_numerical_error/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/check_numerical_error/tight/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_true_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
@@ -405,6 +345,121 @@ for estimation_method = estimation_methods
     println("----------------------------------------------------------------------------------\n")
 end
 
+
+function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
+    
+    @unpack θ, γ_0, γ_1, γ_2, γ_3, start_θ, start_γ = parameter
+
+    start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4) 
+
+
+    QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
+    Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  Q
+    X_dd = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end])
+    α_hat = inv(X_dd' * X_dd) * (X_dd' * P)
+
+    L = size(Z, 2)
+    L_d = size(Z_d,2)
+    L_s = size(Z_s,2)
+    K_s = size(X_s, 2)
+    K_d = size(X_d, 2)
+
+    sample_violatiton_index = Int64[]
+
+    # Pick up the index of market under which the inside of the log has a negative value
+    for t = 1:T
+        if 1 .- θ .*(α_hat[2] .+ α_hat[3] .* X_s[t,end]) <= 0
+            push!(sample_violatiton_index, t)
+        end
+    end
+
+    # If all markets do not satisfy the assumption, stop the supply estimation and rerutns missing values
+    if length(sample_violatiton_index) == T
+
+        γ_hat = repeat([missing], K_s-1)
+        θ_hat = missing
+
+        return α_hat, γ_hat, θ_hat, missing
+
+    else
+        
+        # Drop the samples that violate the assumption
+        if  1 <= length(sample_violatiton_index)
+
+            sample_index = setdiff([1:T;], sample_violatiton_index)
+
+            Z_s = Z_s[sample_index, :]
+            X_s = X_s[sample_index, :]
+            T = length(sample_index)
+            L_s = size(Z_s,2)
+            K_s = size(X_s, 2)
+        end
+
+        #Check if the weight matrix can be obtained
+        if rank(Z_s' * Z_s) == L_s
+            
+
+            while sum(1 .- start_θ .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) != 0
+                start_θ = θ + rand(Uniform(-10, 1))
+            end
+
+            Ω = inv(Z_s' * Z_s)/T
+
+            model = Model(Ipopt.Optimizer)
+            set_optimizer_attribute(model, "tol", 10^(-14))
+            set_optimizer_attribute(model, "max_iter", 1000)
+            set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+            set_silent(model)
+            @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
+
+            if estimation_method[3] == :theta_constraint
+                @variable(model, 0 <= θ <= 1, start = start_θ)
+            else
+                @variable(model, θ, start = start_θ)
+            end
+
+            r = Any[];
+            g = Any[];
+            for t =1:T
+                push!(r, @NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
+            end
+
+            for l = 1:L_s
+                push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
+            end
+
+            for t = 1:T
+                @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+            end
+
+            @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
+
+            optimize!(model)
+            
+            γ_hat = value.(γ)
+            θ_hat = value.(θ)
+        else
+
+            # If the weight matrix can not be obtained, return missing values
+            γ_hat = repeat([missing], K_s-1)
+            θ_hat = missing
+
+            return α_hat, γ_hat, θ_hat, missing
+        end
+
+        # Check if the supply estimation result satisfies the assumption
+        if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+
+            return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+        else 
+            @show α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+            error("The estimation result violates the model assumption ")
+
+
+        end
+    end
+
+end
 
 # Estimate the parameters with random starting values
 for estimation_method = estimation_methods
@@ -434,7 +489,7 @@ for estimation_method = estimation_methods
 
         @unpack θ, γ_0, γ_1, γ_2, γ_3, start_θ, start_γ = parameter
 
-        parameter = market_parameters_log(T = t, σ = sigma, start_θ = random_θ, start_γ = random_γ)
+        parameter = market_parameters_log(T = t, σ = sigma)
         
         # Estimation based on 2SLS
         @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
@@ -442,7 +497,7 @@ for estimation_method = estimation_methods
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
-        filename_begin = "../conduct_parameter/check_numerical_error/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/check_numerical_error/tight/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_random_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
@@ -509,9 +564,9 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 10e-6)
+            set_optimizer_attribute(model, "tol", 10^(-6))
             set_optimizer_attribute(model, "max_iter", 1000)
-            set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+            #set_optimizer_attribute(model, "acceptable_tol", 1e-12)
             set_silent(model)
             @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
@@ -566,6 +621,48 @@ end
 
 
 
+# Estimate the parameters from the true starting value
+for estimation_method = estimation_methods
+    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
+
+        # Load the simulation data from the rds files
+        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+        filename_end   = ".rds"
+
+        if sigma == 1 || sigma == 2
+            sigma = Int64(sigma)
+        end
+
+        filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+
+        data = load(filename)
+        data = DataFrames.sort(data, [:group_id_k])
+
+        #Uncomment the following lines to load the simulation data from the csv files
+            #filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+            #filename_end   = ".csv"
+            #file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+            #data = DataFrame(CSV.File(file_name))
+
+        # Set parameter values
+        parameter = market_parameters_log(T = t, σ = sigma, start_θ = 0, start_γ = zeros(4))
+        
+        # Estimation based on 2SLS
+        @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
+
+        # Save the estimation result as csv file. The file is saved at "output" folder
+        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
+
+        filename_begin = "../conduct_parameter/check_numerical_error/loose/parameter_hat_table_loglinear_loglinear_n_"
+        filename_end   = "_zero_start_loose.csv"
+        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+
+        CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
+    end
+    println("\n")
+    println("----------------------------------------------------------------------------------\n")
+end
+
 
 # Estimate the parameters from the true starting value
 for estimation_method = estimation_methods
@@ -599,7 +696,7 @@ for estimation_method = estimation_methods
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
-        filename_begin = "../conduct_parameter/check_numerical_error/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/check_numerical_error/loose/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_true_start_loose.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
@@ -613,11 +710,12 @@ end
 
 
 
+
 function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
     @unpack θ, γ_0, γ_1, γ_2, γ_3, start_θ, start_γ = parameter
 
-    start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-1, 1), 4) 
+    start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4) 
 
 
     QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
@@ -667,15 +765,15 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             
 
             while sum(1 .- start_θ .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) != 0
-                start_θ = θ + rand(Uniform(-3, -2))
+                start_θ = θ + rand(Uniform(-10, 1))
             end
 
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 10e-6)
+            set_optimizer_attribute(model, "tol", 10^(-6))
             set_optimizer_attribute(model, "max_iter", 1000)
-            set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+            #set_optimizer_attribute(model, "acceptable_tol", 1e-12)
             set_silent(model)
             @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
@@ -729,6 +827,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 end
 
 
+
 # Estimate the parameters with random starting values
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
@@ -765,7 +864,7 @@ for estimation_method = estimation_methods
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
-        filename_begin = "../conduct_parameter/check_numerical_error/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/check_numerical_error/loose/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_random_start_loose.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
