@@ -25,9 +25,19 @@ if(1 == 0){
 library(modelsummary) # for N in datasummary
 # set constant ----
 n_observation_list <-
-  c(50, 100, 200, 1000)
+  c(
+    50,
+    100,
+    200,
+    1000
+    )
 sigma_list <-
-  c(0.001, 0.5, 1.0, 2.0)
+  c(
+    0.001,
+    0.5, 
+    1.0, 
+    2.0
+    )
 
 # linear with demand shifter
 for(nn in 1:length(n_observation_list)){
@@ -46,17 +56,18 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     temp_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table",
-                    filename,
-                    ".rds",
-                    sep = ""
-                    )
-                  )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
               )
+            )
+        )
     temp_data <-
       temp_data %>% 
       dplyr::rename(
@@ -84,14 +95,15 @@ for(nn in 1:length(n_observation_list)){
           R2_supply) %>% 
       dplyr::mutate(
         filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                )
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            )
         )
     assign(
       filename,
@@ -117,17 +129,18 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     temp_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table",
-                    filename,
-                    ".rds",
-                    sep = ""
-                    )
-                  )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
               )
+            )
+        )
     temp_data <-
       temp_data %>% 
       dplyr::rename(
@@ -155,14 +168,15 @@ for(nn in 1:length(n_observation_list)){
           R2_supply) %>% 
       dplyr::mutate(
         filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                )
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            )
         )
     assign(
       filename,
@@ -209,12 +223,14 @@ for(nn in 1:length(n_observation_list)){
       # drop T, sigma, status
       temp_data <-
         temp_data[
-          ,-c(1, # T
-              2, # sigma
-              12 # status
-              )]
+          ,-c(
+            1, # T
+            2, # sigma
+            12 # status
+            )]
       colnames(temp_data) <-
-        c("alpha0_hat",
+        c(
+          "alpha0_hat",
           "alpha1_hat",
           "alpha2_hat",
           "alpha3_hat",
@@ -223,7 +239,8 @@ for(nn in 1:length(n_observation_list)){
           "gamma2_hat",
           "gamma3_hat",
           "theta_hat",
-          "status_indicator")
+          "status_indicator"
+          )
       temp_data <-
         temp_data %>% 
         dplyr::rename(
@@ -252,17 +269,19 @@ for(nn in 1:length(n_observation_list)){
         ) %>% 
       dplyr::mutate(
         filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                ),
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            ),
         locally_solved_percent =
-          sum(status_indicator,
-              na.rm = TRUE)/
+          sum(
+            status_indicator,
+            na.rm = TRUE)/
           dim(temp_data)[1]
         )
     assign(
@@ -293,15 +312,16 @@ create_table_with_demand_shifter <-
   `$R^{2}$ (supply)` ) ~
   filename * (Mean + SD)*Arguments(na.rm = TRUE)
     filelocation <-
-      paste("figuretable/",
-                deparse(
-                  substitute(
-                    target_data
-                    )
-                  ),
-                as.character(),
-                ".tex",
-                sep = "")
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        ".tex",
+        sep = "")
     new_rows <- 
       data.frame(
         "Sample size ($T$)",
@@ -356,15 +376,16 @@ create_table_without_demand_shifter <-
   `$R^{2}$ (supply)` ) ~
   filename * (Mean + SD)*Arguments(na.rm = TRUE)
     filelocation <-
-      paste("figuretable/",
-                deparse(
-                  substitute(
-                    target_data
-                    )
-                  ),
-                as.character(),
-                ".tex",
-                sep = "")
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        ".tex",
+        sep = "")
     new_rows <- 
       data.frame(
         "Sample size ($T$)",
@@ -417,15 +438,16 @@ create_table_loglinear_with_demand_shifter <-
   ) ~
   filename * (Mean + SD)*Arguments(na.rm = TRUE)
     filelocation <-
-      paste("figuretable/",
-                deparse(
-                  substitute(
-                    target_data
-                    )
-                  ),
-                as.character(),
-                ".tex",
-                sep = "")
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        ".tex",
+        sep = "")
     locally_solved_list <-
       target_data %>% 
       dplyr::distinct(
@@ -483,10 +505,12 @@ create_table_loglinear_with_demand_shifter <-
     
     # keep consistency of colnames for latex
     colnames(locally_solved_row) <-
-      colnames(sample_size_row)
+      colnames(
+        sample_size_row)
     new_rows <-
-      rbind(locally_solved_row,
-            sample_size_row)
+      rbind(
+        locally_solved_row,
+        sample_size_row)
     # pick up locally solved id
     target_data <-
       target_data %>% 
@@ -531,36 +555,40 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 ```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001 <-
-  rbind(linear_linear_n_50_sigma_0.001,
-        linear_linear_n_100_sigma_0.001,
-        linear_linear_n_200_sigma_0.001,
-        linear_linear_n_1000_sigma_0.001)
+  rbind(
+    linear_linear_n_50_sigma_0.001,
+    linear_linear_n_100_sigma_0.001,
+    linear_linear_n_200_sigma_0.001,
+    linear_linear_n_1000_sigma_0.001)
 create_table_with_demand_shifter(
   linear_linear_sigma_0.001
 )
 linear_linear_sigma_0.5 <-
-  rbind(linear_linear_n_50_sigma_0.5,
-        linear_linear_n_100_sigma_0.5,
-        linear_linear_n_200_sigma_0.5,
-        linear_linear_n_1000_sigma_0.5)
+  rbind(
+    linear_linear_n_50_sigma_0.5,
+    linear_linear_n_100_sigma_0.5,
+    linear_linear_n_200_sigma_0.5,
+    linear_linear_n_1000_sigma_0.5)
 create_table_with_demand_shifter(
   linear_linear_sigma_0.5
 )
 
 linear_linear_sigma_1 <-
-  rbind(linear_linear_n_50_sigma_1,
-        linear_linear_n_100_sigma_1,
-        linear_linear_n_200_sigma_1,
-        linear_linear_n_1000_sigma_1)
+  rbind(
+    linear_linear_n_50_sigma_1,
+    linear_linear_n_100_sigma_1,
+    linear_linear_n_200_sigma_1,
+    linear_linear_n_1000_sigma_1)
 create_table_with_demand_shifter(
   linear_linear_sigma_1
 )
 
 linear_linear_sigma_2 <-
-  rbind(linear_linear_n_50_sigma_2,
-        linear_linear_n_100_sigma_2,
-        linear_linear_n_200_sigma_2,
-        linear_linear_n_1000_sigma_2)
+  rbind(
+    linear_linear_n_50_sigma_2,
+    linear_linear_n_100_sigma_2,
+    linear_linear_n_200_sigma_2,
+    linear_linear_n_1000_sigma_2)
 create_table_with_demand_shifter(
   linear_linear_sigma_2
 )
@@ -572,36 +600,40 @@ create_table_with_demand_shifter(
 
 ```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001_without_demand_shifter_y <-
-  rbind(linear_linear_n_50_sigma_0.001_without_demand_shifter_y,
-        linear_linear_n_100_sigma_0.001_without_demand_shifter_y,
-        linear_linear_n_200_sigma_0.001_without_demand_shifter_y,
-        linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
+  rbind(
+    linear_linear_n_50_sigma_0.001_without_demand_shifter_y,
+    linear_linear_n_100_sigma_0.001_without_demand_shifter_y,
+    linear_linear_n_200_sigma_0.001_without_demand_shifter_y,
+    linear_linear_n_1000_sigma_0.001_without_demand_shifter_y)
 create_table_without_demand_shifter(
   linear_linear_sigma_0.001_without_demand_shifter_y
 )
 linear_linear_sigma_0.5_without_demand_shifter_y <-
-  rbind(linear_linear_n_50_sigma_0.5_without_demand_shifter_y,
-        linear_linear_n_100_sigma_0.5_without_demand_shifter_y,
-        linear_linear_n_200_sigma_0.5_without_demand_shifter_y,
-        linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
+  rbind(
+    linear_linear_n_50_sigma_0.5_without_demand_shifter_y,
+    linear_linear_n_100_sigma_0.5_without_demand_shifter_y,
+    linear_linear_n_200_sigma_0.5_without_demand_shifter_y,
+    linear_linear_n_1000_sigma_0.5_without_demand_shifter_y)
 create_table_without_demand_shifter(
   linear_linear_sigma_0.5_without_demand_shifter_y
 )
 
 linear_linear_sigma_1_without_demand_shifter_y <-
-  rbind(linear_linear_n_50_sigma_1_without_demand_shifter_y,
-        linear_linear_n_100_sigma_1_without_demand_shifter_y,
-        linear_linear_n_200_sigma_1_without_demand_shifter_y,
-        linear_linear_n_1000_sigma_1_without_demand_shifter_y)
+  rbind(
+    linear_linear_n_50_sigma_1_without_demand_shifter_y,
+    linear_linear_n_100_sigma_1_without_demand_shifter_y,
+    linear_linear_n_200_sigma_1_without_demand_shifter_y,
+    linear_linear_n_1000_sigma_1_without_demand_shifter_y)
 create_table_without_demand_shifter(
   linear_linear_sigma_1_without_demand_shifter_y
 )
 
 linear_linear_sigma_2_without_demand_shifter_y <-
-  rbind(linear_linear_n_50_sigma_2_without_demand_shifter_y,
-        linear_linear_n_100_sigma_2_without_demand_shifter_y,
-        linear_linear_n_200_sigma_2_without_demand_shifter_y,
-        linear_linear_n_1000_sigma_2_without_demand_shifter_y)
+  rbind(
+    linear_linear_n_50_sigma_2_without_demand_shifter_y,
+    linear_linear_n_100_sigma_2_without_demand_shifter_y,
+    linear_linear_n_200_sigma_2_without_demand_shifter_y,
+    linear_linear_n_1000_sigma_2_without_demand_shifter_y)
 create_table_without_demand_shifter(
   linear_linear_sigma_2_without_demand_shifter_y
 )
@@ -614,39 +646,43 @@ create_table_without_demand_shifter(
 
 ```{r,echo=FALSE,results = "asis"}
 loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint
 )
 loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint
 )
 
 loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint
 )
 
 loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint
@@ -659,36 +695,40 @@ create_table_loglinear_with_demand_shifter(
 
 ```{r,echo=FALSE,results = "asis"}
 loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint
 )
 loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint
 )
 
 loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_1_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint
 )
 
 loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_2_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter(
   loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint
 )

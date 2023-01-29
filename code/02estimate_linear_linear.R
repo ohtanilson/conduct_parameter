@@ -3,9 +3,10 @@ library(magrittr)
 
 # set function ----
 estimate_demand <-
-  function(target_data,
-           target_demand_formula,
-           demand_shifter_dummy){
+  function(
+    target_data,
+    target_demand_formula,
+    demand_shifter_dummy){
     data <-
       target_data
     res_demand <-
@@ -83,9 +84,12 @@ estimate_demand <-
       data %>% 
       dplyr::left_join(
         demand_hat,
-        by = c("group_id_k" = 
-                 "group_id_k")
-      ) %>% 
+        by = 
+          c(
+            "group_id_k" = 
+              "group_id_k"
+            )
+        ) %>% 
       dplyr::mutate(
         composite_z =
           (alpha1_hat + 
@@ -97,8 +101,9 @@ estimate_demand <-
 
 
 estimate_supply <-
-  function(target_data_with_demand_hat,
-           target_supply_formula){
+  function(
+    target_data_with_demand_hat,
+    target_supply_formula){
     data <-
       target_data_with_demand_hat
     res_supply <-
@@ -156,81 +161,12 @@ estimate_supply <-
     return(data_with_demand_hat_and_supply_hat)
   }
 
-estimate_supply_loglinear <-
-  function(target_data_with_demand_hat){
-    data <-
-      target_data_with_demand_hat
-    g <-
-      function(theta,
-               data){
-        constant <- 
-          data[,"constant"]
-        y <- 
-          data[,"y"]
-        logQ <-
-          data[,"logQ"]
-        logP <-
-          data[,"logP"]
-        w <-
-          data[,"w"]
-        r <-
-          data[,"r"]
-        z <-
-          data[,"z"]
-        iv_w <-
-          data[,"iv_w"]
-        iv_r <-
-          data[,"iv_r"]
-        composite_z <-
-          data[,"composite_z"]
-        linear_terms <-
-          theta[1] * constant + 
-          theta[2] * logQ +
-          theta[3] * log(w) +
-          theta[4] * log(r) 
-        nonlinear_term <-
-          - log(1 - theta[5] *
-                  composite_z)
-        u <- 
-          c(logP - 
-              (nonlinear_term +
-              linear_terms)
-            )
-        return(u * y)
-      }
-    model_gmm_lm <-
-      momentfit::momentModel(
-        g = g,
-        x = data %>% 
-          dplyr::mutate(constant = 1) %>% 
-          #dplyr::select(y, intercept, x1, x2, x3) %>% 
-          as.matrix(),
-        theta0 = runif(5)
-        )
-    fit_gmm_lm <-
-      momentfit::gmmFit(
-        model_gmm_lm
-        )
-    summary(fit_gmm_lm)
-    
-    res_supply <-
-      data %>% 
-      split(
-        .$group_id_k
-      ) %>% 
-      purrr::map(
-        ~ momentfit::gmmFit(
-          formula = target_supply_formula,
-          data = .x)
-      ) 
-  }
-
-
 estimate_demand_and_supply <-
-  function(target_data,
-           target_demand_formula,
-           target_supply_formula,
-           demand_shifter_dummy){
+  function(
+    target_data,
+    target_demand_formula,
+    target_supply_formula,
+    demand_shifter_dummy){
     ## demand ----
     data_with_demand_hat <-
       estimate_demand(
@@ -283,9 +219,19 @@ estimate_demand_and_supply <-
 
 # set constant ----
 n_observation_list <-
-  c(50, 100, 200, 1000)
+  c(
+    50,
+    100,
+    200, 
+    1000
+    )
 sigma_list <-
-  c(0.001, 0.5, 1.0, 2.0)
+  c(
+    0.001,
+    0.5,
+    1.0, 
+    2.0
+    )
 
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
@@ -308,16 +254,17 @@ for(nn in 1:length(n_observation_list)){
     cat(filename,"\n")
     # load 
     target_data <-
-      readRDS(file = 
-                here::here(
-                  paste(
-                    "output/data_",
-                    filename,
-                    ".rds",
-                    sep = ""
-                  )
-                )
-      )
+      readRDS(
+        file = 
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
     # assign(filename,
     #        temp_data)
     # estimate 
@@ -336,15 +283,17 @@ for(nn in 1:length(n_observation_list)){
           linear_demand_linear_supply_formula,
         demand_shifter_dummy = TRUE)
     # save 
-    saveRDS(parameter_hat_table,
-            file = paste(
-              "output/",
-              "parameter_hat_table",
-              filename,
-              ".rds",
-              sep = ""
-              )
-            )
+    saveRDS(
+      parameter_hat_table,
+      file = 
+        paste(
+          "output/",
+          "parameter_hat_table",
+          filename,
+          ".rds",
+          sep = ""
+          )
+      )
   }
 }
 modelsummary::datasummary_skim(
@@ -370,16 +319,17 @@ for(nn in 1:length(n_observation_list)){
     cat(filename,"\n")
     # load 
     target_data <-
-      readRDS(file = 
-                here::here(
-                  paste(
-                    "output/data_",
-                    filename,
-                    ".rds",
-                    sep = ""
-                  )
-                )
-      )
+      readRDS(
+        file = 
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
     # assign(filename,
     #        temp_data)
     # estimate 
@@ -398,15 +348,17 @@ for(nn in 1:length(n_observation_list)){
           linear_demand_linear_supply_formula,
         demand_shifter_dummy = F)
     # save 
-    saveRDS(parameter_hat_table,
-            file = paste(
-              "output/",
-              "parameter_hat_table",
-              filename,
-              ".rds",
-              sep = ""
-            )
-    )
+    saveRDS(
+      parameter_hat_table,
+      file = 
+        paste(
+          "output/",
+          "parameter_hat_table",
+          filename,
+          ".rds",
+          sep = ""
+          )
+      )
   }
 }
 
@@ -433,20 +385,19 @@ filename <-
 cat(filename,"\n")
 # load 
 target_data <-
-  readRDS(file = 
-            here::here(
-              paste(
-                "output/data_",
-                filename,
-                ".rds",
-                sep = ""
-              )
-            )
-  )
-# assign(filename,
-#        temp_data)
-# estimate 
-## demand ----
+  readRDS(
+    file = 
+      here::here(
+        paste(
+          "output/data_",
+          filename,
+          ".rds",
+          sep = ""
+          )
+        )
+    )
+
+#### demand ----
 target_demand_formula =
   "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
 data_with_demand_hat <-
@@ -464,8 +415,9 @@ modelsummary::datasummary_skim(
       group_id_k,
       alpha0_hat:R2_demand
     ) %>% 
-    dplyr::distinct(group_id_k,
-                    .keep_all = T)
+    dplyr::distinct(
+      group_id_k,
+      .keep_all = T)
   ) 
 
 
@@ -487,19 +439,17 @@ for(nn in 1:length(n_observation_list)){
     cat(filename,"\n")
     # load
     target_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/data_",
-                    filename,
-                    ".rds",
-                    sep = ""
-                  )
-                )
-      )
-    # assign(filename,
-    #        temp_data)
-    # estimate
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
     target_demand_formula <-
       "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
     data_with_demand_hat <-
@@ -511,107 +461,24 @@ for(nn in 1:length(n_observation_list)){
         demand_shifter_dummy =
           TRUE)
     # save
-    saveRDS(data_with_demand_hat,
-            file = paste(
-              "output/",
-              "data_with_demand_hat_",
-              filename,
-              ".rds",
-              sep = ""
-            )
-    )
+    saveRDS(
+      data_with_demand_hat,
+      file = 
+        paste(
+          "output/",
+          "data_with_demand_hat_",
+          filename,
+          ".rds",
+          sep = ""
+          )
+      )
   }
 }
 
 
 
-## supply ----
-data <-
-  data_with_demand_hat %>% 
-  dplyr::mutate(
-    constant =
-      1
-  )
-fun <-
-  function(theta){
-  constant <- 
-    data[,"constant"]
-  y <- 
-    data[,"y"]
-  logQ <-
-    data[,"logQ"]
-  logP <-
-    data[,"logP"]
-  w <-
-    data[,"w"]
-  r <-
-    data[,"r"]
-  z <-
-    data[,"z"]
-  iv_w <-
-    data[,"iv_w"]
-  iv_r <-
-    data[,"iv_r"]
-  composite_z <-
-    data[,"composite_z"]
-  linear_terms <-
-    theta[1] * constant + 
-    theta[2] * logQ +
-    theta[3] * log(w) +
-    theta[4] * log(r) 
-  nonlinear_term <-
-    #- log(1 - theta[5] *
-    - log(1 - 0.3 *        
-            composite_z)
-  u <- 
-    c(logP - 
-        (nonlinear_term +
-           linear_terms)
-    )
-  return(sum(u * y))
-}
-# fun = function(x) 
-#   x[1]*exp(-(x[1]^2 + x[2]^2)) + (x[1]^2 + x[2]^2)/20
-# pracma::fminunc(x0 = c(1, 1, 1, 1), 
-#                 fun)
-
-
-
-# find numerical error point ----
-constant <- 
-  data[,"constant"]
-y <- 
-  data[,"y"]
-logQ <-
-  data[,"logQ"]
-logP <-
-  data[,"logP"]
-w <-
-  data[,"w"]
-r <-
-  data[,"r"]
-z <-
-  data[,"z"]
-iv_w <-
-  data[,"iv_w"]
-iv_r <-
-  data[,"iv_r"]
-composite_z <-
-  data[,"composite_z"]
-linear_terms <-
-  theta[1] * constant + 
-  theta[2] * logQ +
-  theta[3] * log(w) +
-  theta[4] * log(r) 
-nonlinear_term <-
-  #- log(1 - theta[5] *
-  - log(1 - 0.3 *        
-          composite_z)
-
-sum(is.na(nonlinear_term))
-
-
-
+#### supply ----
+# see julia code
 
 # appendix: test AER::ivreg, lm(2sls) ----
 filename <-
@@ -624,16 +491,17 @@ filename <-
     sep = ""
   )
 target_data <-
-  readRDS(file = 
-            here::here(
-              paste(
-                "output/data_",
-                filename,
-                ".rds",
-                sep = ""
-              )
-            )
-  )
+  readRDS(
+    file = 
+      here::here(
+        paste(
+          "output/data_",
+          filename,
+          ".rds",
+          sep = ""
+          )
+        )
+    )
 target_data_k <-
   target_data %>% 
   dplyr::filter(

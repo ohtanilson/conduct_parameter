@@ -103,23 +103,35 @@ generate_data <-
       if(specification == "linear_linear"){
         # aggregate quantity
         Q <- 
-          (alpha0 + alpha3 * y - gamma0 - gamma2 * w - 
-             gamma3 * r + (epsilon_d - epsilon_c))/
-          ((1 + theta) * (alpha1 + alpha2 * z) + gamma1)
+          (alpha0 +
+             alpha3 * y - 
+             gamma0 -
+             gamma2 * w - 
+             gamma3 * r +
+             (epsilon_d -
+                epsilon_c))/
+          ((1 + theta) * 
+             (alpha1 +
+                alpha2 * z) +
+             gamma1)
         # aggregate price
         P <- 
-          alpha0 - (alpha1 + alpha2 * z) * Q + 
-          alpha3 * y + epsilon_d
+          alpha0 -
+          (alpha1 +
+             alpha2 * z) * Q + 
+          alpha3 * y +
+          epsilon_d
         data <-
-          cbind(group_id_k,
-                Q,
-                P,
-                w,
-                r,
-                y,
-                z,
-                iv_w,
-                iv_r) %>% 
+          cbind(
+            group_id_k,
+            Q,
+            P,
+            w,
+            r,
+            y,
+            z,
+            iv_w,
+            iv_r) %>% 
           tibble::as_tibble()
       }else{
         # aggregate quantity
@@ -128,10 +140,16 @@ generate_data <-
         # / (γ_1 + α_1 + α_2 * z_t) # Equilibrium total quantity
         logQ <- 
           (alpha0 + 
-             log(1 - theta * (alpha1 + alpha2 * z)) +
+             log(1 - 
+                   theta *
+                   (alpha1 +
+                      alpha2 * z)) +
              alpha3 * y - 
-             (gamma0 + gamma2 * log(w) + gamma3 *log(r)) +
-             (epsilon_d - epsilon_c)
+             (gamma0 + 
+                gamma2 * log(w) +
+                gamma3 *log(r)) +
+             (epsilon_d -
+                epsilon_c)
            )/
           (gamma1 + alpha1 + alpha2 * z)
 
@@ -140,18 +158,21 @@ generate_data <-
         # α_3 * y_t + ε_d # The demand function
         logP <- 
           alpha0 - 
-          (alpha1 + alpha2 * z) * logQ + 
-              alpha3 * y + epsilon_d
+          (alpha1 +
+             alpha2 * z) * logQ + 
+              alpha3 * y +
+          epsilon_d
         data <-
-          cbind(group_id_k,
-                logQ,
-                logP,
-                w,
-                r,
-                y,
-                z,
-                iv_w,
-                iv_r) %>% 
+          cbind(
+            group_id_k,
+            logQ,
+            logP,
+            w,
+            r,
+            y,
+            z,
+            iv_w,
+            iv_r) %>% 
           tibble::as_tibble()
       }
       
@@ -159,25 +180,34 @@ generate_data <-
       if(specification == "linear_linear"){
         # aggregate quantity
         Q <- 
-          (alpha0 - 0 * y -
-             gamma0 - gamma2 * w - 
-             gamma3 * r + (epsilon_d - epsilon_c))/
-          ((1 + theta) * (alpha1 + alpha2 * z) + gamma1)
+          (alpha0 -
+             0 * y -
+             gamma0 -
+             gamma2 * w - 
+             gamma3 * r +
+             (epsilon_d -
+                epsilon_c))/
+          ((1 + theta) *
+             (alpha1 +
+                alpha2 * z) +
+             gamma1)
         # aggregate price
         P <- 
           alpha0 - 
           (alpha1 + alpha2 * z) * Q + 
-          0 * y + epsilon_d
+          0 * y + 
+          epsilon_d
         data <-
-          cbind(group_id_k,
-                Q,
-                P,
-                w,
-                r,
-                # y,
-                z,
-                iv_w,
-                iv_r) %>% 
+          cbind(
+            group_id_k,
+            Q,
+            P,
+            w,
+            r,
+            # drop alpha3 y
+            z,
+            iv_w,
+            iv_r) %>% 
           tibble::as_tibble()
       }else{
         # aggregate quantity
@@ -186,16 +216,26 @@ generate_data <-
         # / (γ_1 + α_1 + α_2 * z_t) # Equilibrium total quantity
         logQ <- 
           (alpha0 + 
-             log(1 - theta * (alpha1 + alpha2 * z)) +
-             0 - (gamma0 + gamma2 * log(w) +
-                    gamma3 *log(r)) + (epsilon_d - epsilon_c))/
-          (gamma1 + alpha1 + alpha2 * z)
+             log(1 - 
+                   theta *
+                   (alpha1 +
+                      alpha2 * z)) +
+             0 - 
+             (gamma0 +
+                gamma2 * log(w) +
+                gamma3 *log(r)) +
+             (epsilon_d - 
+                epsilon_c))/
+          (gamma1 + 
+             alpha1 + 
+             alpha2 * z)
         # aggregate price
         # log_p_t = α_0 - (α_1 + α_2 * z_t )* log_Q_t  +
         # α_3 * y_t + ε_d # The demand function
         logP <-
           alpha0 - 
-          (alpha1 + alpha2 * z) * logQ + 
+          (alpha1 + 
+             alpha2 * z) * logQ + 
           0 + epsilon_d
         data <-
           cbind(group_id_k,
@@ -219,9 +259,19 @@ generate_data <-
 ## set list ----
 set.seed(1)
 n_observation_list <-
-  c(50, 100, 200, 1000)
+  c(
+    50,
+    100,
+    200, 
+    1000
+    )
 sigma_list <-
-  c(0.001, 0.5, 1.0, 2.0)
+  c(
+    0.001,
+    0.5, 
+    1.0, 
+    2.0
+    )
 # generate and save data ----
 ## linear demand and linear cost ----
 ### with demand shifter ----
@@ -282,8 +332,9 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     cat(filename,"\n")
-    saveRDS(data,
-            file = filename)
+    saveRDS(
+      data,
+      file = filename)
   }
 }
 
@@ -315,8 +366,9 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     cat(filename,"\n")
-    saveRDS(data,
-            file = filename)
+    saveRDS(
+      data,
+      file = filename)
   }
 }
 
@@ -348,7 +400,8 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     cat(filename,"\n")
-    saveRDS(data,
-            file = filename)
+    saveRDS(
+      data,
+      file = filename)
   }
 }

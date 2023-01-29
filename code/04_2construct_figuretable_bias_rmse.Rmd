@@ -25,9 +25,19 @@ if(1 == 0){
 library(modelsummary) # for N in datasummary
 # set constant ----
 n_observation_list <-
-  c(50, 100, 200, 1000)
+  c(
+    50,
+    100, 
+    200, 
+    1000
+    )
 sigma_list <-
-  c(0.001, 0.5, 1.0, 2.0)
+  c(
+    0.001,
+    0.5, 
+    1.0, 
+    2.0
+    )
 
 # linear with demand shifter
 for(nn in 1:length(n_observation_list)){
@@ -46,17 +56,18 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     temp_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table",
-                    filename,
-                    ".rds",
-                    sep = ""
-                    )
-                  )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
               )
+            )
+        )
     temp_data <-
       temp_data %>% 
       dplyr::rename(
@@ -84,14 +95,15 @@ for(nn in 1:length(n_observation_list)){
           R2_supply) %>% 
       dplyr::mutate(
         filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                )
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            )
         )
     assign(
       filename,
@@ -117,17 +129,18 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     temp_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table",
-                    filename,
-                    ".rds",
-                    sep = ""
-                    )
-                  )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
               )
+            )
+        )
     temp_data <-
       temp_data %>% 
       dplyr::rename(
@@ -155,14 +168,15 @@ for(nn in 1:length(n_observation_list)){
           R2_supply) %>% 
       dplyr::mutate(
         filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                )
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            )
         )
     assign(
       filename,
@@ -170,8 +184,10 @@ for(nn in 1:length(n_observation_list)){
   }
 }
 constraint_list <-
-  c("_separate_non_constraint_non_constraint",
-    "_separate_non_constraint_theta_constraint")
+  c(
+    "_separate_non_constraint_non_constraint",
+    "_separate_non_constraint_theta_constraint"
+    )
 # loglinear with constraint
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
@@ -209,12 +225,14 @@ for(nn in 1:length(n_observation_list)){
       # drop T, sigma, status
       temp_data <-
         temp_data[
-          ,-c(1, # T
-              2, # sigma
-              12 # status
-              )]
+          ,-c(
+            1, # T
+            2, # sigma
+            12 # status
+            )]
       colnames(temp_data) <-
-        c("alpha0_hat",
+        c(
+          "alpha0_hat",
           "alpha1_hat",
           "alpha2_hat",
           "alpha3_hat",
@@ -223,7 +241,8 @@ for(nn in 1:length(n_observation_list)){
           "gamma2_hat",
           "gamma3_hat",
           "theta_hat",
-          "status_indicator")
+          "status_indicator"
+          )
       temp_data <-
         temp_data %>% 
         dplyr::rename(
@@ -252,17 +271,19 @@ for(nn in 1:length(n_observation_list)){
         ) %>% 
       dplyr::mutate(
         filename =
-          paste("(",
-                nn,
-                ") ",
-                "$n=",
-                temp_nn,
-                "$",
-                sep = ""
-                ),
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            ),
         locally_solved_percent =
-          sum(status_indicator,
-              na.rm = TRUE)/
+          sum(
+            status_indicator,
+            na.rm = TRUE)/
           dim(temp_data)[1]
         )
     assign(
@@ -274,15 +295,19 @@ for(nn in 1:length(n_observation_list)){
 }
 
 true_parameter_linear <-
-  c(10,
-    rep(1,7),
-    0.5)
+  c(
+    10,
+    rep(1, 7),
+    0.5
+    )
 true_parameter_loglinear <-
-  c(10,
+  c(
+    10,
     1,
     0.1,
-    rep(1,5),
-    0.3)
+    rep(1, 5),
+    0.3
+    )
 
 create_table_with_demand_shifter_bias_rmse <-
   function(target_data){
@@ -292,31 +317,40 @@ create_table_with_demand_shifter_bias_rmse <-
       # Redefine variables as the errors
       dplyr::summarise(
         `$\\alpha_{0}$` =
-          mean(`$\\alpha_{0}$` - true_parameter_linear[1],
+          mean(`$\\alpha_{0}$` -
+                 true_parameter_linear[1],
                na.rm = TRUE),
         `$\\alpha_{1}$` =
-          mean(`$\\alpha_{1}$` - true_parameter_linear[2],
+          mean(`$\\alpha_{1}$` -
+                 true_parameter_linear[2],
                na.rm = TRUE),
         `$\\alpha_{2}$` =
-          mean(`$\\alpha_{2}$` - true_parameter_linear[3],
+          mean(`$\\alpha_{2}$` -
+                 true_parameter_linear[3],
                na.rm = TRUE),
         `$\\alpha_{3}$` =
-          mean(`$\\alpha_{3}$` - true_parameter_linear[4],
+          mean(`$\\alpha_{3}$` -
+                 true_parameter_linear[4],
                na.rm = TRUE),
         `$\\gamma_{0}$` =
-          mean(`$\\gamma_{0}$` - true_parameter_linear[5],
+          mean(`$\\gamma_{0}$` -
+                 true_parameter_linear[5],
                na.rm = TRUE),
         `$\\gamma_{1}$` =
-          mean(`$\\gamma_{1}$` - true_parameter_linear[6],
+          mean(`$\\gamma_{1}$` - 
+                 true_parameter_linear[6],
                na.rm = TRUE),
         `$\\gamma_{2}$` =
-          mean(`$\\gamma_{2}$` - true_parameter_linear[7],
+          mean(`$\\gamma_{2}$` - 
+                 true_parameter_linear[7],
                na.rm = TRUE),
         `$\\gamma_{3}$` =
-          mean(`$\\gamma_{3}$` - true_parameter_linear[8],
+          mean(`$\\gamma_{3}$` -
+                 true_parameter_linear[8],
                na.rm = TRUE),
         `$\\theta$` =
-          mean(`$\\theta$` - true_parameter_linear[9],
+          mean(`$\\theta$` -
+                 true_parameter_linear[9],
                na.rm = TRUE)
       ) %>% 
       dplyr::ungroup()
@@ -325,36 +359,46 @@ create_table_with_demand_shifter_bias_rmse <-
       dplyr::group_by(filename) %>% 
       dplyr::summarise(
         `$\\alpha_{0}$` =
-          sqrt(mean((`$\\alpha_{0}$` - true_parameter_linear[1])^2,
+          sqrt(mean((`$\\alpha_{0}$` -
+                       true_parameter_linear[1])^2,
                na.rm = TRUE)),
         `$\\alpha_{1}$` =
-          sqrt(mean((`$\\alpha_{1}$` - true_parameter_linear[2])^2,
+          sqrt(mean((`$\\alpha_{1}$` -
+                       true_parameter_linear[2])^2,
                na.rm = TRUE)),
         `$\\alpha_{2}$` =
-          sqrt(mean((`$\\alpha_{2}$` - true_parameter_linear[3])^2,
+          sqrt(mean((`$\\alpha_{2}$` -
+                       true_parameter_linear[3])^2,
                na.rm = TRUE)),
         `$\\alpha_{3}$` =
-          sqrt(mean((`$\\alpha_{3}$` - true_parameter_linear[4])^2,
+          sqrt(mean((`$\\alpha_{3}$` -
+                       true_parameter_linear[4])^2,
                na.rm = TRUE)),
         `$\\gamma_{0}$` =
-          sqrt(mean((`$\\gamma_{0}$` - true_parameter_linear[5])^2,
+          sqrt(mean((`$\\gamma_{0}$` -
+                       true_parameter_linear[5])^2,
                na.rm = TRUE)),
         `$\\gamma_{1}$` =
-          sqrt(mean((`$\\gamma_{1}$` - true_parameter_linear[6])^2,
+          sqrt(mean((`$\\gamma_{1}$` -
+                       true_parameter_linear[6])^2,
                na.rm = TRUE)),
         `$\\gamma_{2}$` =
-          sqrt(mean((`$\\gamma_{2}$` - true_parameter_linear[7])^2,
+          sqrt(mean((`$\\gamma_{2}$` -
+                       true_parameter_linear[7])^2,
                na.rm = TRUE)),
         `$\\gamma_{3}$` =
-          sqrt(mean((`$\\gamma_{3}$` - true_parameter_linear[8])^2,
+          sqrt(mean((`$\\gamma_{3}$` -
+                       true_parameter_linear[8])^2,
                na.rm = TRUE)),
         `$\\theta$` =
-          sqrt(mean((`$\\theta$` - true_parameter_linear[9])^2,
+          sqrt(mean((`$\\theta$` -
+                       true_parameter_linear[9])^2,
                na.rm = TRUE))
       ) %>% 
       dplyr::ungroup()
     file_name_list <-
-      unique(rmse_info$filename)
+      unique(
+        rmse_info$filename)
     for(nn in 1:length(file_name_list)){
       temp_file_name <-
         as.character(
@@ -362,12 +406,14 @@ create_table_with_demand_shifter_bias_rmse <-
       temp_bias <-
         bias_info %>% 
         dplyr::filter(
-          filename == temp_file_name
+          filename == 
+            temp_file_name
         )
       temp_rmse <-
         rmse_info %>% 
         dplyr::filter(
-          filename == temp_file_name
+          filename == 
+            temp_file_name
           )
       temp_bias_rmse <-
         data.frame(
@@ -411,20 +457,22 @@ create_table_with_demand_shifter_bias_rmse <-
     all_bias_rmse_for_latex <-
       rbind(
         all_bias_rmse,
-        new_rows)
+        new_rows
+        )
     rownames(all_bias_rmse_for_latex)[10] <-
       "Sample size ($T$)"
     filelocation <-
-      paste("figuretable/",
-                deparse(
-                  substitute(
-                    target_data
-                    )
-                  ),
-                as.character(),
-                "_bias_rmse",
-                ".tex",
-                sep = "")
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        "_bias_rmse",
+        ".tex",
+        sep = "")
     all_bias_rmse_for_latex %>% 
       kableExtra::kbl(
         format = "latex",
@@ -462,31 +510,40 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
       # Redefine variables as the errors
       dplyr::summarise(
         `$\\alpha_{0}$` =
-          mean(`$\\alpha_{0}$` - true_parameter_loglinear[1],
+          mean(`$\\alpha_{0}$` -
+                 true_parameter_loglinear[1],
                na.rm = TRUE),
         `$\\alpha_{1}$` =
-          mean(`$\\alpha_{1}$` - true_parameter_loglinear[2],
+          mean(`$\\alpha_{1}$` -
+                 true_parameter_loglinear[2],
                na.rm = TRUE),
         `$\\alpha_{2}$` =
-          mean(`$\\alpha_{2}$` - true_parameter_loglinear[3],
+          mean(`$\\alpha_{2}$` -
+                 true_parameter_loglinear[3],
                na.rm = TRUE),
         `$\\alpha_{3}$` =
-          mean(`$\\alpha_{3}$` - true_parameter_loglinear[4],
+          mean(`$\\alpha_{3}$` -
+                 true_parameter_loglinear[4],
                na.rm = TRUE),
         `$\\gamma_{0}$` =
-          mean(`$\\gamma_{0}$` - true_parameter_loglinear[5],
+          mean(`$\\gamma_{0}$` - 
+                 true_parameter_loglinear[5],
                na.rm = TRUE),
         `$\\gamma_{1}$` =
-          mean(`$\\gamma_{1}$` - true_parameter_loglinear[6],
+          mean(`$\\gamma_{1}$` -
+                 true_parameter_loglinear[6],
                na.rm = TRUE),
         `$\\gamma_{2}$` =
-          mean(`$\\gamma_{2}$` - true_parameter_loglinear[7],
+          mean(`$\\gamma_{2}$` -
+                 true_parameter_loglinear[7],
                na.rm = TRUE),
         `$\\gamma_{3}$` =
-          mean(`$\\gamma_{3}$` - true_parameter_loglinear[8],
+          mean(`$\\gamma_{3}$` - 
+                 true_parameter_loglinear[8],
                na.rm = TRUE),
         `$\\theta$` =
-          mean(`$\\theta$` - true_parameter_loglinear[9],
+          mean(`$\\theta$` -
+                 true_parameter_loglinear[9],
                na.rm = TRUE)
       ) %>% 
       dplyr::ungroup()
@@ -498,31 +555,40 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
       dplyr::group_by(filename) %>% 
       dplyr::summarise(
         `$\\alpha_{0}$` =
-          sqrt(mean((`$\\alpha_{0}$` - true_parameter_loglinear[1])^2,
+          sqrt(mean((`$\\alpha_{0}$` -
+                       true_parameter_loglinear[1])^2,
                na.rm = TRUE)),
         `$\\alpha_{1}$` =
-          sqrt(mean((`$\\alpha_{1}$` - true_parameter_loglinear[2])^2,
+          sqrt(mean((`$\\alpha_{1}$` -
+                       true_parameter_loglinear[2])^2,
                na.rm = TRUE)),
         `$\\alpha_{2}$` =
-          sqrt(mean((`$\\alpha_{2}$` - true_parameter_loglinear[3])^2,
+          sqrt(mean((`$\\alpha_{2}$` -
+                       true_parameter_loglinear[3])^2,
                na.rm = TRUE)),
         `$\\alpha_{3}$` =
-          sqrt(mean((`$\\alpha_{3}$` - true_parameter_loglinear[4])^2,
+          sqrt(mean((`$\\alpha_{3}$` -
+                       true_parameter_loglinear[4])^2,
                na.rm = TRUE)),
         `$\\gamma_{0}$` =
-          sqrt(mean((`$\\gamma_{0}$` - true_parameter_loglinear[5])^2,
+          sqrt(mean((`$\\gamma_{0}$` -
+                       true_parameter_loglinear[5])^2,
                na.rm = TRUE)),
         `$\\gamma_{1}$` =
-          sqrt(mean((`$\\gamma_{1}$` - true_parameter_loglinear[6])^2,
+          sqrt(mean((`$\\gamma_{1}$` -
+                       true_parameter_loglinear[6])^2,
                na.rm = TRUE)),
         `$\\gamma_{2}$` =
-          sqrt(mean((`$\\gamma_{2}$` - true_parameter_loglinear[7])^2,
+          sqrt(mean((`$\\gamma_{2}$` -
+                       true_parameter_loglinear[7])^2,
                na.rm = TRUE)),
         `$\\gamma_{3}$` =
-          sqrt(mean((`$\\gamma_{3}$` - true_parameter_loglinear[8])^2,
+          sqrt(mean((`$\\gamma_{3}$` -
+                       true_parameter_loglinear[8])^2,
                na.rm = TRUE)),
         `$\\theta$` =
-          sqrt(mean((`$\\theta$` - true_parameter_loglinear[9])^2,
+          sqrt(mean((`$\\theta$` -
+                       true_parameter_loglinear[9])^2,
                na.rm = TRUE))
       ) %>% 
       dplyr::ungroup()
@@ -535,12 +601,14 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
       temp_bias <-
         bias_info %>% 
         dplyr::filter(
-          filename == temp_file_name
+          filename == 
+            temp_file_name
         )
       temp_rmse <-
         rmse_info %>% 
         dplyr::filter(
-          filename == temp_file_name
+          filename == 
+            temp_file_name
           )
       temp_bias_rmse <-
         data.frame(
@@ -611,16 +679,17 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     rownames(all_bias_rmse_for_latex)[11] <-
       "Sample size ($T$)"
     filelocation <-
-      paste("figuretable/",
-                deparse(
-                  substitute(
-                    target_data
-                    )
-                  ),
-                as.character(),
-                "_bias_rmse",
-                ".tex",
-                sep = "")
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        "_bias_rmse",
+        ".tex",
+        sep = "")
     all_bias_rmse_for_latex %>%
       kableExtra::kbl(
         format = "latex",
@@ -653,36 +722,50 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 ```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001 <-
-  rbind(linear_linear_n_50_sigma_0.001,
-        linear_linear_n_100_sigma_0.001,
-        linear_linear_n_200_sigma_0.001,
-        linear_linear_n_1000_sigma_0.001)
+  rbind(
+    linear_linear_n_50_sigma_0.001,
+    linear_linear_n_100_sigma_0.001,
+    linear_linear_n_200_sigma_0.001,
+    linear_linear_n_1000_sigma_0.001)
+files <- 
+  list.files(
+    path = "input" %>% here::here(),
+    pattern = "201[0123456789]_[^j].*.xlsx", 
+    full.names = T)
+tbl <-
+  sapply(files, 
+         readxl::read_excel,
+         simplify=FALSE) %>% 
+  dplyr::bind_rows(.id = "id")
 create_table_with_demand_shifter_bias_rmse(
   linear_linear_sigma_0.001
 )
 linear_linear_sigma_0.5 <-
-  rbind(linear_linear_n_50_sigma_0.5,
-        linear_linear_n_100_sigma_0.5,
-        linear_linear_n_200_sigma_0.5,
-        linear_linear_n_1000_sigma_0.5)
+  rbind(
+    linear_linear_n_50_sigma_0.5,
+    linear_linear_n_100_sigma_0.5,
+    linear_linear_n_200_sigma_0.5,
+    linear_linear_n_1000_sigma_0.5)
 create_table_with_demand_shifter_bias_rmse(
   linear_linear_sigma_0.5
 )
 
 linear_linear_sigma_1 <-
-  rbind(linear_linear_n_50_sigma_1,
-        linear_linear_n_100_sigma_1,
-        linear_linear_n_200_sigma_1,
-        linear_linear_n_1000_sigma_1)
+  rbind(
+    linear_linear_n_50_sigma_1,
+    linear_linear_n_100_sigma_1,
+    linear_linear_n_200_sigma_1,
+    linear_linear_n_1000_sigma_1)
 create_table_with_demand_shifter_bias_rmse(
   linear_linear_sigma_1
 )
 
 linear_linear_sigma_2 <-
-  rbind(linear_linear_n_50_sigma_2,
-        linear_linear_n_100_sigma_2,
-        linear_linear_n_200_sigma_2,
-        linear_linear_n_1000_sigma_2)
+  rbind(
+    linear_linear_n_50_sigma_2,
+    linear_linear_n_100_sigma_2,
+    linear_linear_n_200_sigma_2,
+    linear_linear_n_1000_sigma_2)
 create_table_with_demand_shifter_bias_rmse(
   linear_linear_sigma_2
 )
@@ -697,39 +780,43 @@ create_table_with_demand_shifter_bias_rmse(
 
 ```{r,echo=FALSE,results = "asis"}
 loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint
 )
 loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint
 )
 
 loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint
 )
 
 loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
-        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint
         )
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint
@@ -742,36 +829,40 @@ create_table_loglinear_with_demand_shifter_bias_rmse(
 
 ```{r,echo=FALSE,results = "asis"}
 loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint
 )
 loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint
 )
 
 loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_1_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_1_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint
 )
 
 loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint <-
-  rbind(loglinear_loglinear_n_50_sigma_2_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_100_sigma_2_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
-        loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint)
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint
 )

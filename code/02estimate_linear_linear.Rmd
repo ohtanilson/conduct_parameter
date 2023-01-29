@@ -17,9 +17,19 @@ library(magrittr)
 library(ggplot2)
 # set constant ----
 n_observation_list <-
-  c(50, 100, 200, 1000)
+  c(
+    50,
+    100, 
+    200, 
+    1000
+    )
 sigma_list <-
-  c(0.001, 0.5, 1.0, 2.0)
+  c(
+    0.001,
+    0.5,
+    1.0, 
+    2.0
+    )
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -36,17 +46,18 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     temp_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table",
-                    filename,
-                    ".rds",
-                    sep = ""
-                    )
-                  )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
               )
+            )
+        )
     assign(
       filename,
       temp_data)
@@ -70,17 +81,18 @@ for(nn in 1:length(n_observation_list)){
         sep = ""
       )
     temp_data <-
-      readRDS(file =
-                here::here(
-                  paste(
-                    "output/",
-                    "parameter_hat_table",
-                    filename,
-                    ".rds",
-                    sep = ""
-                    )
-                  )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table",
+              filename,
+              ".rds",
+              sep = ""
               )
+            )
+        )
     assign(
       filename,
       temp_data)

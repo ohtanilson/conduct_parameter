@@ -19,9 +19,19 @@ library(modelsummary) # for N in datasummary
 # set constant ----
 # set constant ----
 n_observation_list <-
-  c(50, 100, 200, 1000)
+  c(
+    50,
+    100,
+    200,
+    1000
+    )
 sigma_list <-
-  c(0.001, 0.5, 1.0, 2.0)
+  c(
+    0.001,
+    0.5,
+    1.0,
+    2.0
+    )
 
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
@@ -44,16 +54,17 @@ for(nn in 1:length(n_observation_list)){
     cat(filename,"\n")
     # load 
     target_data <-
-      readRDS(file = 
-                here::here(
-                  paste(
-                    "output/data_",
-                    filename,
-                    ".rds",
-                    sep = ""
-                  )
-                )
-      )
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
     assign(
       filename,
       target_data)
@@ -78,16 +89,17 @@ for(nn in 1:length(n_observation_list)){
     cat(filename,"\n")
     # load 
     target_data <-
-      readRDS(file = 
-                here::here(
-                  paste(
-                    "output/data_",
-                    filename,
-                    ".rds",
-                    sep = ""
-                  )
-                )
-      )
+      readRDS(
+        file = 
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
     assign(
       filename,
       target_data)
@@ -100,18 +112,18 @@ generate_plot <-
   ){
     temp <-
       data %>% 
-      dplyr::filter(group_id_k < 10)
+      dplyr::filter(
+        group_id_k < 10)
     x <-
       ggplot(temp,
-            aes(x = Q, y = P)) + 
+             aes(x = Q, y = P)) + 
       geom_point(alpha = 0.3) + 
       stat_smooth(method = "lm",
                     se = FALSE) +
       theme_classic() + 
       scale_color_viridis_d() +
       theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-      #ggtitle("Freight rate (CPI adjusted to 1995)") +
+            legend.text = element_text(size=8)) +
       theme(plot.title = element_text(hjust = 0.5)) +
       xlab("Q") + 
       ylab("P")
@@ -124,18 +136,18 @@ generate_plot_log_log <-
   ){
     temp <-
       data %>% 
-      dplyr::filter(group_id_k < 10)
+      dplyr::filter(
+        group_id_k < 10)
     x <-
       ggplot(temp,
-            aes(x = logQ, y = logP)) + 
+             aes(x = logQ, y = logP)) + 
       geom_point(alpha = 0.3) + 
       stat_smooth(method = "lm",
                     se = FALSE) +
       theme_classic() + 
       scale_color_viridis_d() +
       theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-      #ggtitle("Freight rate (CPI adjusted to 1995)") +
+            legend.text = element_text(size=8)) +
       theme(plot.title = element_text(hjust = 0.5)) +
       xlab("logQ") + 
       ylab("logP")
