@@ -1,0 +1,384 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=70pt,bmargin=70pt,lmargin=70pt,rmargin=70pt}
+
+%\usepackage{mlmodern}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{stmaryrd}
+\usepackage{csvsimple}
+\usepackage[english]{babel}
+\hyphenation{mis-spec-i-fi-ca-tion}
+\hyphenation{dif-fer-en-ti-a-ble}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, pdfpagemode = FullScreen, pagebackref,hypertexnames = true]{hyperref}
+
+\usepackage{natbib} % For reference 
+% https://gking.harvard.edu/files/natnotes2.pdf
+
+
+\setstretch{1.4}
+% Header
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{The Third-Year Paper Proposal}
+%\rhead{Yuri Matsumura}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\theoremstyle{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\argmax}{\operatornamewithlimits{arg\ max}}
+\newcommand{\argmin}{\operatornamewithlimits{arg\ min}}
+
+\newcommand{\bbA}{\mathbb{A}}
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbG}{\mathbb{G}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbJ}{\mathbb{J}}
+\newcommand{\bbK}{\mathbb{K}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbM}{\mathbb{M}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbO}{\mathbb{O}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}} 
+\newcommand{\bbT}{\mathbb{T}} 
+\newcommand{\bbU}{\mathbb{U}} 
+\newcommand{\bbV}{\mathbb{V}}
+\newcommand{\bbW}{\mathbb{W}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bbY}{\mathbb{Y}}
+\newcommand{\bbZ}{\mathbb{Z}}
+
+\newcommand{\0}{\mathbf{0}}
+
+\newcommand{\scrA}{\mathscr{A}}
+\newcommand{\scrB}{\mathscr{B}}
+\newcommand{\scrC}{\mathscr{C}}
+\newcommand{\scrD}{\mathscr{D}}
+\newcommand{\scrE}{\mathscr{E}}
+\newcommand{\scrF}{\mathscr{F}}
+\newcommand{\scrG}{\mathscr{G}}
+\newcommand{\scrH}{\mathscr{H}}
+\newcommand{\scrI}{\mathscr{I}}
+\newcommand{\scrJ}{\mathscr{J}}
+\newcommand{\scrK}{\mathscr{K}}
+\newcommand{\scrL}{\mathscr{L}}
+\newcommand{\scrM}{\mathscr{M}}
+\newcommand{\scrN}{\mathscr{N}}
+\newcommand{\scrO}{\mathscr{O}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\scrQ}{\mathscr{Q}}
+\newcommand{\scrR}{\mathscr{R}}
+\newcommand{\scrS}{\mathscr{S}} 
+\newcommand{\scrT}{\mathscr{T}} 
+\newcommand{\scrU}{\mathscr{U}} 
+\newcommand{\scrV}{\mathscr{V}}
+\newcommand{\scrW}{\mathscr{W}}
+\newcommand{\scrX}{\mathscr{X}}
+\newcommand{\scrY}{\mathscr{Y}}
+\newcommand{\scrZ}{\mathscr{Z}}
+
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}} 
+\newcommand{\calT}{\mathcal{T}} 
+\newcommand{\calU}{\mathcal{U}} 
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+
+\newcommand{\Perms[2]}{\tensor[_{#2}]P{_{#1}}}
+\newcommand{\Combi[2]}{\tensor[_{#2}]C{_{#1}}}
+
+\newcommand{\bmA}{\bm{A}}
+\newcommand{\bmB}{\bm{B}}
+\newcommand{\bmC}{\bm{C}}
+\newcommand{\bmD}{\bm{D}}
+\newcommand{\bmE}{\bm{E}}
+\newcommand{\bmF}{\bm{F}}
+\newcommand{\bmG}{\bm{G}}
+\newcommand{\bmH}{\bm{H}}
+\newcommand{\bmI}{\bm{I}}
+\newcommand{\bmJ}{\bm{J}}
+\newcommand{\bmK}{\bm{K}}
+\newcommand{\bmL}{\bm{L}}
+\newcommand{\bmM}{\bm{M}}
+\newcommand{\bmN}{\bm{N}}
+\newcommand{\bmO}{\bm{O}}
+\newcommand{\bmP}{\bm{P}}
+\newcommand{\bmQ}{\bm{Q}}
+\newcommand{\bmR}{\bm{R}}
+\newcommand{\bmS}{\bm{S}} 
+\newcommand{\bmT}{\bm{T}} 
+\newcommand{\bmU}{\bm{U}} 
+\newcommand{\bmV}{\bm{V}}
+\newcommand{\bmW}{\bm{W}}
+\newcommand{\bmX}{\bm{X}}
+\newcommand{\bmY}{\bm{Y}}
+\newcommand{\bmZ}{\bm{Z}}
+
+
+\newcommand{\bma}{\bm{a}}
+\newcommand{\bmb}{\bm{b}}
+\newcommand{\bmc}{\bm{c}}
+\newcommand{\bmd}{\bm{d}}
+\newcommand{\bme}{\bm{e}}
+\newcommand{\bmf}{\bm{f}}
+\newcommand{\bmg}{\bm{g}}
+\newcommand{\bmh}{\bm{h}}
+\newcommand{\bmi}{\bm{i}}
+\newcommand{\bmj}{\bm{j}}
+\newcommand{\bmk}{\bm{k}}
+\newcommand{\bml}{\bm{l}}
+\newcommand{\bmm}{\bm{m}}
+\newcommand{\bmn}{\bm{n}}
+\newcommand{\bmo}{\bm{o}}
+\newcommand{\bmp}{\bm{p}}
+\newcommand{\bmq}{\bm{q}}
+\newcommand{\bmr}{\bm{r}}
+\newcommand{\bms}{\bm{s}} 
+\newcommand{\bmt}{\bm{t}} 
+\newcommand{\bmu}{\bm{u}} 
+\newcommand{\bmv}{\bm{v}}
+\newcommand{\bmw}{\bm{w}}
+\newcommand{\bmx}{\bm{x}}
+\newcommand{\bmy}{\bm{y}}
+\newcommand{\bmz}{\bm{z}}
+
+\newcommand{\bmal}{\bm{\alpha}}
+\newcommand{\bmbe}{\bm{\beta}}
+\newcommand{\bmga}{\bm{\gamma}}
+\newcommand{\bmvare}{\bm{\varepsilon}}
+\newcommand{\bmth}{\bm{\theta}}
+
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
+
+
+\begin{document}
+
+In this note, we investigate several Monte Carlo simulations in the previous literature.
+The researcher has data with $T$ markets with homogeneous products.
+Assume that there are $N_t$ firms in each market.
+Let $t = 1,\ldots, T$ be the index of markets and $j = 1, \ldots, N_t$ be the index of firms in market $t$.
+Firm $j$ solves a profit maximization problem such that
+\begin{align*}
+    \max_{q_{jt}} \ \pi_{jt}(q_{jt}, q_{-jt}) \equiv (P(Q_t) - mc_{jt}(q_{jt}))q_{jt},
+\end{align*}
+where $Q_t = \sum_{j = 1}^{N_t} q_{jt}$ is the aggregate quantity, $P(Q_t)$ the inverse demand function, and $mc_{jt}(q_{jt})$ the marginal cost function.
+From the maximization problem, we obtain the first-order condition,
+\begin{align*}
+    0 = P(Q_{t}) - mc_{jt}(q_{jt}) + \theta_i P'(Q_{t})q_{jt}.
+\end{align*}
+By summing up the first-order condition across firms, 
+\begin{align*}
+    0 &= NP(Q_t) - \sum_{j = 1}^{N_t} mc_{jt}(q_{jt}) + P'(Q_t)Q_{t}\\
+    & =  P(Q_t) - MC_t(Q_t) + \theta_t P'(Q_t)Q_{t}
+\end{align*}
+where $\theta_t = \frac{1}{N_t}\sum_{i = 1}^N\theta_{it}$ and $MC_t(Q_t) = \frac{1}{N_{t}}\sum_{j = 1}^{N_t} mc_{jt}(q_{jt})$.
+The equation is the supply equation;
+\begin{align*}
+    P_t = - \theta_t P'(Q_{t})Q_t + MC_t(Q_t)
+\end{align*}
+
+
+\section{Replication of Perloff and Shen (2012)}
+This paper points out that the conduct parameter can not be estimated accurately when the demand and marginal cost are linear due to multicolinearity. Note that we change the notation from the original paper.
+
+Assume that the demand equation is linear,
+\[P_t = \alpha_0 - [\alpha_1 + \alpha_2Z_t] Q_t + \alpha_3 Y_t + \varepsilon_{dt}\]
+and the marginal cost function is also linear, 
+\[MC_t = \gamma_0  + \gamma_1 Q + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}.\]
+Since $P'(Q) = -(\alpha_1 + \alpha_2Z_t)$, the supply equation is given as
+\begin{align*}
+    P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z_t)+ \gamma_1] Q_t   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
+\end{align*}
+
+The simulation setting is the following:
+\begin{itemize}
+    \item $w \sim N (3, 1), r \sim N (0, 1), Z \sim N (10, 1)$
+    \item $\alpha_1 = \alpha_2 = \alpha_3 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \theta = 0.5.$
+    \item $\varepsilon_{ct}\sim N(0,\sigma_d)$, $\varepsilon_{dt} \sim N(0,\sigma_c)$, and $\sigma = \sigma_d = \sigma_c$
+\end{itemize}
+
+To generate simulation data, we need to obtain the aggregate quantity $Q_t$.
+From the supply equation and the demand equation, we have
+\begin{align}
+    \alpha_0 - [\alpha_1 + \alpha_2Z_t] Q_t + \alpha_3 Y_t + \varepsilon_{dt} = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z_t)+ \gamma_1] Q   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct},
+\end{align}
+which gives us the aggregate quantity $Q_t$ as 
+\begin{align*}
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + (\varepsilon_{dt} - \varepsilon_{ct})}{(1 + \theta) (\alpha_1 + \alpha_2Z_t) + \gamma_1}.
+\end{align*}
+The price $P_t$ is given by substituting $Q_t$ into the demand equationship.
+
+
+
+
+
+\subsection{Estimation in Perloff and Shen (2012)}
+To apply the system 2SLS and the 3SLS, we use the following demand and supply equations:
+\begin{align*}
+    &P_t = \alpha_0 - \alpha_1Q_t - \alpha_2Z_t Q_t + \alpha_3 Y_t + \varepsilon_{dt}\\
+    &P_t = \gamma_0 + \Psi Q_t  + \Phi Z_tQ_t  + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}.
+\end{align*}
+where $\Psi = \theta(\alpha_1 + \gamma_1)$ and $\Phi = \theta\alpha_2$.
+As additional instruments, two random variables are created by adding additional random variable drawn from the standard normal distribution to $w_t$ and $r_t$, which is denoted by $h_t$ and $k_t$. 
+\begin{itemize}
+    \item The endogenous variable is $Q_t$. 
+    \item The demand instrument is $(Z_t, Y_t, h_t, k_t)$
+    \item The supply instrument is $(Z_t, w_t, r_t, Y_t)$.
+\end{itemize}
+From the supply equation, we can estimate $(\gamma_0, \Psi, \Phi, \gamma_2, \gamma_3)$. 
+Since $\alpha_1$ and $\alpha_2$ are estimated from the demand equation, the conduct parameter $\theta$ and the cost parameter $\gamma_1$ are obtained as 
+\begin{align*}
+    \theta = \Phi/\alpha_2, \quad \gamma_1 = \Psi - \theta\alpha_1.
+\end{align*}
+
+When we independently apply the 2SLS estimation to the demand and supply equations, we first estimate the demand parameters $(\alpha_0, \alpha_1, \alpha_2)$. Then by using instruments for the supply equation, we obtain the predicted value of $Q_t$, denoted as $\hat{Q}_t$, in the first-stage, and then we can estimate the parameters in the supply equation by regressing
+\begin{align*}
+     P_t = \gamma_0 + \theta(\hat{\alpha}_1 + \hat{\alpha}_2Z_t)\hat{Q}_t+ \gamma_1\hat{Q}_t  + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
+\end{align*}
+where $(\hat{\alpha}_1 + \hat{\alpha}_2Z_t)\hat{Q}_t$ is regarded as an exogenous variable. In this case, $\theta$ and $\gamma_1$ can be estimated as the coefficient in the supply equation.
+
+
+
+
+\section{Replication of Hyde and Perloff (1995)}
+\citet{hyde1995can} considers a model with log demand and a Cobb-Douglas cost function. 
+The demand equation is given as a log-demand, 
+\[\log P_{t} = \alpha_0 - (\alpha_1 + \alpha_2 Z_t) \log Q_t + \varepsilon_{dt} \equiv \log P_t^* + \varepsilon_{dt}\]
+The cost function has a Cobb-Douglas form such that 
+\begin{align*}
+    C_t = A^{-1/\gamma} \gamma \left(\frac{w_t}{\alpha}\right)^{\frac{\alpha}{\gamma}} \left(\frac{r_t}{\beta}\right)^{\frac{\beta}{\gamma}} Q_t^{\frac{1}{\gamma}}e^{\varepsilon_{ct}},
+\end{align*}
+where $\alpha + \beta = \gamma$.
+Then the log marginal cost is,
+\begin{align*}
+    \log MC_t &= -\frac{1}{\gamma}\log A + \frac{1-\gamma}{\gamma}\log Q_t + \frac{\alpha}{\gamma} \log \left(\frac{w_t}{\alpha}\right) + \frac{\beta}{\gamma} \log \left(\frac{r_t}{\beta}\right) + \varepsilon_{ct}\\
+        & = \left( -\frac{1}{\gamma}\log A - \frac{\alpha}{\gamma}\log \alpha -  \frac{\beta}{\gamma}\log\beta    \right) + \frac{1-\gamma}{\gamma}\log Q_t + \frac{\alpha}{\gamma} \log w_t + \frac{\beta}{\gamma} \log r_t + \varepsilon_{ct} \\
+        &\equiv \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+\end{align*}
+Since $P'(Q_t) = - (\alpha_1 + \alpha_2 Z_t) \frac{P}{Q} $,  the supply equation is given as
+\begin{align*}
+    P_t &= \theta_t (\alpha_1 + \alpha_2 Z_t) \frac{P_t}{Q_t} Q_t + mc_t\\
+    P_t  \left(1 -  \theta_t (\alpha_1 + \alpha_2 Z_t)Q_t\right) & = mc_t\\
+    \Longrightarrow \log P_t + \log(1 - \theta(\alpha_1 + \alpha_2 Z_t)) & =  \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}
+\end{align*}
+
+To generate simulation data, we need to obtain the aggregate quantity $Q_t$.
+From the supply equation and the demand equation, we have
+\begin{align*}
+   &\alpha_0 - (\alpha_1 + \alpha_2 Z_t)\log Q_t + \varepsilon_{dt} + \log (1 - \theta (\alpha_1 + \alpha_2 Z_t))\\
+   &\quad = \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct},
+\end{align*}
+which gives the aggregate quantity 
+\begin{align*}
+    \log Q_t &= \frac{ \alpha_0 + \log (1 - \theta (\alpha_1 + \alpha_2 Z_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t}{\gamma_1+ \alpha_1 + \alpha_2 Z_t} + \frac{\varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z_t}\\
+    &\equiv \log Q_t^* + \frac{\varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z_t}
+\end{align*}
+To obtain the price, substitute $\log Q_t^*$ into $\log P_t^*$ in the demand equation.\footnote{This procedure follows from \citet{perloff2012collinearity}.}
+
+The simulation setting is the following:
+\begin{itemize}
+    \item $w \sim U(1,3), r \sim U(0,1), Z \sim U(5, 10)$
+    \item $A = 1.2, \alpha/\gamma = 1/3, \beta/\gamma = 2/3, \alpha_0 = 1.8, \alpha_1 = 1.2,$ and $\alpha_2 = -0.5$. Since $\alpha + \beta = \gamma$, we have $\alpha = 1, \beta = 2, \gamma = 3$
+    \item $\varepsilon_{ct}\sim N(0,\sigma_d)$, $\varepsilon_{dt} \sim N(0,\sigma_c)$, and $\sigma = \sigma_d = \sigma_c$
+    
+\end{itemize}
+Note that while \citet{hyde1995can} collects the data of $w, r,$ and $Z$, we draw them from the unifirm distributions. 
+
+
+
+
+
+\subsection{Estimation in Hyde and Perloff (1995)}
+The demand and supply equations are
+\begin{align*}
+    &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z_t\log Q_t + \alpha_3 \log Y_t \varepsilon_{dt},\\
+    &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+\end{align*}
+As we can immediately see, the supply equation is a nonlinear equation.
+We assume two moment conditions $E[\bmZ_{dt} \varepsilon_{dt}] = \bm0 $ and $ E[\bmZ_{st} \varepsilon_{st}] =\bm0$ where $\bmZ_{dt}$ is the vector of instruments for the demand equation and $\bmZ_{st}$ the vector of instruments for the supply equation.
+Based on the moment conditions, we can apply the generalized method of moments.
+We consider two estimators; the nonlinear system 2SLS estimator and the nonlinear 3SLS estimator.\footnote{See Wooldridge (2010), Ch 14.}
+
+
+\section{Estimation}
+Based on the demand and supply equations, we estimate the  parameters by using the system two-stage least square (S2SLS), the three-stage least squares (3SLS), and nonlinear three-stage least squares (NL3SLS).\footnote{See Wooldridge (2010), Chapter 8 and 14.}
+
+
+\citet{hyde1995can} estimates a four-equation system: 
+\begin{itemize}
+    \item the demand equation
+    \item the supply equation
+    \item a share equation $s_L = \beta_1$ \textcolor{red}{(What is $\beta_1$?)} (where $s_L = wL/C$ and $C$ is cost)
+    \item a cost equation: $\log(C_t/Q_t) = \alpha \log w_t + \beta \log r_t$, where $ \alpha + \beta = 1$.
+\end{itemize}
+
+
+
+
+
+\section*{Appendix}
+
+
+\bibliographystyle{aer}
+
+\bibliography{conduct_parameter}
+\end{document}
