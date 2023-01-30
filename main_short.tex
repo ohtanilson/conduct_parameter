@@ -107,7 +107,8 @@ Assume that linear demand and cost functions are specified as:
     P_t &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_t + \alpha_3 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
     MC_t &= \gamma_0  + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t},\label{eq:linear_marginal_cost}
 \end{align}
-where $W_{t}$ and $R_t$ are excluded cost shifters. Equation \eqref{eq:supply_equation} is written as:
+where $W_{t}$ and $R_t$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
+Equation \eqref{eq:supply_equation} is written as:
 \begin{align}
     P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}.\label{eq:linear_supply_equation}
 \end{align}
@@ -322,7 +323,7 @@ As for tolerance, we use a loose tolerance $10^{-6}$.
 The following histograms show the result of the simulation with different combinations of tolerance and starting values.
 Only when we use the true value with tight tolerance, the histogram shows a 
 normal distribution shape around the true parameter.
-The runs-convergence rate is about 74\%, which is much higher than that of simulation with the default starting value.
+The runs-convergence rate is about 74\%, which is much higher than that of the simulation with the default starting value.
 However, when we use random starting values and the loose tolerance, the histogram (b), (c), and (d) show failures of the estimation.
 Especially, when we use loose tolerance, while the rate of convergence is 100\%, the estimation results are completely inaccurate.
 We believe that these results are due to the flat shape of the GMM objective function.
@@ -332,26 +333,26 @@ We believe that these results are due to the flat shape of the GMM objective fun
     \centering
      \begin{subfigure}[b]{0.475\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{check_numerical_error/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
          \caption{}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.475\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{check_numerical_error/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
+         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
          \caption{}
      \end{subfigure}
      \hfill
     \vskip\baselineskip
      \begin{subfigure}[b]{0.475\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{check_numerical_error/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+         \includegraphics[width=\textwidth]{figuretable/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
          \caption{}
      \end{subfigure}
         \hfill
         \begin{subfigure}[b]{0.475\textwidth}
              \centering
-             \includegraphics[width=\textwidth]{check_numerical_error/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start_loose.pdf}
+             \includegraphics[width=\textwidth]{figuretable/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start_loose.pdf}
              \caption{}
         \end{subfigure}
         \caption{The histogram of the estimated $\theta$ with different starting values and tolerances.}

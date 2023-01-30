@@ -1,0 +1,474 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=70pt,bmargin=70pt,lmargin=70pt,rmargin=70pt}
+
+%\usepackage{mlmodern}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{stmaryrd}
+\usepackage{csvsimple}
+\usepackage[english]{babel}
+\hyphenation{mis-spec-i-fi-ca-tion}
+\hyphenation{dif-fer-en-ti-a-ble}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= Periwinkle, citecolor = Periwinkle, filecolor = Periwinkle, urlcolor = Periwinkle, pdfpagemode = FullScreen, pagebackref,hypertexnames = true]{hyperref}
+
+\usepackage{natbib} % For reference 
+% https://gking.harvard.edu/files/natnotes2.pdf
+
+
+\setstretch{1.4}
+% Header
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{The Third-Year Paper Proposal}
+%\rhead{Yuri Matsumura}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\theoremstyle{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\argmax}{\operatornamewithlimits{arg\ max}}
+\newcommand{\argmin}{\operatornamewithlimits{arg\ min}}
+
+\newcommand{\bbA}{\mathbb{A}}
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbG}{\mathbb{G}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbJ}{\mathbb{J}}
+\newcommand{\bbK}{\mathbb{K}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbM}{\mathbb{M}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbO}{\mathbb{O}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}} 
+\newcommand{\bbT}{\mathbb{T}} 
+\newcommand{\bbU}{\mathbb{U}} 
+\newcommand{\bbV}{\mathbb{V}}
+\newcommand{\bbW}{\mathbb{W}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bbY}{\mathbb{Y}}
+\newcommand{\bbZ}{\mathbb{Z}}
+
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\rank}{\text{rank }}
+
+\newcommand{\scrA}{\mathscr{A}}
+\newcommand{\scrB}{\mathscr{B}}
+\newcommand{\scrC}{\mathscr{C}}
+\newcommand{\scrD}{\mathscr{D}}
+\newcommand{\scrE}{\mathscr{E}}
+\newcommand{\scrF}{\mathscr{F}}
+\newcommand{\scrG}{\mathscr{G}}
+\newcommand{\scrH}{\mathscr{H}}
+\newcommand{\scrI}{\mathscr{I}}
+\newcommand{\scrJ}{\mathscr{J}}
+\newcommand{\scrK}{\mathscr{K}}
+\newcommand{\scrL}{\mathscr{L}}
+\newcommand{\scrM}{\mathscr{M}}
+\newcommand{\scrN}{\mathscr{N}}
+\newcommand{\scrO}{\mathscr{O}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\scrQ}{\mathscr{Q}}
+\newcommand{\scrR}{\mathscr{R}}
+\newcommand{\scrS}{\mathscr{S}} 
+\newcommand{\scrT}{\mathscr{T}} 
+\newcommand{\scrU}{\mathscr{U}} 
+\newcommand{\scrV}{\mathscr{V}}
+\newcommand{\scrW}{\mathscr{W}}
+\newcommand{\scrX}{\mathscr{X}}
+\newcommand{\scrY}{\mathscr{Y}}
+\newcommand{\scrZ}{\mathscr{Z}}
+
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}} 
+\newcommand{\calT}{\mathcal{T}} 
+\newcommand{\calU}{\mathcal{U}} 
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+
+\newcommand{\Perms[2]}{\tensor[_{#2}]P{_{#1}}}
+\newcommand{\Combi[2]}{\tensor[_{#2}]C{_{#1}}}
+
+\newcommand{\bmA}{\bm{A}}
+\newcommand{\bmB}{\bm{B}}
+\newcommand{\bmC}{\bm{C}}
+\newcommand{\bmD}{\bm{D}}
+\newcommand{\bmE}{\bm{E}}
+\newcommand{\bmF}{\bm{F}}
+\newcommand{\bmG}{\bm{G}}
+\newcommand{\bmH}{\bm{H}}
+\newcommand{\bmI}{\bm{I}}
+\newcommand{\bmJ}{\bm{J}}
+\newcommand{\bmK}{\bm{K}}
+\newcommand{\bmL}{\bm{L}}
+\newcommand{\bmM}{\bm{M}}
+\newcommand{\bmN}{\bm{N}}
+\newcommand{\bmO}{\bm{O}}
+\newcommand{\bmP}{\bm{P}}
+\newcommand{\bmQ}{\bm{Q}}
+\newcommand{\bmR}{\bm{R}}
+\newcommand{\bmS}{\bm{S}} 
+\newcommand{\bmT}{\bm{T}} 
+\newcommand{\bmU}{\bm{U}} 
+\newcommand{\bmV}{\bm{V}}
+\newcommand{\bmW}{\bm{W}}
+\newcommand{\bmX}{\bm{X}}
+\newcommand{\bmY}{\bm{Y}}
+\newcommand{\bmZ}{\bm{Z}}
+
+
+\newcommand{\bma}{\bm{a}}
+\newcommand{\bmb}{\bm{b}}
+\newcommand{\bmc}{\bm{c}}
+\newcommand{\bmd}{\bm{d}}
+\newcommand{\bme}{\bm{e}}
+\newcommand{\bmf}{\bm{f}}
+\newcommand{\bmg}{\bm{g}}
+\newcommand{\bmh}{\bm{h}}
+\newcommand{\bmi}{\bm{i}}
+\newcommand{\bmj}{\bm{j}}
+\newcommand{\bmk}{\bm{k}}
+\newcommand{\bml}{\bm{l}}
+\newcommand{\bmm}{\bm{m}}
+\newcommand{\bmn}{\bm{n}}
+\newcommand{\bmo}{\bm{o}}
+\newcommand{\bmp}{\bm{p}}
+\newcommand{\bmq}{\bm{q}}
+\newcommand{\bmr}{\bm{r}}
+\newcommand{\bms}{\bm{s}} 
+\newcommand{\bmt}{\bm{t}} 
+\newcommand{\bmu}{\bm{u}} 
+\newcommand{\bmv}{\bm{v}}
+\newcommand{\bmw}{\bm{w}}
+\newcommand{\bmx}{\bm{x}}
+\newcommand{\bmy}{\bm{y}}
+\newcommand{\bmz}{\bm{z}}
+
+\newcommand{\bmal}{\bm{\alpha}}
+\newcommand{\bmbe}{\bm{\beta}}
+\newcommand{\bmga}{\bm{\gamma}}
+\newcommand{\bmvare}{\bm{\varepsilon}}
+\newcommand{\bmth}{\bm{\theta}}
+
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+
+\usepackage{enumitem}
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
+
+
+
+\begin{document}
+
+\section{Formal proof}
+\citet{lau1982identifying} assumes that both demand and marginal cost functions are twice continuously differentiable.
+
+\begin{claim}
+Assume that the inverse demand function satisfies twice continuously differentiability and the demand rotation IV and the aggregate quantity are non-separable, and the marginal cost function is linear. The conduct parameter and the marginal cost parameters are identified.
+\end{claim}
+
+Let $P = f(Q,z_1)$ be a twice continuously differentiable function and $MC = \gamma_0 + \gamma_1 Q + \gamma_2 z_2$.
+For the sake of a contradiction, suppose that the parameters are not identified. This implies that for $(\theta, \gamma_0, \gamma_1, \gamma_2)\ne (\theta', \gamma_0', \gamma_1', \gamma_2')$, two first-order conditions
+\begin{align}
+    f(Q,z_1) &= - \theta \frac{\partial f}{\partial Q}(Q,z_1) Q + \gamma_0 + \gamma_1 Q + \gamma_2 z_2 \label{eq:non_identification_1}\\
+    f(Q,z_1) &= - \theta' \frac{\partial f}{\partial Q}(Q,z_1) Q + \gamma_0' + \gamma_1' Q + \gamma_2' z_2 \label{eq:non_identification_2},
+\end{align}
+where the reduced form function $Q= h_2(z_1,z_2)$ and $Q= h_2'(z_1,z_2)$ from \eqref{eq:non_identification_1} and \eqref{eq:non_identification_2} respectively are identical.
+
+
+
+
+
+This in turn implies
+\begin{align}\label{eq:equivalence_1}
+    \frac{\partial h_2}{\partial z_1} = \frac{\frac{\partial f}{\partial z_1} + \theta \frac{\partial^2 f}{\partial z_1\partial Q}Q}{(1 + \theta)\frac{\partial f}{\partial Q} + \theta \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0} = \frac{\partial h_2'}{\partial z_1} = \frac{\frac{\partial f}{\partial z_1} + \theta' \frac{\partial^2 f}{\partial z_1\partial Q}Q}{(1 + \theta')\frac{\partial f}{\partial Q} + \theta' \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0'}
+\end{align}
+and 
+\begin{align}\label{eq:equivalence_2}
+    \frac{\partial h_2}{\partial z_2} = -\frac{\gamma_2}{(1 + \theta)\frac{\partial f}{\partial Q} + \theta \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0} = \frac{\partial h_2'}{\partial z_2} = -\frac{\gamma_2'}{(1 + \theta')\frac{\partial f}{\partial Q} + \theta' \frac{\partial^2 f}{\partial Q^2}Q - \gamma_0'}
+\end{align}
+
+From \eqref{eq:equivalence_1} and \eqref{eq:equivalence_2}, we have
+\begin{align}\label{eq:identification}
+    &\frac{\frac{\partial f}{\partial z_1} + \theta \frac{\partial^2 f}{\partial z_1\partial Q}Q}{\frac{\partial f}{\partial z_1} + \theta' \frac{\partial^2 f}{\partial z_1\partial Q}Q} = \frac{\gamma_2}{\gamma_2'}\nonumber\\
+    \Longrightarrow\ & \frac{\theta \gamma_2' - \theta' \gamma_2}{\gamma_2' - \gamma_2}\frac{\partial^2 f}{\partial z_1\partial Q}Q  +    \frac{\partial f}{\partial z_1} = 0
+\end{align}
+Recall that we assumed that $\gamma_2\ne \gamma_2'$ and $\theta\ne \theta'$. When $ \theta \gamma_2' - \theta' \gamma_2 = 0$, the left hand side of \eqref{eq:identification} implies that $\frac{\partial f}{\partial z_1} = 0$ for all $z_1$, which contradicts to the fact that $f$ is twice continuously differentiable. When  $ \theta \gamma_2' - \theta' \gamma_2 \ne 0$, \eqref{eq:identification} implies that for $i \ne j$, 
+\begin{align}
+    \frac{\partial }{\partial Q}\left( {\frac{\partial f}{\partial z_{1i}}}/{\frac{\partial f}{\partial z_{1j}}}    \right) = 0
+\end{align}
+which implies when $Q$ and $z$ are separable. However this also contradicts to the assumption.
+Therefore, we can conclude that the parameters are identified.
+
+
+
+\section{Identification under log-log demand}
+
+\subsection{ log-log demand and linear marginal cost}
+Let $Q^*_{mt}$ be a new exogenous variable. The supply relationship can be written as 
+\begin{align*}
+    P_{mt}(1- \theta Q^*_{mt}) = \gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt}.
+\end{align*}
+Take any two different combinations of parameters, $(\theta, \gamma_0, \gamma_1) \ne (\theta, \gamma_0, \gamma_1)$. Without loss of generality, assume that $\theta' > \theta$. Observable equivalence implies that the following two equations
+\begin{align*}
+    P_{mt}(1- \theta Q^*_{mt}) &= \gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt},\\
+    P_{mt}(1- \theta' Q^*_{mt}) &= \gamma_0' + \gamma_1' Q_{mt} + \varepsilon_{mt}
+\end{align*}
+are equivalent for all $(Q^*_{mt}, Q_{mt})$.
+By taking expectation for both sides of equations and combining the equations, we have
+\begin{align}
+    & P_{mt}(1- \theta Q^*_{mt}) = \gamma_0 + \gamma_1 Q_{mt}\nonumber,\\
+    & P_{mt}(1- \theta'Q^*_{mt}) = \gamma_0' + \gamma_1' Q_{mt}\nonumber,\\
+    \Longrightarrow &\log\left(\frac{1- \theta Q^*_{mt}}{1- \theta' Q^*_{mt}} \right)  = \log\left(\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}} \right).
+\end{align}
+By the assumption, the left hand side is concave and increasing in $Q^*_{mt}$. For the left hand side, the derivative with respect to $Q_{mt}$ is 
+\begin{align}
+    \frac{d}{d Q_{mt}} \log\left(\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}} \right) & = \frac{1}{\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}}} \frac{\gamma_1 (\gamma_0' + \gamma_1' Q_{mt}) - \gamma_1' (\gamma_0 + \gamma_1 Q_{mt})}{(\gamma_0' + \gamma_1' Q_{mt})^2}\nonumber\\
+    & = \frac{\gamma_1\gamma_0' - \gamma_1' \gamma_0}{(\gamma_0 + \gamma_1 Q_{mt})(\gamma_0' + \gamma_1' Q_{mt})}. \label{eq:identification_log_linear}
+\end{align}
+Since $\left(\frac{\gamma_0 + \gamma_1 Q_{mt}}{\gamma_0' + \gamma_1' Q_{mt}} \right)$ can not be negative, $\gamma_0 + \gamma_1 Q_{mt}$ and $\gamma_0' + \gamma_1' Q_{mt}$ should have same sign, which implies that the denominator of \eqref{eq:identification_log_linear} is positive. When $\gamma_1\gamma_0' - \gamma_1' \gamma_0=0$, the right hand side is constant, and both sides cross at most once.
+When $\gamma_1\gamma_0' - \gamma_1' \gamma_0 < 0$, the right hand side is decreasing and concave in $Q_{mt}$, and hence both sides cross at most once.
+When $\gamma_1\gamma_0' - \gamma_1' \gamma_0 >0$, the right hand side is increasing and concave in $Q_{mt}$.
+In this case, when $(Q_{mt}, Q^*_{mt})$ satisfies
+\begin{align*}
+    Q^*_{mt} = \frac{(\gamma_0 - \gamma_0') + (\gamma_1 - \gamma_1')Q_{mt}}{(\theta'\gamma_0 - \theta\gamma_0') + (\theta'\gamma_1 - \theta\gamma_1')Q_{mt}},
+\end{align*}
+both sides coincide, and hence we can not identify the parameters. If not, both sides cross at most twice.
+Therefore, for all cases, when $(Q_{mt}, Q^*_{mt})$ has more than three values, we can identify the parameters.
+
+\subsection{log-log demand and log marginal cost}
+    Take any two different combinations of parameters, $(\theta, \gamma_0, \gamma_1) \ne (\theta', \gamma_0', \gamma_1')$. Without loss of generality, assume that $\theta' > \theta$. Observable equivalence implies that given two equations,
+    \begin{align}
+        \log P_{mt} &= -\log \left(  1 - \theta Q^*_{mt} \right) +\gamma_0 + \gamma_1 Q_{mt} + \varepsilon_{mt},\\
+        \log P'_{mt} &= -\log \left(  1 - \theta' Q^*_{mt} \right) +\gamma_0' + \gamma_1' Q_{mt} + \varepsilon_{mt},
+    \end{align}
+    $\log P_{mt}$ and $\log P'_{mt}$ are equivalent for all $(Q_{mt}, Q^*_{mt})$.
+    From these two equations, we have
+    \begin{align}\label{eq:identification_convex}
+        &0  = -\log \left( \frac{ 1 - \theta Q^*_{mt}}{ 1 - \theta' Q^*_{mt}} \right) +(\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}
+    \end{align}
+    By solving the equation with respect to $Q^*_{mt}$, we have
+    \begin{align*}
+        Q^*_{mt} \equiv f(Q_{mt}) = \frac{\exp((\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt})}{\theta'\exp((\gamma_0 -\gamma_0') + (\gamma_1 - \gamma_1') Q_{mt}) - \theta }.
+    \end{align*}
+    Denote the graph of $f$ as $G = \{ (Q_{mt}, f(Q_{mt}) \in \mathbb{R}^2 \mid Q_{mt} \in [0,\bar{Q}] \}$.
+    This implies that given $Q_{mt}$, the value of $ Q^*_{mt}$ satisfying \eqref{eq:identification_convex} is uniquely determined and observable equivalence holds only for the combinations of $Q_{mt}$ and $Q^*_{mt}$ that are in $G$. In other words, any combination of $Q_{mt}$ and $Q^*_{mt}$ not included in $G$ violates observable equivalence.
+    \textcolor{red}{Q: Does $ G$ have zero measure?} \textcolor{blue}{it seems yes. \url{ https://math.stackexchange.com/questions/920101/a-circle-is-a-set-of-measure-zero-generalizations}}
+    
+    
+    
+    
+    %This set has measure zero, which implies that identification holds for any $(Q_{mt}, Q^*_{mt})$ almost surely.
+    
+\begin{claim}
+    If $f$ is non-decreasing and concave and $g$ is concave, a composite function $h(x) = f(g(x))$ is also a concave function. If $g$ is increasing, $h$ is increasing, and if $g$ is decreasing, $h$ is decreasing.
+\end{claim}
+    
+    
+
+\section{General Linear System of Equations}
+This section is based on Wooldridge (2010).
+Consider a general linear model of the form 
+\[\bmy_i = \bmX_i \bm{\beta} + \bmu_i\]
+where $\bmy_i$ is a $G\times 1$ vector, $\bmX_i$ is a $G\times K$ matrix, and $\bmu_i$ is the $G\times 1$ vector of errors.
+We allow $\bmX_i$ contains not only exogenous but also endogenous variables that are correlated with $\bmu_i$.
+
+\begin{itemize}
+    \item $E[\bmZ_i^\top \bmu_i] = \bm0$ where $\bmZ_i$ is a $G\times L$ matrix of observable instrumental variables
+    \item $\rank E[\bmZ_i^\top \bmX_i] = K$. The columns of $ E[\bmZ_i^\top \bmX_i]$ is linearly independent. Necessary for the rank condition is the order condition: $L\ge K$.
+\end{itemize}
+  
+\begin{align*}
+    \bmy_i \equiv 
+    \begin{pmatrix}
+        y_{i1}\\
+        y_{i2}\\
+        \vdots\\
+        y_{iG}\\
+    \end{pmatrix},
+    \quad \bmX_i\equiv
+    \begin{pmatrix}
+        \bmx_{i1} & \bm0 & \bm0 & \cdots & \bm0\\
+        \bm0 & \bmx_{i2} & \bm0 & \cdots & \bm0\\
+        \vdots &  &  &  & \vdots\\
+        \bm0 & \bm0 & \bm0 & \cdots & \bmx_{iG}\\
+    \end{pmatrix},
+    \quad \bmu_i\equiv
+    \begin{pmatrix}
+        u_{i1}\\
+        u_{i2}\\
+        \vdots\\
+        u_{iG}\\
+    \end{pmatrix},
+        \quad \bm{\beta}\equiv
+    \begin{pmatrix}
+        \bm{\beta}_{1}\\
+        \bm{\beta}_{2}\\
+        \vdots\\
+        \bm{\beta}_{G}\\
+    \end{pmatrix}
+\end{align*}
+
+The matrix of instruments has a simular structure to $\bmX_i$;
+\begin{align*}
+    \bmZ_i\equiv
+    \begin{pmatrix}
+        \bmz_{i1} & \bm0 & \bm0 & \cdots & \bm0\\
+        \bm0 & \bmz_{i2} & \bm0 & \cdots & \bm0\\
+        \vdots &  &  &  & \vdots\\
+        \bm0 & \bm0 & \bm0 & \cdots & \bmz_{iG}\\
+    \end{pmatrix},
+\end{align*}
+which has dimension $G\times L$ where $L = L_1 + L_2 + \cdots + L_G$.
+For each $i$, 
+\begin{align*}
+    \bmZ_i^\top \bmu_i =
+    \begin{pmatrix}
+        \bmz_{i1} u_{i1}\\
+        \bmz_{i2} u_{i2}\\
+        \vdots\\
+        \bmz_{iG} u_{iG}
+    \end{pmatrix}
+\end{align*}
+and so $E[\bmZ_i^\top \bmu_i] = \bm0$.
+
+\begin{align*}
+    E[\bmZ_i^\top \bmX_i] \equiv
+    \begin{pmatrix}
+        E[\bmz_{i1}^\top \bmx_{i1}] & \bm0 & \bm0 & \cdots & \bm0\\
+        \bm0 & E[\bmz_{i2}^\top \bmx_{i2}] & \bm0 & \cdots & \bm0\\
+        \vdots &  &  &  & \vdots\\
+        \bm0 & \bm0 & \bm0 & \cdots & E[\bmz_{iG}^\top \bmx_{iG}]\\
+    \end{pmatrix},
+\end{align*}
+$E[\bmz_{ig}^\top \bmx_{ig}]$ is a $L_g\times K_g$ matrix. $ E[\bmZ_i^\top \bmX_i]$ should have full column rank where the number of column is $K = K_1 + K_2 + \cdots +K_G$. This holds if and only if $\rank E[\bmz_{ig}^\top \bmx_{ig}] = K_g $ for all $g = 1,\ldots, G$.
+
+To estimate $\bm{\beta}$, we use the orthogonality conditions, $E[\bmZ_i^\top \bmu_i] = \bm0$. Under the assumptions, $\bm{\beta}$ is a unique solution to the linear set population moment conditions
+\begin{align*}
+    E[\bmZ_i^\top (\bmy_i - \bmX_i \bm{\beta})] = \bm0.
+\end{align*}
+
+
+$\hat{\bmW}$ be a $L\times L$ symmetric, positive  semidefinite matrix. A  GMM estimator of $\bm{\beta}$ is a vector $\hat{\bm{\beta}}$ that solves the problem 
+\begin{align*}
+    \min_{\bmb}\ \left[ \sum_{i=1}^N \bmZ_i^\top (\bmy_i - \bmX_i \bmb)  \right]^\top \hat{\bmW} \left[ \sum_{i=1}^N \bmZ_i^\top (\bmy_i - \bmX_i \bmb)  \right]
+\end{align*}
+The unique solution is 
+\[ \bm{\beta} = (\bmX^\top\bmZ\hat{\bmW}\bmZ^\top\bmX)^{-1}\bmX^\top\bmZ\hat{\bmW}\bmZ^\top\bmY,\]
+where $\bmX$ is the $NG\times K$ matrix obtained by stacking $\bmX_i$, $\bmZ$ is the $NG\times L$ matrix obtained by stacking $Z_i$, $\bmY$ is the $NG\times 1 $ vector obtained by stacking $\bmy_i$.
+
+\begin{itemize}
+    \item $\hat{\bmW} \overset{p}{\rightarrow} \bmW$ as $N\rightarrow \infty$, where $\bmW$ is a nonrandom, symmetric, $L\times L$ positive definite matrix.  
+\end{itemize}
+
+\textbf{The system two-stage least squares estimator (S2SLS)}. When the weight matrix is 
+\begin{align*}
+    \hat{\bmW} = \left(N^{-1}\sum_{i=1}^N \bmZ_i^\top \bmZ_i  \right)^{-1} = (\bmZ^\top \bmZ/N)^{-1},
+\end{align*}
+which is a consistent estimator of $E[\bmZ_i^\top \bmZ_i]^{-1}$. The assumption requires that $E[\bmZ_i^\top \bmZ_i]$ exists and be nonsingular.
+The S2SLS estimator is 
+\begin{align*}
+    \hat{\bm{\beta}} = (\bmX^\top\bmZ(\bmZ^\top \bmZ)^{-1}\bmZ^\top\bmX)^{-1}\bmX^\top\bmZ(\bmZ^\top \bmZ)^{-1}\bmZ^\top\bmY
+\end{align*}
+This estimator can be obtained by applying 2SLS by equation. In other words, we estimate the first equation by 2SLS using instrument $\bmz_{i1}$, the second equation by 2SLS using instrument $\bmz_{i2}$, and so on.
+The system 2SLS estimator is not necessarily the asymptotically efficient estimator.
+
+
+
+\textbf{The GMM three-stage least squares estimator (GMM 3SLS)}. To define the 3SLS estimator, let $\hat{\bmu}_i = \bmy_i - \bmX_i \hat{\bm{\beta}}$  be the residuals from an initial estimation, usually system 2SLS. Define the $G\times G$ matrix
+\begin{align*}
+    \hat{\bm{\Omega}}\equiv N^{-1} \sum_{i=1}^N \hat{\bmu}_i\hat{\bmu}_i^\top,
+\end{align*}
+The weight matrix used by 3SLS is 
+\begin{align*}
+    \hat{\bmW} =  \left(N^{-1}\sum_{i=1}^N \bmZ_i^\top \hat{\bm{\Omega}}    \bmZ_i  \right)^{-1} = [\bmZ^\top (\bmI_N \otimes \hat{\bm{\Omega}})\bmZ/N]^{-1}
+\end{align*}
+The 3SLS estimator is
+\begin{align*}
+    \hat{\bm{\beta}} = [\bmX^\top\bmZ(\bmZ^\top (\bmI_N \otimes \hat{\bm{\Omega}})\bmZ)^{-1}\bmZ^\top\bmX]^{-1}\bmX^\top\bmZ(\bmZ^\top (\bmI_N \otimes \hat{\bm{\Omega}})\bmZ)^{-1}\bmZ^\top\bmY
+\end{align*}
+
+
+
+
+
+\textbf{Nonlinear system 2SLS and Nonlinear 3SLS}.
+Let $\bmr(\bmy_i, \bmx_i, \bm{\theta})$ be a $G\times 1$ vector of a generalized residual function.
+Assume that the true parameter $\bm{\theta}_0$ satisfies the orthogonal condition,
+\begin{align*}
+    E[\bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta})] = \bm0.
+\end{align*}
+
+The nonlinear system 2SLS solves
+\begin{align}
+    \min_{\bm{\theta} \in \bm{\Theta}} \ \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]^\top \left[N^{-1}\sum_{i=1}^N \bmZ_i^\top \bmZ_i \right]^{-1} \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]
+\end{align}
+
+After getting the nonlinear 2SLS estimator, construct an matrix 
+\[\hat{\bm{\Omega}} = N^{-1}\sum_{i=1}^N \bmr_i(\hat{\bm{\theta}})^\top \bmr_i(\hat{\bm{\theta}})\]
+where $\hat{\bm{\theta}}$ is the N2SLS estimator.
+The nonlinear 3SLS solves
+\begin{align}
+    \min_{\bm{\theta} \in \bm{\Theta}} \ \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]^\top \left[N^{-1}\sum_{i=1}^N \bmZ_i^\top \hat{\bm{\Omega}}\bmZ_i \right]^{-1} \left[\sum_{i=1}^N \bmZ_i^\top \bmr(\bmy_i, \bmx_i, \bm{\theta}) \right]
+\end{align}
+
+
+
+\bibliographystyle{aer}
+
+\bibliography{conduct_parameter}
+\end{document}
