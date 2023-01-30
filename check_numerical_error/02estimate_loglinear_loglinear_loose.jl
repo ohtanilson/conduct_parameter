@@ -328,6 +328,11 @@ for estimation_method = estimation_methods
 
         # Set parameter values
         parameter = market_parameters_log(T = t, σ = sigma)
+        @unpack     γ_0, γ_1, γ_2, γ_3, θ = parameter
+        true_start_θ = θ
+        true_start_γ = [γ_0, γ_1, γ_2, γ_3]
+
+        parameter = market_parameters_log(T = t, σ = sigma, start_θ = true_start_θ, start_γ = true_start_γ)
         
         # Estimation based on 2SLS
         @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
@@ -345,6 +350,10 @@ for estimation_method = estimation_methods
     println("----------------------------------------------------------------------------------\n")
 end
 
+
+#------------------------------------------------------------------------------------------------------
+
+# Estimate the parameters with random starting values
 
 function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
@@ -454,16 +463,12 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         else 
             @show α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
             error("The estimation result violates the model assumption ")
-
-
         end
     end
-
 end
 
-# Estimate the parameters with random starting values
 for estimation_method = estimation_methods
-    for t = [50, 100, 200, 1000], sigma =  [0.5, 1, 2]
+    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         # Load the simulation data from the rds files
         filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
@@ -619,52 +624,8 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 
 end
 
-
-
 # Estimate the parameters from the true starting value
-for estimation_method = estimation_methods
-    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
-        # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        filename_end   = ".rds"
-
-        if sigma == 1 || sigma == 2
-            sigma = Int64(sigma)
-        end
-
-        filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-        data = load(filename)
-        data = DataFrames.sort(data, [:group_id_k])
-
-        #Uncomment the following lines to load the simulation data from the csv files
-            #filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-            #filename_end   = ".csv"
-            #file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-            #data = DataFrame(CSV.File(file_name))
-
-        # Set parameter values
-        parameter = market_parameters_log(T = t, σ = sigma, start_θ = 0, start_γ = zeros(4))
-        
-        # Estimation based on 2SLS
-        @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
-
-        # Save the estimation result as csv file. The file is saved at "output" folder
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-
-        filename_begin = "../conduct_parameter/check_numerical_error/loose/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = "_zero_start_loose.csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-
-        CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
-    end
-    println("\n")
-    println("----------------------------------------------------------------------------------\n")
-end
-
-
-# Estimate the parameters from the true starting value
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
@@ -689,6 +650,9 @@ for estimation_method = estimation_methods
 
         # Set parameter values
         parameter = market_parameters_log(T = t, σ = sigma)
+        @unpack     γ_0, γ_1, γ_2, γ_3, θ = parameter
+        true_start_θ = θ
+        true_start_γ = [γ_0, γ_1, γ_2, γ_3]
         
         # Estimation based on 2SLS
         @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
@@ -706,11 +670,7 @@ for estimation_method = estimation_methods
     println("----------------------------------------------------------------------------------\n")
 end
 
-
-
-
-
-
+# Estimate the parameters with random starting values
 function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
     @unpack θ, γ_0, γ_1, γ_2, γ_3, start_θ, start_γ = parameter
@@ -820,15 +780,11 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             @show α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
             error("The estimation result violates the model assumption ")
 
-
         end
     end
 
 end
 
-
-
-# Estimate the parameters with random starting values
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
@@ -854,10 +810,6 @@ for estimation_method = estimation_methods
         # Set parameter values
         parameter = market_parameters_log(T = t, σ = sigma)
 
-        @unpack θ, γ_0, γ_1, γ_2, γ_3, start_θ, start_γ = parameter
-
-        parameter = market_parameters_log(T = t, σ = sigma)
-        
         # Estimation based on 2SLS
         @time estimation_result = simulation_nonlinear_2SLS(parameter, data, estimation_method)
 

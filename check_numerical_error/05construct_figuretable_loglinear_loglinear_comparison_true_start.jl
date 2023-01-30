@@ -94,6 +94,9 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         histo_status = plot(histogram(estimation_result.status), xlims = [1,24], bins = 1:1:24, title = "true start, tight, n = $t, σ = $sigma")
 
         display(histo_status)
+        rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
+        @show rate_convergence
+
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
@@ -155,6 +158,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.5, 1, 2]
         histo_status = plot(histogram(estimation_result.status), xlims = [1,24], bins = 1:1:24, title = "random start, tight, n = $t, σ = $sigma")
 
         display(histo_status)
+        rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
+        @show rate_convergence
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
@@ -224,6 +229,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         histo_status = plot(histogram(estimation_result.status), xlims = [1,24], bins = 1:1:24, title = "true start, loose, n = $t, σ = $sigma")
 
         display(histo_status)
+        rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
+        @show rate_convergence
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
@@ -285,7 +292,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.5, 1, 2]
         histo_status = plot(histogram(estimation_result.status), xlims = [1,24], bins = 1:1:24, title = "random start, loose, n = $t, σ = $sigma")
 
         display(histo_status)
-
+        rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
+        @show rate_convergence
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
