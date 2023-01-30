@@ -14,7 +14,8 @@
 \geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
 \usepackage[english]{babel}
 \usepackage{float}
-\usepackage{subfig}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{pdfpages}
 \usepackage{threeparttable}
@@ -111,9 +112,9 @@ where $W_{t}$ and $R_t$ are excluded cost shifters. Equation \eqref{eq:supply_eq
     P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}.\label{eq:linear_supply_equation}
 \end{align}
 By substituting Equation \eqref{eq:linear_demand} into Equation \eqref{eq:linear_supply_equation} and solving it for $P_t$, we can represent the aggregate quantity $Q_t$ based on the parameters and exogenous variables as:
-\begin{align*}
-    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.
-\end{align*}
+\begin{align}
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
+\end{align}
 
 
 \subsection{Log-linear demand and log-linear marginal cost}
@@ -133,9 +134,9 @@ Then, we obtain:
     \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}. \label{eq:log_linear_supply_equation}
 \end{align}
 By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{eq:log_linear_supply_equation} and solving it for $P_{t}$, the log aggregate quantity is given as: 
-\begin{align*}
-    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{\gamma_1+ \alpha_1 + \alpha_2 Z^{R}_{t} }.
-\end{align*}
+\begin{align}
+    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{\gamma_1+ \alpha_1 + \alpha_2 Z^{R}_{t} }.\label{eq:quantity_loglinear}
+\end{align}
 
 
 \subsection{Simulation and estimation Procedure}
@@ -291,7 +292,18 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 
 \section{Details for our numerical settings and other experiments (Online appendix)}\label{sec:appendix}
 
-\subsection{Details for our numerical settings}
+\subsection{Details for our simulation settings}
+
+To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z_t^R, W_t, R_t, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c, \varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+As for the linear model, we compute the equilibrium quantity $Q_t$ by \eqref{eq:quantity_linear}.
+Then we compute the equilibrium price $P_t$ by substituting $Q_t$ and other variables into the demand function \eqref{eq:linear_demand}.
+The simulation data of the loglinear model is also obtained in a similar way; compute the equilibrium log quantity $\log Q_t$ by \eqref{eq:quantity_loglinear}, and by substituting $\log Q_t$ and other variables into \eqref{eq:log_linear_demand}, we compute the equilibrium price.
+
+As for the linear model, we estimate the equations by using the \texttt{ivreg} package in R.
+Note that an important feature of the model is that we have an interaction term of the endogenous variable $Q_t$ and the instrument variable $Z^{R}_{t}$.\footnote{The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_t$ and the interaction term $Z^{R}_{t}Q_t$ and runs the first stage regression for each endogenous variable by using the same instruments. To confirm this, we manually wrote R code that implements the 2SLS. 
+When the first stage includes only the regression of $Q_t$, the estimation results from our code differ from the results from \texttt{ivreg}. 
+But when we modified the code so that regress $Z^{R}_{t}Q_t$ on the instrument variables and estimate the second stage by using the predicted values of $Q_t$ and $Z^{R}_{t}Q_t$, the result from our code and the result from \texttt{ivreg} coincided.}
+
 
 As for the log-linear model, we estimate the demand parameters as in the linear model since the demand equation is linear.
 In contrast, for the supply side estimation, since the supply side equation is nonlinear, we use Julia and apply the generalized method of moments (GMM) with the moment condition $E[Z^{c}_{t} \varepsilon^{c}_{t}] = 0$.
@@ -302,9 +314,50 @@ As the default starting value in \texttt{JuMP.jl} is equal to zero, we use the s
 
 To see whether the estimation problem explained in Section \ref{sec:results} depends on the tolerance value and the starting values, we conduct the same simulation with different tolerance values and starting values.
 As for starting values, we use the true parameter values and randomly generated values.
+To generate random starting values, we add random variables drawn from uniform distributions to the true parameter values. 
+For the marginal cost parameters, we add random variables drawn from $U(-20, 20)$, and for the conduct parameter, we add a random variable drawn from $U(-10, 1)$. 
+Note that a large value of $\theta$ may lead to an invalid number in equation \eqref{eq:log_linear_supply_equation}, we pick a random starting value under which the inside of log function in equation \eqref{eq:log_linear_supply_equation} is not negative.
 As for tolerance, we use a loose tolerance $10^{-6}$.
 
 The following histograms show the result of the simulation with different combinations of tolerance and starting values.
+Only when we use the true value with tight tolerance, the histogram shows a 
+normal distribution shape around the true parameter.
+The rate of convergence is about 74\%, which is much higher than that of simulation with the default starting value.
+However, when we use random starting values and the loose tolerance, the histogram (b), (c), and (d) show failures of the estimation.
+Especially, when we use loose tolerance, while the rate of convergence is 100\%, the estimation results are completely inaccurate.
+We believe that these results are due to the shape of the GMM function.
+
+
+\begin{figure}
+    \centering
+     \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{check_numerical_error/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+         \caption{}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{check_numerical_error/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
+         \caption{}
+     \end{subfigure}
+     \hfill
+    \vskip\baselineskip
+     \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{check_numerical_error/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+         \caption{}
+     \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}
+             \centering
+             \includegraphics[width=\textwidth]{check_numerical_error/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start_loose.pdf}
+             \caption{}
+        \end{subfigure}
+        \caption{The histogram of the estimated $\theta$ in each simulation with different starting values and tolerances. The rate of convergence in each subpanel is (a) 74.346\%, (b) 71.73\%, (c) 100\%, and (d) 100\%.}
+        \label{fig:numerical_error}
+\end{figure}
+
 
 
 
