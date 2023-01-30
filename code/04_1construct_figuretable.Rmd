@@ -279,10 +279,14 @@ for(nn in 1:length(n_observation_list)){
             sep = ""
             ),
         locally_solved_percent =
-          sum(
-            status_indicator,
-            na.rm = TRUE)/
-          dim(temp_data)[1]
+          format(
+            round(
+              sum(
+                status_indicator,
+                na.rm = TRUE)/
+                dim(temp_data)[1],
+              digits = 3),
+               nsmall = 3)
         )
     assign(
       filename,

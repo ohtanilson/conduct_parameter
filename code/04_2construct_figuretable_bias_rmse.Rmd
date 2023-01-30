@@ -281,10 +281,14 @@ for(nn in 1:length(n_observation_list)){
             sep = ""
             ),
         locally_solved_percent =
-          sum(
-            status_indicator,
-            na.rm = TRUE)/
-          dim(temp_data)[1]
+          format(
+            round(
+              sum(
+                status_indicator,
+                na.rm = TRUE)/
+                dim(temp_data)[1],
+              digits = 3),
+               nsmall = 3)
         )
     assign(
       filename,
@@ -727,16 +731,7 @@ linear_linear_sigma_0.001 <-
     linear_linear_n_100_sigma_0.001,
     linear_linear_n_200_sigma_0.001,
     linear_linear_n_1000_sigma_0.001)
-files <- 
-  list.files(
-    path = "input" %>% here::here(),
-    pattern = "201[0123456789]_[^j].*.xlsx", 
-    full.names = T)
-tbl <-
-  sapply(files, 
-         readxl::read_excel,
-         simplify=FALSE) %>% 
-  dplyr::bind_rows(.id = "id")
+
 create_table_with_demand_shifter_bias_rmse(
   linear_linear_sigma_0.001
 )
