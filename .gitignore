@@ -4,4 +4,6 @@
 .Ruserdata
 *.rds
 *.csv
-.vscode/
+/.vscode/
+/Meeting_report.md
+/past_draft/*
