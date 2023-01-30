@@ -1,12 +1,11 @@
 using LinearAlgebra, Distributions
 using Statistics, Random, MultivariateStats
-using JuMP, Ipopt
-using DelimitedFiles, JLD, CSV, DataFrames, RData
-using Plots, Combinatorics, Dates, StatsPlots, VegaLite
+using CSV, DataFrames, RData
+using Plots, VegaLite
 using Parameters: @unpack, @with_kw
 
 
-
+# Set parameters
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
     α_1 = 1,
@@ -24,57 +23,14 @@ market_parameters_log = @with_kw (
 
 parameter = market_parameters_log()
 
-
 estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
 
 @unpack θ = parameter
 
 #-----------------------------------------------------------------------------------------
-# Check the summary of the eatimation result
-for estimation_method = estimation_methods
-    
-    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
-        # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        filename_end   = ".rds"
-
-        if sigma == 1 || sigma == 2
-            sigma = Int64(sigma)
-        end
-
-        filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-        data = load(filename)
-        data = DataFrames.sort(data, [:group_id_k])
-
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        estimation_result = DataFrame(CSV.File(file_name))
-
-        parameter = market_parameters_log(T = t, σ = sigma)
-
-        @unpack θ, S = parameter
-
-        rate_satisfy_assumption = 1 - sum(sum(1 .- θ .*(estimation_result.α_1[s] .+ estimation_result.α_2[s] .* data.z[(s-1)*t+1:s*t,:]) .<= 0)  for s = 1:S)/(S*t)
-
-        #@show rate_satisfy_assumption
-
-        display(describe(estimation_result))
-
-    end
-    println("------------------------------------------------------------------------------------\n")
-end
-
-
-
-#-----------------------------------------------------------------------------------------
-# Draw histograms consisting of the estimation reuslt of θ within [0, 1]
+# Draw histograms of the estimation reuslt of θ 
 
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
@@ -210,12 +166,7 @@ function contour_set_of_GMM(parameter, data, theta_range, gamma_range)
     return reshape(GMM_value, (length(gamma_range), length(theta_range)))
 end
 
-
-
-
-# Check the contour figure for global range
-
-# Check the contour figure for global range
+# Draw the contour figure for each simulation setting
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     @unpack θ, γ_0 = parameter
 
@@ -258,120 +209,12 @@ end
 
 
 
-#=
-
-
-# Check the contour figure for local range
-@time for t = [100, 1000], sigma =  [0.5, 1]
-    @unpack θ, γ_0, S = parameter
-
-    if sigma == 1 || sigma == 2
-        sigma = Int64(sigma)
-    end
-    
-    # Load the simulation data from the rds files
-    filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-    filename_end   = ".rds"
-
-    if sigma == 1 || sigma == 2
-        sigma = Int64(sigma)
-    end
-
-    filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    data = load(filename)
-    data = DataFrames.sort(data, [:group_id_k])
-    data = data[1:t,:]
-
-    theta_range =  [0.27:0.0001:0.35;]
-    gamma_range =  [0.9:0.0001:1.1;]
-
-    contour_gmm = contour_set_of_GMM(parameter, data, theta_range, gamma_range);
-    plot_contour = plot(contour(theta_range, gamma_range, contour_gmm,
-        xlabel="θ", ylabel="γ_0",
-        title="N =$t, σ = $sigma"))
-        vline!([θ], linestyle=:dash, label = "true θ")
-        hline!([γ_0], linestyle=:dash, label = "true γ_0")
-
-    display(plot_contour)
-
-    filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
-    filename_end   = "_focus.pdf"
-    file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-
-    savefig(plot_contour, file_name)
-
-end
-=#
-
-
-
-#-------------------------------------------------------------------------------
-
-# Plotting the estimation result of theta and gamma_0 for all simulations
-
-for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
-
-    if sigma == 1 || sigma == 2
-        sigma = Int64(sigma)
-    end
-    
-    #histo_result = histogram(xlims = [0, 1], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
-    #histo_result = density(xlims = [0, 1],  title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
-    
-    #vline!([θ], label = "true value : θ = $θ")
-
-    for estimation_method = estimation_methods
-
-        # Load the estimation result
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end   = ".csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        estimation_result = DataFrame(CSV.File(file_name))
-
-        # count the number of the estimation result out of [0, 1]
-        estimation_result  = dropmissing(estimation_result, :θ);
-        estimation_status = deepcopy(estimation_result.status)
-
-        estimation_status = []
-
-        for i = eachindex(estimation_result.status_indicator)
-            if estimation_result.status_indicator[i] == 1
-                push!(estimation_status, "Without Error")
-            else
-                push!(estimation_status, "With Error")
-            end
-        end
-
-        if  estimation_method[3] == :theta_constraint
-            constraint = "with constraint"
-        else
-            constraint = "without constraint"
-        end
-
-        estimation_plot = plot(scatter(estimation_result.θ, estimation_result.γ_0,  group = estimation_status, alpha = 0.7), xlabel = "θ", ylable = "γ_0", size = (500, 400), title = " n = $t, σ = $sigma, $constraint")
-
-        display(estimation_plot)
-
-        filename_estimation = "_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/figuretable/scatter_theta_gamma_all_simulation_loglinear_loglinear_n_"
-        filename_end   = ".pdf"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-
-        savefig(estimation_plot, file_name)
-    end
-end
-
-
-
-
 #-----------------------------------------------------------------------------------------
+
+# Draw the figure of the difference of the values of the GMM objective function under the true parameters and the estimated parameter  
 
 function value_GMM(parameter, data, estimation_result)
     
-
     @unpack α_0, α_1, α_2, α_3, γ_0, γ_1 ,γ_2 ,γ_3, θ, σ ,T = parameter
 
     γ = [γ_0 , γ_1 ,γ_2 ,γ_3]
@@ -456,7 +299,7 @@ function value_GMM(parameter, data, estimation_result)
 end
 
 
-# Check the contour figure for global range
+# Draw the picture for each simulation setting
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     @unpack θ, γ_0, S = parameter
 
@@ -533,8 +376,3 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     
     end
 end
-
-
-
-
-#= 

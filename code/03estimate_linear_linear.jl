@@ -2,12 +2,11 @@
 using LinearAlgebra, Distributions
 using Statistics, Random, MultivariateStats
 using JuMP, Ipopt
-using DelimitedFiles, JLD, CSV, DataFrames
-using Plots, Combinatorics, Dates, StatsPlots
+using CSV, DataFrames
 using Parameters: @unpack, @with_kw
 
 #-----------------------------------------------------------------------------------------------------
-
+# Set parameters
 market_parameters = @with_kw (
     α_0 = 10,   # Demand parameter
     α_1 = 1,    
@@ -23,12 +22,15 @@ market_parameters = @with_kw (
     S = 1000,   # The number of simulation
 )
 
-
-# The following functions are for implementing 2SLS separately
+#-------------------------------------------------------------------------------------------------
 
 function estimaton_linear_2SLS_separate(parameter, data)
+    
+    """
+    Apply 2SLS to the demand equation and the supply equation.
+    The data includes the demand shifter 
 
-    # Separately implement 2SLS to the demand equation and the supply equation
+    """
 
     Q  = data.Q
     w  = data.w
@@ -68,6 +70,11 @@ end
 
 function simulation_2SLS_separate(parameter, data)
 
+    """
+    Given simulation data, reshape the data and pass it to the function that implement the 2SLS
+
+    """
+
     α_est = Vector{Float64}[]
     γ_est = Vector{Float64}[]
     θ_est = Float64[]
@@ -104,105 +111,6 @@ function simulation_2SLS_separate(parameter, data)
 
     return estimation_result
 end
-
-#-----------------------------------------------------------------------------------------------------------------
-# The following functions are for implementing the system of 2SLS
-
-function estimaton_linear_2SLS_simultaneous(parameter, data)
-
-
-    # Implement the system of 2SLS
-
-    @unpack T = parameter
-
-    Q  = data.Q
-    w  = data.w
-    r  = data.r
-    z  = data.z
-    iv_w = data.iv_w
-    iv_r = data.iv_r
-    p  = data.P
-    y  = data.y
-
-    iv = hcat(iv_w, iv_r)
-
-    P = Vector{Float64}[]
-    Z = Matrix{Float64}[]
-    X = Matrix{Float64}[]
-
-    for t = 1:T
-        Z_td = vcat(1, z[t], y[t], iv[t,:])
-        Z_ts = vcat(1, z[t], w[t], r[t], y[t])
-
-        Z_t = [Z_td zeros(length(Z_td));  zeros(length(Z_ts)) Z_ts]'
-
-        X_td = vcat(1, -Q[t],-z[t].*Q[t], y[t])
-        X_ts = vcat(1, Q[t], w[t], r[t], z[t].*Q[t])
-
-        X_t = [X_td zeros(length(X_td)); zeros(length(X_ts)) X_ts]'
-
-        push!(P, vcat(p[t], p[t]))
-        push!(X, X_t)
-        push!(Z, Z_t)
-    end
-
-    Z = reduce(vcat,(Z))
-    X = reduce(vcat,(X))
-    P = reshape(reduce(vcat,transpose.(P))', (T * 2))
-
-    # The system of 2SLS estimator
-    β_hat = inv(X' * Z * inv(Z'Z) * Z' * X) * (X' * Z * inv(Z'Z) * Z' * P)
-
-    # Save the estimation results
-    α_0_hat, α_1_hat, α_2_hat, α_3_hat = β_hat[1], β_hat[2], β_hat[3], β_hat[4]
-    γ_0_hat, γ_2_hat, γ_3_hat = β_hat[5], β_hat[7], β_hat[8]
-
-    θ_hat = β_hat[9]/α_2_hat
-    γ_1_hat = β_hat[6] - θ_hat * α_1_hat
-
-    return vcat(α_0_hat, α_1_hat, α_2_hat, α_3_hat), vcat(γ_0_hat, γ_1_hat, γ_2_hat, γ_3_hat), θ_hat
-end
-
-
-function simulation_2SLS_simultaneous(parameter, data)
-
-    @unpack T, S , σ = parameter 
-
-    α_est = Vector{Float64}[]
-    γ_est = Vector{Float64}[]
-    θ_est = Float64[]
-
-    for s = 1:S
-        data_s = data[(s-1)*T+1:s*T,:]            
-        
-        α_est_s, γ_est_s, θ_est_s = estimaton_linear_2SLS_simultaneous(parameter, data_s)
-
-        push!(α_est, α_est_s)
-        push!(γ_est, γ_est_s)
-        push!(θ_est, θ_est_s)
-    end
-
-    α_est = reduce(vcat, α_est')
-    γ_est = reduce(vcat, γ_est')
-    θ_est = reduce(vcat, θ_est')
-
-    estimation_result = DataFrame(
-    σ = σ,
-    T = T,
-    α_0 = α_est[:,1],
-    α_1 = α_est[:,2],
-    α_2 = α_est[:,3],
-    α_3 = α_est[:,end],
-    γ_0 = γ_est[:,1],
-    γ_1 = γ_est[:,2],
-    γ_2 = γ_est[:,3],
-    γ_3 = γ_est[:,4],
-    θ = θ_est)
-
-
-    return estimation_result
-end
-
 
 #--------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
@@ -262,12 +170,13 @@ end
 
 #------------------------------------------------------------------------------------------------
 
-
-# The following functions are for implementing 2SLS separately
-
 function estimaton_linear_2SLS_separate_wo_demand_shifter(parameter, data)
 
-    # Separately implement 2SLS to the demand equation and the supply equation
+    """
+    Apply 2SLS to the demand equation and the supply equation.
+    The data does not include the demand shifter 
+
+    """
 
     Q  = data.Q
     w  = data.w
@@ -308,6 +217,11 @@ end
 
 function simulation_2SLS_separate_wo_demand_shifter(parameter, data)
 
+    """
+    Given simulation data, reshape the data and pass it to the function that implement the 2SLS
+
+    """
+
     α_est = Vector{Float64}[]
     γ_est = Vector{Float64}[]
     θ_est = Float64[]
@@ -344,110 +258,11 @@ function simulation_2SLS_separate_wo_demand_shifter(parameter, data)
     return estimation_result
 end
 
-#-----------------------------------------------------------------------------------------------------------------
-# The following functions are for implementing the system of 2SLS
-
-function estimaton_linear_2SLS_simultaneous_wo_demand_shifter(parameter, data)
-
-
-    # Implement the system of 2SLS
-
-    @unpack T = parameter
-
-    Q  = data.Q
-    w  = data.w
-    r  = data.r
-    z  = data.z
-    iv_w = data.iv_w
-    iv_r = data.iv_r
-    p  = data.P
-
-    iv = hcat(iv_w, iv_r)
-
-    P = Vector{Float64}[]
-    Z = Matrix{Float64}[]
-    X = Matrix{Float64}[]
-
-    for t = 1:T
-        Z_td = vcat(1, z[t],  iv[t,:])
-        Z_ts = vcat(1, z[t], w[t], r[t])
-
-        Z_t = [Z_td zeros(length(Z_td));  zeros(length(Z_ts)) Z_ts]'
-
-        X_td = vcat(1, -Q[t],-z[t].*Q[t])
-        X_ts = vcat(1, Q[t], w[t], r[t], z[t].*Q[t])
-
-        X_t = [X_td zeros(length(X_td)); zeros(length(X_ts)) X_ts]'
-
-        push!(P, vcat(p[t], p[t]))
-        push!(X, X_t)
-        push!(Z, Z_t)
-    end
-
-    Z = reduce(vcat,(Z))
-    X = reduce(vcat,(X))
-    P = reshape(reduce(vcat,transpose.(P))', (T * 2))
-
-    # The system of 2SLS estimator
-    β_hat = inv(X' * Z * inv(Z'Z) * Z' * X) * (X' * Z * inv(Z'Z) * Z' * P)
-
-    # Save the estimation results
-    α_0_hat, α_1_hat, α_2_hat = β_hat[1], β_hat[2], β_hat[3]
-    γ_0_hat, γ_2_hat, γ_3_hat = β_hat[4], β_hat[6], β_hat[7]
-
-    θ_hat = β_hat[8]/α_2_hat
-    γ_1_hat = β_hat[5] - θ_hat * α_1_hat
-
-    return vcat(α_0_hat, α_1_hat, α_2_hat), vcat(γ_0_hat, γ_1_hat, γ_2_hat, γ_3_hat), θ_hat
-end
-
-
-function simulation_2SLS_simultaneous_wo_demand_shifter(parameter, data)
-
-    @unpack T, S , σ = parameter 
-
-    α_est = Vector{Float64}[]
-    γ_est = Vector{Float64}[]
-    θ_est = Float64[]
-
-    for s = 1:S
-        data_s = data[(s-1)*T+1:s*T,:]            
-        
-        α_est_s, γ_est_s, θ_est_s = estimaton_linear_2SLS_simultaneous_wo_demand_shifter(parameter, data_s)
-
-        push!(α_est, α_est_s)
-        push!(γ_est, γ_est_s)
-        push!(θ_est, θ_est_s)
-    end
-
-    α_est = reduce(vcat, α_est')
-    γ_est = reduce(vcat, γ_est')
-    θ_est = reduce(vcat, θ_est')
-
-    estimation_result = DataFrame(
-    σ = σ,
-    T = T,
-    α_0 = α_est[:,1],
-    α_1 = α_est[:,2],
-    α_2 = α_est[:,3],
-    γ_0 = γ_est[:,1],
-    γ_1 = γ_est[:,2],
-    γ_2 = γ_est[:,3],
-    γ_3 = γ_est[:,4],
-    θ = θ_est)
-
-
-    return estimation_result
-end
-
-
 
 #--------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 
-
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-
 
     # Load the simulation data from the rds files
     filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
@@ -477,9 +292,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     
     # Estimate the parameter based on 2SLS
     estimation_result = simulation_2SLS_separate_wo_demand_shifter(parameter, data)
-
-    # Uncomment below for checking the estimation result by the system of 2SLS
-    # estimation_result = simulation_2SLS_simultaneous_wo_demand_shifter(parameter, data)
 
     # Save the estimatin results as csv files. The file is found at "output" folder
     filename_begin = "../conduct_parameter/output/parameter_hat_table_linear_linear_n_"

@@ -1,19 +1,14 @@
 using LinearAlgebra, Distributions
 using Statistics, Random, MultivariateStats
-using JuMP, Ipopt
-using DelimitedFiles, JLD, CSV, DataFrames
-using Plots, Combinatorics, Dates, StatsPlots
+using CSV, DataFrames
+using Dates, StatsPlots
 using Parameters: @unpack, @with_kw
-using GLM
+
 
 
 #---------------------------------------------------------------------------------------------------------
 
-"""
-
-Generate a simulation data under log demand and log marginal cost model
-
-"""
+# Set parameters 
 
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
@@ -41,9 +36,13 @@ mutable struct market_data_log
     IV::Matrix{Float64}
 end
 
+#---------------------------------------------------------------------------------------------------------
 
 function simulation_data_log(parameter)
 
+    """
+    Generate 1000 simulation data with demand shifter Y_t
+    """
 
     @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T, S = parameter
     
@@ -97,6 +96,9 @@ end
 
 function simulation_data_log_without_demand_shifter(parameter)
 
+    """
+    Generate 1000 simulation data with demand shifter Y_t
+    """
 
     @unpack α_0, α_1, α_2,γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T, S = parameter
     
@@ -193,48 +195,4 @@ for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2]
     else
         error("The demand function is not downward sloping")
     end
-end
-
-
-
-
-
-
-
-#---------------------------------------------------------------------------------------------------------------------
-
-# Plotting logP and logQ
-
-# Change the value of the conduct parameter
-for theta = [0.1:0.1:0.9;]
-
-    parameter_plot = market_parameters_log(θ = theta);
-
-    data_plot = simulation_data_log(parameter_plot);
-
-    # Plot the scatter plot of P and Q
-
-    ols_plot = lm(@formula(logP ~ 1 + logQ), data_plot[1:500,:])
-    plot_logP_logQ = plot(scatter(data_plot.logQ[1:500], data_plot.logP[1:500], ms=2, ma=0.2), ylabel = "logP", xlabel = "logQ", aspect_ratio=:equal, title = " θ =  $theta")
-    plot!(data_plot.logQ[1:500], predict(ols_plot), label = "OLS")
-
-    savefig(plot_logP_logQ, "../conduct_parameter/Yuri/plot_theta_$theta.pdf")
-
-end
-
-# Change the market number and the standard deviation of the error term
-for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2] 
-        
-    parameter_plot = market_parameters_log(T = t, σ = sigma);
-    data_plot = simulation_data_log(parameter_plot);
-
-
-    ols_plot = lm(@formula(logP ~ 1 + logQ), data_plot[1:(t*10),:])
-    plot_logP_logQ = plot(scatter(data_plot.logQ[1:t*10], data_plot.logP[1:t*10], ms=2, ma = 0.2), ylabel = "logP", xlabel = "logQ", aspect_ratio=:equal, title = " t =  $t, σ = $sigma")
-    plot!(data_plot.logQ[1:t*10], predict(ols_plot), label = "OLS")
-
-    filename = "../conduct_parameter/Yuri/plot_"*string(t)*"_and_"*string(sigma)*".pdf"
-
-    savefig(plot_logP_logQ, filename)
-    
 end

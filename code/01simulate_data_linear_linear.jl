@@ -1,13 +1,11 @@
 using LinearAlgebra, Distributions
 using Statistics, Random, MultivariateStats
-using JuMP, Ipopt
-using DelimitedFiles, JLD, CSV, DataFrames
-using Plots, Combinatorics, Dates, StatsPlots
+using CSV, DataFrames
 using Parameters: @unpack, @with_kw
 
 
 #--------------------------------------------------------------------------------------------------------------
-
+# Set parameters
 market_parameters = @with_kw (
     α_0 = 10,   # Demand parameter
     α_1 = 1,    # Demand parameter
@@ -34,10 +32,12 @@ mutable struct market_data
     Y::Vector{Float64}
 end
 
+#------------------------------------------------------------------------------------------------------------
 
 function simulation_data(parameter)
-
-
+    """
+    Generate 1000 simulation data with demand shifter Y_t
+    """
 
     @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T, S = parameter
     
@@ -89,7 +89,9 @@ end
 
 
 function simulation_data_without_demand_shifter(parameter)
-
+    """
+    Generate 1000 simulation data without demand shifter Y_t
+    """
 
 
     @unpack α_0, α_1, α_2, γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T, S = parameter
@@ -138,14 +140,7 @@ function simulation_data_without_demand_shifter(parameter)
 end
 
 
-
-
-
 #-----------------------------------------------------------------------------------------------------------
-
-
-# Plot the scatter plot of P and Q
-#plot(scatter(data.P, data.Q, ms=2, ma=0.2), ylabel = "P", xlabel = "Q")
 
 # Simulation with demand shifter
 # Generate the simulation data and save the data as CSV file        

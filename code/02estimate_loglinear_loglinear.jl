@@ -1,12 +1,34 @@
 using LinearAlgebra, Distributions
 using Statistics, Random, MultivariateStats
 using JuMP, Ipopt
-using DelimitedFiles, JLD, CSV, DataFrames
-using Plots, Combinatorics, Dates, StatsPlots
+using CSV, DataFrames
 using Parameters: @unpack, @with_kw
 
 
 #---------------------------------------------------------------------------------------------
+# Set parameters
+
+market_parameters_log = @with_kw (
+    α_0 = 10, # Demand parameter
+    α_1 = 1,
+    α_2 = 0.1,
+    α_3 = 1,
+    γ_0 = 1,  # Marginal cost parameter
+    γ_1 = 1,
+    γ_2 = 1,
+    γ_3 = 1,
+    θ = 0.3,  # Conduct paramter
+    σ = 1,    # Standard deviation of the error term
+    T = 50,   # Number of markets
+    S = 1000, # Number of simulation
+    start_θ = 0.0,
+    start_γ = [0.0, 0.0, 0.0, 0.0]
+)
+
+estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
+
+
+#---------------------------------------------------------------------------------------------------------
 
 function termination_status_code(status)
 
@@ -47,92 +69,16 @@ function termination_status_code(status)
     end
 end
 
-market_parameters_log = @with_kw (
-    α_0 = 10, # Demand parameter
-    α_1 = 1,
-    α_2 = 0.1,
-    α_3 = 1,
-    γ_0 = 1,  # Marginal cost parameter
-    γ_1 = 1,
-    γ_2 = 1,
-    γ_3 = 1,
-    θ = 0.3,  # Conduct paramter
-    σ = 1,    # Standard deviation of the error term
-    T = 50,   # Number of markets
-    S = 1000, # Number of simulation
-    start_θ = 0.0,
-    start_γ = [0.0, 0.0, 0.0, 0.0]
-)
-
-
-#estimation_methods = [(:separate,:non_constraint), (:separate,:constraint), (:simultaneous,:non_constraint), (:simultaneous,:constraint)];
-estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
-
-
-#---------------------------------------------------------------------------------------------------------
-
-function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
-    
-    L = size(Z, 2)
-    K_s = size(X_s, 2)
-    K_d = size(X_d, 2)
-
-    Ω = inv(Z' * Z)/T
-
-    model = Model(Ipopt.Optimizer)
-    set_optimizer_attribute(model, "tol", 1e-15)
-    set_optimizer_attribute(model, "max_iter", 1000)
-    set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-    set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s-1])
-
-    if estimation_method[3] == :theta_constraint
-
-        @variable(model, 0 <= θ <= 1)
-    else
-        @variable(model, θ)
-    end
-
-    r = Any[];
-    g = Any[];
-    for t =1:T
-        push!(r, @NLexpression(model, P[t]- sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
-        push!(r, @NLexpression(model, P[t]- sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1) + log(1 - θ *(β[2] + β[3] * X[2*t, end]) ) ) )
-    end
-
-    for l = 1:L
-        push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
-    end
-
-    if estimation_method[2] == :log_constraint
-        for t = 1:T
-            @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
-        end
-    end
-
-    @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L, k = 1:L))
-
-    optimize!(model)
-    
-    α_hat = value.(β)[1:K_d]
-    γ_hat = value.(β)[K_d+1:end]
-    θ_hat = value.(θ)
-
-    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-
-        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    else 
-        error("The estimation result violates the model assumption ")
-
-    end
-    
-end
-
-
 #---------------------------------------------------------------------------------------------
 
 function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol})
     
+    """
+    Estimate the demand and supply parameter given a market
+    The demand parameters are destimated by the OLS.
+    The supply parameters and the conduct parameter are estimated by the GMM.
+    """
+
     @unpack θ, start_θ, start_γ = parameter
 
     QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
@@ -240,6 +186,11 @@ end
 
 
 function estimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol})
+    """
+    Given data, reshape the data and pass it to the function that implement the GMM estimation
+
+    """
+
     @unpack T = parameter
 
     Q  = data.logQ
@@ -299,6 +250,11 @@ end
 
 function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol})
 
+    """
+    Given the simulation data, run the estimation in each simulation index s = 1,..., 1000, and store the simulation results as a DataFrame file.
+
+    """
+
     @unpack T, S, σ = parameter 
 
     α_est  = Vector{Float64}[]
@@ -351,17 +307,14 @@ function simulation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Sym
     status_indicator = status_indicator)
 
     return estimation_result
-
 end
-
 
 
 #--------------------------------------------------------------------------------------------------------------
 
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 
-
-# Estimation start from with zero starting values
+# Estimation start from with default starting values
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
