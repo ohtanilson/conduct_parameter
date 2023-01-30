@@ -172,7 +172,7 @@ As for the log-linear model, we need to use different data-generating processes 
             & linear & log-linear \\
             Demand shifter&  &  \\
             $Y_t$ & $N(0,1)$ & $N(0,1)$ \\
-            Rotation demand shifter&  &  \\
+            Demand rotation instrument&  &  \\
             $Z^{R}_{t}$ & $N(10,1)$ & $U(0,1)$ \\
             Cost shifter&  &  \\
             $W_{t}$ & $N(3,1)$ & $U(1,3)$ \\
@@ -294,7 +294,7 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 
 \subsection{Details for our simulation settings}
 
-To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z_t^R, W_t, R_t, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c, \varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z_t^R, W_t, R_t, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
 As for the linear model, we compute the equilibrium quantity $Q_t$ by \eqref{eq:quantity_linear}.
 Then we compute the equilibrium price $P_t$ by substituting $Q_t$ and other variables into the demand function \eqref{eq:linear_demand}.
 The simulation data of the loglinear model is also obtained in a similar way; compute the equilibrium log quantity $\log Q_t$ by \eqref{eq:quantity_loglinear}, and by substituting $\log Q_t$ and other variables into \eqref{eq:log_linear_demand}, we compute the equilibrium price.
@@ -322,10 +322,10 @@ As for tolerance, we use a loose tolerance $10^{-6}$.
 The following histograms show the result of the simulation with different combinations of tolerance and starting values.
 Only when we use the true value with tight tolerance, the histogram shows a 
 normal distribution shape around the true parameter.
-The rate of convergence is about 74\%, which is much higher than that of simulation with the default starting value.
+The runs-convergence rate is about 74\%, which is much higher than that of simulation with the default starting value.
 However, when we use random starting values and the loose tolerance, the histogram (b), (c), and (d) show failures of the estimation.
 Especially, when we use loose tolerance, while the rate of convergence is 100\%, the estimation results are completely inaccurate.
-We believe that these results are due to the shape of the GMM function.
+We believe that these results are due to the flat shape of the GMM objective function.
 
 
 \begin{figure}
@@ -354,7 +354,9 @@ We believe that these results are due to the shape of the GMM function.
              \includegraphics[width=\textwidth]{check_numerical_error/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start_loose.pdf}
              \caption{}
         \end{subfigure}
-        \caption{The histogram of the estimated $\theta$ in each simulation with different starting values and tolerances. The rate of convergence in each subpanel is (a) 74.245\%, (b) 72.535\%, (c) 100\%, and (d) 100\%.}
+        \caption{The histogram of the estimated $\theta$ with different starting values and tolerances.}
+        \footnotesize
+        Note: The runs-convergence rate in each Panel is (a) 74.245\%, (b) 72.535\%, (c) 100\%, and (d) 100\%.
         \label{fig:numerical_error}
 \end{figure}
 
