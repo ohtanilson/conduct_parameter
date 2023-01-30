@@ -104,7 +104,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         number_non_missing = size(estimation_result.θ,1)
         number_out_range   = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
-        rate_out_range     = "$number_out_range/$number_non_missing"
+        rate_out_range     = round(number_out_range/number_non_missing * 100, digits = 3)
+        rate_out_range     = "$rate_out_range %"
         
         estimation_result = filter(x -> (-2 <= x <= 3), estimation_result.θ)
 
@@ -167,8 +168,9 @@ for t = [50, 100, 200, 1000], sigma =  [0.5, 1, 2]
 
         number_non_missing = size(estimation_result.θ,1)
         number_out_range   = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
-        rate_out_range     = "$number_out_range/$number_non_missing"
-        
+        rate_out_range     = round(number_out_range/number_non_missing * 100, digits = 3)
+        rate_out_range     = "$rate_out_range %"
+
         estimation_result = filter(x -> (-10^5 <= x <= 10^3), estimation_result.θ)
 
 
@@ -238,7 +240,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         number_non_missing = size(estimation_result.θ,1)
         number_out_range   = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
-        rate_out_range     = "$number_out_range/$number_non_missing"
+        rate_out_range     = round(number_out_range/number_non_missing * 100, digits = 3)
+        rate_out_range     = "$rate_out_range %"
         
         estimation_result = filter(x -> (-10^5 <= x <= 10^3), estimation_result.θ)
 
@@ -301,7 +304,8 @@ for t = [50, 100, 200, 1000], sigma =  [0.5, 1, 2]
 
         number_non_missing = size(estimation_result.θ,1)
         number_out_range   = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
-        rate_out_range     = "$number_out_range/$number_non_missing"
+        rate_out_range     = round(number_out_range/number_non_missing * 100, digits = 3)
+        rate_out_range     = "$rate_out_range %"
         
         estimation_result = filter(x -> (-10^5 <= x <= 10^3), estimation_result.θ)
 
