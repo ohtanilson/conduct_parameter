@@ -1,37 +1,6 @@
-using LinearAlgebra, Distributions
-using Statistics, Random, MultivariateStats
-using JuMP, Ipopt
-using DelimitedFiles, JLD, CSV, DataFrames
-using Plots, Combinatorics, Dates, StatsPlots
-using Parameters: @unpack, @with_kw
-
-
-#---------------------------------------------------------------------------------------------
-
-
-market_parameters_log = @with_kw (
-    α_0 = 10, # Demand parameter
-    α_1 = 1,
-    α_2 = 0.1,
-    α_3 = 1,
-    γ_0 = 1,  # Marginal cost parameter
-    γ_1 = 1,
-    γ_2 = 1,
-    γ_3 = 1,
-    θ = 0.3,  # Conduct paramter
-    σ = 1,    # Standard deviation of the error term
-    T = 50,   # Number of markets
-    S = 1000, # Number of simulation
-    start_θ = 0,
-    start_γ = [0.0, 0.0, 0.0, 0.0]
-)
-
-
-#estimation_methods = [(:separate,:non_constraint), (:separate,:constraint), (:simultaneous,:non_constraint), (:simultaneous,:constraint)];
 estimation_methods = [(:separate,:non_constraint, :non_constraint)];
 
 #---------------------------------------------------------------------------------------------------------
-
 
 function termination_status_code(status)
 
@@ -131,41 +100,41 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 10^(-14))
-            set_optimizer_attribute(model, "max_iter", 1000)
-            set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-            set_silent(model)
-            @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
+            JuMP.set_optimizer_attribute(model, "tol", 10^(-14))
+            JuMP.set_optimizer_attribute(model, "max_iter", 1000)
+            JuMP.set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+            JuMP.set_silent(model)
+            JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
             if estimation_method[3] == :theta_constraint
-                @variable(model, 0 <= θ <= 1, start = start_θ)
+                JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
             else
-                @variable(model, θ, start = start_θ)
+                JuMP.@variable(model, θ, start = start_θ)
             end
 
             r = Any[];
             g = Any[];
             for t =1:T
-                push!(r, @NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
+                push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
             end
 
             for l = 1:L_s
-                push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
+                push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
             end
 
             if estimation_method[2] == :log_constraint
 
                 for t = 1:T
-                    @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+                    JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
                 end
             end
 
-            @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
+            JuMP.@NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
 
             optimize!(model)
             
-            γ_hat = value.(γ)
-            θ_hat = value.(θ)
+            γ_hat = JuMP.value.(γ)
+            θ_hat = JuMP.value.(θ)
         else
 
             # If the weight matrix can not be obtained, return missing values
@@ -418,38 +387,38 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 10^(-14))
-            set_optimizer_attribute(model, "max_iter", 1000)
-            set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-            set_silent(model)
-            @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
+            JuMP.set_optimizer_attribute(model, "tol", 10^(-14))
+            JuMP.set_optimizer_attribute(model, "max_iter", 1000)
+            JuMP.set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+            JuMP.set_silent(model)
+            JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
             if estimation_method[3] == :theta_constraint
-                @variable(model, 0 <= θ <= 1, start = start_θ)
+                JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
             else
-                @variable(model, θ, start = start_θ)
+                JuMP.@variable(model, θ, start = start_θ)
             end
 
             r = Any[];
             g = Any[];
             for t =1:T
-                push!(r, @NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
+                push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
             end
 
             for l = 1:L_s
-                push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
+                push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
             end
 
             for t = 1:T
-                @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+                JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
             end
 
-            @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
+            JuMP.@NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
 
             optimize!(model)
             
-            γ_hat = value.(γ)
-            θ_hat = value.(θ)
+            γ_hat = JuMP.value.(γ)
+            θ_hat = JuMP.value.(θ)
         else
 
             # If the weight matrix can not be obtained, return missing values
@@ -578,38 +547,38 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 10^(-6))
-            set_optimizer_attribute(model, "max_iter", 1000)
-            #set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-            set_silent(model)
-            @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
+            JuMP.set_optimizer_attribute(model, "tol", 10^(-6))
+            JuMP.set_optimizer_attribute(model, "max_iter", 1000)
+            #JuMP.set_optimizer_attribute(model, "acceptable_tol", 1e-12)
+            JuMP.set_silent(model)
+            JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
             if estimation_method[3] == :theta_constraint
-                @variable(model, 0 <= θ <= 1, start = start_θ)
+                JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
             else
-                @variable(model, θ, start = start_θ)
+                JuMP.@variable(model, θ, start = start_θ)
             end
 
             r = Any[];
             g = Any[];
             for t =1:T
-                push!(r, @NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
+                push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
             end
 
             for l = 1:L_s
-                push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
+                push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
             end
 
             for t = 1:T
-                @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+                JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
             end
 
-            @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
+            JuMP.@NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
 
             optimize!(model)
             
-            γ_hat = value.(γ)
-            θ_hat = value.(θ)
+            γ_hat = JuMP.value.(γ)
+            θ_hat = JuMP.value.(θ)
         else
 
             # If the weight matrix can not be obtained, return missing values
@@ -748,38 +717,37 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = Model(Ipopt.Optimizer)
-            set_optimizer_attribute(model, "tol", 10^(-6))
-            set_optimizer_attribute(model, "max_iter", 1000)
-            #set_optimizer_attribute(model, "acceptable_tol", 1e-12)
-            set_silent(model)
-            @variable(model, γ[k = 1:K_s-1], start = start_γ[k])
+            JuMP.set_optimizer_attribute(model, "tol", 10^(-6))
+            JuMP.set_optimizer_attribute(model, "max_iter", 1000)
+            JuMP.set_silent(model)
+            JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
             if estimation_method[3] == :theta_constraint
-                @variable(model, 0 <= θ <= 1, start = start_θ)
+                JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
             else
-                @variable(model, θ, start = start_θ)
+                JuMP.@variable(model, θ, start = start_θ)
             end
 
             r = Any[];
             g = Any[];
             for t =1:T
-                push!(r, @NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
+                push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
             end
 
             for l = 1:L_s
-                push!(g, @NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
+                push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
             end
 
             for t = 1:T
-                @NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+                JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
             end
 
-            @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
+            JuMP.@NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
 
-            optimize!(model)
+            JuMP.optimize!(model)
             
-            γ_hat = value.(γ)
-            θ_hat = value.(θ)
+            γ_hat = JuMP.value.(γ)
+            θ_hat = JuMP.value.(θ)
         else
 
             # If the weight matrix can not be obtained, return missing values

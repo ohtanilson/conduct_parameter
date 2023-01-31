@@ -1,36 +1,9 @@
-using LinearAlgebra, Distributions
-using Statistics, Random, MultivariateStats
-using CSV, DataFrames, RData
-using Plots, VegaLite
-using Parameters: @unpack, @with_kw
-
-
-# Set parameters
-market_parameters_log = @with_kw (
-    α_0 = 10, # Demand parameter
-    α_1 = 1,
-    α_2 = 0.1,
-    α_3 = 1,
-    γ_0 = 1,  # Marginal cost parameter
-    γ_1 = 1,
-    γ_2 = 1,
-    γ_3 = 1,
-    θ = 0.3,  # Conduct paramter
-    σ = 1,    # Standard deviation of the error term
-    T = 50,   # Number of markets   
-    S = 1000, # Number of simulation
-)
-
-parameter = market_parameters_log()
-
-estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
-
-@unpack θ = parameter
-
 #-----------------------------------------------------------------------------------------
 # Draw histograms of the estimation reuslt of θ 
 
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
+
+    @unpack θ = parameter
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
@@ -79,8 +52,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         filename_end   = ".pdf"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*"_"*String(estimation_method[3])filename_end
 
-        display(histo_result)
-
         savefig(histo_result, file_name)
     end
 end
@@ -91,7 +62,7 @@ end
 function contour_set_of_GMM(parameter, data, theta_range, gamma_range)
     
 
-    @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ,σ ,T = parameter
+    @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ, σ ,T = parameter
 
     γ = [γ_0 , γ_1 ,γ_2 ,γ_3]
     α = [α_0, α_1, α_2, α_3]
@@ -185,7 +156,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
     data = load(filename)
-    data = DataFrames.sort(data, [:group_id_k])
+    data = sort(data, [:group_id_k])
     data = data[1:t,:]
 
     theta_range = [-2:0.01:0.7;] 
@@ -197,8 +168,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         title="N =$t, σ = $sigma"))
         vline!([θ], linestyle=:dash, label = "true θ")
         hline!([γ_0], linestyle=:dash, label = "true γ_0")
-
-    display(plot_contour)
 
     filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
     filename_end   = ".pdf"
@@ -317,7 +286,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
     filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
     data = load(filename)
-    data = DataFrames.sort(data, [:group_id_k])
+    data = sort(data, [:group_id_k])
 
     for estimation_method = estimation_methods
 
