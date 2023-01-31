@@ -1,3 +1,4 @@
+include(joinpath(dirname(@FILE),"00setting_julia.jl"))
 #-----------------------------------------------------------------------------------------
 # Draw histograms consisting of the estimation reuslt of θ
 
@@ -26,7 +27,6 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         display(histo_status)
         rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
         @show rate_convergence
-
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);

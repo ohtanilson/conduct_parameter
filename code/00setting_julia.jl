@@ -1,53 +1,28 @@
-module ReplicationMatsumuraOtani
+# Uncomment the followings to download packages.
+# using Pkg
+# Pkg.add("LinearAlgebra")
+# Pkg.add("Distributions")
+# Pkg.add("CSV")
+# Pkg.add("DataFrames")
+# Pkg.add("Plots")
+# Pkg.add("VegaLite")
+# Pkg.add("Parameters")
+# Pkg.add("JuMP")
+# Pkg.add("Ipopt")
 
-
-# Third party packages
-
-import LinearAlgebra
-import Distributions
-import CSV
-import DataFrames
-import Plots
-import VegaLite
-import Parameters
-import JuMP, Ipopt
-
-
-export JuMP, Ipopt, CSV
-
+#----------------------------------------------------------------------------------
+# We assume that the reader already downloaded the above packages
 
 using LinearAlgebra
 using Distributions
+using CSV
 using DataFrames
 using Plots
 using VegaLite
-using Parameters
-
-# LinearAlgebra
-export rank
-
-# Distributions
-export Uniform
-
-# DataFrame
-export DataFrame, File, dropmissing, load, sort
-
-# Plots
-export histogram, plot, vline!, hline!, histogram!, savefig, contour
-
-# Parameters
-export @unpack, @with_kw
-# VegaLite
-export @vlplot, save
-
-end # module
-
-using .ReplicationMatsumuraOtani
-
-
+using Parameters: @with_kw, @unpack
+using JuMP, Ipopt
 
 # Set parameters for log-linear model
-
 market_parameters_log = @with_kw (
     α_0 = 10, # Demand parameter
     α_1 = 1,

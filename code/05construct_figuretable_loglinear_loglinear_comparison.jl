@@ -1,3 +1,4 @@
+include(joinpath(dirname(@FILE),"00setting_julia.jl"))
 #-----------------------------------------------------------------------------------------
 # Draw histograms of the estimation reuslt of θ 
 
@@ -156,7 +157,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
     filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
 
     data = load(filename)
-    data = sort(data, [:group_id_k])
+    data = DataFrame.sort(data, [:group_id_k])
     data = data[1:t,:]
 
     theta_range = [-2:0.01:0.7;] 
@@ -286,7 +287,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
     filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
     data = load(filename)
-    data = sort(data, [:group_id_k])
+    data = DataFrame.sort(data, [:group_id_k])
 
     for estimation_method = estimation_methods
 

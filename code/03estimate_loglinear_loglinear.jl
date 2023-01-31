@@ -1,3 +1,4 @@
+include(joinpath(dirname(@FILE),"00setting_julia.jl"))
 #---------------------------------------------------------------------------------------------------------
 
 function termination_status_code(status)

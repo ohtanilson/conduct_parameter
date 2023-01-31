@@ -1,3 +1,4 @@
+include(joinpath(dirname(@FILE),"00setting_julia.jl"))
 estimation_methods = [(:separate,:non_constraint, :non_constraint)];
 
 #---------------------------------------------------------------------------------------------------------
