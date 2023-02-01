@@ -35,11 +35,7 @@ market_parameters_log = @with_kw (
     θ = 0.3,  # Conduct paramter
     σ = 1,    # Standard deviation of the error term
     T = 50,   # Number of markets
-    S = 1000, # Number of simulation
+    S = 5, # Number of simulation
     start_θ = 0.0,
     start_γ = [0.0, 0.0, 0.0, 0.0]
 )
-
-parameter = market_parameters_log()
-
-estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
