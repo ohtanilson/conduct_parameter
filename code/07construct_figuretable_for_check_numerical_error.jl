@@ -1,23 +1,26 @@
 include(joinpath(dirname(@FILE),"00setting_julia.jl"))
 #-----------------------------------------------------------------------------------------
+
+estimation_methods = [(:separate,:non_constraint, :non_constraint)];
 # Draw histograms consisting of the estimation reuslt of θ
 
 # Histograms for the simulation results where the starting values are true parameters
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
+    @unpack θ = parameter
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
     end
     
-    histo_result = histogram(xlims = [0, 1], title = "true start, n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    histo_result = histogram(xlims = [0, 1], title = "true start, tight, n = $t, σ = $sigma", legend = :topright, size = (800, 600))
     vline!(histo_result, [θ], label = "true value : θ = $θ")
 
     for estimation_method = estimation_methods
         
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/check_numerical_error/tight/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/output/tight/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_true_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
@@ -26,7 +29,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         display(histo_status)
         rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
-        @show rate_convergence
+
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
@@ -71,19 +74,20 @@ end
 # Histograms for the simulation results where the starting values are randomly drawn
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
+    @unpack θ = parameter
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
     end
     
-    histo_result = histogram(xlims = [-10^5, 10^3], title = "random start, n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    histo_result = histogram(xlims = [-10^5, 10^3], title = "random start, tight, n = $t, σ = $sigma", legend = :topright, size = (800, 600))
     vline!(histo_result, [θ], label = "true value : θ = $θ")
 
     for estimation_method = estimation_methods
         
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/check_numerical_error/tight/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/output/tight/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_random_start.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
@@ -92,7 +96,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         display(histo_status)
         rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
-        @show rate_convergence
+
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
@@ -143,6 +147,7 @@ end
 # Histograms for the simulation results where the starting values are the true parameters and the GMM minimization problem is solved with a loose tolerance
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
+    @unpack θ = parameter
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
@@ -155,7 +160,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/check_numerical_error/loose/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/output/loose/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_true_start_loose.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
@@ -164,7 +169,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         display(histo_status)
         rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
-        @show rate_convergence
+
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
@@ -209,6 +214,7 @@ end
 # Histograms for the simulation results where the starting values are the randomly drawn and the GMM minimization problem is solved with a loose tolerance
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
+    @unpack θ = parameter
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
@@ -221,7 +227,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         
         # Load the estimation result
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/check_numerical_error/loose/parameter_hat_table_loglinear_loglinear_n_"
+        filename_begin = "../conduct_parameter/output/loose/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = "_random_start_loose.csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
         estimation_result = DataFrame(CSV.File(file_name))
@@ -230,7 +236,7 @@ for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
         display(histo_status)
         rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
-        @show rate_convergence
+
 
         # count the number of the estimation result out of [0, 1]
         estimation_result  = dropmissing(estimation_result, :θ);
