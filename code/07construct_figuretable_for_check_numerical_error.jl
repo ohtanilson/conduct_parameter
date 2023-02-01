@@ -3,7 +3,6 @@ include(joinpath(dirname(@FILE),"00setting_julia.jl"))
 
 estimation_methods = [(:separate,:non_constraint, :non_constraint)];
 # Draw histograms consisting of the estimation reuslt of θ
-
 # Histograms for the simulation results where the starting values are true parameters
 for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
 
