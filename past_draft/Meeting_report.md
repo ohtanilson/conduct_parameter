@@ -184,3 +184,7 @@ WP for Jeremy
 ## Next meeting
 
 - juliaに必要なパッケージをモジュールとして指定して，00から始まるファイルとして保存しておく．
+  - そのあとに松村のPCですべてのコードを00から走らせて挙動確認．
+- Jeremyにメール．ELに投稿することを前提にしていることを言及．
+- READMEを追記. machine specの詳細を記述．julia ver
+  
