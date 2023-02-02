@@ -1,6 +1,7 @@
 # Uncomment the followings to download packages.
 # using Pkg
 # Pkg.add("LinearAlgebra")
+# Pkg.add("Random")
 # Pkg.add("Distributions")
 # Pkg.add("CSV")
 # Pkg.add("DataFrames")
@@ -14,6 +15,7 @@
 # We assume that the reader already downloaded the above packages
 
 using LinearAlgebra
+using Random
 using Distributions
 using CSV
 using DataFrames
