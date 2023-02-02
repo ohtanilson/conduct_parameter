@@ -13,7 +13,6 @@
 
 #----------------------------------------------------------------------------------
 # We assume that the reader already downloaded the above packages
-
 using LinearAlgebra
 using Random
 using Distributions

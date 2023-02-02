@@ -9,7 +9,6 @@ tol_list = [:tight, :loose];
 # Draw histograms consisting of the estimation reuslt of θ
 # Histograms for the simulation results that use different combinations of tolerances and starting values
 #---------------------------------------------------------------------------------------------------------
-
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
         for starting_value_used = starting_value_list

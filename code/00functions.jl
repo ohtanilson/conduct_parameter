@@ -101,7 +101,6 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         if  1 <= length(sample_violatiton_index)
 
             sample_index = setdiff([1:T;], sample_violatiton_index)
-
             Z_s = Z_s[sample_index, :]
             X_s = X_s[sample_index, :]
             T = length(sample_index)
