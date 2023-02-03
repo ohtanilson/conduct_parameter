@@ -2,6 +2,8 @@ include("00setting_julia.jl")
 include("00functions.jl")
 parameter = market_parameters_log()
 estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
+starting_value = :default
+tol_level = :tight
 
 #--------------------------------------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
@@ -34,7 +36,7 @@ for estimation_method = estimation_methods
         parameter = market_parameters_log(T = t, σ = sigma)
 
         # Estimation based on 2SLS
-        @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method)
+        @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method, starting_value, tol_level)
 
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
@@ -46,6 +48,5 @@ for estimation_method = estimation_methods
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
 
     end
-    println("\n")
     println("----------------------------------------------------------------------------------\n")
 end

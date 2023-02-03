@@ -39,7 +39,7 @@ end
 
 #---------------------------------------------------------------------------------------------
 
-function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}; tol_used = 1e-15, acceptable_tol_used = 1e-12)
+function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
 
     """
     Estimate the demand and supply parameter given a market
@@ -47,7 +47,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
     The supply parameters and the conduct parameter are estimated by the GMM.
     """
 
-    @unpack θ, start_θ, start_γ = parameter
+    @unpack γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
     # first stage
     QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
     Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  Q
@@ -63,6 +63,26 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 
     sample_violatiton_index = Int64[]
 
+    if tol_level == :tight
+        tol = 1e-15
+        acceptable_tol = 1e-12
+    elseif tol_level == :loose
+        tol = 1e-6
+        acceptable_tol = 1e-5
+    end
+
+    if start_value == :true
+        start_θ = θ
+        start_γ = [γ_0, γ_1, γ_2, γ_3]
+
+    elseif start_value == :random
+        start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4)
+        start_θ = 10
+        while sum(1 .- start_θ .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) != 0
+            start_θ = θ + rand(Uniform(-10, 1))
+        end
+    end
+
     # Pick up the index of market under which the inside of the log has a negative value
     for t = 1:T
         if 1 .- θ .*(α_hat[2] .+ α_hat[3] .* X_s[t,end]) <= 0
@@ -72,19 +92,15 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 
     # If all markets do not satisfy the assumption, stop the supply estimation and rerutns missing values
     if length(sample_violatiton_index) == T
-
         γ_hat = repeat([missing], K_s-1)
         θ_hat = missing
-
         return α_hat, γ_hat, θ_hat, missing
-
     else
 
         # Drop the samples that violate the assumption
         if  1 <= length(sample_violatiton_index)
 
             sample_index = setdiff([1:T;], sample_violatiton_index)
-
             Z_s = Z_s[sample_index, :]
             X_s = X_s[sample_index, :]
             T = length(sample_index)
@@ -98,9 +114,9 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
             Ω = inv(Z_s' * Z_s)/T
 
             model = JuMP.Model(Ipopt.Optimizer)
-            JuMP.set_optimizer_attribute(model, "tol", tol_used)
+            JuMP.set_optimizer_attribute(model, "tol", tol)
             JuMP.set_optimizer_attribute(model, "max_iter", 1000)
-            JuMP.set_optimizer_attribute(model, "acceptable_tol", acceptable_tol_used)
+            JuMP.set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
             JuMP.set_silent(model)
             JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
@@ -153,7 +169,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 
 end
 
-function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}; tol_used = 1e-15, acceptable_tol_used = 1e-12)
+function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
     """
     Given data, reshape the data and pass it to the function that implement the GMM estimation
 
@@ -206,17 +222,13 @@ function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbo
     Z_d = reduce(vcat,(Z_d))
     Z_s = reduce(vcat,(Z_s))
 
-    if estimation_method[1] == :separate
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method, tol_used = 1e-15, acceptable_tol_used = 1e-12)
-    else
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method)
-    end
+    α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method, start_value, tol_level)
 
     return α_hat, γ_hat, θ_hat, status
 end
 
 
-function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}; tol_used = 1e-15, acceptable_tol_used = 1e-12)
+function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
 
     """
     Given the simulation data, run the estimation in each simulation index s = 1,..., 1000, and store the simulation results as a DataFrame file.
@@ -232,7 +244,7 @@ function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tu
 
     for s = 1:S
         data_s = data[(s-1)*T+1:s*T,:]
-        α_est_s, γ_est_s, θ_est_s, status_s = estimate_nonlinear_2SLS(parameter, data_s, estimation_method, tol_used = 1e-15, acceptable_tol_used = 1e-12)
+        α_est_s, γ_est_s, θ_est_s, status_s = estimate_nonlinear_2SLS(parameter, data_s, estimation_method, start_value, tol_level)
 
         push!(α_est, α_est_s)
         push!(γ_est, γ_est_s)

@@ -4,7 +4,9 @@ include("00functions.jl")
 parameter = market_parameters_log()
 estimation_methods = [(:separate,:non_constraint, :non_constraint)];
 starting_value_list = [:true, :random];
-tol_list = [:tight, :loose]
+tol_list = [:tight, :loose];
+
+Random.seed!(1234)
 #---------------------------------------------------------------------------------------------------------
 # estimate with tight/loose tolerance and true/random starting value
 #---------------------------------------------------------------------------------------------------------
@@ -28,46 +30,30 @@ for estimation_method = estimation_methods
                 #data = DataFrame(CSV.File(file_name))
                 # Set parameter values
                 parameter = market_parameters_log(T = t, σ = sigma)
-                @unpack γ_0, γ_1, γ_2, γ_3, θ = parameter
-                if starting_value_used == :true
-                    true_start_θ = θ
-                    true_start_γ = [γ_0, γ_1, γ_2, γ_3]
-                    # Set starting value
-                    parameter = market_parameters_log(start_θ = true_start_θ, start_γ = true_start_γ)
-                elseif starting_value_used == :random
-                    @unpack θ, γ_0, γ_1, γ_2, γ_3, start_θ, start_γ = parameter
-                    randm_start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4) 
-                    # Set starting value
-                    parameter = market_parameters_log(start_γ = randm_start_γ)
-                end
+
                 # Estimation based on 2SLS
-                
                 # Save the estimation result as csv file. The file is saved at "output" folder
                 filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-                
+                @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method, starting_value_used, tol_list_used)
+
                 if starting_value_used == :true && tol_list_used == :tight
-                    @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method)
                     filename_begin = "../conduct_parameter/output/tight/parameter_hat_table_loglinear_loglinear_n_"
                     filename_end   = "_true_start.csv"
                 elseif starting_value_used == :random && tol_list_used == :tight
-                    @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method)
                     filename_begin = "../conduct_parameter/output/tight/parameter_hat_table_loglinear_loglinear_n_"
                     filename_end   = "_random_start.csv"
                 elseif starting_value_used == :true && tol_list_used == :loose
-                    @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method, tol_used = 1e-6, acceptable_tol_used = 1e-12)
                     filename_begin = "../conduct_parameter/output/loose/parameter_hat_table_loglinear_loglinear_n_"
-                    filename_end   = "_true_start_loose.csv"
+                    filename_end   = "_true_start.csv"
                 elseif starting_value_used == :random && tol_list_used == :loose
-                    @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method, tol_used = 1e-6, acceptable_tol_used = 1e-12)
                     filename_begin = "../conduct_parameter/output/loose/parameter_hat_table_loglinear_loglinear_n_"
-                    filename_end   = "_random_start_loose.csv"
+                    filename_end   = "_random_start.csv"
                 end
                 file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
                 CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
             end
         end
     end
-    println("\n")
     println("----------------------------------------------------------------------------------\n")
 end
 

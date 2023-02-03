@@ -9,7 +9,6 @@ estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:
 for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
 
     @unpack θ = parameter
-
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
     end
