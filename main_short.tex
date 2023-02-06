@@ -219,14 +219,14 @@ Thus, imprecise results reported in PS are due to the lack of demand shifters an
 
 Table \ref{tb:loglinear_loglinear_non_constraint} provides the results of the log-linear model with a demand shifter.
 We calculate the bias and RMSE only from the simulation data whose GMM minimization problems are locally solved. 
-First, we often cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2$, we can solve 36.6\% of the 1000 simulated data.\footnote{The results depends on the tolerance level of the optimization. If we use some loose tolerance level, e.g., $10e-6$, we can solve all the simulated data, but we face the same problem discussed in Section \ref{sec:results} more severely. See the details in Appendix \ref{sec:appendix}.}
+First, we often cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2$, we can solve 66.0\% of the 1000 simulated data.\footnote{The results depends on the tolerance level of the optimization. Even if we use some tight tolerance level, e.g., $10e-14$, we face the same problem discussed in Section \ref{sec:results} more severely. See the details in Appendix \ref{sec:appendix}.}
 Second, the estimation of the conduct parameter fails as $\sigma$ becomes large. 
 When $\sigma$ becomes larger, the bias and RMSE of the conduct parameter estimator take unreasonable values.
 
 Figure \ref{fg:histogram_loglinear_loglinear_no_constraint} illustrates the histograms of the estimated conduct parameter from all simulations.
 In each panel, the histogram has a peak around the true parameter.
 While the conduct parameter is assumed to take a value between zero and one, we also see samples in which the values are out of the range. 
-When $\sigma = 0.5$, about 25\% of the simulations are out of $[0,1]$ and when $\sigma = 2.0$, about 40\%. 
+When $\sigma = 0.5$, 20.8\% of the simulations are out of $[0,1]$ and when $\sigma = 2.0$, 34.6\%. 
 Previous papers including \citet{okazaki2022excess} also point out that the value of the estimated conduct parameter falls out of $[0,1]$.
 
 \begin{table}[!htbp]
@@ -276,7 +276,6 @@ While \citet{lau1982identifying} shows the joint identification of the conduct a
 
 %688words by Suguru
 
-
 \section{Conclusion}
 We revisit the conduct parameter estimation in homogeneous goods markets. In contrast to the pessimistic simulation results shown in PS, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. We also show that the log-linear model recommended by PS has another estimation problem. Based on the numerical investigation, we conclude that at least the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets.
 % 82 words
@@ -300,25 +299,25 @@ As for the linear model, we compute the equilibrium quantity $Q_t$ by \eqref{eq:
 Then we compute the equilibrium price $P_t$ by substituting $Q_t$ and other variables into the demand function \eqref{eq:linear_demand}.
 The simulation data of the loglinear model is also obtained in a similar way; compute the equilibrium log quantity $\log Q_t$ by \eqref{eq:quantity_loglinear}, and by substituting $\log Q_t$ and other variables into \eqref{eq:log_linear_demand}, we compute the equilibrium price.
 
-As for the linear model, we estimate the equations by using the \texttt{ivreg} package in R.
-Note that an important feature of the model is that we have an interaction term of the endogenous variable $Q_t$ and the instrument variable $Z^{R}_{t}$.\footnote{The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_t$ and the interaction term $Z^{R}_{t}Q_t$ and runs the first stage regression for each endogenous variable by using the same instruments. To confirm this, we manually wrote R code that implements the 2SLS. 
+As for the linear model, we estimate the equations by using the \texttt{ivreg} package in \texttt{R}.
+Note that an important feature of the model is that we have an interaction term of the endogenous variable $Q_t$ and the instrument variable $Z^{R}_{t}$.
+The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_t$ and the interaction term $Z^{R}_{t}Q_t$ and runs the first stage regression for each endogenous variable by using the same instruments. To confirm this, we manually wrote R code that implements the 2SLS. 
 When the first stage includes only the regression of $Q_t$, the estimation results from our code differ from the results from \texttt{ivreg}. 
-But when we modified the code so that regress $Z^{R}_{t}Q_t$ on the instrument variables and estimate the second stage by using the predicted values of $Q_t$ and $Z^{R}_{t}Q_t$, the result from our code and the result from \texttt{ivreg} coincided.}
+But when we modified the code so that regress $Z^{R}_{t}Q_t$ on the instrument variables and estimate the second stage by using the predicted values of $Q_t$ and $Z^{R}_{t}Q_t$, the result from our code and the result from \texttt{ivreg} coincided.
 
-
-As for the log-linear model, we estimate the demand parameters as in the linear model since the demand equation is linear.
-In contrast, for the supply side estimation, since the supply side equation is nonlinear, we use Julia and apply the generalized method of moments (GMM) with the moment condition $E[Z^{c}_{t} \varepsilon^{c}_{t}] = 0$.
+As for the log-linear model, we estimate the demand parameters as in the linear model because the demand equation is linear.
+In contrast, as the supply side equation is nonlinear, we apply the generalized method of moments (GMM) with the moment condition $E[Z^{c}_{t} \varepsilon^{c}_{t}] = 0$.
 Note that for the supply estimation, we substitute the demand estimation result.
 The GMM estimator is obtained as a solution to the minimization problem.
-To solve the minimization problem, we formulate the minimization problem via \texttt{JuMP.jl} and solve the problem by using the nonlinear solver \texttt{Ipopt.jl}. We use all starting values as zero and the tolerance is $10^{-14}$.
-As the default starting value in \texttt{JuMP.jl} is equal to zero, we use the setting as the benchmark.
+To solve the minimization problem, we use \texttt{Julia} and formulate the minimization problem via \texttt{JuMP.jl} and solve the problem by using the nonlinear solver \texttt{Ipopt.jl}. 
+We use all starting values as zero, which is the default starting value in \texttt{JuMP.jl}, and the tolerance is $10^{-6}$.
 
 To see whether the estimation problem explained in Section \ref{sec:results} depends on the tolerance value and the starting values, we conduct the same simulation with different tolerance values and starting values.
 As for starting values, we use the true parameter values and randomly generated values.
 To generate random starting values, we add random variables drawn from uniform distributions to the true parameter values. 
 For the marginal cost parameters, we add random variables drawn from $U(-20, 20)$, and for the conduct parameter, we add a random variable drawn from $U(-10, 1)$. 
 Note that a large value of $\theta$ may lead to an invalid number in equation \eqref{eq:log_linear_supply_equation}, we pick a random starting value under which the inside of log function in equation \eqref{eq:log_linear_supply_equation} is not negative.
-As for tolerance, we use a loose tolerance $10^{-6}$.
+As for tolerance, we use a tight tolerance $10^{-14}$.
 
 The following histograms show the result of the simulation with different combinations of tolerance and starting values.
 Only when we use the true value with tight tolerance, the histogram shows a 
@@ -330,21 +329,7 @@ We believe that these results are due to the flat shape of the GMM objective fun
 
 
 \begin{figure}
-    \centering
-     \begin{subfigure}[b]{0.475\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
-         \caption{}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.475\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
-         \caption{}
-     \end{subfigure}
-     \hfill
-    \vskip\baselineskip
-     \begin{subfigure}[b]{0.475\textwidth}
+    \begin{subfigure}[b]{0.475\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figuretable/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
          \caption{}
@@ -355,10 +340,23 @@ We believe that these results are due to the flat shape of the GMM objective fun
              \includegraphics[width=\textwidth]{figuretable/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
              \caption{}
         \end{subfigure}
-        \caption{The histogram of the estimated $\theta$ with different starting values and tolerances.}
-        \footnotesize
-        Note: The runs-convergence rate in each Panel is (a) 74.245\%, (b) 72.535\%, (c) 100\%, and (d) 100\%.
-        \label{fig:numerical_error}
+     \hfill
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+         \caption{}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
+         \caption{}
+     \end{subfigure}
+    \caption{The histogram of the estimated $\theta$ with different starting values and tolerances.}
+    \footnotesize
+    Note: The runs-convergence rate in each Panel is (a) 51\%, (b) 61.5\%, (c) 76.5\%, and (d) 71\%. Loose tolerance uses $10^{-6}$ and tight tolerance uses $10^{-14}$
+    \label{fig:numerical_error}
 \end{figure}
 
 
