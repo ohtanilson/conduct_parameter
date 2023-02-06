@@ -43,7 +43,7 @@ for estimation_method = estimation_methods
                 estimation_result = DataFrame(CSV.File(file_name))
         
                 rate_convergence = count( x -> (x <= 7), dropmissing(estimation_result, :status).status)/length(dropmissing(estimation_result, :status).status)
-        
+
                 println("rate of convergence is ", round(rate_convergence * 100, digits = 1), " when t = $t, σ = $sigma, $starting_value_used, and $tol_list_used")
 
                 # count the number of the estimation result out of [0, 1]
