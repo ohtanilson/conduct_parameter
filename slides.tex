@@ -1,7 +1,5 @@
 \documentclass[aspectratio = 169]{beamer}
-
-\usepackage[utf8]{inputenc}
-%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
 %%%%%%%% The beamer Theme %%%%%%%%%%%%%%%%%%%%%%
 \usetheme{Rochester}
@@ -18,10 +16,10 @@
 \setbeamertemplate{navigation symbols}{} % ナビゲーションシンボルを消す
 %\setbeamertemplate{headline}{}    %フレームタイトルの背景の色を消す
 \setbeamertemplate{footline}[frame number] % フッターはスライド番号のみ
-\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.3}
 
 %Beamerフォント設定
-%\usepackage[]{cmbright} %% Option 'defaultfam'
+\usepackage[]{cmbright} %% Option 'defaultfam'
 %% only if the base font of the document is to be sans serig
 %\renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
 
@@ -46,6 +44,7 @@
 \usepackage{multirow}
 \usepackage{setspace}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
 
@@ -76,189 +75,345 @@
 \newtheorem{dfn*}{Definition}
 \newtheorem{crll*}{Corollary}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-\newcommand{\indep}{\perp \!\!\! \perp}
-\newcommand{\argmax}{\operatornamewithlimits{arg\ max}}
-\newcommand{\argmin}{\operatornamewithlimits{arg\ min}}
-
-
-\title{Conduct Parameter Estimation}
+\title{Revisiting Conduct Parameter Estimation in Homogeneous Goods Markets}
 %\subtitle{Backus, Conlon, and Sinkinson, Working Paper, 2021}
-\author{Yuri Matsumura}
+\author{Yuri Matsumura and Suguru Otani}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 
-\section{Conduct parameter estimation}
-\begin{frame}{Conduct parameter estimation}
+\section{}
+\begin{frame}{Introduction}
     \begin{itemize}
-        \item Measuring competitiveness in markets is an important task in Empirical industrial organization
-        \item Conduct parameter is regarded as a useful measure of competitiveness
-        \item In homogeneous product market, the market aggregate supply relation is given as
-        \begin{align*}
-            P_t = -\theta_{t}\frac{\partial P_t}{\partial Q_t}Q_t + MC_t(Q_t),
-        \end{align*}
-        where $\theta_t$ is the conduct parameter
-        \item When $\theta = 1$, the supply relation represents collusion, $\theta = 1/N$ represents Cournot, $\theta =0$ represents perfect competitive market
+        \item Measuring competitiveness in markets is an important task in Empirical Industrial Organization
+        \item We have some (in)direct measures of competitiveness and markup is the best-known measure
+        \item As we cannot observe markup from data, one way to calculate markups is by fixing a model, estimating the model, and calculating the markup
+        \item This way is suffered from misspecification
+        \item Conduct parameter is another way that avoids misspecification because it uses a model that includes many competition models as special cases
     \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item Bresnahan (1982) and Lau(1982) guarantee the identification of conduct parameter in homogeneous product market 
+        \item The estimation of the conduct parameter estimation has different problems
+        \item Perloff and Shen (2012) consider a linear demand and linear marginal cost model of homogenous product markets
+        \item They theoretically show that the conduct parameter estimation is suffered from the multicollinearity problem
+        \item They also conduct simulations to confirm their theoretical result
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Results in PS(2012)}
+    \begin{itemize}
+        \item \textbf{Result 1}: The conduct parameter cannot be accurately estimated due to multicollinearity and nearly perfect collinearity problem
+        \item \textbf{Result 2}: Using a log-linear demand and log-linear marginal cost model is recommended to avoid the multicollinearity problem
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Our Result}
+    \begin{itemize}
+        \item \textbf{Result 1}: We can easily flip their conclusion by (1) properly adding demand shifters and (2) increasing the number of markets
+        \begin{itemize}
+            \item The simulation setting in PS (2012) has some problems
+        \end{itemize}
+        \item \textbf{Result 2}: Rather, the log-linear model cannot accurately estimate the conduct parameter due to the shape of GMM function
+        \begin{itemize}
+            \item The recommendation in PS (2012) is not helpful
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{A Competition Model with Conduct Parameter}
+    \begin{itemize}
+        \item In homogeneous product market, the market aggregate supply equation is given as
+        \begin{align*}
+            P_t = -\theta\frac{\partial P_t}{\partial Q_t}Q_t + MC_t(Q_t),
+        \end{align*}
+        where $\theta$ is the conduct parameter
+        \item When $\theta = 1$, the supply equation represents collusion, $\theta = 1/N$ represents Cournot, $\theta =0$ represents perfect competitive market
+    \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Identification of Conduct Parameter}
     \begin{itemize}
         \item Bresnahan (1982) and Lau(1982) consider the identification of $\theta$
-        \item Bresnahan (1982) considers a linear demand and linear marginal cost model:
+        \item First, consider a linear demand and linear marginal cost model:
         \begin{align}
-            P_t &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_t + \alpha_3 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
+            P_t &= \alpha_0 - \alpha_1 Q_t + \alpha_2 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
             MC_t &= \gamma_0  + \gamma_1 Q + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t},\label{eq:linear_marginal_cost}.
         \end{align}
-        \item In this case, the supply relation is written as
+        where $Y_t, W_t, R_t$ are exogenous variables and $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are error terms
+        \item The demand parameter $\alpha$ can be separately identified by the 2SLS
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Identification of Conduct Parameter}
+    \begin{itemize}
+        \item In this case, the supply equation is written as
         \begin{align}
-            P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}\label{eq:linear_supply_equation}
+            P_t = \gamma_0 + (\theta\alpha_1 + \gamma_1) Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}
         \end{align}
-        \item As the demand parameter $\alpha$ can be separately identified, we can also identify the conduct and marginal cost parameter
+        \item We can identify $ \gamma_0, \gamma_2, \gamma_3$ and $\Gamma \equiv \theta\alpha_1 + \gamma_1$
+        \item We cannot identify the conduct parameter $\theta = \frac{\Gamma - \gamma_1}{\alpha_1}$ because we don't know $\gamma_1$
     \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+
+\begin{frame}{Identification of Conduct Parameter}
     \begin{itemize}
-        \item Perloff and Shen (2012) show that when the error terms in the demand and marginal cost equation are both zero, due to the multicollinearity problem, we can not estimate the model
+        \item Bresnahan (1982) introduces a demand rotation IV $Z_t^R$:
+        \begin{align}
+            P_t &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_t + \alpha_3 Y_t + \varepsilon^{d}_{t},\\
+            MC_t &= \gamma_0  + \gamma_1 Q + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t},.
+        \end{align}
+        \item In this case, the supply equation is written as
+        \begin{align}
+            P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}
+        \end{align}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Identification of Conduct Parameter}
+    \begin{itemize}
+        \item Further, we can have
+        \begin{align}
+            P_t = \gamma_0 + \theta(\alpha_1 +\alpha_2Z^{R}_{t})Q_t + \gamma_1 Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}
+        \end{align}
+        \item As $(\alpha_1 +\alpha_2Z^{R}_{t})Q_t$ is an interaction term with the exogenous variable and the endogenous variable, we can identify $\theta$ and $\gamma_1$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Estimation of Conduct Parameter}
+    \begin{itemize}
+        \item Perloff and Shen (2012) show the Bresnahan's model is suffered from the multicollinearity problem         
+        when $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are both zero
         \item When the standard deviation of the error terms is small, they claim that the nearly perfect collinearity problem occurs
-        \item To see the effect of nearly perfect collinearity problem, Perloff and Shen (2012) conduct simulations
-        \item Based on their simulation studies, Perloff and Shen (2012) concludes that the researchers can not accurately estimate the conduct parameter
-        
+        \item PS (2012) conduct simulations to confirm their theoretical result
     \end{itemize}
 \end{frame}
 
-\begin{frame}{}
-    \begin{itemize}
-        \item However, their simulation has some problems
-        \begin{itemize}
-            \item Their simulation does not include any demand shifter for the supply estimation
-            \item It considers only one sample size in each simulation ($n = 50$) 
-        \end{itemize}
-        \item We reinvestigate their simulation model
-        \item We find that the researchers accurately estimate the conduct parameter by properly adding demand shifters to the supply estimation
-        \item Increasing sample size also increases the accuracy of the estimation
-    \end{itemize}
+\begin{frame}{Estimation results in Table 2 of from PS}
+    \begin{table}[!htbp]
+    \label{tb:linear_linear_sigma_Perloff_Shen}
+    \begin{center}
+        \begin{tabular}{cllll}
+            \hline
+            & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
+            $\alpha_0$ & $10.00\ (0.001)$ & $9.96\ (0.33)$ & $9.86\ (0.65)$ & $9.46 (1.20)$ \\
+            $\alpha_1$ & $1.00\ (0.004)$ & $0.99\ (1.98)$ & $0.97\ (3.96)$ & $0.88 (7.80)$ \\
+            $\alpha_2$ & $1.00\ (0.004)$ & $0.99\ (0.21)$ & $0.97\ (0.42)$ & $0.87\ (0.82)$ \\
+            $\gamma_1$ & $0.46\ (0.88)$ & $0.46\ (0.91)$ & $0.47\ (0.93)$ & $0.49\ (1.04)$ \\
+            $\gamma_2$ & $5.85\ (7.89)$ & $5.85\ (8.15)$ & $5.78\ (8.21)$ & $5.73\ (8.66)$ \\
+            $\theta$ & $-0.31\ (1.31)$ & $-0.29\ (1.34)$ & $0.09\ (11.48)$ & $-1.53\ (30.41)$ \\
+            \hline
+        \end{tabular}
+    \end{center}\footnotesize
+    Note: $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_3 = 0,  \theta = 0.5, T = 50, R = 1000$
+    \end{table}
 \end{frame}
 
-\begin{frame}{Simulation setting}
+
+\begin{frame}{Problems in Perloff and Shen (2012)}
+    \begin{enumerate}
+        \item Their simulation does not include any demand shifter for the supply estimation (they do not include a demand shifter $Y_t$)
+        \item It considers only one sample size in each simulation ($T = 50$) 
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Our simulation setting}
     \begin{itemize}
         \item We generate 1000 simulation data sets
-        \item The parameter setting is the same with Perloff and Shen (2012)
-        \item Perloff and Shen (2012) does not include a demand shfter $Y_t$
-        \item The estimation of the demand and supply equation are done separately and we apply the 2SLS for each equation
-        \item We also change the market size in each simulation, although Perloff and Shen (2012) only consider $n = 50$
+        \item The parameter setting is the same as Perloff and Shen (2012)
+        \item We apply the 2SLS for the demand and supply equation are done separately
+        \item We include demand shifter $Y_t$
+        \item We also change the market size in each simulation ($T = 50, 100, 200, 1000$)
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Result}
+\begin{frame}{Result: Linear Model ($\sigma = 0.001$)}
     \begin{table}[]
         \centering
-        \tiny\input{figuretable/linear_linear_sigma_0.001}
-        \caption{The estimation without demand shfter. $\theta_0 = 0.5$. All true $\gamma$ are one. $\sigma = 0.001$}
-        \label{tab:linear_without_demand}
+        \tiny\input{figuretable/linear_linear_sigma_0.001_bias_rmse.tex}
+        \label{tab:linear_with_demand_001}
     \end{table}
+    \begin{itemize}
+        \item Estimation with a demand shifter is almost perfect.
+    \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}{Result}
+\begin{frame}{Result: Linear Model ($\sigma = 2$)}
     \begin{table}[]
         \centering
-        \tiny\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y.tex}
-        \caption{The estimation without demand shfter. $\theta_0 = 0.5$. All true $\gamma$ are one. $\sigma = 2.0$}
-        \label{tab:linear_without_demand}
+        \tiny\input{figuretable/linear_linear_sigma_2_bias_rmse.tex}
+        \label{tab:linear_with_demand_2}
     \end{table}
+    \begin{itemize}
+        \item Sample size matters for estimation.
+    \end{itemize}
 \end{frame}
-
 
 
 
 \begin{frame}{Log-linear model}
     \begin{itemize}
-        \item Perloff and Shen (2012) claims that to solve the multicollinearity and nearly perfect collinearity problem, the log-linear demand and the log-linear model is a better specification for estimating the conduct parameter
+        \item Perloff and Shen (2012) claims that to avoid the multicollinearity and nearly perfect collinearity problem, the log-linear demand and the log-linear model is a better specification
+        \item Consider a log-linear demand and log-linear marginal cost;
         \begin{align}
             \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\label{eq:log_linear_demand}\\
             \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}.\label{eq:log_linear_marginal_cost}
         \end{align}
-        \item We also investigate the log-linear model and find that the model faces other problems in estimation
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Simulation setting}
+
+\begin{frame}{Log-linear model}
+    \begin{itemize}
+        \item In this case, the supply equation is written as
+        \begin{align}
+            \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}
+        \end{align}
+        \item Lau (1982) guarantees the identification of the conduct parameter and the marginal cost parameters
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Our simulation setting}
     \begin{itemize}
         \item We also generate 1000 data sets and separately estimate the demand and supply equations
-        \item As the demand equation is linear, we apply the 2SLS as in the linear model
+        \item As the demand equation is linear, we apply the 2SLS to estimate the demand parameter as in the linear model
         \item The supply equation is nonlinear and we apply the GMM
         \item We solve the minimization problem by using a nonlinear solve \texttt{IPOPT}
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{}
+\begin{frame}{Result: Log-linear Model ($\sigma = 0.001$)}
         \begin{table}[]
         \centering
-        \tiny\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint}
-        \caption{The estimation without demand shfter. $\theta_0 = 0.5$. All true $\gamma$ are one, $\sigma = 0.001$}
-        \label{tab:linear_without_demand}
+        \tiny\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint_bias_rmse.tex}
+        \label{tab:loglinear_with_demand_001}
     \end{table}
-\end{frame}
-
-
-\begin{frame}{}
-        \begin{table}[]
-        \centering
-        \tiny\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint}
-        \caption{The estimation without demand shfter. $\theta_0 = 0.5$. All true $\gamma$ are one, $\sigma = 2.0$}
-        \label{tab:linear_without_demand}
-    \end{table}
-\end{frame}
-
-\begin{frame}{}
     \begin{itemize}
-        \item The estimation of the conduct parameter is inaccurate and we can see many negative values which are not theoretically supported
-        \item The inaccuracy comes from the relationship between the conduct parameter and the constant term in the marginal cost equation
-        \item The contour map of the GMM objective function with respect to $\theta$ and $\gamma_0$ has a flat region
+        \item Estimation with a demand shifter is almost perfect.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+
+\begin{frame}{Result: Log-linear Model ($\sigma = 2.0$)}
+        \begin{table}[]
+        \centering
+        \tiny\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint_bias_rmse.tex}
+        \label{tab:loglinear_with_demand_2}
+    \end{table}
+    \begin{itemize}
+        \item When the sample size is $T = 1000$, the RMSE of the conduct parameter in the  linear model is 0.245, whereas the RMSE in the log-linear model is 4.42
+        \item Run converged for 66-75\% of simulation samples. We discuss this later
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary of results: Log-linear Model}
+    \begin{itemize}
+        \item Increasing sample size and including demand shifter do not lead to accurate estimation results
+        \begin{itemize}
+            \item In particular, $\gamma_0$ and $\theta$
+        \end{itemize}
+        \item \textbf{Q: Why this happens?}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Histogram of the Simulation Result}
+    \begin{figure}[!htbp]
+      \begin{center}
+          \subfloat[]{\includegraphics[width = 0.5\textwidth]
+          {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}}
+            \hfill
+          \subfloat[]{\includegraphics[width = 0.5\textwidth]
+          {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}}
+          \label{fg:histogram_loglinear_loglinear_no_constraint} 
+        \end{center}
+    \end{figure}
+\end{frame}
+
+
+
+\begin{frame}{The Contour Map of the GMM function}
+    \begin{itemize}
+        \item Recall that the conduct parameter is in log function
+            \begin{align*}
+                \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}
+            \end{align*}
+        \item For example, when $\alpha_1 + \alpha_2 Z^{R}_{t} = 1$ and $\theta = - 10^{5}$, then $\log(10^5) = 5$
+        \item By adjusting the value of $\gamma_0$, we can minimize the GMM fuction
+        \item Even though $\theta$ takes an extreme value, there is a possibility that a nonlinear solver stops at an unrealistic combination of $\gamma_0$ and $\theta$
+        \item To see whether this situation happens, we calculate the value of GMM function under the true parameter and the estimated parameter
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{The difference between GMM objective function Values }
+    \begin{figure}[!htbp]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}
+  \label{fg:diff_gmm_loglinear_loglinear} 
+  \end{center}
+\end{figure} 
+\end{frame}
+
+
+\begin{frame}{The Contour Map of the GMM function}
     \begin{figure}
         \centering
         \includegraphics[width = 9cm]{figuretable/contour_loglinear_loglinear_n_1000_sigma_2.pdf}
-        \caption{Contour map of the GMM function}
         \label{fig:contour_map}
     \end{figure}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Additional Results}
     \begin{itemize}
-        \item Due to the flat region, the nonlinear solve stops at a point that is far from the true parameter
+        \item We consider robustness for the choice of (1) a tolerance level and (2) starting value.
+        \item We have used a tolerance $ = 10^{-6}$
+        \item Can a tight tolerance solve the problem?
+        \item We set the starting values to zero
+        \item Can different starting values solve the problem?
     \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width = 7cm]{figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}
-        \caption{Differece of the GMM under the true parameter and the estimated parameter}
-        \label{fig:gmm_diff}
-    \end{figure}
+\end{frame}
+
+\begin{frame}{Additional Results}
+\begin{figure}
+    \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figuretable/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+     \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}
+             \centering
+             \includegraphics[width=\textwidth]{figuretable/loose/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
+        \end{subfigure}
+\end{figure}
 \end{frame}
 
 
-\begin{frame}{}
-    \begin{itemize}
-        \item As we mentioned, the theoretical range of the conduct parameter is between zero and one
-        \item Can putting the constraint on the conduct parameter lead to an accurate result?
-        \begin{figure}
-            \centering
-            \includegraphics[width = 7cm]{figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_theta_constraint.pdf}
-            \caption{Histogram of the estimated parameter}
-            \label{fig:histogram_theta  }
-        \end{figure}
-    \end{itemize}
+\begin{frame}{Additional Results}
+\begin{figure}
+    \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_true_start.pdf}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.475\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{figuretable/tight/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint_random_start.pdf}
+     \end{subfigure}
+\end{figure}
 \end{frame}
 
 
@@ -269,6 +424,5 @@
         \item While Perloff and Shen (2012) suggest using the log-linear model, we find the model is suffered from other estimation problems
     \end{itemize}
 \end{frame}
-
 
 \end{document}
