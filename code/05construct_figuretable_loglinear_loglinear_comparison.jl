@@ -6,58 +6,62 @@ estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:
 #-----------------------------------------------------------------------------------------
 # Draw histograms of the estimation reuslt of θ 
 #-----------------------------------------------------------------------------------------
-for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
+for estimation_method = estimation_methods
+    for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
 
-    @unpack θ = parameter
-    if sigma == 1 || sigma == 2
-        sigma = Int64(sigma)
-    end
-
-    histo_result = Plots.histogram(xlims = [0, 1], title = " T = $t, σ = $sigma", legend = :topright, size = (800, 600))
-    Plots.vline!(histo_result, [θ], label = "true value : θ = $θ")
-
-    for estimation_method = estimation_methods
-        
-        # Load the estimation result
-        filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
-        filename_end = ".csv"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        estimation_result = DataFrame(CSV.File(file_name))
-
-        # count the number of the estimation result out of [0, 1]
-        estimation_result = dropmissing(estimation_result, :θ);
-        estimation_result = filter(row -> (row.status_indicator == 1), estimation_result)
-
-        number_non_missing = size(estimation_result.θ, 1)
-        number_out_range = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
-        rate_out_range = round(number_out_range/number_non_missing * 100, digits = 3)
-        rate_out_range = "$rate_out_range %"
-        
-        estimation_result = filter(x -> (-2 <= x <= 3), estimation_result.θ)
-
-        if estimation_method[2] == :log_constraint
-            if estimation_method[3] == :theta_constraint
-                label_title = "both constraints ($rate_out_range are out of [0, 1])"
-            else
-                label_title = "only log constraint ($rate_out_range are out of [0, 1])"
-            end
-        else
-            if estimation_method[3] == :theta_constraint
-                label_title = "with constraint ($rate_out_range are out of [0, 1])"
-            else
-                label_title = "no constraint ($rate_out_range are out of [0, 1])"
-            end
+        @unpack θ = parameter
+        if sigma == 1 || sigma == 2
+            sigma = Int64(sigma)
         end
 
-        Plots.histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5, bins = -2:0.1:3)
+        histo_result = Plots.histogram(xlims = [0, 1], title = " T = $t, σ = $sigma", legend = :topright, size = (800, 600))
+        Plots.vline!(histo_result, [θ], label = "true value : θ = $θ")
 
-        filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
-        filename_end = ".pdf"
-        file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*"_"*String(estimation_method[3])filename_end
 
-        Plots.savefig(histo_result, file_name)
+            
+            # Load the estimation result
+            filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
+            filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
+            filename_end = ".csv"
+            file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+            estimation_result = DataFrame(CSV.File(file_name))
+
+            # count the number of the estimation result out of [0, 1]
+            estimation_result = dropmissing(estimation_result, :θ);
+            estimation_result = filter(row -> (row.status_indicator == 1), estimation_result)
+
+            @show minimum(estimation_result.θ)
+
+            number_non_missing = size(estimation_result.θ, 1)
+            number_out_range = number_non_missing  - count(x -> (-10e-9 <= x <= 1 + 1e-8), estimation_result.θ)
+            rate_out_range = round(number_out_range/number_non_missing * 100, digits = 3)
+            rate_out_range = "$rate_out_range %"
+            
+            estimation_result = filter(x -> (-2 <= x <= 3), estimation_result.θ)
+
+            if estimation_method[2] == :log_constraint
+                if estimation_method[3] == :theta_constraint
+                    label_title = "both constraints ($rate_out_range are out of [0, 1])"
+                else
+                    label_title = "only log constraint ($rate_out_range are out of [0, 1])"
+                end
+            else
+                if estimation_method[3] == :theta_constraint
+                    label_title = "with constraint ($rate_out_range are out of [0, 1])"
+                else
+                    label_title = "no constraint ($rate_out_range are out of [0, 1])"
+                end
+            end
+
+            Plots.histogram!(histo_result, estimation_result, xlims = [-2, 3], xlabel = "θ",ylabel = "counts", label = label_title, fill = true, fillalpha = 0.5, bins = -2:0.1:3)
+
+            filename_begin = "../conduct_parameter/figuretable/histogram_loglinear_loglinear_n_"
+            filename_end = ".pdf"
+            file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*"_"*String(estimation_method[3])filename_end
+
+            #Plots.savefig(histo_result, file_name)
     end
+    println("----------------------------------------------------------------")
 end
 #-----------------------------------------------------------------------------------------
 # Draw the contour figure for each simulation setting
@@ -90,7 +94,7 @@ for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
     plot_contour = Plots.plot(
         contour(theta_range, gamma_range, contour_gmm,
         xlabel="θ", ylabel="γ_0",
-        title="N =$t, σ = $sigma"))
+        title="T =$t, σ = $sigma"))
         vline!([θ], linestyle=:dash, label = "true θ")
         hline!([γ_0], linestyle=:dash, label = "true γ_0")
 
