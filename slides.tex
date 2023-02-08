@@ -75,7 +75,7 @@
 \newtheorem{dfn*}{Definition}
 \newtheorem{crll*}{Corollary}
 
-\title{Revisiting Conduct Parameter Estimation in Homogeneous Goods Markets}
+\title{Revisiting Conduct Parameter Estimation in Homogeneous Goods Markets: At Least, Linear Model is Valid}
 %\subtitle{Backus, Conlon, and Sinkinson, Working Paper, 2021}
 \author{Yuri Matsumura and Suguru Otani}
 \date{\today}
@@ -97,10 +97,12 @@
 
 \begin{frame}{Introduction}
     \begin{itemize}
-        \item Bresnahan (1982) and Lau(1982) guarantee the identification of conduct parameter in homogeneous product market 
-        \item The estimation of the conduct parameter estimation has different problems
-        \item Perloff and Shen (2012) consider a linear demand and linear marginal cost model of homogenous product markets
-        \item They theoretically show that the conduct parameter estimation is suffered from the multicollinearity problem
+        \item As for homogeneous product markets, the identification of the conduct parameter is guaranteed
+        \begin{itemize}
+            \item Bresnahan (1982) considers a linear demand and linear marginal cost model
+            \item Lau(1982) considers a more general model
+        \end{itemize}
+        \item Perloff and Shen (2012) theoretically show that the linear model is suffered from the multicollinearity problem under some conditions
         \item They also conduct simulations to confirm their theoretical result
     \end{itemize}
 \end{frame}
@@ -119,7 +121,7 @@
         \begin{itemize}
             \item The simulation setting in PS (2012) has some problems
         \end{itemize}
-        \item \textbf{Result 2}: Rather, the log-linear model cannot accurately estimate the conduct parameter due to the shape of GMM function
+        \item \textbf{Result 2}: Rather, the log-linear model cannot accurately estimate the conduct parameter due to the functional form of the supply equation
         \begin{itemize}
             \item The recommendation in PS (2012) is not helpful
         \end{itemize}
@@ -129,7 +131,7 @@
 
 \begin{frame}{A Competition Model with Conduct Parameter}
     \begin{itemize}
-        \item In homogeneous product market, the market aggregate supply equation is given as
+        \item In homogeneous product markets, the supply equation is given as
         \begin{align*}
             P_t = -\theta\frac{\partial P_t}{\partial Q_t}Q_t + MC_t(Q_t),
         \end{align*}
@@ -143,8 +145,7 @@
 
 \begin{frame}{Identification of Conduct Parameter}
     \begin{itemize}
-        \item Bresnahan (1982) and Lau(1982) consider the identification of $\theta$
-        \item First, consider a linear demand and linear marginal cost model:
+        \item Consider a linear demand and linear marginal cost model:
         \begin{align}
             P_t &= \alpha_0 - \alpha_1 Q_t + \alpha_2 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
             MC_t &= \gamma_0  + \gamma_1 Q + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t},\label{eq:linear_marginal_cost}.
@@ -161,7 +162,7 @@
             P_t = \gamma_0 + (\theta\alpha_1 + \gamma_1) Q_t   + \gamma_2 W_{t} + \gamma_3 R_t + \varepsilon^{c}_{t}
         \end{align}
         \item We can identify $ \gamma_0, \gamma_2, \gamma_3$ and $\Gamma \equiv \theta\alpha_1 + \gamma_1$
-        \item We cannot identify the conduct parameter $\theta = \frac{\Gamma - \gamma_1}{\alpha_1}$ because we don't know $\gamma_1$
+        \item However, we cannot identify the conduct parameter $\theta = \frac{\Gamma - \gamma_1}{\alpha_1}$ because we don't know $\gamma_1$
     \end{itemize}
 \end{frame}
 
@@ -193,14 +194,14 @@
 
 \begin{frame}{Estimation of Conduct Parameter}
     \begin{itemize}
-        \item Perloff and Shen (2012) show the Bresnahan's model is suffered from the multicollinearity problem         
+        \item Perloff and Shen (2012) show the linear model is suffered from the multicollinearity problem         
         when $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are both zero
         \item When the standard deviation of the error terms is small, they claim that the nearly perfect collinearity problem occurs
         \item PS (2012) conduct simulations to confirm their theoretical result
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Estimation results in Table 2 of from PS}
+\begin{frame}{Estimation results in Table 2 of from PS(2012)}
     \begin{table}[!htbp]
     \label{tb:linear_linear_sigma_Perloff_Shen}
     \begin{center}
@@ -215,15 +216,18 @@
             $\theta$ & $-0.31\ (1.31)$ & $-0.29\ (1.34)$ & $0.09\ (11.48)$ & $-1.53\ (30.41)$ \\
             \hline
         \end{tabular}
-    \end{center}\footnotesize
-    Note: $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_3 = 0,  \theta = 0.5, T = 50, R = 1000$
+    \end{center}
     \end{table}
+    \begin{itemize}
+        \item $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_3 = 0,  \theta = 0.5, T = 50, R = 1000$
+        \item $\varepsilon_t^d = \varepsilon_t^c \sim N(0,\sigma) $
+    \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Problems in Perloff and Shen (2012)}
+\begin{frame}{Problems in PS(2012)}
     \begin{enumerate}
-        \item Their simulation does not include any demand shifter for the supply estimation (they do not include a demand shifter $Y_t$)
+        \item Their simulation ignores demand shifter $Y_t$ by setting $\alpha_3 = 0$, that is, the supply estimation does not have any demand shifter
         \item It considers only one sample size in each simulation ($T = 50$) 
     \end{enumerate}
 \end{frame}
@@ -231,9 +235,9 @@
 \begin{frame}{Our simulation setting}
     \begin{itemize}
         \item We generate 1000 simulation data sets
-        \item The parameter setting is the same as Perloff and Shen (2012)
-        \item We apply the 2SLS for the demand and supply equation are done separately
+        \item The parameter setting is the same as Perloff and Shen (2012), except we set $\alpha_3 = 1$
         \item We include demand shifter $Y_t$
+        \item We apply the 2SLS for the demand and supply equation are done separately
         \item We also change the market size in each simulation ($T = 50, 100, 200, 1000$)
     \end{itemize}
 \end{frame}
@@ -264,7 +268,7 @@
 
 \begin{frame}{Log-linear model}
     \begin{itemize}
-        \item Perloff and Shen (2012) claims that to avoid the multicollinearity and nearly perfect collinearity problem, the log-linear demand and the log-linear model is a better specification
+        \item Perloff and Shen (2012) claim that to avoid the multicollinearity and nearly perfect collinearity problem, the log-linear demand and log-linear model is a better specification
         \item Consider a log-linear demand and log-linear marginal cost;
         \begin{align}
             \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\label{eq:log_linear_demand}\\
@@ -286,10 +290,11 @@
 
 \begin{frame}{Our simulation setting}
     \begin{itemize}
-        \item We also generate 1000 data sets and separately estimate the demand and supply equations
-        \item As the demand equation is linear, we apply the 2SLS to estimate the demand parameter as in the linear model
-        \item The supply equation is nonlinear and we apply the GMM
-        \item We solve the minimization problem by using a nonlinear solve \texttt{IPOPT}
+        \item We generate 1000 data sets under a slightly different parameter setting
+        \item We still include the demand shifter
+        \item The demand parameter is estimated by the 2SLS as it is a linear equation
+        \item We apply the GMM for the supply estimation as it is a nonlinear equation
+        \item We solve the minimization problem by using a nonlinear solver \texttt{IPOPT} with tolerance $10^{-6}$
     \end{itemize}
 \end{frame}
 
@@ -301,7 +306,7 @@
         \label{tab:loglinear_with_demand_001}
     \end{table}
     \begin{itemize}
-        \item Estimation with a demand shifter is almost perfect.
+        \item Estimation with a demand shifter is almost perfect
     \end{itemize}
 \end{frame}
 
@@ -314,7 +319,7 @@
     \end{table}
     \begin{itemize}
         \item When the sample size is $T = 1000$, the RMSE of the conduct parameter in the  linear model is 0.245, whereas the RMSE in the log-linear model is 4.42
-        \item Run converged for 66-75\% of simulation samples. We discuss this later
+        \item Run converged for 66-75\% of simulation samples
     \end{itemize}
 \end{frame}
 
@@ -331,32 +336,34 @@
 \begin{frame}{Histogram of the Simulation Result}
     \begin{figure}[!htbp]
       \begin{center}
-          \subfloat[]{\includegraphics[width = 0.5\textwidth]
+          {\includegraphics[width = 0.45\textwidth]
           {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}}
-            \hfill
-          \subfloat[]{\includegraphics[width = 0.5\textwidth]
+          {\includegraphics[width = 0.45\textwidth]
           {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}}
           \label{fg:histogram_loglinear_loglinear_no_constraint} 
         \end{center}
     \end{figure}
-\end{frame}
-
-
-
-\begin{frame}{The Contour Map of the GMM function}
     \begin{itemize}
-        \item Recall that the conduct parameter is in log function
-            \begin{align*}
-                \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}
-            \end{align*}
-        \item For example, when $\alpha_1 + \alpha_2 Z^{R}_{t} = 1$ and $\theta = - 10^{5}$, then $\log(10^5) = 5$
-        \item By adjusting the value of $\gamma_0$, we can minimize the GMM fuction
-        \item Even though $\theta$ takes an extreme value, there is a possibility that a nonlinear solver stops at an unrealistic combination of $\gamma_0$ and $\theta$
-        \item To see whether this situation happens, we calculate the value of GMM function under the true parameter and the estimated parameter
+        \item The minimum values are $-329\ (\sigma = 0.5)$ and $-78\ (\sigma = 2)$
     \end{itemize}
 \end{frame}
 
-\begin{frame}{The difference between GMM objective function Values }
+
+
+\begin{frame}{Intuitive Explanation}
+    \begin{itemize}
+        \item Recall that the conduct parameter is in the log function
+            \begin{align*}
+                \log P_t = \textcolor{purple}{- \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0} + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}
+            \end{align*}
+        \item For example, when $\alpha_1 + \alpha_2 Z^{R}_{t} = 1$ and $\theta = - 78$, then $\log(79) = 1.8$
+        \item When the value of $\theta$ is different from the true value, by adjusting the value of $\gamma_0$, we can decrease the value of the GMM
+        \item There is a possibility that a nonlinear solver stops at unrealistic values of $\gamma_0$ and $\theta$
+        \item To see whether this situation happens, we calculate the value of the GMM function under the true parameter and the estimated parameter
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{The Difference Between the GMM Values }
     \begin{figure}[!htbp]
   \begin{center}
   \includegraphics[width = 0.45\textwidth]
@@ -366,6 +373,22 @@
   \label{fg:diff_gmm_loglinear_loglinear} 
   \end{center}
 \end{figure} 
+\end{frame}
+
+
+
+\begin{frame}{Summary}
+    \begin{itemize}
+        \item We reinvestigate the conduct parameter estimation in homogeneous product markets
+        \item Unlike the conclusion in Perloff and Shen (2012), we find that the conduct parameter estimation in homogeneous product markets with the linear model can lead to accurate results
+        \item While Perloff and Shen (2012) suggest using the log-linear model, we find the model is suffered from other estimation problems
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{}
+    \centering
+    \large Appendix
 \end{frame}
 
 
@@ -416,13 +439,5 @@
 \end{figure}
 \end{frame}
 
-
-\begin{frame}{Summary}
-    \begin{itemize}
-        \item We reinvestige the conduct parameter estimation in homogeneous product markets
-        \item Unlike the conclusion in Perloff and Shen (2012), we find that the conduct parameter estimation in homogeneous product markets with the linear model can lead to accurate results
-        \item While Perloff and Shen (2012) suggest using the log-linear model, we find the model is suffered from other estimation problems
-    \end{itemize}
-\end{frame}
 
 \end{document}
