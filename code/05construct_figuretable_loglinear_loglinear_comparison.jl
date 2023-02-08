@@ -13,7 +13,7 @@ for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
         sigma = Int64(sigma)
     end
 
-    histo_result = Plots.histogram(xlims = [0, 1], title = " n = $t, σ = $sigma", legend = :topright, size = (800, 600))
+    histo_result = Plots.histogram(xlims = [0, 1], title = " T = $t, σ = $sigma", legend = :topright, size = (800, 600))
     Plots.vline!(histo_result, [θ], label = "true value : θ = $θ")
 
     for estimation_method = estimation_methods
@@ -175,7 +175,7 @@ for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
             x={:theta, title = "|Estimated θ - true θ|"}, 
             y={:gamma, title = "|Estimated γ_0 - true γ_0|"}, 
             color = {:gmm_value, title = "diff. GMM value", scale={scheme=:plasma}},
-            title = "n = $t, σ = $sigma, $constraint", xtitle = "difference"
+            title = "T = $t, σ = $sigma, $constraint", xtitle = "difference"
         )|> save(file_name)
     
     end

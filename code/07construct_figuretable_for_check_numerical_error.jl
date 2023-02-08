@@ -23,19 +23,19 @@ for estimation_method = estimation_methods
                 if starting_value_used == :true && tol_list_used == :tight
                     filename_begin = "../conduct_parameter/output/tight/parameter_hat_table_loglinear_loglinear_n_"
                     filename_end   = "_true_start.csv"
-                    histo_title = "true start, tight, n = $t, σ = $sigma"
+                    histo_title = "true start, tight, T = $t, σ = $sigma"
                 elseif starting_value_used == :random && tol_list_used == :tight
                     filename_begin = "../conduct_parameter/output/tight/parameter_hat_table_loglinear_loglinear_n_"
                     filename_end   = "_random_start.csv"
-                    histo_title = "random start, tight, n = $t, σ = $sigma"
+                    histo_title = "random start, tight, T = $t, σ = $sigma"
                 elseif starting_value_used == :true && tol_list_used == :loose
                     filename_begin = "../conduct_parameter/output/loose/parameter_hat_table_loglinear_loglinear_n_"
                     filename_end   = "_true_start.csv"
-                    histo_title = "true start, loose, n = $t, σ = $sigma"
+                    histo_title = "true start, loose, T = $t, σ = $sigma"
                 elseif starting_value_used == :random && tol_list_used == :loose
                     filename_begin = "../conduct_parameter/output/loose/parameter_hat_table_loglinear_loglinear_n_"
                     filename_end   = "_random_start.csv"
-                    histo_title = "random start, loose, n = $t, σ = $sigma"
+                    histo_title = "random start, loose, T = $t, σ = $sigma"
                 end
 
                 filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
