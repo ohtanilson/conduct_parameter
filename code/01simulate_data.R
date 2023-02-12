@@ -405,3 +405,37 @@ for(nn in 1:length(n_observation_list)){
       file = filename)
   }
 }
+
+
+# Appendix: linear with zero sigma ----
+sigma_list <-
+  0
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    data <-
+      generate_data(
+        target_n_observation = temp_nn,
+        target_k_observation = 1000,
+        target_sigma = temp_sigma,
+        specification = "linear_linear",
+        demand_shifter_dummy = TRUE
+      )
+    filename <-
+      paste(
+        "output/data_linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        ".rds",
+        sep = ""
+      )
+    cat(filename,"\n")
+    saveRDS(data,
+            file = filename)
+  }
+}

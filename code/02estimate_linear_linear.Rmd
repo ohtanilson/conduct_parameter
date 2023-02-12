@@ -25,6 +25,7 @@ n_observation_list <-
     )
 sigma_list <-
   c(
+    0,
     0.001,
     0.5,
     1.0, 
@@ -63,6 +64,14 @@ for(nn in 1:length(n_observation_list)){
       temp_data)
   }
 }
+
+sigma_list <-
+  c(
+    0.001,
+    0.5,
+    1.0, 
+    2.0
+    )
 
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
@@ -392,6 +401,43 @@ modelsummary::datasummary_skim(
 ```
 
 
-## log-linear-demand log-linear-cost {.tabset}
+### Appendix: linear with zero sigma {.tabset}
 
+#### $n = 50$
+
+```{r,echo=FALSE,results = 'asis'}
+cat("with demand shifter y")
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_50_sigma_0)
+```
+
+#### $n = 100$
+
+```{r,echo=FALSE,results = 'asis'}
+cat("with demand shifter y")
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_100_sigma_0)
+
+```
+
+#### $n = 200$
+
+```{r,echo=FALSE,results = 'asis'}
+cat("with demand shifter y")
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_200_sigma_0)
+
+```
+
+#### $n = 1000$
+
+```{r,echo=FALSE,results = 'asis'}
+cat("with demand shifter y")
+modelsummary::datasummary_skim(
+  fmt = 3,
+  linear_linear_n_1000_sigma_0)
+```
 
