@@ -16,7 +16,7 @@ market_parameters = @with_kw (
     γ_2 = 1,    # Marginal cost parameter
     γ_3 = 1,    # Marginal cost parameter
     θ = 0.5,    # Conduct parameter
-    σ = 1,      # The standard deviation of the error terms
+    σ = 0.000001,      # The standard deviation of the error terms
     T = 50,     # The number of market
     S = 1000,   # The number of simulation
 )
@@ -182,7 +182,7 @@ for t in [50, 100, 200, 1000],  sigma in [0.001, 0.5, 1, 2]
     @unpack α_1, α_2 = parameter;
     if sum(0 .<= -(α_1 .+ α_2 * data.z)) == 0
 
-        file_name = "../conduct_parameter/output/data_linear_linear_n_"*string(t)*"_sigma_"*string(sigma)*"_without_demand_shifter_y"*".csv"
+        file_name = "../conduct_parameter/past_draft/data_linear_linear_n_"*string(t)*"_sigma_"*string(sigma)*"_without_demand_shifter_y"*".csv"
 
         CSV.write(file_name, data)
     else
