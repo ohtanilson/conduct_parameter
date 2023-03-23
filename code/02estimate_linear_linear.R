@@ -561,8 +561,76 @@ res_lm_second_stage_no_interaction$coefficients
 
 
 
-# Appendix: linear with zero sigma ----
-sigma_list <-
+# Appendix ----
+## linear with zero sigma ----
+temp_sigma_list <-
+  0
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(temp_sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      temp_sigma_list[ss]
+    filename <-
+      paste(
+        "linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        sep = ""
+      )
+    cat(filename,"\n")
+    # load 
+    target_data <-
+      readRDS(
+        file = 
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+            )
+          )
+      )
+    # assign(filename,
+    #        temp_data)
+    # estimate 
+    linear_demand_formula <-
+      "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
+    linear_demand_linear_supply_formula <-
+      paste("P ~ composite_z:Q + Q + w + r|",
+            "composite_z + w + r + y")
+    parameter_hat_table <-
+      estimate_demand_and_supply(
+        target_data =
+          target_data,
+        target_demand_formula = 
+          linear_demand_formula,
+        target_supply_formula =
+          linear_demand_linear_supply_formula,
+        demand_shifter_dummy = TRUE)
+    # save 
+    saveRDS(
+      parameter_hat_table,
+      file = 
+        paste(
+          "output/",
+          "parameter_hat_table",
+          filename,
+          ".rds",
+          sep = ""
+        )
+    )
+  }
+}
+modelsummary::datasummary_skim(
+  fmt = 3,
+  parameter_hat_table)
+
+## linear with zero alpha2 ----
+temp_target_alpha2 <-
   0
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
@@ -577,6 +645,7 @@ for(nn in 1:length(n_observation_list)){
         temp_nn,
         "_sigma_",
         temp_sigma,
+        "alpha2_0",
         sep = ""
       )
     cat(filename,"\n")
