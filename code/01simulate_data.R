@@ -19,6 +19,7 @@ generate_data <-
       n_observation * k_observation
     ### exogenous variable ----
     if(specification == "linear_linear"){
+      # linear specification
       w <-
         rnorm(nk, mean = 3, sd = 1)
       r <-
@@ -52,13 +53,14 @@ generate_data <-
       gamma3 <-
         1
     }else{
+      # log-linear specification
       w <-
         runif(nk, min = 1, max = 3)
       r <-
         runif(nk, min = 0, max = 1)
       y <-
-        #runif(nk, min = 1, max = 3)
-        rnorm(nk, mean = 0, sd = 1)
+        runif(nk, min = 1, max = 3)
+        #rnorm(nk, mean = 0, sd = 1)
       z <-
         runif(nk, min = 0, max = 1)
       ### instrumental variable ----
@@ -70,7 +72,7 @@ generate_data <-
       theta <-
         0.3#0.5
       alpha0 <-
-        10
+        1
       alpha1 <-
         1#1
       alpha2 <-

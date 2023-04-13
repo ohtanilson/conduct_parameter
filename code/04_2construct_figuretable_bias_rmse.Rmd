@@ -306,10 +306,11 @@ true_parameter_linear <-
     )
 true_parameter_loglinear <-
   c(
-    10,
     1,
-    0.1,
-    rep(1, 5),
+    1,
+    0.1,#target_alpha2
+    1,
+    rep(1, 4),
     0.3
     )
 
