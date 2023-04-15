@@ -1,7 +1,7 @@
 include("00setting_julia.jl")
 include("00functions.jl")
 parameter = market_parameters_log()
-estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:non_constraint, :theta_constraint)];
+estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:log_constraint, :theta_constraint), (:simultaneous,:non_constraint, :non_constraint), (:simultaneous,:log_constraint, :theta_constraint)];
 
 #-----------------------------------------------------------------------------------------
 # Draw histograms of the estimation reuslt of θ 
