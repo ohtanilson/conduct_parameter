@@ -257,13 +257,13 @@ function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbo
     @unpack T = parameter
 
     Q  = data.logQ
-    w  = data.w
-    r  = data.r
+    w  = log.(data.w)
+    r  = log.(data.r)
     z  = data.z
     iv_w = data.iv_w
     iv_r = data.iv_r
     p  = data.logP
-    y  = data.y
+    y  = log.(data.y)
 
     iv = hcat(iv_w, iv_r)
 
@@ -315,7 +315,6 @@ function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tu
 
     """
     Given the simulation data, run the estimation in each simulation index s = 1,..., 1000, and store the simulation results as a DataFrame file.
-
     """
 
     @unpack T, S, σ = parameter

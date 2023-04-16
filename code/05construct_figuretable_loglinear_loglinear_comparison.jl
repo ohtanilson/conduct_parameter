@@ -17,8 +17,6 @@ for estimation_method = estimation_methods
         histo_result = Plots.histogram(xlims = [0, 1], title = " T = $t, σ = $sigma", legend = :topright, size = (800, 600))
         Plots.vline!(histo_result, [θ], label = "true value : θ = $θ")
 
-
-            
             # Load the estimation result
             filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
             filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
@@ -59,7 +57,7 @@ for estimation_method = estimation_methods
             filename_end = ".pdf"
             file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*"_"*String(estimation_method[3])filename_end
 
-            #Plots.savefig(histo_result, file_name)
+            Plots.savefig(histo_result, file_name)
     end
     println("----------------------------------------------------------------")
 end
