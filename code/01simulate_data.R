@@ -165,14 +165,20 @@ generate_data <-
              alpha2 * z) * logQ + 
               alpha3 * y +
           epsilon_d
+        logw <-
+          log(w)
+        logr <-
+          log(r)
+        logy <-
+          log(y)
         data <-
           cbind(
             group_id_k,
             logQ,
             logP,
-            w,
-            r,
-            y,
+            logw,
+            logr,
+            logy,
             z,
             iv_w,
             iv_r) %>% 
@@ -240,13 +246,19 @@ generate_data <-
           (alpha1 + 
              alpha2 * z) * logQ + 
           0 + epsilon_d
+        logw <-
+          log(w)
+        logr <-
+          log(r)
+        logy <-
+          log(y)
         data <-
           cbind(group_id_k,
                 logQ,
                 logP,
-                w,
-                r,
-                # y,
+                logw,
+                logr,
+                logy,
                 z,
                 iv_w,
                 iv_r) %>% 
