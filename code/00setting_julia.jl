@@ -25,7 +25,7 @@ using JuMP, Ipopt
 
 # Set parameters for log-linear model
 market_parameters_log = @with_kw (
-    α_0 = 10, # Demand parameter
+    α_0 = 1, # Demand parameter
     α_1 = 1,
     α_2 = 0.1,
     α_3 = 1,
