@@ -45,7 +45,8 @@ end
 # Code for MPEC
 
 
-estimation_methods = [(:mpec,:non_constraint, :non_constraint)]
+#estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec_linear,:non_constraint, :non_constraint)]
+estimation_methods = [(:mpec_linear,:non_constraint, :non_constraint)]
 starting_value = :true
 tol_level = :loose
 
@@ -53,7 +54,12 @@ tol_level = :loose
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the simulation data from the rds files
-        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+        if estimation_method[1] == :mpec_linear
+            filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
+        else
+            filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+        end
+        
         filename_end   = ".rds"
 
         if sigma == 1 || sigma == 2
@@ -71,7 +77,11 @@ for estimation_method = estimation_methods
 
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
-
+        # if estimation_method[1] == :mpec_linear
+        #     filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
+        # else
+        #     filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
+        # end
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
@@ -81,3 +91,6 @@ for estimation_method = estimation_methods
     println("\n")
     println("----------------------------------------------------------------------------------\n")
 end
+
+
+
