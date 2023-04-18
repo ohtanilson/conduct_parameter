@@ -366,18 +366,13 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
     set_optimizer_attribute(model, "tol", tol)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
-    #set_silent(model)
+    set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-
-    if estimation_method[3] == :theta_constraint
-        @variable(model, 0 <= θ <= 1)
-    else
-        @variable(model, θ)
-    end
+    @variable(model, θ)
 
     MC = Any[];
     for t = 1:T
-        push!(MC, @NLexpression(model, (1 - θ * (β[2] + β[3] * X[2*t, end]))* P[t]))
+        push!(MC, @NLexpression(model,  P[t] + θ * (β[2] + β[3] * X[2*t, end])))
     end
 
     r = Any[];
@@ -391,11 +386,6 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
         push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
     end
 
-    if estimation_method[2] == :constraint
-        for t = 1:T
-            @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
-        end
-    end
     @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L, k = 1:L))
     optimize!(model)
     
@@ -403,12 +393,9 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
     γ_hat = value.(β)[K_d+1:end]
     θ_hat = value.(θ)
 
-    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    else 
-        error("The estimation result violates the model assumption ")
-    end 
+    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
 end
+
 
 function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
     """
