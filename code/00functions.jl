@@ -229,7 +229,7 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
         push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
     end
 
-    if estimation_method[2] == :constraint
+    if estimation_method[2] == :log_constraint
         for t = 1:T
             @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
         end
@@ -310,7 +310,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
         push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
     end
 
-    if estimation_method[2] == :constraint
+    if estimation_method[2] == :log_constraint
         for t = 1:T
             @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
         end
