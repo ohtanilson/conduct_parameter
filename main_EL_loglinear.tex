@@ -1,0 +1,469 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.4}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\DeclareMathOperator{\rank}{rank}
+
+
+\title{An MPEC Estimator for Conduct Parameter Estimation in Homogeneous Goods Markets}
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
+%Declarations of interest: none %this is for Economics Letters
+}}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+    %We revisit conduct parameter estimation in homogeneous goods markets to resolve the conflict between Bresnahan (1982) and Perloff and Shen (2012) regarding the identification and the accuracy of conduct parameter estimation. We point out that the proof of Perloff and Shen (2012) is incorrect and its simulation setting is not valid. Our simulation shows that the estimation becomes accurate when properly adding demand shifters in the supply estimation and increasing the sample size. Therefore, we support Bresnahan (1982).
+\end{abstract}
+
+
+\section{Introduction}
+Measuring competitiveness is one of the important tasks in empirical industrial organization literature.
+Conduct parameter is considered to be a useful measure of competitiveness. 
+However, it cannot be directly measured from data because data usually lack information about marginal cost.
+Therefore, researchers endeavor to identify and estimate the conduct parameter.
+
+As the simplest specification, \citet{bresnahan1982oligopoly} considers the identification of conduct parameter for the linear model. \cite{matsumura2023revisiting} resolves the conflict on identification problem between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity} numerically and theoretically. On the other hand, researchers may want to implement nonlinear specification such as log-linear model, e.g., \cite{okazaki2022excess} and \cite{merel2009measuring}. As for the log-linear model, the identification strategy is provided by \citet{lau1982identifying}. 
+\textcolor{blue}{Estimation problems arise, however, when searching parameters using the standard solver because the equilibrium condition given by demand and supply curves involve log-transformation. This is the obstacle to the flexible specification of the demand and supply function.}
+
+
+To overcome the problem, we propose a new estimator based on the mathematical program with equilibrium constraints (MPEC) approach advocated by \cite{su2012constrained} and \cite{dube2012improving}. MPEC is a constrained optimization problem whose constraint structure contains the equilibrium constraints. The basic idea is that we estimate the structural parameters by maximizing the likelihood of the data with the constraints that endogenous economic variables are consistent with an equilibrium for the structural parameters. To implement MPEC, researchers write down expressions that define the objective function and the equilibrium equations as constraints and solve the constrained optimization problem using optimization solvers. 
+
+\textcolor{blue}{We show that [TBA].}
+
+% There are two conflicting results regarding the conduct parameter estimation in homogeneous goods markets in linear demand and marginal cost systems.
+% On the one hand, \citet{bresnahan1982oligopoly} proposes an approach for identifying the conduct parameter by using the demand rotation instrument.
+% As the identification is guaranteed, the conduct parameter can be estimated using standard linear regression.
+% This result is extended to nonlinear cases by \citet{lau1982identifying}
+% and to the differentiated product markets by  \citet{nevoIdentificationOligopolySolution1998}.
+
+
+% On the other hand, \citet{perloff2012collinearity} (hereafter, PS) assert that the linear model considered in \citet{bresnahan1982oligopoly} suffers from the multicollinearity problem when the error terms in the demand and supply equations are zero, implying that the identification of the conduct parameter is impossible.
+% PS also use simulations to demonstrate that parameters cannot be estimated accurately even when the error terms are nonzero. 
+% This is a major obstacle in the literature. 
+% Several papers and handbook chapters reference the result in PS. See \citet{claessensWhatDrivesBank2004, coccoreseMultimarketContactCompetition2013, coccoreseWhatAffectsBank2021, garciaMarketStructuresProduction2020, kumbhakarNewMethodEstimating2012, perekhozhukRegionalLevelAnalysisOligopsony2015} and \citet{shafferMarketPowerCompetition2017}.
+
+% We revisit the identification and estimation of the conduct parameter in homogeneous product markets to determine which result is correct.
+% First, we show that the proof of the multicollinearity problem in PS is incorrect and that the multicollinearity problem does not occur under standard assumptions that reflect the insight in \citet{bresnahan1982oligopoly}.
+% Second, the simulation in PS lacks an excluded demand shifter in the supply equation estimation, and we confirm that the accuracy of the estimation holds by properly including a demand shifter in the supply equation estimation. 
+% We also show that increasing the sample size improves the accuracy of estimation. 
+% Hence, we support \cite{bresnahan1982oligopoly} theoretically and numerically.
+
+\section{Model}
+The researcher has data with $T$ markets with homogeneous products.
+Assume that there are $N$ firms in each market.
+Let $t = 1,\ldots, T$ be the index of markets.
+Then, we obtain the supply equation as follows:
+\begin{align}
+     P_t = -\theta\frac{\partial P_t(Q_{t})}{\partial Q_{t}}Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
+\end{align}
+where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ is the demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$, which is called conduct parameter. 
+The equation nests perfect competition, $\theta=0$, Cournot competition, $\theta=1/N, N$ firm symmetric perfect collusion, $\theta=1$, etc.\footnote{See \cite{bresnahan1982oligopoly}.} 
+
+Consider an econometric model of the above model.
+Assume that the demand function and the marginal cost function are written as follows: 
+\begin{align}
+    P_t = f(Q_{t}, Y_t, \varepsilon^{d}_{t}, \alpha) \label{eq:demand}\\
+    MC_t = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma)\label{eq:marginal_cost}
+\end{align}
+where $Y_t$ and $W_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
+We also have the demand- and supply-side instrument variables $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid Y_t, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
+
+\subsection{Log-linear demand and log-linear marginal cost}
+
+Assume that log-linear demand and cost functions are specified as:
+\begin{align}
+    \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\label{eq:log_linear_demand}\\
+    \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}.\label{eq:log_linear_marginal_cost}
+\end{align}
+Since $\partial P_t/\partial Q_t = - (\alpha_1 + \alpha_2 Z_{t}^R) (P_t/Q_t) $, Equation \eqref{eq:supply_equation} is written as:
+\begin{align}
+    P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t.
+\end{align}
+By reformulating this and taking logarithm, $\log P_t(1 -\theta (\alpha_1 + \alpha_2 Z^{R}_{t})) = \log MC_t.$
+Then, we obtain:
+\begin{align}
+    \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}. \label{eq:log_linear_supply_equation}
+\end{align}
+By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{eq:log_linear_supply_equation} and solving it for $P_{t}$, the log aggregate quantity is given as: 
+\begin{align}
+    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{\gamma_1+ \alpha_1 + \alpha_2 Z^{R}_{t} }.\label{eq:quantity_loglinear}
+\end{align}
+
+
+\section{The MPEC estimator for the conduct parameter model}
+
+We propose a novel estimator for the log-linear conduct parameter model by utilizing the Mathematical Programming with Equilibrium Constraints (MPEC) procedure advocated by \cite{su2012constrained} and \cite{dube2012improving}. Let $\Theta$ be the set of parameters such that $\xi = (\alpha_0,\alpha_1, \ldots, \alpha_3, \gamma_0,\gamma_1, \ldots, \gamma_3, \theta)$. Then, we obtain $\xi$ by solving the following constrained optimization problem:
+\begin{align}
+    &\min_{\xi \in \Xi}\quad g(\xi)' W(\xi) g(\xi) \\
+    \text{s.t.}\quad g(\xi)&=\left[\begin{array}{l}
+\varepsilon^{d}_{t}Z_{t}^{d} \\
+\varepsilon^{c}_{t}Z_{t}^{c}
+\end{array}\right]\\
+    \varepsilon^{d}_{t}(\xi)&=\log P_{t} -[\alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t] \\
+    \varepsilon^{c}_{t} (\xi)&= \log MC_t -[\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t]\\
+    MC_t &= P_t(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})),\\
+    W(\xi)&=Z_{t}'Z_{t}, \quad Z_{t}=\left[\begin{array}{ll}
+Z_{t}^{d} & 0 \\
+0 & Z_{t}^{c}
+\end{array}\right]
+\end{align}
+where $W(\xi)$ is the weighting matrix. 
+
+
+
+\subsection{Simulation and estimation Procedure}
+
+To assess the performance of the proposed estimator, we
+compare the MPEC estimator to the ``plug-in" estimator using
+Monte Carlo simulation.
+We set the true parameters and distributions as in Table \ref{tb:parameter_setting}. 
+
+
+\begin{table}[!htbp]
+    \caption{True parameters and distributions}
+    \label{tb:parameter_setting}
+    \begin{center}
+    \subfloat[Parameters]{
+    \begin{tabular}{cr}
+            \hline
+            & log-linear \\
+            $\alpha_0$  & $10.0$ \\
+            $\alpha_1$ & $1.0$  \\
+            $\alpha_2$ & $0.1$ \\
+            $\alpha_3$ & $1.0$ \\
+            $\gamma_0$ & $1.0$  \\
+            $\gamma_1$ & $1.0$  \\
+            $\gamma_2$ & $1.0$ \\
+            $\gamma_3$ & $1.0$ \\
+            $\theta$ & $0.3$  \\
+            \hline
+        \end{tabular}
+    }
+    \subfloat[Distributions]{
+    \begin{tabular}{crr}
+            \hline
+            &  log-linear \\
+            Demand shifter&  &  \\
+            $Y_t$ & $N(0,1)$ \\
+            Demand rotation instrument&  &  \\
+            $Z^{R}_{t}$ & $U(0,1)$ \\
+            Cost shifter  &  \\
+            $W_{t}$ & $U(1,3)$ \\
+            $R_t$  & $U(0,1)$  \\
+            $H_{t}$ & $W_{t}+U(0,1)$  \\
+            $K_{t}$ & $R_{t}+U(0,1)$  \\
+            Error&  &  \\
+            $\varepsilon^{d}_{t}$ & $N(0,\sigma)$  \\
+            $\varepsilon^{c}_{t}$ & $N(0,\sigma)$ \\
+            \hline
+        \end{tabular}
+    }
+    \end{center}
+    \footnotesize
+    Note: $\sigma=\{0.001, 0.5, 1.0, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
+\end{table}
+
+For the simulation, we generate 1000 data sets. We separately estimate the demand and supply equation by 2SLS estimation.
+The instrument variables for the demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, Y_t, H_{t}, K_{t})$ and the instrument variables for the supply estimation are $Z^{c}_{t} = (Z^{R}_{t}, W_{t}, R_t, Y_t)$. 
+
+%581words by Suguru
+
+\section{Simulation results}\label{sec:results}
+[TBA]
+% Table \ref{tb:loglinear_loglinear_non_constraint} provides the results of the log-linear model with a demand shifter.
+% We calculate the bias and RMSE only from the simulation data whose GMM minimization problems are locally solved. 
+% First, we often cannot solve the log-linear model under the same data generating process. For example, when $\sigma=2$, we can solve 66.0\% of the 1000 simulated data.\footnote{The results depends on the tolerance level of the optimization. Even if we use some tight tolerance level, e.g., $10e-14$, we face the same problem discussed in Section \ref{sec:results} more severely. See the details in Appendix \ref{sec:appendix}.}
+% Second, the estimation of the conduct parameter fails as $\sigma$ becomes large. 
+% When $\sigma$ becomes larger, the bias and RMSE of the conduct parameter estimator take unreasonable values.
+
+% Figure \ref{fg:histogram_loglinear_loglinear_no_constraint} illustrates the histograms of the estimated conduct parameter from all simulations.
+% In each panel, the histogram has a peak around the true parameter.
+% While the conduct parameter is assumed to take a value between zero and one, we also see samples in which the values are out of the range. 
+% When $\sigma = 0.5$, 20.8\% of the simulations are out of $[0,1]$ and when $\sigma = 2.0$, 34.6\%. 
+% Previous papers including \citet{okazaki2022excess} also point out that the value of the estimated conduct parameter falls out of $[0,1]$.
+
+% \begin{table}[!htbp]
+%       \begin{center}
+%           \caption{Results of the log-linear model with demand shifter}
+%           \label{tb:loglinear_loglinear_non_constraint} 
+%           \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint_bias_rmse.tex}}\\
+%           \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint_bias_rmse}}\\
+%             \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint_bias_rmse}}
+%       \end{center}
+% \end{table} 
+
+
+% \begin{figure}[!htbp]
+%   \begin{center}
+%   \subfloat[]{\includegraphics[width = 0.5\textwidth]
+%   {figuretable/histogram_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}}
+%   \subfloat[]{\includegraphics[width = 0.5\textwidth]
+%   {figuretable/histogram_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}}
+%   \caption{Histograms of the estimation result of the conduct parameter.}
+%   \label{fg:histogram_loglinear_loglinear_no_constraint} 
+%   \end{center}
+% \end{figure}
+
+% Why can such values arise as a solution of the GMM estimation?
+% To check this, for each simulation, we compute (1) the absolute differences between the true and estimated values of $\theta$ and $\gamma_0$ and (2) the absolute differences between the value of the GMM objective function under the true and estimated parameter.
+% Figure \ref{fg:diff_gmm_loglinear_loglinear} shows the plot of these differences. 
+% Each dot corresponds to each simulation and the color of each dot represents the value of the difference in the GMM objective function. 
+% We can see dark dots even when the difference in the conduct parameter is large.
+% For example, when $\sigma = 0.5$, dark dots appear when the difference is greater than 10.
+% When $\sigma = 2.0$, dark dots appear even when the difference is greater than 20.
+% While \citet{lau1982identifying} shows the joint identification of the conduct and cost parameter in a general case, Figure \ref{fg:diff_gmm_loglinear_loglinear} implies that the estimation becomes imprecise.
+
+
+% \begin{figure}[!htbp]
+%   \begin{center}
+%   \includegraphics[width = 0.45\textwidth]
+%   {figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_0.5_non_constraint.pdf}
+%   \includegraphics[width = 0.45\textwidth]
+%   {figuretable/diff_gmm_value_loglinear_loglinear_n_1000_sigma_2_non_constraint.pdf}
+%   \caption{The difference of the GMM objective function under true parameter and the estimation result}
+%   \label{fg:diff_gmm_loglinear_loglinear} 
+%   \end{center}
+%   \footnotesize
+%   Note: The x-axis is the difference between the values of the true and estimated conduct parameter. The y-axis is the difference between the values of estimated and true $\gamma_0$. Each dot represents the value of the difference of the GMM objective function under the true and estimated values of the parameters. 
+% \end{figure} 
+
+
+
+% Table \ref{tb:linear_linear_sigma_1} presents the results of the linear model with the demand shifter.\footnote{See Appendix \ref{sec:appendix} for the simulation details and additional results.}
+% Panel (a) shows that when the standard deviation of the error terms in the demand and supply equation is $\sigma = 0.001$, the estimation of all parameters is extremely accurate.
+% When the sample size is large, the root-mean-squared errors (RMSEs) of all parameters are less than or equal to 0.001. 
+% Panel (c) shows the case with $\sigma = 2.0$. 
+% As the sample size increases, the RMSE decreases dramatically. 
+% Thus, the imprecise results reported in PS are due to the lack of demand shifters and small sample size.
+
+
+
+% \begin{table}[!htbp]
+%   \begin{center}
+%       \caption{Results of the linear model with demand shifter}
+%       \label{tb:linear_linear_sigma_1} 
+%       \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_bias_rmse.tex}}\\
+%       \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_bias_rmse}}\\
+%     \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
+%   \end{center}
+%   \footnotesize
+%   Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0,\sigma)$.
+% \end{table} 
+
+
+
+\section{Conclusion}
+[TBA]
+% We revisit the conduct parameter estimation in homogeneous goods markets.
+% There is a conflict between \citet{bresnahan1982oligopoly} and \citet{perloff2012collinearity} in terms of identification and estimation.
+% We highlight the problems in the proof and simulation in \citet{perloff2012collinearity}.
+% Our simulation shows that the estimation of the conduct parameter becomes accurate by appropriately introducing demand shifters into the supply estimation and increasing the sample size. 
+% Based on the theoretical and numerical investigation, we support the argument in \citet{bresnahan1982oligopoly}.
+
+
+\paragraph{Acknowledgments}
+We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
+
+\newpage
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
+\newpage
+\appendix
+
+
+% \section{Corrected proof of \cite{perloff2012collinearity}}\label{sec:corrected_proof_of_PS}
+
+% To see the multicollinearity problem, they try to show linear dependence between the variables in the supply equations. 
+% \cite{perloff2012collinearity} start the proof by saying the following in p137 in their appendix (we modify notations);
+% \begin{quote}
+%     "We demonstrate that the $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ terms in Eq.4 are perfectly collinear for $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+%     \[Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0.\quad \text{(A1)}"\]
+% \end{quote}
+% Eq.4 in the quotation corresponds to the supply equation \eqref{eq:linear_supply_equation}.
+% They show that there exists a nonzero vector of $\chi_1, \ldots, \chi_5$ that satisfies (A1). 
+% Although (A1) is incorrect, we replicate the flow of their proof by fixing several typos.
+% \begin{proof}
+%     First, by substituting the equilibrium quantity with $\varepsilon^{d}_{t} = \varepsilon^{c}_{t} = 0$,
+%     \begin{align*}
+%         Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1},
+%     \end{align*}
+%     into (A1) we obtain
+%     \begin{align*}
+%         0&=\left[\frac{\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}}{(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1}\right]Z + \chi_1 \left[\frac{\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}}{(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1}\right] + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y + \chi_5\nonumber\\
+%         &=[\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}]Z^R_{t} + \chi_1 [\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}]\\
+%         &\quad+ [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_2 W_{t} + [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_3 R_{t}\\
+%         &\quad\quad + [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_4 Y_{t} + [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_5\nonumber\\
+%         &=[\alpha_0-\gamma_0+(\theta + 1)\alpha_2 \chi_5]Z^R_{t}+[\alpha_3+(\theta + 1)\alpha_2 \chi_4]Z^R_{t} Y_{t}\\
+%         &\quad +[-\gamma_2+(\theta + 1)\alpha_2 \chi_2]W_{t}Z^R_{t} + [-\gamma_3+(\theta + 1)\alpha_2  \chi_3]R_{t}Z^R_{t} \\
+%         &\quad\quad +[\chi_1 \alpha_3+\chi_4\gamma_1 +(\theta+1)\alpha_1 \chi_4]Y_{t}+ [-\chi_1\gamma_2+\chi_2\gamma_1+(\theta+1)\alpha_1 \chi_2]W_{t}\\
+%         &\quad\quad\quad +[-\chi_1\gamma_3 +\chi_3 \gamma_1 +(\theta+1)\alpha_1 \chi_3] R_{t} +[\chi_1 (\alpha_0 -\gamma_0)+\chi_5\gamma_1 +(\theta+1)\alpha_1 \chi_5]\nonumber\\
+%         &=\zeta_1 Z + \zeta_2 Z^R_{t} Y_{t} + \zeta_3 W_{t}Z + \zeta_4 R_{t}Z + \zeta_5 Y_{t} + \zeta_6 W_{t} + \zeta_7 R_{t} + \zeta_8 
+%     \end{align*}
+%     where
+%     \begin{align*}
+%         \zeta_1 &= \alpha_0-\gamma_{0}+(\theta + 1)\alpha_{2} \chi_5\\
+%         \zeta_2 &= \alpha_3+(\theta + 1)\alpha_{2} \chi_4\\
+%         \zeta_3 &= -\gamma_2+(\theta + 1)\alpha_{2} \chi_2\\
+%         \zeta_4 & = -\gamma_3+(\theta + 1)\alpha_{2}  \chi_3\\
+%         \zeta_5 & = \chi_1 \alpha_3+(\gamma_1+(\theta+1)\alpha_1 )\chi_4\\
+%         \zeta_6 & = -\chi_1\gamma_2+(\gamma_1+(\theta+1)\alpha_1) \chi_2 \\
+%         \zeta_7 & = -\chi_1\gamma_3+(\gamma_1+(\theta+1)\alpha_1) \chi_3\\
+%         \zeta_8 & = \chi_1 (\alpha_0 -\gamma_{0})+(\gamma_1+(\theta+1)\alpha_1) \chi_5
+%     \end{align*}
+%     By putting $\zeta_1 = \cdots = \zeta_7 =0$, we obtain 
+%     \begin{align*}
+%             \chi_1 &= \frac{\gamma_1+(\theta+1)\alpha_1}{\gamma_2}\chi_2=\frac{\gamma_1 + (\theta + 1)\alpha_1}{(\theta + 1)\alpha_{2}}\\
+%             \chi_2 &= \frac{\gamma_2}{(\theta + 1)\alpha_{2}}\\
+%             \chi_3 &= \frac{\gamma_3}{(\theta + 1)\alpha_{2}}\\
+%             \chi_4 &= -\frac{\alpha_3}{(\theta + 1)\alpha_{2}}\\
+%             \chi_5 &= -\frac{\alpha_0 - \gamma_{0}}{(\theta + 1)\alpha_{2}}
+%     \end{align*}
+    
+%     By substituting these into (A1),  we have
+%     \begin{align*}
+%         &Z^{R}_{t} Q_{t} + \frac{\gamma_1 +(\theta + 1)\alpha_1}{(\theta + 1)\alpha_{2}}Q_{t} +  \frac{\gamma_2}{(\theta + 1)\alpha_{2}} W_{t}+  \frac{\gamma_3}{(\theta + 1)\alpha_{2}}R_{t} -\frac{\alpha_3}{(\theta + 1)\alpha_{2}}Y_{t} -\frac{\alpha_0 - \gamma_{0}}{(\theta + 1)\alpha_{2}} \\
+%         =&\frac{ (\theta + 1)\alpha_{2}Z^{R}_{t} Q_{t} + [(\theta + 1)\alpha_1 + \gamma_1]Q_{t}  -\alpha_3 Y_{t} + \gamma_2 W_{t}+ \gamma_3 R_{t} - \alpha_0 + \gamma_{0}}{(\theta + 1)\alpha_{2}}\\
+%         =& \frac{[(\theta + 1)(\alpha_1 + \alpha_{2} Z) + \gamma_1]Q_{t}  -\alpha_3 Y_{t} + \gamma_2 W_{t}+ \gamma_3 R_{t} - \alpha_0 + \gamma_{0}}{(\theta + 1)\alpha_{2}}\\
+%         =& \frac{(\theta + 1)(\alpha_1 + \alpha_{2} Z) + \gamma_1}{(\theta + 1)\alpha_{2}}\left[ Q_{t} - \frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_{0}- \gamma_2 W_{t}- \gamma_3 R_{t}}{(\theta + 1)(\alpha_1 + \alpha_{2} Z) + \gamma_1}\right]\\
+%         =& 0,
+%     \end{align*}
+%     because $Q_{t} = \frac{\alpha_0 + \alpha_3Y_{t} -\gamma_{0} - \gamma_2 W_{t}-  \gamma_3 R_{t}}{(\theta + 1) (\alpha_1 + \alpha_{2} Z) + \gamma_1}$. 
+%     Thus, (A1) holds under nonzero coefficients, which implies that $W_{t}, R_{t}, Z^{R}_{t}Q_{t},Q_{t}$, and $Y_{t}$ are linear dependent.
+    
+% \end{proof}
+% \section{Online appendix}\label{sec:appendix}
+% \subsection{Omitted proof of Proposition 1}
+% \begin{proof}
+%     Based on the definition of linear independence, we need to confirm that the following holds:
+% \begin{align}
+%     \chi_1 Z_{t}^R Q + \chi_2 Q_{t} + \chi_3 W_{t} + \chi_4 R_{t} + \chi_5 = 0, \label{eq:linear_independence}
+% \end{align}
+% then $\chi_1 = \chi_2 = \cdots = \chi_5 = 0$.
+
+% By substituting Equation \eqref{eq:quantity_linear} into Equation \eqref{eq:linear_independence}, we obtain the following:
+% \begin{align*}
+%     0 &= \zeta_1 Z_{t}^R + \zeta_2 Z_{t}^RY_{t} + \zeta_3 W_{t}Z_{t}^R + \zeta_4 R_{t}Z_{t}^R + \zeta_5 Y_{t} + \zeta_6 W_{t} + \zeta_7 R_{t} + \zeta_8, 
+% \end{align*}
+% where 
+% \begin{align*}
+%     \zeta_1 &= (\alpha_0 - \gamma_0)\chi_1  + (\theta +1 )\alpha_2 \chi_5 ,\\
+%     \zeta_2 &= \alpha_3\chi_1,\\
+%     \zeta_3 &= -\gamma_2 \chi_1 + (\theta + 1)\alpha_2\chi_3,\\
+%     \zeta_4 &= -\gamma_3 \chi_1 + (\theta + 1)\alpha_2\chi_4,\\
+%     \zeta_5 &=  \alpha_3\chi_2,\\
+%     \zeta_6 &= -\gamma_2 \chi_2 + [(1 + \theta) \alpha_1 +\gamma_1]\chi_3,\\
+%     \zeta_7 &= -\gamma_3 \chi_2 +  [(1 + \theta) \alpha_1 +\gamma_1]\chi_4,\\
+%     \zeta_8 &=  (\alpha_0 - \gamma_0)\chi_2 +[(1 + \theta)\alpha_1 +\gamma_1] \chi_5.
+% \end{align*}
+
+% First, based on Assumption (ii), $\zeta_1 = \cdots = \zeta_8 = 0$.
+% Second, as the parameters are nonzero by Assumption (i), $\chi_1 = \chi_2 =0$ by $\zeta_2 = \zeta_5 = 0$.
+% Third, by $\zeta_1 = \zeta_3 = \zeta_4 = 0$, $(\theta + 1 )\alpha_2\chi_5 = (\theta + 1 )\alpha_2\chi_3 = (\theta + 1 )\alpha_2\chi_4 = 0.$
+% As $(\theta + 1)\alpha_2 \ne 0$ by Assumption (i), $\chi_3 = \chi_4 = \chi_5 = 0$.
+% This completes the proof.
+% \end{proof}
+
+% \subsection{Simulation and estimation procedure}
+
+% We set the true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
+% We follow the setting of PS. For the simulation, we generate 1,000 data sets.
+% We separately estimate the demand and supply equation by using two-stage least squares (2SLS) estimation.
+% The instrument variables for the demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, Y_t, H_{t}, K_{t})$ and the instrument variables for the supply estimation are $Z^{c}_{t} = (Z^{R}_{t}, W_{t}, R_{t}, Y_t)$. 
+
+% \begin{table}[!htbp]
+%     \caption{True parameters and distributions}
+%     \label{tb:parameter_setting}
+%     \begin{center}
+%     \subfloat[Parameters]{
+%     \begin{tabular}{cr}
+%             \hline
+%             & linear  \\
+%             $\alpha_0$ & $10.0$  \\
+%             $\alpha_1$ & $1.0$  \\
+%             $\alpha_2$ & $1.0$ \\
+%             $\alpha_3$ & $1.0$  \\
+%             $\gamma_0$ & $1.0$ \\
+%             $\gamma_1$ & $1.0$  \\
+%             $\gamma_2$ & $1.0$ \\
+%             $\gamma_3$ & $1.0$\\
+%             $\theta$ & $0.5$ \\
+%             \hline
+%         \end{tabular}
+%     }
+%     \subfloat[Distributions]{
+%     \begin{tabular}{crr}
+%             \hline
+%             & linear\\
+%             Demand shifter&  \\
+%             $Y_t$ & $N(0,1)$  \\
+%             Demand rotation instrument&   \\
+%             $Z^{R}_{t}$ & $N(10,1)$ \\
+%             Cost shifter&    \\
+%             $W_{t}$ & $N(3,1)$  \\
+%             $R_{t}$ & $N(0,1)$   \\
+%             $H_{t}$ & $W_{t}+N(0,1)$  \\
+%             $K_{t}$ & $R_{t}+N(0,1)$   \\
+%             Error&  &  \\
+%             $\varepsilon^{d}_{t}$ & $N(0,\sigma)$  \\
+%             $\varepsilon^{c}_{t}$ & $N(0,\sigma)$ \\
+%             \hline
+%         \end{tabular}
+%     }
+%     \end{center}
+%     \footnotesize
+%     Note: $\sigma=\{0.001, 0.5, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
+% \end{table}
+
+% \subsection{Details for our simulation settings}
+
+% To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z^{R}_{t}, W_t, R_{t}, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+% We compute the equilibrium quantity $Q_{t}$ for the linear model by \eqref{eq:quantity_linear}.
+% We then compute the equilibrium price $P_t$ by substituting $Q_{t}$ and other variables into the demand function \eqref{eq:linear_demand}.
+
+% We estimate the equations using the \texttt{ivreg} package in \texttt{R}.
+% An important feature of the model is that we have an interaction term of the endogenous variable $Q_{t}$ and the instrument variable $Z^{R}_{t}$.
+% The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_{t}$ and the interaction term $Z^{R}_{t}Q_{t}$, running the first stage regression for each endogenous variable with the same instruments. To confirm this, we manually write R code to implement the 2SLS model. 
+% When the first stage includes only the regression of $Q_{t}$, the estimation results from our code differ from the results from \texttt{ivreg}. 
+% However, when we modify the code to regress $Z^{R}_{t}Q_{t}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{t}$ and $Z^{R}_{t}Q_{t}$, the result from our code and the result from \texttt{ivreg} coincide.
+
+
+
+
+
+\end{document}

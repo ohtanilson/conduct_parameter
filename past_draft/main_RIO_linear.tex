@@ -1,0 +1,415 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true]{hyperref}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.4}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+
+
+\title{Revisiting Conduct Parameter Estimation in Homogeneous Goods Markets: At Least, Linear Model is Valid}
+\author{Yuri Matsumura\footnote{Department of Economics, Rice University. Matsumura: \texttt{\href{mailto:Yuri.Matsumura@rice.edu}{Yuri.Matsumura@rice.edu}}} \and Suguru Otani \footnote{Department of Economics, Rice University. Otani: \texttt{\href{mailto:so19@rice.edu}{so19@rice.edu}}\\
+Declarations of interest: none}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    We revisit the conduct parameter estimation in homogeneous goods markets.
+    We point out that the proof of \cite{perloff2012collinearity} is incorrect.
+    In contrast to the pessimistic simulation results of linear models shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. 
+    Based on the numerical investigation, at least the linear model can achieve a proper estimation of the conduct parameter.
+\end{abstract}
+% 74words
+
+\section{Introduction}
+
+Measuring competitiveness is one of the important tasks in Empirical Industrial Organization literature.
+Conduct parameter is regarded as a useful measure of competitiveness. 
+However, it cannot be measured directly from data because data usually lack information about marginal cost.
+Therefore, the researchers have tried to identify and estimate the conduct parameter.
+
+The literature has often considered linear specifications of the model for the conduct parameter estimation in homogeneous good markets. 
+\citet{bresnahan1982oligopoly} considers the identification of the conduct parameter. 
+\citet{perloff2012collinearity} (hereafter, PS) theoretically show that the model is suffering from the multicollinearity problem when the error terms in the demand and supply equations are zero and show by simulations that the parameters cannot be estimated accurately even when the error terms are not zero.
+To avoid the problems, the paper recommends using log-linear or some other functional form for at least one of the equations.\footnote{Several papers and handbook chapter mention the multicollinearity problem in the conduct parameter estimation by citing PS. See \citet{claessensWhatDrivesBank2004, coccoreseMultimarketContactCompetition2013, coccoreseWhatAffectsBank2021, garciaMarketStructuresProduction2020, kumbhakarNewMethodEstimating2012, perekhozhukRegionalLevelAnalysisOligopsony2015} and \citet{shafferMarketPowerCompetition2017}.}
+
+We find the following problems of PS. 
+First, their proof is incorrect. 
+Second, the simulation in PS lacks an excluded demand shifter in the supply equation estimation. 
+Third, the paper does not check the effect of increasing the sample size. 
+
+Given these problems, we revisit the estimation of the conduct parameter in homogeneous product markets.
+First, we show that the multicollinearity problem does not occur.
+Second, we confirm that the accuracy of the estimation holds by including a demand shifter in the supply equation estimation properly. 
+Third, we show that increasing the sample size improves the accuracy of estimation.
+% 269word
+
+\section{Model}
+The researcher has data with $T$ markets with homogeneous products.
+Assume that there are $N$ firms in each market.
+Let $t = 1,\ldots, T$ be the index of markets.
+Then, we obtain the supply equation:
+\begin{align}
+     P_t = -\theta\frac{\partial P_t(Q_{t})}{\partial Q_{t}}Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
+\end{align}
+where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ the demand function, $MC_{t}(Q_{t})$ the marginal cost function, and $\theta\in[0,1]$ which is called conduct parameter. 
+The equation nests perfect competition, $\theta=0$, Cournot competition, $\theta=1/N, N$ firm symmetric perfect collusion, $\theta=1$, etc.\footnote{See \cite{bresnahan1982oligopoly}.} 
+
+Consider an econometric model of the above model.
+Assume that the demand function and the marginal cost function are written as: 
+\begin{align}
+    P_t = f(Q_{t}, Y_t, \varepsilon^{d}_{t}, \alpha) \label{eq:demand}\\
+    MC_t = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma)\label{eq:marginal_cost}
+\end{align}
+where $Y_t$ and $W_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
+We also have the demand- and supply-side instrument variables $Z^{d}_{t}$ and $Z^{c}_{t}$ and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid Y_t, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
+
+%177 words by Suguru
+
+\section{Linear model}
+
+\subsection{Linear demand and linear cost}
+Assume that linear demand and cost functions are specified as:
+\begin{align}
+    P_t &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_{t} + \alpha_3 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
+    MC_t &= \gamma_0  + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t},\label{eq:linear_marginal_cost}
+\end{align}
+where $W_{t}$ and $R_{t}$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
+Equation \eqref{eq:supply_equation} is written as:
+\begin{align}
+    P_t 
+    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
+    &= \gamma_0 + \theta \alpha_2 Z^{R}_tQ_{t} + (\theta\alpha_1 + \gamma_1) Q_{t} + \gamma_2 W_t + \gamma_3 R_{t} +\varepsilon^c_t\label{eq:linear_supply_equation}
+\end{align}
+By substituting Equation \eqref{eq:linear_demand} into Equation \eqref{eq:linear_supply_equation} and solving it for $P_t$, we can represent the aggregate quantity $Q_{t}$ based on the parameters and exogenous variables as:
+\begin{align}
+    Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
+\end{align}
+
+\subsection{Multicollinearity problem in PS is incorrect?}
+To see the multicollinearity problem, they try to show linear dependence between the variables in the supply equations. 
+PS start the proof by stating the following in p137 in their appendix (we modify notations);
+\begin{quote}
+    ``We demonstrate that the $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ terms in Eq.4 are perfectly collinear for $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+   \begin{align*}
+    Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0 \quad (\text{A1})."
+    \end{align*}
+\end{quote}
+Eq.4 in the quotation corresponds to the supply equation \eqref{eq:linear_supply_equation}.
+They show that there exists a nonzero vector of $\chi_1, \ldots, \chi_5$ that satisfies (A1).\footnote{The original proof in PS has some typos and mistakes. Fixing the typos and mistakes does not change the flow of their proof. See Appendix \ref{sec:corrected_proof_of_PS} for our corrected proof of their case.}
+
+We point out that their proof is incorrect.
+To check whether variables $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ are linearly dependent, we need to show that if
+\begin{align}
+    Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_{5}  = 0, \label{eq:linear_independence}
+\end{align}
+then we can find a nonzero vector of $\chi_1, \chi_2,\chi_3$, and $\chi_5$.
+Thus, PS include the demand shifter $Y_{t}$ incorrectly to show linear dependence among $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$. 
+
+% By substituting Equation \eqref{eq:quantity_linear} into Equation \eqref{eq:linear_independence}, we can obtain the following;
+% \begin{align*}
+%     \zeta_1 Z^{R}_{t} + \zeta_2 Z^{R}_{t}Y_{t} + \zeta_3 W_{t}Z^{R}_{t} + \zeta_4 R_{t}Z^{R}_{t} + \zeta_5 Y_{t} + \zeta_6 W_{t} + \zeta_7 R_{t} + \zeta_8 = 0 
+% \end{align*}
+% where
+% \begin{align*}
+%     \zeta_1 &= \alpha_0-\gamma_{0}+(\theta + 1)\alpha_{2} \chi_5,\\
+%     \zeta_2 &= \alpha_3,\\
+%     \zeta_3 &= -\gamma_2+(\theta + 1)\alpha_{2} \chi_2,\\
+%     \zeta_4 &= -\gamma_3+(\theta + 1)\alpha_{2}  \chi_3,\\
+%     \zeta_5 &= \chi_1 \alpha_3,\\
+%     \zeta_6 &= -\chi_1\gamma_2+(\gamma_1+(\theta+1)\alpha_1) \chi_2,\\
+%     \zeta_7 &= -\chi_1\gamma_3+(\gamma_1 +(\theta+1)\alpha_1) \chi_3,\\
+%     \zeta_8 &= \chi_1 (\alpha_0 -\gamma_{0})+(\gamma_1+(\theta+1)\alpha_1) \chi_5.
+% \end{align*}
+% Note that $\zeta_1, \zeta_3, \zeta_4, \zeta_6, \zeta_7$ includes $\chi_1, \chi_2, \chi_3, \chi_5$. 
+% \textcolor{blue}{By putting $\zeta_1= \zeta_3= \zeta_4= \zeta_6 = \zeta_7 = 0$,} we can obtain $\chi_1, \chi_2, \chi_3, \chi_5$ as the solution of the system of equation.
+% The solution is 
+% \begin{align*}
+%         \chi_1 &= \frac{(\theta + 1)\alpha_1 + \gamma_2}{(\theta + 1)\alpha_{2}}\\
+%         \chi_2 &= \frac{\gamma_2}{(\theta + 1)\alpha_{2}}\\
+%         \chi_3 &= \frac{\gamma_3}{(\theta + 1)\alpha_{2}}\\
+%         \chi_4 &= -\frac{\alpha_0 - \gamma_{0}}{(\theta + 1)\alpha_{2}}
+% \end{align*}
+% Substituting these into Equation \eqref{eq:linear_independence}, we have
+% \begin{align*}
+%     &Z^{R}_{t} Q_{t} + \frac{(\theta + 1)\alpha_1 + \gamma_1}{(\theta + 1)\alpha_{2}}Q_{t} +  \frac{\gamma_2}{(\theta + 1)\alpha_{2}} W_{t} +  \frac{\gamma_3}{(\theta + 1)\alpha_{2}}R_{t} -\frac{\alpha_0 - \gamma_{0}}{(\theta + 1)\alpha_{2}} \\
+%     =&\frac{ (\theta + 1)\alpha_{2}Z^{R}_{t} Q_{t} + [(\theta + 1)\alpha_1 + \gamma_1]Q_{t}  -\alpha_3 Y_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} - \alpha_0 + \gamma_{0}}{(\theta + 1)\alpha_{2}}\\
+%     =& \frac{[(\theta + 1)(\alpha_1 + \alpha_{2} Z^{R}_{t}) + \gamma_1]Q_{t}  + \gamma_2 W_{t} + \gamma_3 R_{t} - \alpha_0 + \gamma_{0}}{(\theta + 1)\alpha_{2}}\\
+%     =& \frac{(\theta + 1)(\alpha_1 + \alpha_{2} Z^{R}_{t}) + \gamma_1}{(\theta + 1)\alpha_{2}}\left[ Q_{t} - \frac{\alpha_0 - \gamma_{0}- \gamma_2 W_{t} - \gamma_3 R_{t}}{(\theta + 1)(\alpha_1 + \alpha_{2} Z^{R}_{t}) + \gamma_1}\right]\\
+%     =& \frac{\alpha_3 Y_t}{(\theta + \alpha_2)}\neq 0.
+% \end{align*}
+% Again, we do not include $Y$ in \eqref{eq:linear_independence} unlike the proof in PS(2012), which prevent the last line in the above equation from canceling out the $Y_t$ term. Therefore, we are not suffered from the multicollinerity problem.
+
+We show that the multicollinearity problem does not occur. 
+Suppose we apply the 2SLS to the supply equation with exogenous variables, $W_{t}$ and $R_{t}$, the demand shifter, $Y_{t}$, and the demand rotation instrument, $Z^{R}_{t}$.
+In the first-stage, we regress $Z^{R}_{t}Q_{t}$ and $Q_{t}$ on $(1, W_{t}, R_{t}, Y_{t}, Z^{R}_{t})$.
+Denote the predicted value of $Z^{R}_{t}Q_{t}$ and $Q_{t}$ as $\widehat{Z^{R}_{t}Q_{t}}$ and $\widehat{Q}_{t}$ respectively.
+Then $\widehat{Z^{R}_{t}Q_{t}}$ and $\widehat{Q}_{t}$ lie in the space spanned by $(1, W_{t}, R_{t}, Y_{t}, Z^{R}_{t})$.
+This implies that $\widehat{Z^{R}_{t}Q_{t}}, \widehat{Q}_{t}, 1, W_{t}$, and $R_{t}$ are linearly independent because the predicted values do not lie in the space spanned by $(1, W_{t}, R_{t})$ without $Y_{t}$.
+Thus, in the second-stage, we can estimate the parameters in the supply equation even if $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$.\footnote{We confirm that we can estimate the case of $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$ numerically. The results are better than the case of $\sigma=0.001$ in Table \ref{tb:linear_linear_sigma_1}.}
+
+\subsection{Simulation and estimation Procedure}
+
+We set the true parameters and distributions as in Table \ref{tb:parameter_setting}. 
+We follow the setting of PS. For the simulation, we generate 1000 data sets.
+We separately estimate the demand and supply equation by 2SLS estimation.
+The instrument variables for the demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, Y_t, H_{t}, K_{t})$ and the instrument variables for the supply estimation are $Z^{c}_{t} = (Z^{R}_{t}, W_{t}, R_{t}, Y_t)$. 
+
+
+\begin{table}[!htbp]
+    \caption{True parameters and distributions}
+    \label{tb:parameter_setting}
+    \begin{center}
+    \subfloat[Parameters]{
+    \begin{tabular}{cr}
+            \hline
+            & linear  \\
+            $\alpha_0$ & $10.0$  \\
+            $\alpha_1$ & $1.0$  \\
+            $\alpha_2$ & $1.0$ \\
+            $\alpha_3$ & $1.0$  \\
+            $\gamma_0$ & $1.0$ \\
+            $\gamma_1$ & $1.0$  \\
+            $\gamma_2$ & $1.0$ \\
+            $\gamma_3$ & $1.0$\\
+            $\theta$ & $0.5$ \\
+            \hline
+        \end{tabular}
+    }
+    \subfloat[Distributions]{
+    \begin{tabular}{crr}
+            \hline
+            & linear\\
+            Demand shifter&  \\
+            $Y_t$ & $N(0,1)$  \\
+            Demand rotation instrument&   \\
+            $Z^{R}_{t}$ & $N(10,1)$ \\
+            Cost shifter&    \\
+            $W_{t}$ & $N(3,1)$  \\
+            $R_{t}$ & $N(0,1)$   \\
+            $H_{t}$ & $W_{t}+N(0,1)$  \\
+            $K_{t}$ & $R_{t}+N(0,1)$   \\
+            Error&  &  \\
+            $\varepsilon^{d}_{t}$ & $N(0,\sigma)$  \\
+            $\varepsilon^{c}_{t}$ & $N(0,\sigma)$ \\
+            \hline
+        \end{tabular}
+    }
+    \end{center}
+    \footnotesize
+    Note: $\sigma=\{0.001, 0.5, 1.0, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
+\end{table}
+
+%744
+
+
+\section{Results}\label{sec:results}
+
+Table \ref{tb:linear_linear_sigma_1} shows the results of the linear model with the demand shifter.
+Panel (a) shows that when $\sigma = 0.001$, the estimation of all parameters is quite accurate.
+When the sample size is large, the Root-mean-squared errors (RMSEs) of all parameters are less than or equal to 0.001. 
+Panel (c) shows the case with $\sigma = 2.0$. As the sample size increases, the RMSE decreases dramatically. 
+Thus, imprecise results reported in PS are due to the lack of demand shifters and the small sample size.
+
+
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Results of the linear model with demand shifter}
+      \label{tb:linear_linear_sigma_1} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_bias_rmse.tex}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_bias_rmse}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
+  \end{center}
+\end{table} 
+
+
+
+\section{Conclusion}
+We revisit the conduct parameter estimation in homogeneous goods markets. 
+We point out that the proof of \cite{perloff2012collinearity} is incorrect. In contrast to the pessimistic simulation results shown in \cite{perloff2012collinearity}, our simulation shows that the estimation becomes accurate by properly adding demand shifters in the supply estimation and increasing the sample size. Based on the numerical investigation, we conclude that at least the linear model can achieve a proper estimation of the conduct parameter in homogeneous good markets.
+
+
+\paragraph{Acknowledgments}
+We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
+% 26 words
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
+\newpage
+\appendix
+
+\section{Corrected proof of \cite{perloff2012collinearity}}\label{sec:corrected_proof_of_PS}
+
+To see the multicollinearity problem, they try to show linear dependence between the variables in the supply equations. 
+\cite{perloff2012collinearity} start the proof by saying the following in p137 in their appendix (we modify notations);
+\begin{quote}
+    "We demonstrate that the $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ terms in Eq.4 are perfectly collinear for $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+    \[Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0.\quad \text{(A1)}"\]
+\end{quote}
+Eq.4 in the quotation corresponds to the supply equation \eqref{eq:linear_supply_equation}.
+They show that there exists a nonzero vector of $\chi_1, \ldots, \chi_5$ that satisfies (A1). 
+Although (A1) is incorrect, we replicate the flow of their proof by fixing several typos.
+\begin{proof}
+    First, by substituting the equilibrium quantity with $\varepsilon^{d}_{t} = \varepsilon^{c}_{t} = 0$,
+    \begin{align*}
+        Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1},
+    \end{align*}
+    into (A1) we obtain
+    \begin{align*}
+        0&=\left[\frac{\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}}{(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1}\right]Z + \chi_1 \left[\frac{\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}}{(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1}\right] + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y + \chi_5\nonumber\\
+        &=[\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}]Z^R_{t} + \chi_1 [\alpha_0 + \alpha_3 Y_{t} -\gamma_0 - \gamma_2 W_{t} -  \gamma_3 R_{t}]\\
+        &\quad+ [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_2 W_{t} + [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_3 R_{t}\\
+        &\quad\quad + [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_4 Y_{t} + [(\theta + 1) (\alpha_1 + \alpha_2 Z^R_{t}) + \gamma_1]\chi_5\nonumber\\
+        &=[\alpha_0-\gamma_0+(\theta + 1)\alpha_2 \chi_5]Z^R_{t}+[\alpha_3+(\theta + 1)\alpha_2 \chi_4]Z^R_{t} Y_{t}\\
+        &\quad +[-\gamma_2+(\theta + 1)\alpha_2 \chi_2]W_{t}Z^R_{t} + [-\gamma_3+(\theta + 1)\alpha_2  \chi_3]R_{t}Z^R_{t} \\
+        &\quad\quad +[\chi_1 \alpha_3+\chi_4\gamma_1 +(\theta+1)\alpha_1 \chi_4]Y_{t}+ [-\chi_1\gamma_2+\chi_2\gamma_1+(\theta+1)\alpha_1 \chi_2]W_{t}\\
+        &\quad\quad\quad +[-\chi_1\gamma_3 +\chi_3 \gamma_1 +(\theta+1)\alpha_1 \chi_3] R_{t} +[\chi_1 (\alpha_0 -\gamma_0)+\chi_5\gamma_1 +(\theta+1)\alpha_1 \chi_5]\nonumber\\
+        &=\zeta_1 Z + \zeta_2 Z^R_{t} Y_{t} + \zeta_3 W_{t}Z + \zeta_4 R_{t}Z + \zeta_5 Y_{t} + \zeta_6 W_{t} + \zeta_7 R_{t} + \zeta_8 
+    \end{align*}
+    where
+    \begin{align*}
+        \zeta_1 &= \alpha_0-\gamma_{0}+(\theta + 1)\alpha_{2} \chi_5\\
+        \zeta_2 &= \alpha_3+(\theta + 1)\alpha_{2} \chi_4\\
+        \zeta_3 &= -\gamma_2+(\theta + 1)\alpha_{2} \chi_2\\
+        \zeta_4 & = -\gamma_3+(\theta + 1)\alpha_{2}  \chi_3\\
+        \zeta_5 & = \chi_1 \alpha_3+(\gamma_1+(\theta+1)\alpha_1 )\chi_4\\
+        \zeta_6 & = -\chi_1\gamma_2+(\gamma_1+(\theta+1)\alpha_1) \chi_2 \\
+        \zeta_7 & = -\chi_1\gamma_3+(\gamma_1+(\theta+1)\alpha_1) \chi_3\\
+        \zeta_8 & = \chi_1 (\alpha_0 -\gamma_{0})+(\gamma_1+(\theta+1)\alpha_1) \chi_5
+    \end{align*}
+    By putting $\zeta_1 = \cdots = \zeta_7 =0$, we obtain 
+    \begin{align*}
+            \chi_1 &= \frac{\gamma_1+(\theta+1)\alpha_1}{\gamma_2}\chi_2=\frac{\gamma_1 + (\theta + 1)\alpha_1}{(\theta + 1)\alpha_{2}}\\
+            \chi_2 &= \frac{\gamma_2}{(\theta + 1)\alpha_{2}}\\
+            \chi_3 &= \frac{\gamma_3}{(\theta + 1)\alpha_{2}}\\
+            \chi_4 &= -\frac{\alpha_3}{(\theta + 1)\alpha_{2}}\\
+            \chi_5 &= -\frac{\alpha_0 - \gamma_{0}}{(\theta + 1)\alpha_{2}}
+    \end{align*}
+    
+    By substituting these into (A1),  we have
+    \begin{align*}
+        &Z^{R}_{t} Q_{t} + \frac{\gamma_1 +(\theta + 1)\alpha_1}{(\theta + 1)\alpha_{2}}Q_{t} +  \frac{\gamma_2}{(\theta + 1)\alpha_{2}} W_{t}+  \frac{\gamma_3}{(\theta + 1)\alpha_{2}}R_{t} -\frac{\alpha_3}{(\theta + 1)\alpha_{2}}Y_{t} -\frac{\alpha_0 - \gamma_{0}}{(\theta + 1)\alpha_{2}} \\
+        =&\frac{ (\theta + 1)\alpha_{2}Z^{R}_{t} Q_{t} + [(\theta + 1)\alpha_1 + \gamma_1]Q_{t}  -\alpha_3 Y_{t} + \gamma_2 W_{t}+ \gamma_3 R_{t} - \alpha_0 + \gamma_{0}}{(\theta + 1)\alpha_{2}}\\
+        =& \frac{[(\theta + 1)(\alpha_1 + \alpha_{2} Z) + \gamma_1]Q_{t}  -\alpha_3 Y_{t} + \gamma_2 W_{t}+ \gamma_3 R_{t} - \alpha_0 + \gamma_{0}}{(\theta + 1)\alpha_{2}}\\
+        =& \frac{(\theta + 1)(\alpha_1 + \alpha_{2} Z) + \gamma_1}{(\theta + 1)\alpha_{2}}\left[ Q_{t} - \frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_{0}- \gamma_2 W_{t}- \gamma_3 R_{t}}{(\theta + 1)(\alpha_1 + \alpha_{2} Z) + \gamma_1}\right]\\
+        =& 0,
+    \end{align*}
+    because $Q_{t} = \frac{\alpha_0 + \alpha_3Y_{t} -\gamma_{0} - \gamma_2 W_{t}-  \gamma_3 R_{t}}{(\theta + 1) (\alpha_1 + \alpha_{2} Z) + \gamma_1}$. 
+    Thus, (A1) holds under nonzero coefficients, which implies that $W_{t}, R_{t}, Z^{R}_{t}Q_{t},Q_{t}$, and $Y_{t}$ are linear dependent.
+    
+\end{proof}
+
+
+\section{Details for our numerical settings and other experiments (Online appendix)}\label{sec:appendix}
+
+\subsection{Details for our simulation settings}
+
+To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z^{R}_{t}, W_t, R_{t}, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+As for the linear model, we compute the equilibrium quantity $Q_{t}$ by \eqref{eq:quantity_linear}.
+Then we compute the equilibrium price $P_t$ by substituting $Q_{t}$ and other variables into the demand function \eqref{eq:linear_demand}.
+
+We estimate the equations by using the \texttt{ivreg} package in \texttt{R}.
+Note that an important feature of the model is that we have an interaction term of the endogenous variable $Q_{t}$ and the instrument variable $Z^{R}_{t}$.
+The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_{t}$ and the interaction term $Z^{R}_{t}Q_{t}$ and runs the first stage regression for each endogenous variable by using the same instruments. To confirm this, we manually wrote R code that implements the 2SLS. 
+When the first stage includes only the regression of $Q_{t}$, the estimation results from our code differ from the results from \texttt{ivreg}. 
+But when we modified the code so that regress $Z^{R}_{t}Q_{t}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{t}$ and $Z^{R}_{t}Q_{t}$, the result from our code and the result from \texttt{ivreg} coincided.
+
+
+\subsection{Other experiments}
+
+\begin{table}[!htbp]
+    \caption{Estimation results in Table 2 of from PS}
+    \label{tb:linear_linear_sigma_Perloff_Shen}
+    \begin{center}
+        \begin{tabular}{cllll}
+            \hline
+            & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
+            $\alpha_0$ & $10.00\ (0.001)$ & $9.96\ (0.33)$ & $9.86\ (0.65)$ & $9.46 (1.20)$ \\
+            $\alpha_1$ & $1.00\ (0.004)$ & $0.99\ (1.98)$ & $0.97\ (3.96)$ & $0.88 (7.80)$ \\
+            $\alpha_2$ & $1.00\ (0.004)$ & $0.99\ (0.21)$ & $0.97\ (0.42)$ & $0.87\ (0.82)$ \\
+            $\gamma_1$ & $0.46\ (0.88)$ & $0.46\ (0.91)$ & $0.47\ (0.93)$ & $0.49\ (1.04)$ \\
+            $\gamma_2$ & $5.85\ (7.89)$ & $5.85\ (8.15)$ & $5.78\ (8.21)$ & $5.73\ (8.66)$ \\
+            $\theta$ & $-0.31\ (1.31)$ & $-0.29\ (1.34)$ & $0.09\ (11.48)$ & $-1.53\ (30.41)$ \\
+            \hline
+        \end{tabular}
+    \end{center}\footnotesize
+    Note: True parameters: $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_3 = 0,  \theta = 0.5$. PS exclude $Y_t$. We change the parameter notations from the original paper. Note that PS do not provide $\gamma_0$ and $\gamma_3$.
+\end{table}
+
+First, we replicate the result in PS. For comparison, we report the mean and standard deviation (SD).
+To replicate the result, we exclude the demand shifter $Y_t$ and assume the coefficient $\alpha_3$ of $Y_t$ is zeros, that is, there is no demand shifter for the supply estimation.
+For reference, Table \ref{tb:linear_linear_sigma_Perloff_Shen} is quoted from PS, although we modify some notations.
+The sample size in each simulation data is 50 and the table shows the mean and SD of the 2SLS estimators from 1000 simulations.
+It shows that the demand estimation becomes more accurate as the value of the SD of the error terms $\sigma$ decreases.
+In contrast, the supply-side estimation is still biased and the SD of the conduct parameter becomes larger as the value of $\sigma$ increases.
+
+Table \ref{tb:linear_linear_sigma_1_without_demand_shifter_y} shows our replication results.
+Each panel shows the simulation result under different SDs of the error terms.
+This result uses the same data generation process as PS. 
+To see if we can correctly replicate the result in PS, focus on the first two columns in each panel.
+These two columns show the mean and SD of the simulation result when the sample size is 50.
+While the demand parameter can be accurately estimated even though the value of $\sigma$ becomes larger, the supply side parameter is biased.
+Especially, when $\sigma$ is large and the sample size is small, the SD of the parameters in the supply-side equation becomes large.
+Thus, we can see the patterns in PS which do not provide any details.
+
+As PS fix the sample size to 50, we also see the effect of changing the sample size.
+As expected, increasing the sample size given a value of $\sigma$ decreases the SD of the parameter in the supply equation.
+However, no simulation result is close to the true values of the supply parameters and the conduct parameter.
+These results are consistent with PS.
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Estimation results of the linear model without demand shifter}
+      \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$. For comparison, we report mean and SD.
+\end{table} 
+
+\begin{table}[!htbp]
+  \ContinuedFloat
+  \begin{center}
+      \caption{Estimation results of the linear model without demand shifter (Continued)}
+      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
+  \end{center}\footnotesize
+  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$. For comparison, we report mean and SD.
+\end{table} 
+
+
+
+\end{document}

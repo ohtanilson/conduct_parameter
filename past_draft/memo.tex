@@ -1,0 +1,523 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsfonts,amsthm}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true]{hyperref}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.4}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\esssup}{ess\,sup}
+\DeclareMathOperator{\Image}{Image}
+
+\begin{document}
+
+Let's consider a system of linear equations
+\[Y_t = X_t^\top\beta + \varepsilon_t,\quad t = 1,\ldots, T,\]
+where $X_t = (X_{t1},\ldots, X_{tK})^\top$ and $\beta = (\beta_1,\ldots, \beta_K)$.
+The matrix representation of the system of linear equations is 
+\begin{align}\label{eq:with_error}
+    \bm{Y}  = \bm{X}\beta + \bm{\varepsilon},
+\end{align}
+where $\bm{Y} = (Y_1, \ldots, Y_T)^\top$,  $\bm{X} = (X_1^\top\ldots, X_T^\top)^\top$, and $\bm{\varepsilon} = (\varepsilon_1\ldots, \varepsilon_T)^\top$.
+Assume that $T \ne K$, thus $\bm{X}$ is not a squared matrix.
+
+Now, suppose that $\varepsilon_t = 0$ for all $t$.
+Then the linear equations are written as
+\begin{align}\label{eq:without_error}
+    \bm{Y} = \bm{X} \beta.
+\end{align} 
+As this is a very basic system of linear equations, we have the following proposition;
+\begin{proposition}
+The followings are equivalent;
+\begin{enumerate}
+    \item $\bm{Y} = \bm{X} \beta$ has a solution $\beta^*$
+    \item For any vector $\bm{z}$, $\bm{z}^\top \bm{X} = 0$ implies  $\bm{z}^\top \bm{Y} = 0$ 
+    \item $\rank \bm{X} = \rank [\bm{X}\mid \bm{Y}]$
+    \item $\bm{Y} \in \Image(\bm{X})$
+\end{enumerate}
+\end{proposition}
+The next proposition states the uniqueness of a solution
+\begin{proposition}
+    For a $T \times K$ matrix $\bm{X}$ and a $T$ dimensional vector $\bm{Y}$, the followings are equivalent;
+    \begin{enumerate}
+        \item $\bm{Y} = \bm{X} \beta$ has a unique solution
+        \item $\rank \bm{X} = \rank [\bm{X}\mid \bm{Y}] = K$
+        \item $\bm{Y} \in \Image(\bm{X})$ and $\ker(\bm{X}) = \{\bm{0}\} $
+    \end{enumerate}
+\end{proposition}
+Therefore, when $\bm{X}$ has linearly dependent columns, we cannot have a unique solution to the system of the linear equation.
+This implies that when the error terms are zero in all markets, $\bm{X}$ should not have linearly dependent columns.
+
+
+In contrast, \eqref{eq:with_error} holds when the error terms are nonzero, and as the value of $\bm{\varepsilon}$ is unobserved, we cannot directly solve the system of linear equations $\bm{Y}- \bm{\varepsilon} = \bm{X}\beta$.
+The OLS is a familiar method to obtain $\beta$ that minimizes $\| \bm{Y}- \bm{X}\beta\|^2$.
+When $\bm{X}$ is column linear independent, $\bm{X}^\top \bm{X}$ is non-singular, and hence the normal equations 
+$\bm{X}^\top \bm{X} \beta = \bm{X}^\top \bm{Y}$ from the OLS minimization problem has a unique solution.
+Therefore, $\bm{X}$ still needs to be column linear independent.
+
+
+\newpage
+
+The usual definition of linear independence is the following;
+\begin{definition}\label{def: original}
+    Let $\bm{a} = (a_1, a_2, \ldots, a_K) \in \mathbb{R}^K$. Column vectors $\bm{x}_1, \bm{x}_2, \ldots, \bm{x}_K$ are linearly independent if
+    \begin{align*}
+        a_1 \bm{x}_1 + a_2 \bm{x}_2 + \cdots + a_K \bm{x}_K = \bm{0} \Longrightarrow a_1 = a_2 = \cdots = a_K = 0. 
+    \end{align*}
+\end{definition}
+This implies that if there exist $\bm{a}' \ne \bm{0}$ that satisfies $a_1' \bm{x}_1 + a_2' \bm{x}_2 + \cdots + a_K' \bm{x}_K = \bm{0}$, column vectors $\bm{x}_1, \bm{x}_2, \ldots, \bm{x}_K$ are linearly dependent.
+
+
+To show linear dependence between  the variables in the supply equations, Perloff and Shen (2012) state the following in their appendix (P137);
+\begin{quote}
+    "We demonstrate that the $w, r, ZQ$, and $Q$ terms in Eq.4 are perfectly collinear for $\varepsilon_d = \varepsilon_c = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+    \[QZ + \chi_1 Q + \chi_2 w + \chi_3 r + \chi_4 Y + \chi_5 = 0.\quad \text{(A1)}"\]
+\end{quote}
+According to the quotation, the definition that they use is written as the following;
+\begin{definition}\label{def: ps_original}
+    Let $\bm{b} = (b_1, b_2, \ldots, b_{K-1}) \in \mathbb{R}^{K-1}$. Column vectors $\bm{x}_1, \bm{x}_2, \ldots, \bm{x}_K$ are linearly independent if
+    \begin{align*}
+        \bm{x}_1 + b_1 \bm{x}_2 + \cdots + b_{K-1} \bm{x}_K = \bm{0} \Longrightarrow b_1 = \cdots = b_{K-1}= 0. 
+    \end{align*}
+\end{definition}
+To show linear dependence, we need to find a $\bm{b}' \ne \bm{0}$ that satisfies $\bm{x}_1 + b_1' \bm{x}_2 + \cdots + b_{K-1}' \bm{x}_K = 0$, which is the key step in the proof in Perloff and Shen (2012).
+
+However, Definition \ref{def: ps_original} has problems.
+The definition implicitly requires that $\bm{x}_1 = \bm{0}$, nevertheless when $b_1 = \cdots = b_{K-1}= 0$, $\bm{x}_1 + b_1 \bm{x}_2 + \cdots + b_{K-1} \bm{x}_K = \bm{0} $ does not hold.
+Assume that column vectors satisfy Definition \ref{def: ps_original} and the implicit requirement $\bm{x}_1 = \bm{0}$.
+By putting $a_2 = b_1, a_3 = b_2,\ldots, a_K = b_{K-1}$, we have 
+\[a_1 \bm{x}_1 + b_1 \bm{x}_2 + \cdots + b_{K-1} \bm{x}_K = \bm{0},\]
+even though $a_1 \ne 0$.
+Thus the column vectors do not satisfy linear independence based on Definition \ref{def: original}.
+
+Of course, Perloff and Shen (2012) do not assume $QZ =0$. 
+Therefore, their proof is incorrect because the definition of linear independence they rely on is incorrect.
+
+\newpage
+
+PS(2012) consider
+\[QZ + \chi_1 Q + \chi_2 w + \chi_3 r + \chi_4 Y + \chi_5 = 0.\quad \text{(A1)}.\]
+By substituting the equilibrium quantity
+\begin{align*}
+    Q = \frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}
+\end{align*}
+into the equation, we obtain
+\begin{align}
+    \zeta_1 Z + \zeta_2 ZY + \zeta_3 wZ + \zeta_4 rZ + \zeta_5 Y + \zeta_6 w + \zeta_7 r + \zeta_8 = 0 
+\end{align}
+where
+\begin{align*}
+    \zeta_1 &= \phi_0 - \eta + (\lambda + 1)\phi_2\chi_5\\
+    \zeta_2 &= \phi_3 + (\lambda + 1)\phi_2 \chi_4\\
+    \zeta_3 &= - \alpha +(\lambda + 1)\phi_2\chi_2\\
+    \zeta_4 &= -\beta + (\lambda + 1)\phi_2\chi_3\\
+    \zeta_5 &= \phi_3\chi_1 + [(\lambda + 1)\phi_1 + \gamma]\chi_4\\
+    \zeta_6 &= - \alpha\chi_1 +[(\lambda + 1)\phi_1 + \gamma]\chi_2\\
+    \zeta_7 &= - \beta\chi_1 +[(\lambda + 1)\phi_1 + \gamma]\chi_3\\
+    \zeta_8 &= (\phi_0 -\eta)\chi_1+ [(\lambda + 1)\phi_1 + \gamma]\chi_5
+\end{align*}
+By putting $\zeta_1 = \cdots = \zeta_7 =0$, we obtain that
+\begin{align*}
+        \chi_1 &= \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}\\
+        \chi_2 &= \frac{\alpha}{(\lambda + 1)\phi_2}\\
+        \chi_3 &= \frac{\beta}{(\lambda + 1)\phi_2}\\
+        \chi_4 &= -\frac{\phi_3}{(\lambda + 1)\phi_1 + \gamma}\\
+        \chi_5 &= -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_1 + \gamma}
+\end{align*}
+%Note that
+%\begin{align*}
+%    \zeta_8 & = (\phi_0 -\eta)\left(\frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2} \right) + [(\lambda + 1)\phi_1 + \gamma] \cdot \left(-\frac{\phi_0 - \eta}{(\lambda + 1)\phi_1 + \gamma}\right)\\
+%    & = (\phi_0 - \eta) - (\phi_0 - \eta) \\
+%    &= 0.
+%\end{align*}
+%because $(\lambda + 1)\phi_1 + \gamma = (\lambda + 1)\phi_2$ from $\zeta_3 =0, \zeta_6$
+
+Then we have
+\begin{align*}
+    &QZ + \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}Q +  \frac{\alpha}{(\lambda + 1)\phi_2} w +  \frac{\beta}{(\lambda + 1)\phi_2}r -\frac{\phi_3}{(\lambda + 1)\phi_1 + \gamma}Y -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_1 + \gamma} \\
+    =& (\lambda + 1)\phi_2QZ + [(\lambda + 1)\phi_1 + \gamma]Q  -\phi_3 Y + \alpha w + \beta r - \phi_0 + \eta\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]Q  -\phi_3 Y + \alpha w + \beta r - \phi_0 + \eta\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]\left[ Q - \frac{\phi_0 + \phi_3 Y - \eta- \alpha w - \beta r}{(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma}\right]\\
+    =& 0.
+\end{align*}
+As all $\chi_1, \ldots, \chi_5$ cannot be zero simultaneously and the coefficient for $QZ$ is one, we have a nonzero vector of coefficients that satisfies (A1).
+
+Now recall that the variable in the supply equation is only $QZ, Q, w$, and $r$.
+However, PS(2012) also includes $Y$ to show multicollinearity in the supply equation.
+Here we drop $Y$ from (A1) and consider the following equation;
+\begin{align*}
+    QZ + \chi_1 Q + \chi_2 w + \chi_3 r + \chi_4 = 0.\quad \text{(A1$'$)}.
+\end{align*}
+Then by the same step, we can obtain the following;
+\begin{align*}
+    \zeta_1' Z + \zeta_2' ZY + \zeta_3' wZ + \zeta_4' rZ + \zeta_5' Y + \zeta_6' w + \zeta_7' r + \zeta_8' = 0 
+\end{align*}
+where
+\begin{align*}
+    \zeta_1 &= \phi_0 - \eta + (\lambda + 1)\phi_2\chi_4\\
+    \zeta_2 &= \phi_3\\
+    \zeta_3 &= - \alpha +(\lambda + 1)\phi_2\chi_2\\
+    \zeta_4 &= -\beta + (\lambda + 1)\phi_2\chi_3\\
+    \zeta_5 &=  \phi_3\chi_1\\
+    \zeta_6 &= - \alpha\chi_1 +[(\lambda + 1)\phi_1 + \gamma]\chi_2\\
+    \zeta_7 &= - \beta\chi_1 +[(\lambda + 1)\phi_1 + \gamma]\chi_3\\
+    \zeta_8 &= (\phi_0 -\eta)\chi_1 + [(\lambda + 1)\phi_1 + \gamma]\chi_4
+\end{align*}
+By putting $\zeta_1 = \zeta_3 = \zeta_4 = \zeta_6 = \zeta_7 =0$, we have
+\begin{align*}
+        \chi_1 &= \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}\\
+        \chi_2 &= \frac{\alpha}{(\lambda + 1)\phi_2}\\
+        \chi_3 &= \frac{\beta}{(\lambda + 1)\phi_2}\\
+        \chi_4 &= -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_1 + \gamma}
+\end{align*}
+Unfortunately, these $\chi_1, \ldots, \chi_4$ do not satisfy (A1$'$); 
+\begin{align*}
+    &QZ + \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}Q +  \frac{\alpha}{(\lambda + 1)\phi_2} w +  \frac{\beta}{(\lambda + 1)\phi_2}r -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_1 + \gamma} \\
+    =& (\lambda + 1)\phi_2QZ + [(\lambda + 1)\phi_1 + \gamma]Q  + \alpha w + \beta r - \phi_0 + \eta\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]Q  + \alpha w + \beta r - \phi_0 + \eta\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]\left[ Q - \frac{\phi_0 - \eta- \alpha w - \beta r}{(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma}\right]\ne 0.
+\end{align*}
+The problem is that we cannot recover $\phi_3 Y$ term.
+
+
+\section{Otani}
+
+
+PS(2012) consider
+\[QZ + \chi_1 Q + \chi_2 w + \chi_3 r + \chi_4 Y + \chi_5 = 0.\quad \text{(A1)}.\]
+By substituting the equilibrium quantity
+\begin{align*}
+    Q = \frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}
+\end{align*}
+into the equation, we obtain
+\begin{align*}
+    0&=[\frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}]Z + \chi_1 [\frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}] + \chi_2 w + \chi_3 r + \chi_4 Y + \chi_5\nonumber\\
+    0&=[\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r]Z + \chi_1 [\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r] 
+    + ((\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma)\chi_2 w \\
+    &+ ((\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma)\chi_3 r + ((\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma)\chi_4 Y + ((\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma)\chi_5\nonumber\\
+    0&=[\phi_0-\eta+(\lambda + 1)\phi_2 \chi_5]Z+[\phi_3+(\lambda + 1)\phi_2 \chi_4]ZY\\
+    &+[-\alpha+(\lambda + 1)\phi_2 \chi_2]wZ + [-\beta+(\lambda + 1)\phi_2  \chi_3]rZ \\
+    &+[\chi_1 \phi_3+\chi_4\gamma+(\lambda+1)\phi_1 \chi_4]Y+ [-\chi_1\alpha+\chi_2\gamma +(\lambda+1)\phi_1 \chi_2]w+[-\chi_1\beta+\chi_3 \gamma+(\lambda+1)\phi_1 \chi_3] r \\
+    &+[\chi_1 [\phi_0 -\eta]+\chi_5\gamma+(\lambda+1)\phi_1 \chi_5]\nonumber\\
+    0&=\zeta_1 Z + \zeta_2 ZY + \zeta_3 wZ + \zeta_4 rZ + \zeta_5 Y + \zeta_6 w + \zeta_7 r + \zeta_8 
+\end{align*}
+where
+\begin{align*}
+    \zeta_1 &= [\phi_0-\eta+(\lambda + 1)\phi_2 \chi_5]\\
+    \zeta_2 &= [\phi_3+(\lambda + 1)\phi_2 \chi_4]\\
+    \zeta_3 &= [-\alpha+(\lambda + 1)\phi_2 \chi_2]\\
+    \zeta_4 &= [-\beta+(\lambda + 1)\phi_2  \chi_3]\\
+    \zeta_5 &= [\chi_1 \phi_3+\chi_4\gamma+(\lambda+1)\phi_1 \chi_4]\\
+    \zeta_6 &= [-\chi_1\alpha+\chi_2\gamma+(\lambda+1)\phi_1 \chi_2 ]\\
+    \zeta_7 &= [-\chi_1\beta+\chi_3 \gamma+(\lambda+1)\phi_1 \chi_3]\\
+    \zeta_8 &= [\chi_1 [\phi_0 -\eta]+\chi_5\gamma+(\lambda+1)\phi_1 \chi_5]
+\end{align*}
+By putting $\zeta_1 = \cdots = \zeta_7 =0$, we obtain 
+\begin{align*}
+        \chi_1 &= \frac{1}{\alpha}[\gamma+(\lambda+1)\phi_1 ]\chi_2=\frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}\\
+        \chi_2 &= \frac{\alpha}{(\lambda + 1)\phi_2}\\
+        \chi_3 &= \frac{\beta}{(\lambda + 1)\phi_2}\\
+        \chi_4 &= -\frac{\phi_3}{(\lambda + 1)\phi_2}\\
+        \chi_5 &= -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_2}
+\end{align*}
+
+By substituting these into (A1),  we have
+\begin{align*}
+    &QZ + \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}Q +  \frac{\alpha}{(\lambda + 1)\phi_2} w +  \frac{\beta}{(\lambda + 1)\phi_2}r -\frac{\phi_3}{(\lambda + 1)\phi_2}Y -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_2} \\
+    =&\frac{ (\lambda + 1)\phi_2QZ + [(\lambda + 1)\phi_1 + \gamma]Q  -\phi_3 Y + \alpha w + \beta r - \phi_0 + \eta}{(\lambda + 1)\phi_2}\\
+    =& \frac{[(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]Q  -\phi_3 Y + \alpha w + \beta r - \phi_0 + \eta}{(\lambda + 1)\phi_2}\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]\left[ Q - \frac{\phi_0 + \phi_3 Y - \eta- \alpha w - \beta r}{(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma}\right]\frac{1}{(\lambda + 1)\phi_2}\\
+    =& 0,
+\end{align*}
+because $Q = \frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}$. 
+Thus, (A1) is linear dependent.
+
+Here we drop $Y$ from (A1) and consider the following equation;
+\begin{align*}
+    QZ + \chi_1 Q + \chi_2 w + \chi_3 r + \chi_5 = 0.\quad \text{(A1$'$)},
+\end{align*}
+that is, $\chi_4=0$. 
+
+Then by the same step, we can obtain the following;
+\begin{align*}
+    \zeta_1 Z + \zeta_2 ZY + \zeta_3 wZ + \zeta_4 rZ + \zeta_5 Y + \zeta_6 w + \zeta_7 r + \zeta_8 = 0 
+\end{align*}
+where
+\begin{align*}
+    \zeta_1 &= [\phi_0-\eta+(\lambda + 1)\phi_2 \chi_5]\\
+    \zeta_2 &= \phi_3\\
+    \zeta_3 &= [-\alpha+(\lambda + 1)\phi_2 \chi_2]\\
+    \zeta_4 &= [-\beta+(\lambda + 1)\phi_2  \chi_3]\\
+    \zeta_5 &= [\chi_1 \phi_3]\\
+    \zeta_6 &= [-\chi_1\alpha+\chi_2\gamma+(\lambda+1)\phi_1 \chi_2 ]\\
+    \zeta_7 &= [-\chi_1\beta+\chi_3 \gamma+(\lambda+1)\phi_1 \chi_3]\\
+    \zeta_8 &= [\chi_1 [\phi_0 -\eta]+\chi_5\gamma+(\lambda+1)\phi_1 \chi_5]
+\end{align*}
+
+
+By putting $\zeta_1 = \cdots = \zeta_7 =0$, we obtain 
+\begin{align*}
+        \chi_1 &= \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}\\
+        \chi_2 &= \frac{\alpha}{(\lambda + 1)\phi_2}\\
+        \chi_3 &= \frac{\beta}{(\lambda + 1)\phi_2}\\
+        (\chi_4 &= 0)\\
+        \chi_5 &= -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_2}
+\end{align*}
+
+Then we have
+\begin{align*}
+    &QZ + \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}Q +  \frac{\alpha}{(\lambda + 1)\phi_2} w +  \frac{\beta}{(\lambda + 1)\phi_2}r -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_2} \\
+    =&\frac{ (\lambda + 1)\phi_2QZ + [(\lambda + 1)\phi_1 + \gamma]Q  -\phi_3 Y + \alpha w + \beta r - \phi_0 + \eta}{(\lambda + 1)\phi_2}\\
+    =& \frac{[(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]Q  + \alpha w + \beta r - \phi_0 + \eta}{(\lambda + 1)\phi_2}\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]\left[ Q - \frac{\phi_0 - \eta- \alpha w - \beta r}{(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma}\right]\frac{1}{(\lambda + 1)\phi_2}\\
+    \neq& 0,
+\end{align*}
+because $Q = \frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}$. 
+Thus, (A1') is linear independent.
+
+
+\newpage
+
+PS(2012) point out that the supply equation suffered from multicollinearity problem.
+To see the problem, they try to show linear dependence between the variables in the supply equations. 
+PS(2012) start the proof by saying the following in p137 in their appendix (we modify notations);
+\begin{quote}
+    "We demonstrate that the $W, R, ZQ$, and $Q$ terms in Eq.4 are perfectly collinear for $\varepsilon_d = \varepsilon_c = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+    \[QZ + \chi_1 Q + \chi_2 W + \chi_3 R + \chi_4 Y + \chi_5 = 0.\quad \text{(A1)}"\]
+\end{quote}
+Here Eq.4 corresponds to the supply equation \eqref{eq:linear_supply_equation}.
+They show that there exists a nonzero vector of $\chi_1, \ldots, \chi_5$ that satisfies (A1).
+Note as their proof has some typos, we fix these typos too.
+
+
+We point out that their proof has some problems.
+First, when we want to see whether variables $w, r, ZQ$, and $Q$ are linearly independent, we should show that if
+\begin{align}
+    \chi_0 QZ + \chi_1 Q + \chi_2 W + \chi_3 R + \chi4  = 0,
+\end{align}
+then $\chi_0  = \chi_1= \cdots = \chi_4 = 0$.
+If we find a nonzero vector of $\chi_0,\chi_1, \ldots, \chi_4$ that satisfy \eqref{eq:linear_independence}, the variables are linearly dependent.
+However, PS(2012) include $Y$ in (A1), which is necessary (A1) to hold. 
+To see this, drop $Y$ from (A1) and consider 
+\begin{align*}
+    QZ + \chi_1 Q + \chi_2 W + \chi_3 R + \chi_4 = 0.\quad \text{(A1$'$)},
+\end{align*}
+By substituting $Q = \frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}$ into (A1), we can obtain the following;
+\begin{align*}
+    \zeta_1 Z + \zeta_2 ZY + \zeta_3 wZ + \zeta_4 rZ + \zeta_5 Y + \zeta_6 w + \zeta_7 r + \zeta_8 = 0 
+\end{align*}
+where
+\begin{align*}
+    \zeta_1 &= \phi_0-\eta+(\lambda + 1)\phi_2 \chi_5,\\
+    \zeta_2 &= \phi_3,\\
+    \zeta_3 &= -\alpha+(\lambda + 1)\phi_2 \chi_2,\\
+    \zeta_4 &= -\beta+(\lambda + 1)\phi_2  \chi_3,\\
+    \zeta_5 &= \chi_1 \phi_3,\\
+    \zeta_6 &= -\chi_1\alpha+\chi_2\gamma+(\lambda+1)\phi_1 \chi_2,\\
+    \zeta_7 &= -\chi_1\beta+\chi_3 \gamma+(\lambda+1)\phi_1 \chi_3,\\
+    \zeta_8 &= \chi_1 (\phi_0 -\eta)+\chi_5\gamma+(\lambda+1)\phi_1 \chi_5.
+\end{align*}
+By putting $\zeta_1 = \zeta_3 = \zeta_4 = \zeta_6 = \zeta_7 =0$, we have
+\begin{align*}
+        \chi_1 &= \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}\\
+        \chi_2 &= \frac{\alpha}{(\lambda + 1)\phi_2}\\
+        \chi_3 &= \frac{\beta}{(\lambda + 1)\phi_2}\\
+        \chi_4 &= -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_2}
+\end{align*}
+Then we have
+\begin{align*}
+    &QZ + \frac{(\lambda + 1)\phi_1 + \gamma}{(\lambda + 1)\phi_2}Q +  \frac{\alpha}{(\lambda + 1)\phi_2} w +  \frac{\beta}{(\lambda + 1)\phi_2}r -\frac{\phi_0 - \eta}{(\lambda + 1)\phi_2} \\
+    =&\frac{ (\lambda + 1)\phi_2QZ + [(\lambda + 1)\phi_1 + \gamma]Q  -\phi_3 Y + \alpha w + \beta r - \phi_0 + \eta}{(\lambda + 1)\phi_2}\\
+    =& \frac{[(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]Q  + \alpha w + \beta r - \phi_0 + \eta}{(\lambda + 1)\phi_2}\\
+    =& [(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma]\left[ Q - \frac{\phi_0 - \eta- \alpha w - \beta r}{(\lambda + 1)(\phi_1 + \phi_2 Z) + \gamma}\right]\frac{1}{(\lambda + 1)\phi_2}\\
+    \neq& 0,
+\end{align*}
+because $Q = \frac{\phi_0 + \phi_3Y -\eta - \alpha w -  \beta r}{(\lambda + 1) (\phi_1 + \phi_2 Z) + \gamma}$.
+
+Actually, we think that the supply equation is not suffered from the multicollinearity problem.
+When we apply the 2SLS to the supply equation, we regress $W, R$, and $Y$ on $ZQ$ and $Q$.
+Denote the predicted value of $ZQ$ and $Q$ as $\hat{ZQ}$ and $\hat{Q}$ respectively, which are written as
+\begin{align*}
+    \hat{ZQ} &= a_1 + a_2 Y + a_3 W + a_4 R + a_5 Z^R\\
+    \hat{Q}  &= b_1 + b_2 Y + b_3 W + b_4 R + b_5 Z^R
+\end{align*}
+where $a_1, \ldots, a_5$ and $b_1, \ldots, b_5$ are the coefficients estimated in the first-stage.
+A condition for the validity of the instruments is $(W, R, \hat{ZQ}, \hat{Q}, 1)$ are not linearly dependent.
+This holds especially because $\hat{ZQ}$ and $\hat{Q}$ include a demand shifter $Y$ and a demand rotation IV $Z^R$.
+Thus, the linear model is not suffered from the multicollinearity problem.
+
+
+\section{Matsumura 220220}
+To see the multicollinearity problem, they try to show linear dependence between the variables in the supply equations. 
+PS start the proof by stating the following in p137 in their appendix (we modify notations);
+\begin{quote}
+    ``We demonstrate that the $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ terms in Eq.4 are perfectly collinear for $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+   \begin{align*}
+    Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0 \quad (\text{A1})."
+    \end{align*}
+\end{quote}
+Eq.4 in the quotation corresponds to the supply equation \eqref{eq:linear_supply_equation}.
+They show that there exists a nonzero vector of $\chi_1, \ldots, \chi_5$ that satisfies (A1).\footnote{The original proof in PS has some typos and mistakes. Fixing the typos and mistakes does not change the flow of their proof. See Appendix \ref{sec:corrected_proof_of_PS} for our corrected proof of their case.}
+
+A weird point in the proof is that while they want to show the linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$, they show the linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}, Q_{t}$, and $Y_t$.
+
+First, showing the linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}, Q_{t}$, and $Y_t$ does not always imply the linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$.
+We can easily come up with an example where excluding one variable from a set of variables that are linearly dependent could make the rest of the variables linearly independent.
+
+Second, showing the linear independence among $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ relating to the identification of the supply parameters, but showing the linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}, Q_{t}$, and $Y_t$ is not.
+Denote the matrix of the instrument variables as $Z^c = \{1, Z^R_t, W_t, R_t, Y_t\}_{t = 1,\ldots, T}$ and the matrix of the variables in the supply equation as $X = \{1, Z^R_{t}Q_{t}, Q_{t}, W_{t}, R_{t}\}_{t = 1,\ldots, T}$.
+$Z^c$ is a $T\times 5$ matrix and $X$ is a $T\times 5$ matrix.
+The 2SLS requires the two conditions, $\rank({Z^c}^\top Z^c) = 5$ and $\rank({Z^c}^\top X) = 5$.
+The two condition guarantees that (1) ${Z^c}^\top Z^c$ is invertible, which implies that we can estimate the parameter in the first stage, and (2)  ${Z^c}^\top X$ is invertible, which implies that we can estimate the parameter in the second stage.
+Since we can assume that $T> 5$, we have
+\begin{align}\label{eq:rank_condition}
+    \rank({Z^c}^\top X) \le \min\{ \rank({Z^c}^\top), \rank(X)\}.\textcolor{blue}{(Reference???)}
+\end{align}
+The equality holds when all matrices are fully column independent.
+Then the requirement for identification in the 2SLS is that $X$ is column independent and a sufficient condition for this is the linear independence among $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$.
+The linear independence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}, Q_{t}$, and $Y_t$ does not help this argument.
+
+Hereafter, we will show that $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ are linearly independent.
+We assume that the demand and supply equation parameters are nonzero.
+We assume that $1, Z^R_t, W_t, R_t$, and $Y_t$ are linearly independent.
+This is not assumed in PS, but violating this assumption implies we can not apply the 2SLS.
+Then, we can also assume that the interaction terms $Z^R_tW_t, Z^R_tR_t,$ and $ Z^R_t Y_t$ are linearly independent.
+Hereafter, we suppress the $t$ subscript.
+By the definition of linear independence, we need to check whether the following holds;
+\begin{align}
+    \chi_1 Z^R Q + \chi_2 Q + \chi_3 W + \chi_4 R + \chi_5 = 0, \label{eq:linear_independence}
+\end{align}
+then $\chi_1 = \chi_2 = \cdots = \chi_5 = 0$.
+
+By substituting $Q =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1} $ into \eqref{eq:linear_independence}, we have
+\begin{align*}
+    0 &= \chi_1 \left( \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}  \right) Z^R + \chi_2  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1} + \chi_3 W + \chi_4 R + \chi_5\\
+    &= \chi_1 (\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}) Z^R + \chi_2 (\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t})\\
+    & \quad + [[(1 + \theta) \alpha_1 +\gamma_1] + (1 + \theta) \alpha_2 Z^{R}_{t}] (\chi_3 W + \chi_4 R + \chi_5)\\
+    & = \chi_1 (\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}) Z^R  + (\theta + 1)\alpha_2 (\chi_3 W + \chi_4 R + \chi_5) Z^R\\
+    & \quad + \chi_2(\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}) + [(1 + \theta) \alpha_1 +\gamma_1] (\chi_3 W + \chi_4 R + \chi_5)\\
+    &= [\chi_1 (\alpha_0 -\gamma_0) + (\theta + 1)\alpha_2 \chi_5] Z^R + \chi_1 \alpha_3 Z^R Y\\
+    &\quad + (-\gamma_2 \chi_1 + (\theta + 1)\alpha_2\chi_3) WZ^R +  (-\gamma_3 \chi_1 + (\theta + 1)\alpha_2\chi_4)  RZ^R\\
+    &\quad\quad + \chi_2 \alpha_3Y + (-\gamma_2 \chi_2 + \chi_3 [(1 + \theta) \alpha_1 +\gamma_1]) W + (-\gamma_3 \chi_2 + \chi_4 [(1 + \theta) \alpha_1 +\gamma_1] ) R \\
+    &\quad\quad \quad + (\chi_2 (\alpha_0 - \gamma_0) + [(1 + \theta) (\alpha_1 +\gamma_1)]\chi_5)\\
+     & = \zeta_1 Z^R + \zeta_2 Z^RY + \zeta_3 WZ^R + \zeta_4 RZ^R + \zeta_5 Y + \zeta_6 W + \zeta_7 R + \zeta_8, 
+\end{align*}
+where 
+\begin{align*}
+    \zeta_1 &= \chi_1 (\alpha_0 - \gamma_0) + (\theta +1 )\alpha_2 \chi_5,\\
+    \zeta_2 &= \chi_1\alpha_3,\\
+    \zeta_3 &= -\gamma_2 \chi_1 + (\theta + 1)\alpha_2\chi_3,\\
+    \zeta_4 &= -\gamma_3 \chi_1 + (\theta + 1)\alpha_2\chi_4,\\
+    \zeta_5 &= \chi_2 \alpha_3,\\
+    \zeta_6 &= -\gamma_2 \chi_2 + \chi_3 [(1 + \theta) \alpha_1 +\gamma_1],\\
+    \zeta_7 &= -\gamma_3 \chi_2 + \chi_4 [(1 + \theta) \alpha_1 +\gamma_1],\\
+    \zeta_8 &= \chi_2 (\alpha_0 - \gamma_0) + [(1 + \theta) (\alpha_1 +\gamma_1)]\chi_5.
+\end{align*}
+
+By the linear independent assumption among $1, Z^R_t, W_t, R_t, Y_t, W_tZ^R_t, R_tZ^R_t$, and $Y_tZ^R_t$, we have $\zeta_1 = \cdots = \zeta_8 = 0$.
+As parameters are nonzero, from $\zeta_2 = \zeta_5 = 0$, we have $\chi_1 = \chi_2 =0$.
+Then from $\zeta_1 = \zeta_3 = \zeta_4 = 0$, we have 
+\begin{align*}
+    (\theta + 1 )\alpha_2\chi_5 = (\theta + 1 )\alpha_2\chi_3 = (\theta + 1 )\alpha_2\chi_4 = 0.
+\end{align*}
+As $(\theta + 1)\alpha_2 \ne 0$, we have $\chi_3 = \chi_4 = \chi_5 = 0$.
+Therefore, we can conclude that $1, Z^R_{t}Q_{t}, Q_{t}, W_{t}$, and $ R_{t}$ are linearly independent.
+
+
+We already assumed that the matrix of $Z^c$ are column linear independent, that is, $\rank({Z^c}^\top Z^c) = 5$.
+As we showed that the variables in the supply equations are linearly independent, the variables in $X$ are linearly independent, and hence $\rank(X) = 5$ holds
+Therefore, \eqref{eq:rank_condition} implies that $\rank({Z^c}^\top X) = 5$.
+Now we satisfy the two rank conditions for $\rank({Z^c}^\top Z^c)$ and $\rank({Z^c}^\top X)$, which guarantees that we can identify the parameters in the supply equation by the 2SLS.
+
+
+\section{Otani 220223}
+
+To make PS's proof correct, it must hold that if $Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0$, that is, $W_{t}, R_{t}, Y_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ are linearly dependent, then $Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_5 = 0$, that is, $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ are linearly dependent. If their statement is correct, when $Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0$, it must hold that each of $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ is a linear combination of the other (See Exercise 3.15. in p.53 of \cite{abadir2005matrix}). However, for example, $W_{t}=-(1/\chi_2) Z^{R}_{t} Q_{t} - (\chi_1/\chi_2)  Q_{t} - (\chi_3/\chi_2) R_{t} - (\chi_4/\chi_2) Y_{t} - (\chi_5/\chi_2)$ so that $W_{t}$ is a linear combination of the other, i.e., $R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ only if $\chi_4=0$. Thus, PS's proof is correct only if $\chi_4=0$. In other words, PS's proof is incorrect if $\chi_4\neq 0$.
+
+
+
+
+
+
+\section{Matsumura 220223}
+
+
+To make PS's proof correct, it must hold that if $W_{t}, R_{t}, Y_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ are linearly dependent, that is, there is a nonzero vector of $\chi_1, \ldots, \chi_5$ such that $Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0$, then  $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ are linearly dependent, that is, there is a nonzero vector of $\chi_1,\chi_2, \chi_3, \chi_5$ such that $Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_5 = 0$. 
+If their statement is correct, when $Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0$, it must hold that each of $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ is a linear combination of the other (See Exercise 3.15. in p.53 of \cite{abadir2005matrix}). 
+However, for example, $W_{t}=-(1/\chi_2) Z^{R}_{t} Q_{t} - (\chi_1/\chi_2)  Q_{t} - (\chi_3/\chi_2) R_{t} - (\chi_4/\chi_2) Y_{t} - (\chi_5/\chi_2)$ so that $W_{t}$ is a linear combination of $R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ only if $Y_{t}=0$ or $\chi_4=0$. 
+Thus, PS's proof is correct only if $Y_{t}=0$ or $\chi_4=0$. In other words, PS's proof is incorrect if $Y_{t}\neq 0$ or $\chi_4\neq 0$.
+
+%定義に従って線型独立や従属を示したい場合にはまず全てのベクトルに係数がかかった状態を考えるべきか？．
+%線形従属を示そうとして，Yの係数がゼロだった場合にはどう解釈すべきなのか？
+%chi_4=0, error=0
+
+\section{230318}
+% Introduction の他の候補．最初の段落はこれまでと同じでBreshnahanとPerloff and Shenの対比を考える.
+% 差別化財の話を一応書いた理由は，BresnahanのIVを使ってconductを特定する，というアイデアがどのように広がっているかをみるため．省いても問題ない．とりあえず，test firm conductはコメントアウトした．
+
+Measuring competitiveness is one of the important tasks in Empirical Industrial Organization literature.
+Conduct parameter is regarded as a useful measure of competitiveness. 
+However, it cannot be measured directly from data because data usually lack information about marginal cost.
+Therefore, the researchers have tried to identify and estimate the conduct parameter.
+
+There are two conflicting results regarding the conduct parameter in homogeneous good markets in linear demand and marginal cost systems.
+On the one hand, \citet{bresnahan1982oligopoly} shows the identification of the conduct parameter, and the key insight is using an instrument, called demand rotation instrument, to identify the conduct parameter.
+As the identification is guaranteed, we can estimate the conduct parameter by standard linear regression.
+This result is extended to nonlinear cases by \citet{lau1982identifying}
+and is applied to differentiated product markets with linear demand and marginal cost systems by  \citet{nevoIdentificationOligopolySolution1998}.
+%Berry and Haile (2014) also use the insight from Bresnahan (1982) to derive a testable condition for testing firm conduct in differential product markets.
+%Backus et al. (2021) and Durlte et al. (2022) develop tests of firm conduct, and Magnolfi and Sullivan (2022) investigate the relationship between the conduct parameter estimation and firm conduct test.
+
+On the other hand, \citet{perloff2012collinearity} (hereafter, PS) point out that the linear model considered in \citet{bresnahan1982oligopoly} is suffering from the multicollinearity problem when the error terms in the demand and supply equations are zero, which implies that the identification of the conduct parameter is impossible.
+PS also show by simulations that the parameters cannot be estimated accurately even when the error terms are not zero. 
+This is a major obstacle in the literature. 
+Several papers and handbook chapter mention the result in PS. See \citet{claessensWhatDrivesBank2004, coccoreseMultimarketContactCompetition2013, coccoreseWhatAffectsBank2021, garciaMarketStructuresProduction2020, kumbhakarNewMethodEstimating2012, perekhozhukRegionalLevelAnalysisOligopsony2015} and \citet{shafferMarketPowerCompetition2017}.
+
+We revisit the identification and estimation of the conduct parameter in homogeneous product markets to answer which result is correct.
+We find some problems in PS, and hence we support \cite{bresnahan1982oligopoly}.
+First, we show that the proof of the multicollinearity problem in PS is incorrect and that the multicollinearity problem does not occur under standard assumptions which reflect the insight in \citet{bresnahan1982oligopoly}.
+Second, the simulation in PS lacks an excluded demand shifter in the supply equation estimation, and we confirm that the accuracy of the estimation holds by including a demand shifter in the supply equation estimation properly. 
+We also show that increasing the sample size improves the accuracy of estimation.
+
+
+
+\section{GMM problems}
+\begin{align}
+    \min_{\alpha_, \beta, \varepsilon^c, \varepsilon^d}\quad &  
+\end{align}
+
+
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
+\end{document}
