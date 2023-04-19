@@ -46,8 +46,8 @@ end
 
 
 #estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec_linear,:non_constraint, :non_constraint)]
-#estimation_methods = [(:mpec_linear,:non_constraint, :non_constraint)]
-estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
+estimation_methods = [(:mpec_linear,:non_constraint, :non_constraint)]
+#estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
 
 starting_value = :true
 tol_level = :loose

@@ -372,7 +372,7 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
 
     MC = Any[];
     for t = 1:T
-        push!(MC, @NLexpression(model,  P[t] + θ * (β[2] + β[3] * X[2*t, end])))
+        push!(MC, @NLexpression(model,  P[t] + θ * (β[2] + β[3] * X[2*t, end]) * X[2*t-1,K_d + 2]   ))
     end
 
     r = Any[];
