@@ -368,7 +368,11 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-    @variable(model, 0 <= θ <= 1)
+    if estimation_method[3] == :theta_constraint
+        @variable(model, 0 <= θ <= 1)
+    else
+        @variable(model, θ)
+    end
 
     MC = Any[];
     for t = 1:T
