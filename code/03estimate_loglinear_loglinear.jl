@@ -46,7 +46,7 @@ end
 
 
 #estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec_linear,:non_constraint, :non_constraint)]
-estimation_methods = [(:mpec_linear,:non_constraint, :non_constraint)]
+estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec,:non_constraint, :theta_constraint)]
 #estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
 
 starting_value = :true
@@ -101,7 +101,7 @@ end
 # The estimation outcome will be stored in "output"
 
 
-for estimation_method = [(:mpec_linear, :non_constraint, :non_constraint)]
+for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the simulation data from the rds files
         filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
