@@ -96,7 +96,7 @@ end
 
 
 
-#= 
+
 #Check the performance of the MPEC method by using the linear specification
 # The estimation outcome will be stored in "output"
 
@@ -123,7 +123,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :non_constraint)]
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_linear_linear_n_"
+        filename_begin = "../conduct_parameter/output/parameter_hat_table_mpec_linear_linear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
@@ -132,8 +132,3 @@ for estimation_method = [(:mpec_linear, :non_constraint, :non_constraint)]
     println("\n")
     println("----------------------------------------------------------------------------------\n")
 end
-
-
-
-
-=#

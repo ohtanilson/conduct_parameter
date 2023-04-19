@@ -589,6 +589,8 @@ display: none;
 <h2 class="tabset">linear-demand linear-cost</h2>
 <div id="with-demand-shifter" class="section level3 tabset">
 <h3 class="tabset">with demand shifter</h3>
+<div id="sls" class="section level4">
+<h4>2SLS</h4>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1870,12 +1872,8 @@ Sample size (<span class="math inline">\(T\)</span>)
 </tbody>
 </table>
 </div>
-</div>
-<div id="log-linear-demand-log-linear-cost-with-demand-shifter" class="section level2 tabset">
-<h2 class="tabset">log-linear-demand log-linear-cost with demand
-shifter</h2>
-<div id="separate_non_constraint_non_constraint-.tabset" class="section level3">
-<h3>_separate_non_constraint_non_constraint {.tabset}</h3>
+<div id="mpec" class="section level4">
+<h4>MPEC</h4>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1922,7 +1920,7 @@ RMSE
 0.000
 </td>
 <td style="text-align:left;">
-0.000
+0.001
 </td>
 <td style="text-align:left;">
 0.000
@@ -1942,28 +1940,28 @@ RMSE
 <span class="math inline">\(\alpha_{1}\)</span>
 </td>
 <td style="text-align:left;">
+0.001
+</td>
+<td style="text-align:left;">
+0.005
+</td>
+<td style="text-align:left;">
 0.000
+</td>
+<td style="text-align:left;">
+0.002
 </td>
 <td style="text-align:left;">
 0.001
 </td>
 <td style="text-align:left;">
-0.000
-</td>
-<td style="text-align:left;">
-0.001
+0.003
 </td>
 <td style="text-align:left;">
 0.000
 </td>
 <td style="text-align:left;">
 0.001
-</td>
-<td style="text-align:left;">
-0.000
-</td>
-<td style="text-align:left;">
-0.000
 </td>
 </tr>
 <tr>
@@ -1974,7 +1972,7 @@ RMSE
 0.000
 </td>
 <td style="text-align:left;">
-0.001
+0.000
 </td>
 <td style="text-align:left;">
 0.000
@@ -2003,13 +2001,13 @@ RMSE
 0.000
 </td>
 <td style="text-align:left;">
-0.001
+0.000
 </td>
 <td style="text-align:left;">
 0.000
 </td>
 <td style="text-align:left;">
-0.001
+0.000
 </td>
 <td style="text-align:left;">
 0.000
@@ -2029,28 +2027,1316 @@ RMSE
 <span class="math inline">\(\gamma_{0}\)</span>
 </td>
 <td style="text-align:left;">
+-2.045
+</td>
+<td style="text-align:left;">
+2.050
+</td>
+<td style="text-align:left;">
+-2.010
+</td>
+<td style="text-align:left;">
+2.012
+</td>
+<td style="text-align:left;">
+-1.851
+</td>
+<td style="text-align:left;">
+1.852
+</td>
+<td style="text-align:left;">
+-1.941
+</td>
+<td style="text-align:left;">
+1.941
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{1}\)</span>
+</td>
+<td style="text-align:left;">
+5.613
+</td>
+<td style="text-align:left;">
+5.616
+</td>
+<td style="text-align:left;">
+5.479
+</td>
+<td style="text-align:left;">
+5.480
+</td>
+<td style="text-align:left;">
+5.437
+</td>
+<td style="text-align:left;">
+5.438
+</td>
+<td style="text-align:left;">
+5.455
+</td>
+<td style="text-align:left;">
+5.455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{2}\)</span>
+</td>
+<td style="text-align:left;">
+0.006
+</td>
+<td style="text-align:left;">
+0.014
+</td>
+<td style="text-align:left;">
+0.001
+</td>
+<td style="text-align:left;">
+0.007
+</td>
+<td style="text-align:left;">
+-0.002
+</td>
+<td style="text-align:left;">
+0.005
+</td>
+<td style="text-align:left;">
+0.001
+</td>
+<td style="text-align:left;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{3}\)</span>
+</td>
+<td style="text-align:left;">
+0.010
+</td>
+<td style="text-align:left;">
+0.013
+</td>
+<td style="text-align:left;">
 0.000
+</td>
+<td style="text-align:left;">
+0.008
+</td>
+<td style="text-align:left;">
+-0.002
 </td>
 <td style="text-align:left;">
 0.004
 </td>
 <td style="text-align:left;">
+0.001
+</td>
+<td style="text-align:left;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\theta\)</span>
+</td>
+<td style="text-align:left;">
+-0.679
+</td>
+<td style="text-align:left;">
+0.679
+</td>
+<td style="text-align:left;">
+-0.681
+</td>
+<td style="text-align:left;">
+0.681
+</td>
+<td style="text-align:left;">
+-0.669
+</td>
+<td style="text-align:left;">
+0.669
+</td>
+<td style="text-align:left;">
+-0.676
+</td>
+<td style="text-align:left;">
+0.676
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample size (<span class="math inline">\(T\)</span>)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{0}\)</span>
+</td>
+<td style="text-align:left;">
+0.015
+</td>
+<td style="text-align:left;">
+0.457
+</td>
+<td style="text-align:left;">
+-0.041
+</td>
+<td style="text-align:left;">
+0.209
+</td>
+<td style="text-align:left;">
+-0.050
+</td>
+<td style="text-align:left;">
+0.227
+</td>
+<td style="text-align:left;">
+-0.033
+</td>
+<td style="text-align:left;">
+0.102
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{1}\)</span>
+</td>
+<td style="text-align:left;">
+-0.668
+</td>
+<td style="text-align:left;">
+2.133
+</td>
+<td style="text-align:left;">
+-0.199
+</td>
+<td style="text-align:left;">
+0.823
+</td>
+<td style="text-align:left;">
+-0.253
+</td>
+<td style="text-align:left;">
+0.871
+</td>
+<td style="text-align:left;">
+-0.203
+</td>
+<td style="text-align:left;">
+0.368
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{2}\)</span>
+</td>
+<td style="text-align:left;">
+0.076
+</td>
+<td style="text-align:left;">
+0.242
+</td>
+<td style="text-align:left;">
+0.010
+</td>
+<td style="text-align:left;">
+0.118
+</td>
+<td style="text-align:left;">
+0.012
+</td>
+<td style="text-align:left;">
+0.076
+</td>
+<td style="text-align:left;">
+0.010
+</td>
+<td style="text-align:left;">
+0.047
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{3}\)</span>
+</td>
+<td style="text-align:left;">
+0.007
+</td>
+<td style="text-align:left;">
+0.083
+</td>
+<td style="text-align:left;">
+0.020
+</td>
+<td style="text-align:left;">
+0.063
+</td>
+<td style="text-align:left;">
+-0.017
+</td>
+<td style="text-align:left;">
+0.057
+</td>
+<td style="text-align:left;">
+-0.001
+</td>
+<td style="text-align:left;">
+0.020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{0}\)</span>
+</td>
+<td style="text-align:left;">
+-2.127
+</td>
+<td style="text-align:left;">
+2.403
+</td>
+<td style="text-align:left;">
+-1.894
+</td>
+<td style="text-align:left;">
+2.025
+</td>
+<td style="text-align:left;">
+-1.800
+</td>
+<td style="text-align:left;">
+1.893
+</td>
+<td style="text-align:left;">
+-1.941
+</td>
+<td style="text-align:left;">
+1.961
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{1}\)</span>
+</td>
+<td style="text-align:left;">
+5.414
+</td>
+<td style="text-align:left;">
+5.597
+</td>
+<td style="text-align:left;">
+5.229
+</td>
+<td style="text-align:left;">
+5.295
+</td>
+<td style="text-align:left;">
+5.524
+</td>
+<td style="text-align:left;">
+5.537
+</td>
+<td style="text-align:left;">
+5.468
+</td>
+<td style="text-align:left;">
+5.472
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{2}\)</span>
+</td>
+<td style="text-align:left;">
+-0.024
+</td>
+<td style="text-align:left;">
+0.075
+</td>
+<td style="text-align:left;">
+0.010
+</td>
+<td style="text-align:left;">
+0.059
+</td>
+<td style="text-align:left;">
+-0.001
+</td>
+<td style="text-align:left;">
+0.050
+</td>
+<td style="text-align:left;">
+0.008
+</td>
+<td style="text-align:left;">
+0.018
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{3}\)</span>
+</td>
+<td style="text-align:left;">
+-0.044
+</td>
+<td style="text-align:left;">
+0.117
+</td>
+<td style="text-align:left;">
+-0.016
+</td>
+<td style="text-align:left;">
+0.057
+</td>
+<td style="text-align:left;">
+-0.002
+</td>
+<td style="text-align:left;">
+0.029
+</td>
+<td style="text-align:left;">
+0.005
+</td>
+<td style="text-align:left;">
+0.015
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\theta\)</span>
+</td>
+<td style="text-align:left;">
+-0.709
+</td>
+<td style="text-align:left;">
+0.714
+</td>
+<td style="text-align:left;">
+-0.679
+</td>
+<td style="text-align:left;">
+0.680
+</td>
+<td style="text-align:left;">
+-0.664
+</td>
+<td style="text-align:left;">
+0.664
+</td>
+<td style="text-align:left;">
+-0.676
+</td>
+<td style="text-align:left;">
+0.676
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample size (<span class="math inline">\(T\)</span>)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{0}\)</span>
+</td>
+<td style="text-align:left;">
+-0.548
+</td>
+<td style="text-align:left;">
+0.997
+</td>
+<td style="text-align:left;">
+0.479
+</td>
+<td style="text-align:left;">
+0.863
+</td>
+<td style="text-align:left;">
+-0.019
+</td>
+<td style="text-align:left;">
+0.396
+</td>
+<td style="text-align:left;">
+0.071
+</td>
+<td style="text-align:left;">
+0.220
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{1}\)</span>
+</td>
+<td style="text-align:left;">
+1.152
+</td>
+<td style="text-align:left;">
+4.676
+</td>
+<td style="text-align:left;">
+0.030
+</td>
+<td style="text-align:left;">
+4.251
+</td>
+<td style="text-align:left;">
+-0.409
+</td>
+<td style="text-align:left;">
+1.744
+</td>
+<td style="text-align:left;">
+-0.117
+</td>
+<td style="text-align:left;">
+0.896
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{2}\)</span>
+</td>
+<td style="text-align:left;">
+-0.273
+</td>
+<td style="text-align:left;">
+0.539
+</td>
+<td style="text-align:left;">
+0.132
+</td>
+<td style="text-align:left;">
+0.311
+</td>
+<td style="text-align:left;">
+0.033
+</td>
+<td style="text-align:left;">
+0.150
+</td>
+<td style="text-align:left;">
+0.029
+</td>
+<td style="text-align:left;">
+0.108
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{3}\)</span>
+</td>
+<td style="text-align:left;">
+-0.087
+</td>
+<td style="text-align:left;">
+0.218
+</td>
+<td style="text-align:left;">
+-0.014
+</td>
+<td style="text-align:left;">
+0.123
+</td>
+<td style="text-align:left;">
+-0.010
+</td>
+<td style="text-align:left;">
+0.137
+</td>
+<td style="text-align:left;">
+0.010
+</td>
+<td style="text-align:left;">
+0.036
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{0}\)</span>
+</td>
+<td style="text-align:left;">
+412.778
+</td>
+<td style="text-align:left;">
+928.307
+</td>
+<td style="text-align:left;">
+-2.580
+</td>
+<td style="text-align:left;">
+3.107
+</td>
+<td style="text-align:left;">
+-1.548
+</td>
+<td style="text-align:left;">
+2.080
+</td>
+<td style="text-align:left;">
+-1.952
+</td>
+<td style="text-align:left;">
+1.990
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{1}\)</span>
+</td>
+<td style="text-align:left;">
+9.234
+</td>
+<td style="text-align:left;">
+12.308
+</td>
+<td style="text-align:left;">
+6.044
+</td>
+<td style="text-align:left;">
+6.353
+</td>
+<td style="text-align:left;">
+5.332
+</td>
+<td style="text-align:left;">
+5.501
+</td>
+<td style="text-align:left;">
+5.376
+</td>
+<td style="text-align:left;">
+5.392
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{2}\)</span>
+</td>
+<td style="text-align:left;">
+0.237
+</td>
+<td style="text-align:left;">
+0.603
+</td>
+<td style="text-align:left;">
+0.096
+</td>
+<td style="text-align:left;">
+0.153
+</td>
+<td style="text-align:left;">
+-0.005
+</td>
+<td style="text-align:left;">
+0.080
+</td>
+<td style="text-align:left;">
+-0.008
+</td>
+<td style="text-align:left;">
+0.042
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{3}\)</span>
+</td>
+<td style="text-align:left;">
+0.132
+</td>
+<td style="text-align:left;">
+0.390
+</td>
+<td style="text-align:left;">
+0.030
+</td>
+<td style="text-align:left;">
+0.172
+</td>
+<td style="text-align:left;">
+-0.033
+</td>
+<td style="text-align:left;">
+0.087
+</td>
+<td style="text-align:left;">
+-0.003
+</td>
+<td style="text-align:left;">
+0.032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\theta\)</span>
+</td>
+<td style="text-align:left;">
+54.073
+</td>
+<td style="text-align:left;">
+123.742
+</td>
+<td style="text-align:left;">
+-0.668
+</td>
+<td style="text-align:left;">
+0.672
+</td>
+<td style="text-align:left;">
+-0.648
+</td>
+<td style="text-align:left;">
+0.652
+</td>
+<td style="text-align:left;">
+-0.680
+</td>
+<td style="text-align:left;">
+0.681
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample size (<span class="math inline">\(T\)</span>)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{0}\)</span>
+</td>
+<td style="text-align:left;">
+-1.007
+</td>
+<td style="text-align:left;">
+1.770
+</td>
+<td style="text-align:left;">
+-0.926
+</td>
+<td style="text-align:left;">
+1.635
+</td>
+<td style="text-align:left;">
+0.087
+</td>
+<td style="text-align:left;">
+1.877
+</td>
+<td style="text-align:left;">
+0.230
+</td>
+<td style="text-align:left;">
+0.389
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{1}\)</span>
+</td>
+<td style="text-align:left;">
+2.225
+</td>
+<td style="text-align:left;">
+7.132
+</td>
+<td style="text-align:left;">
+4.101
+</td>
+<td style="text-align:left;">
+7.502
+</td>
+<td style="text-align:left;">
+2.909
+</td>
+<td style="text-align:left;">
+5.647
+</td>
+<td style="text-align:left;">
+0.322
+</td>
+<td style="text-align:left;">
+0.731
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{2}\)</span>
+</td>
+<td style="text-align:left;">
+-0.516
+</td>
+<td style="text-align:left;">
+0.836
+</td>
+<td style="text-align:left;">
+-0.697
+</td>
+<td style="text-align:left;">
+0.945
+</td>
+<td style="text-align:left;">
+-0.276
+</td>
+<td style="text-align:left;">
+0.591
+</td>
+<td style="text-align:left;">
+0.037
+</td>
+<td style="text-align:left;">
+0.137
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{3}\)</span>
+</td>
+<td style="text-align:left;">
+-0.212
+</td>
+<td style="text-align:left;">
+0.341
+</td>
+<td style="text-align:left;">
+-0.132
+</td>
+<td style="text-align:left;">
+0.460
+</td>
+<td style="text-align:left;">
+0.072
+</td>
+<td style="text-align:left;">
+0.467
+</td>
+<td style="text-align:left;">
+0.051
+</td>
+<td style="text-align:left;">
+0.097
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{0}\)</span>
+</td>
+<td style="text-align:left;">
+-879.770
+</td>
+<td style="text-align:left;">
+2950.091
+</td>
+<td style="text-align:left;">
+30.241
+</td>
+<td style="text-align:left;">
+110.228
+</td>
+<td style="text-align:left;">
+369.611
+</td>
+<td style="text-align:left;">
+880.657
+</td>
+<td style="text-align:left;">
+-1.945
+</td>
+<td style="text-align:left;">
+2.159
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{1}\)</span>
+</td>
+<td style="text-align:left;">
+7.339
+</td>
+<td style="text-align:left;">
+8.647
+</td>
+<td style="text-align:left;">
+5.346
+</td>
+<td style="text-align:left;">
+6.183
+</td>
+<td style="text-align:left;">
+6.768
+</td>
+<td style="text-align:left;">
+7.328
+</td>
+<td style="text-align:left;">
+5.912
+</td>
+<td style="text-align:left;">
+5.946
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{2}\)</span>
+</td>
+<td style="text-align:left;">
+0.147
+</td>
+<td style="text-align:left;">
+0.529
+</td>
+<td style="text-align:left;">
+-0.013
+</td>
+<td style="text-align:left;">
+0.377
+</td>
+<td style="text-align:left;">
+0.018
+</td>
+<td style="text-align:left;">
+0.175
+</td>
+<td style="text-align:left;">
+0.005
+</td>
+<td style="text-align:left;">
+0.085
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{3}\)</span>
+</td>
+<td style="text-align:left;">
+0.037
+</td>
+<td style="text-align:left;">
+0.371
+</td>
+<td style="text-align:left;">
+0.018
+</td>
+<td style="text-align:left;">
+0.272
+</td>
+<td style="text-align:left;">
+0.041
+</td>
+<td style="text-align:left;">
+0.233
+</td>
+<td style="text-align:left;">
+0.019
+</td>
+<td style="text-align:left;">
+0.063
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\theta\)</span>
+</td>
+<td style="text-align:left;">
+-125.288
+</td>
+<td style="text-align:left;">
+577.112
+</td>
+<td style="text-align:left;">
+4.393
+</td>
+<td style="text-align:left;">
+16.991
+</td>
+<td style="text-align:left;">
+53.081
+</td>
+<td style="text-align:left;">
+126.693
+</td>
+<td style="text-align:left;">
+-0.655
+</td>
+<td style="text-align:left;">
+0.657
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sample size (<span class="math inline">\(T\)</span>)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="log-linear-demand-log-linear-cost-with-demand-shifter" class="section level2 tabset">
+<h2 class="tabset">log-linear-demand log-linear-cost with demand
+shifter</h2>
+<div id="separate_non_constraint_non_constraint-.tabset" class="section level3">
+<h3>_separate_non_constraint_non_constraint {.tabset}</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+<th style="text-align:left;">
+Bias
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{0}\)</span>
+</td>
+<td style="text-align:left;">
+0.801
+</td>
+<td style="text-align:left;">
+0.803
+</td>
+<td style="text-align:left;">
+0.796
+</td>
+<td style="text-align:left;">
+0.797
+</td>
+<td style="text-align:left;">
+0.796
+</td>
+<td style="text-align:left;">
+0.796
+</td>
+<td style="text-align:left;">
+0.798
+</td>
+<td style="text-align:left;">
+0.798
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{1}\)</span>
+</td>
+<td style="text-align:left;">
+0.010
+</td>
+<td style="text-align:left;">
+0.137
+</td>
+<td style="text-align:left;">
+-0.002
+</td>
+<td style="text-align:left;">
+0.079
+</td>
+<td style="text-align:left;">
 0.000
 </td>
 <td style="text-align:left;">
-0.003
-</td>
-<td style="text-align:left;">
-0.000
+0.045
 </td>
 <td style="text-align:left;">
 0.002
 </td>
 <td style="text-align:left;">
+0.019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{2}\)</span>
+</td>
+<td style="text-align:left;">
+0.006
+</td>
+<td style="text-align:left;">
+0.051
+</td>
+<td style="text-align:left;">
+-0.003
+</td>
+<td style="text-align:left;">
+0.030
+</td>
+<td style="text-align:left;">
 0.000
 </td>
 <td style="text-align:left;">
-0.001
+0.020
+</td>
+<td style="text-align:left;">
+0.000
+</td>
+<td style="text-align:left;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\alpha_{3}\)</span>
+</td>
+<td style="text-align:left;">
+0.867
+</td>
+<td style="text-align:left;">
+0.879
+</td>
+<td style="text-align:left;">
+0.853
+</td>
+<td style="text-align:left;">
+0.857
+</td>
+<td style="text-align:left;">
+0.859
+</td>
+<td style="text-align:left;">
+0.860
+</td>
+<td style="text-align:left;">
+0.858
+</td>
+<td style="text-align:left;">
+0.858
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\gamma_{0}\)</span>
+</td>
+<td style="text-align:left;">
+-0.096
+</td>
+<td style="text-align:left;">
+0.402
+</td>
+<td style="text-align:left;">
+-0.038
+</td>
+<td style="text-align:left;">
+0.131
+</td>
+<td style="text-align:left;">
+-0.011
+</td>
+<td style="text-align:left;">
+0.072
+</td>
+<td style="text-align:left;">
+-0.003
+</td>
+<td style="text-align:left;">
+0.030
 </td>
 </tr>
 <tr>
@@ -2061,7 +3347,7 @@ RMSE
 0.000
 </td>
 <td style="text-align:left;">
-0.000
+0.001
 </td>
 <td style="text-align:left;">
 0.000
@@ -2145,28 +3431,28 @@ RMSE
 <span class="math inline">\(\theta\)</span>
 </td>
 <td style="text-align:left;">
-0.000
+0.032
 </td>
 <td style="text-align:left;">
-0.003
+0.156
 </td>
 <td style="text-align:left;">
-0.000
+0.022
 </td>
 <td style="text-align:left;">
-0.002
+0.078
 </td>
 <td style="text-align:left;">
-0.000
+0.006
 </td>
 <td style="text-align:left;">
-0.001
-</td>
-<td style="text-align:left;">
-0.000
+0.049
 </td>
 <td style="text-align:left;">
 0.001
+</td>
+<td style="text-align:left;">
+0.019
 </td>
 </tr>
 <tr>
@@ -2176,7 +3462,7 @@ Runs converged (%)
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-100.000
+99.000
 </td>
 <td style="text-align:left;">
 </td>
@@ -2258,28 +3544,28 @@ RMSE
 <span class="math inline">\(\alpha_{0}\)</span>
 </td>
 <td style="text-align:left;">
--0.027
+0.721
 </td>
 <td style="text-align:left;">
-0.313
+0.780
 </td>
 <td style="text-align:left;">
--0.007
+0.782
 </td>
 <td style="text-align:left;">
-0.205
+0.811
 </td>
 <td style="text-align:left;">
-0.015
+0.789
 </td>
 <td style="text-align:left;">
-0.121
+0.799
 </td>
 <td style="text-align:left;">
-0.001
+0.804
 </td>
 <td style="text-align:left;">
-0.066
+0.807
 </td>
 </tr>
 <tr>
@@ -2287,28 +3573,28 @@ RMSE
 <span class="math inline">\(\alpha_{1}\)</span>
 </td>
 <td style="text-align:left;">
--0.195
+-0.177
 </td>
 <td style="text-align:left;">
-0.678
+0.665
 </td>
 <td style="text-align:left;">
--0.047
+-0.045
 </td>
 <td style="text-align:left;">
-0.427
+0.429
 </td>
 <td style="text-align:left;">
--0.058
+-0.060
 </td>
 <td style="text-align:left;">
-0.257
+0.262
 </td>
 <td style="text-align:left;">
-0.014
+0.011
 </td>
 <td style="text-align:left;">
-0.101
+0.103
 </td>
 </tr>
 <tr>
@@ -2316,25 +3602,25 @@ RMSE
 <span class="math inline">\(\alpha_{2}\)</span>
 </td>
 <td style="text-align:left;">
-0.053
+0.050
 </td>
 <td style="text-align:left;">
-0.419
+0.413
 </td>
 <td style="text-align:left;">
-0.032
+0.036
 </td>
 <td style="text-align:left;">
-0.208
+0.214
 </td>
 <td style="text-align:left;">
-0.022
+0.028
 </td>
 <td style="text-align:left;">
-0.131
+0.132
 </td>
 <td style="text-align:left;">
-0.010
+0.011
 </td>
 <td style="text-align:left;">
 0.061
@@ -2345,28 +3631,28 @@ RMSE
 <span class="math inline">\(\alpha_{3}\)</span>
 </td>
 <td style="text-align:left;">
--0.066
+0.749
 </td>
 <td style="text-align:left;">
-0.323
+0.935
 </td>
 <td style="text-align:left;">
--0.009
+0.842
 </td>
 <td style="text-align:left;">
-0.227
+0.952
 </td>
 <td style="text-align:left;">
--0.030
+0.800
 </td>
 <td style="text-align:left;">
-0.138
+0.841
 </td>
 <td style="text-align:left;">
-0.009
+0.873
 </td>
 <td style="text-align:left;">
-0.056
+0.879
 </td>
 </tr>
 <tr>
@@ -2374,28 +3660,28 @@ RMSE
 <span class="math inline">\(\gamma_{0}\)</span>
 </td>
 <td style="text-align:left;">
--0.113
+-0.025
 </td>
 <td style="text-align:left;">
-1.181
+1.311
 </td>
 <td style="text-align:left;">
--0.096
+0.064
 </td>
 <td style="text-align:left;">
-0.895
+1.338
 </td>
 <td style="text-align:left;">
--0.042
+-0.031
 </td>
 <td style="text-align:left;">
-0.990
+0.853
 </td>
 <td style="text-align:left;">
-0.009
+0.059
 </td>
 <td style="text-align:left;">
-0.700
+0.719
 </td>
 </tr>
 <tr>
@@ -2403,28 +3689,28 @@ RMSE
 <span class="math inline">\(\gamma_{1}\)</span>
 </td>
 <td style="text-align:left;">
-0.032
+0.033
 </td>
 <td style="text-align:left;">
-0.226
+0.215
 </td>
 <td style="text-align:left;">
-0.034
+0.029
 </td>
 <td style="text-align:left;">
-0.203
+0.200
 </td>
 <td style="text-align:left;">
--0.007
+-0.003
 </td>
 <td style="text-align:left;">
-0.146
+0.149
 </td>
 <td style="text-align:left;">
 -0.005
 </td>
 <td style="text-align:left;">
-0.057
+0.059
 </td>
 </tr>
 <tr>
@@ -2432,22 +3718,22 @@ RMSE
 <span class="math inline">\(\gamma_{2}\)</span>
 </td>
 <td style="text-align:left;">
-0.055
+0.064
 </td>
 <td style="text-align:left;">
-0.302
+0.288
 </td>
 <td style="text-align:left;">
--0.009
+-0.015
 </td>
 <td style="text-align:left;">
-0.216
+0.206
 </td>
 <td style="text-align:left;">
-0.014
+0.012
 </td>
 <td style="text-align:left;">
-0.131
+0.130
 </td>
 <td style="text-align:left;">
 -0.004
@@ -2461,28 +3747,28 @@ RMSE
 <span class="math inline">\(\gamma_{3}\)</span>
 </td>
 <td style="text-align:left;">
-0.006
+0.009
 </td>
 <td style="text-align:left;">
-0.136
+0.129
 </td>
 <td style="text-align:left;">
 0.010
 </td>
 <td style="text-align:left;">
-0.107
+0.106
 </td>
 <td style="text-align:left;">
--0.004
+0.000
 </td>
 <td style="text-align:left;">
-0.087
+0.086
 </td>
 <td style="text-align:left;">
 -0.002
 </td>
 <td style="text-align:left;">
-0.033
+0.034
 </td>
 </tr>
 <tr>
@@ -2490,28 +3776,28 @@ RMSE
 <span class="math inline">\(\theta\)</span>
 </td>
 <td style="text-align:left;">
--0.297
+-1.795
 </td>
 <td style="text-align:left;">
-1.151
+10.056
 </td>
 <td style="text-align:left;">
--0.176
+-2.480
 </td>
 <td style="text-align:left;">
-0.848
+13.305
 </td>
 <td style="text-align:left;">
--0.590
+-0.300
 </td>
 <td style="text-align:left;">
-3.496
+1.265
 </td>
 <td style="text-align:left;">
--0.153
+-0.269
 </td>
 <td style="text-align:left;">
-0.568
+1.375
 </td>
 </tr>
 <tr>
@@ -2521,17 +3807,17 @@ Runs converged (%)
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+80.000
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
 77.000
 </td>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-76.000
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-80.000
+78.000
 </td>
 <td style="text-align:left;">
 </td>
@@ -2603,28 +3889,28 @@ RMSE
 <span class="math inline">\(\alpha_{0}\)</span>
 </td>
 <td style="text-align:left;">
--0.008
+0.547
 </td>
 <td style="text-align:left;">
-0.814
+1.026
 </td>
 <td style="text-align:left;">
--0.026
+0.702
 </td>
 <td style="text-align:left;">
-0.427
+0.791
 </td>
 <td style="text-align:left;">
--0.028
+0.763
 </td>
 <td style="text-align:left;">
-0.237
+0.811
 </td>
 <td style="text-align:left;">
-0.018
+0.821
 </td>
 <td style="text-align:left;">
-0.135
+0.830
 </td>
 </tr>
 <tr>
@@ -2632,28 +3918,28 @@ RMSE
 <span class="math inline">\(\alpha_{1}\)</span>
 </td>
 <td style="text-align:left;">
--0.738
+-0.695
 </td>
 <td style="text-align:left;">
-1.959
+1.781
 </td>
 <td style="text-align:left;">
--0.231
+-0.214
 </td>
 <td style="text-align:left;">
-0.835
+0.856
 </td>
 <td style="text-align:left;">
--0.020
+-0.024
 </td>
 <td style="text-align:left;">
-0.564
+0.596
 </td>
 <td style="text-align:left;">
-0.021
+0.017
 </td>
 <td style="text-align:left;">
-0.282
+0.275
 </td>
 </tr>
 <tr>
@@ -2661,28 +3947,28 @@ RMSE
 <span class="math inline">\(\alpha_{2}\)</span>
 </td>
 <td style="text-align:left;">
--0.011
+0.007
 </td>
 <td style="text-align:left;">
-0.644
+0.643
 </td>
 <td style="text-align:left;">
-0.056
+0.053
 </td>
 <td style="text-align:left;">
-0.501
+0.515
 </td>
 <td style="text-align:left;">
--0.039
+-0.040
 </td>
 <td style="text-align:left;">
-0.316
+0.330
 </td>
 <td style="text-align:left;">
-0.037
+0.038
 </td>
 <td style="text-align:left;">
-0.129
+0.130
 </td>
 </tr>
 <tr>
@@ -2690,28 +3976,28 @@ RMSE
 <span class="math inline">\(\alpha_{3}\)</span>
 </td>
 <td style="text-align:left;">
--0.338
+0.255
 </td>
 <td style="text-align:left;">
-0.808
+1.399
 </td>
 <td style="text-align:left;">
--0.091
+0.705
 </td>
 <td style="text-align:left;">
-0.449
+1.105
 </td>
 <td style="text-align:left;">
--0.005
+0.843
 </td>
 <td style="text-align:left;">
-0.284
+1.016
 </td>
 <td style="text-align:left;">
-0.010
+0.876
 </td>
 <td style="text-align:left;">
-0.172
+0.929
 </td>
 </tr>
 <tr>
@@ -2719,28 +4005,28 @@ RMSE
 <span class="math inline">\(\gamma_{0}\)</span>
 </td>
 <td style="text-align:left;">
-0.000
+-0.079
 </td>
 <td style="text-align:left;">
-1.581
+1.591
 </td>
 <td style="text-align:left;">
-0.147
+0.131
 </td>
 <td style="text-align:left;">
-1.194
+1.347
 </td>
 <td style="text-align:left;">
-0.009
+0.075
 </td>
 <td style="text-align:left;">
-1.159
+1.100
 </td>
 <td style="text-align:left;">
--0.096
+-0.067
 </td>
 <td style="text-align:left;">
-1.061
+0.857
 </td>
 </tr>
 <tr>
@@ -2748,28 +4034,28 @@ RMSE
 <span class="math inline">\(\gamma_{1}\)</span>
 </td>
 <td style="text-align:left;">
-0.175
+0.068
 </td>
 <td style="text-align:left;">
-1.244
+0.683
 </td>
 <td style="text-align:left;">
-0.065
+0.072
 </td>
 <td style="text-align:left;">
-0.443
+0.471
 </td>
 <td style="text-align:left;">
-0.026
+0.020
 </td>
 <td style="text-align:left;">
-0.275
+0.272
 </td>
 <td style="text-align:left;">
--0.005
+0.000
 </td>
 <td style="text-align:left;">
-0.108
+0.109
 </td>
 </tr>
 <tr>
@@ -2777,25 +4063,25 @@ RMSE
 <span class="math inline">\(\gamma_{2}\)</span>
 </td>
 <td style="text-align:left;">
-0.027
+0.072
 </td>
 <td style="text-align:left;">
-0.684
+0.729
 </td>
 <td style="text-align:left;">
-0.008
+0.016
 </td>
 <td style="text-align:left;">
-0.453
+0.461
 </td>
 <td style="text-align:left;">
-0.028
+0.029
 </td>
 <td style="text-align:left;">
-0.249
+0.247
 </td>
 <td style="text-align:left;">
--0.003
+-0.002
 </td>
 <td style="text-align:left;">
 0.119
@@ -2806,28 +4092,28 @@ RMSE
 <span class="math inline">\(\gamma_{3}\)</span>
 </td>
 <td style="text-align:left;">
-0.043
+-0.002
 </td>
 <td style="text-align:left;">
-0.642
+0.399
 </td>
 <td style="text-align:left;">
-0.012
+0.013
 </td>
 <td style="text-align:left;">
-0.237
+0.253
 </td>
 <td style="text-align:left;">
-0.010
+0.009
 </td>
 <td style="text-align:left;">
 0.156
 </td>
 <td style="text-align:left;">
--0.001
+0.000
 </td>
 <td style="text-align:left;">
-0.061
+0.062
 </td>
 </tr>
 <tr>
@@ -2835,28 +4121,28 @@ RMSE
 <span class="math inline">\(\theta\)</span>
 </td>
 <td style="text-align:left;">
--12.429
+-1.570
 </td>
 <td style="text-align:left;">
-82.017
+7.790
 </td>
 <td style="text-align:left;">
--1.063
+-1.191
 </td>
 <td style="text-align:left;">
-3.401
+3.668
 </td>
 <td style="text-align:left;">
--0.668
+-1.439
 </td>
 <td style="text-align:left;">
-4.930
+6.468
 </td>
 <td style="text-align:left;">
--0.356
+-0.241
 </td>
 <td style="text-align:left;">
-1.832
+1.145
 </td>
 </tr>
 <tr>
@@ -2871,12 +4157,12 @@ Runs converged (%)
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-81.000
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
 82.000
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+80.000
 </td>
 <td style="text-align:left;">
 </td>
@@ -2948,28 +4234,28 @@ RMSE
 <span class="math inline">\(\alpha_{0}\)</span>
 </td>
 <td style="text-align:left;">
--0.101
+0.325
 </td>
 <td style="text-align:left;">
-2.057
+1.563
 </td>
 <td style="text-align:left;">
--0.052
+0.461
 </td>
 <td style="text-align:left;">
-0.829
+0.860
 </td>
 <td style="text-align:left;">
-0.020
+0.665
 </td>
 <td style="text-align:left;">
-0.532
+0.848
 </td>
 <td style="text-align:left;">
-0.034
+0.807
 </td>
 <td style="text-align:left;">
-0.191
+0.845
 </td>
 </tr>
 <tr>
@@ -2977,28 +4263,28 @@ RMSE
 <span class="math inline">\(\alpha_{1}\)</span>
 </td>
 <td style="text-align:left;">
--0.898
+-0.878
 </td>
 <td style="text-align:left;">
-1.510
+1.485
 </td>
 <td style="text-align:left;">
--0.724
+-0.717
 </td>
 <td style="text-align:left;">
-1.343
+1.330
 </td>
 <td style="text-align:left;">
--0.434
+-0.399
 </td>
 <td style="text-align:left;">
-1.177
+1.178
 </td>
 <td style="text-align:left;">
--0.047
+-0.048
 </td>
 <td style="text-align:left;">
-0.509
+0.523
 </td>
 </tr>
 <tr>
@@ -3006,28 +4292,28 @@ RMSE
 <span class="math inline">\(\alpha_{2}\)</span>
 </td>
 <td style="text-align:left;">
--0.254
+-0.238
 </td>
 <td style="text-align:left;">
-2.226
+2.079
 </td>
 <td style="text-align:left;">
--0.019
+-0.013
 </td>
 <td style="text-align:left;">
-0.817
+0.810
 </td>
 <td style="text-align:left;">
--0.076
+-0.073
 </td>
 <td style="text-align:left;">
-0.579
+0.586
 </td>
 <td style="text-align:left;">
-0.044
+0.047
 </td>
 <td style="text-align:left;">
-0.237
+0.240
 </td>
 </tr>
 <tr>
@@ -3035,28 +4321,28 @@ RMSE
 <span class="math inline">\(\alpha_{3}\)</span>
 </td>
 <td style="text-align:left;">
--0.469
+0.033
 </td>
 <td style="text-align:left;">
-1.236
+1.984
 </td>
 <td style="text-align:left;">
--0.348
+0.238
 </td>
 <td style="text-align:left;">
-0.665
+1.077
 </td>
 <td style="text-align:left;">
--0.232
+0.435
 </td>
 <td style="text-align:left;">
-0.642
+1.199
 </td>
 <td style="text-align:left;">
--0.024
+0.821
 </td>
 <td style="text-align:left;">
-0.267
+0.968
 </td>
 </tr>
 <tr>
@@ -3064,28 +4350,28 @@ RMSE
 <span class="math inline">\(\gamma_{0}\)</span>
 </td>
 <td style="text-align:left;">
--0.073
+0.015
 </td>
 <td style="text-align:left;">
-3.554
+4.052
 </td>
 <td style="text-align:left;">
--0.054
+-0.036
 </td>
 <td style="text-align:left;">
-2.576
+2.026
 </td>
 <td style="text-align:left;">
-0.086
+-0.018
 </td>
 <td style="text-align:left;">
-1.972
+1.822
 </td>
 <td style="text-align:left;">
--0.104
+-0.093
 </td>
 <td style="text-align:left;">
-1.054
+1.056
 </td>
 </tr>
 <tr>
@@ -3093,28 +4379,28 @@ RMSE
 <span class="math inline">\(\gamma_{1}\)</span>
 </td>
 <td style="text-align:left;">
-0.062
+-0.033
 </td>
 <td style="text-align:left;">
-2.183
+2.562
 </td>
 <td style="text-align:left;">
--0.046
+0.077
 </td>
 <td style="text-align:left;">
-4.249
+2.919
 </td>
 <td style="text-align:left;">
-0.256
+0.237
 </td>
 <td style="text-align:left;">
-1.470
+1.438
 </td>
 <td style="text-align:left;">
-0.023
+0.019
 </td>
 <td style="text-align:left;">
-0.281
+0.288
 </td>
 </tr>
 <tr>
@@ -3122,28 +4408,28 @@ RMSE
 <span class="math inline">\(\gamma_{2}\)</span>
 </td>
 <td style="text-align:left;">
--0.012
+0.042
 </td>
 <td style="text-align:left;">
-2.897
+3.742
 </td>
 <td style="text-align:left;">
-0.456
+0.352
 </td>
 <td style="text-align:left;">
-2.369
+1.629
 </td>
 <td style="text-align:left;">
-0.125
+0.112
 </td>
 <td style="text-align:left;">
-1.191
+1.048
 </td>
 <td style="text-align:left;">
--0.043
+-0.045
 </td>
 <td style="text-align:left;">
-0.254
+0.260
 </td>
 </tr>
 <tr>
@@ -3151,28 +4437,28 @@ RMSE
 <span class="math inline">\(\gamma_{3}\)</span>
 </td>
 <td style="text-align:left;">
--0.046
+-0.058
 </td>
 <td style="text-align:left;">
-1.180
+1.401
 </td>
 <td style="text-align:left;">
-0.077
+0.094
 </td>
 <td style="text-align:left;">
-1.155
+0.883
 </td>
 <td style="text-align:left;">
-0.130
+0.123
 </td>
 <td style="text-align:left;">
-0.741
+0.779
 </td>
 <td style="text-align:left;">
-0.015
+0.012
 </td>
 <td style="text-align:left;">
-0.177
+0.188
 </td>
 </tr>
 <tr>
@@ -3180,28 +4466,28 @@ RMSE
 <span class="math inline">\(\theta\)</span>
 </td>
 <td style="text-align:left;">
--0.534
+-0.016
 </td>
 <td style="text-align:left;">
-8.604
+2.565
 </td>
 <td style="text-align:left;">
--0.993
+-1.613
 </td>
 <td style="text-align:left;">
-2.300
+4.587
 </td>
 <td style="text-align:left;">
--9.699
+-0.856
 </td>
 <td style="text-align:left;">
-73.796
+2.281
 </td>
 <td style="text-align:left;">
--0.397
+-0.384
 </td>
 <td style="text-align:left;">
-1.662
+1.567
 </td>
 </tr>
 <tr>
@@ -3211,22 +4497,22 @@ Runs converged (%)
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+82.000
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
 84.000
 </td>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-83.000
+75.000
 </td>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-80.000
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-82.000
+81.000
 </td>
 </tr>
 <tr>

@@ -111,6 +111,99 @@ for(nn in 1:length(n_observation_list)){
   }
 }
 
+
+# mpec linear with demand shifter
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        "_mpec_linear_non_constraint_non_constraint",
+        sep = ""
+      )
+    temp_data <-
+      readr::read_csv(
+          file =
+            here::here(
+              paste(
+                "output/",
+                "parameter_hat_table_mpec_",
+                filename,
+                ".csv",
+                sep = ""
+                )
+              ),
+          show_col_types = FALSE
+          )
+    # drop T, sigma, status
+      temp_data <-
+        temp_data[
+          ,-c(
+            1, # T
+            2, # sigma
+            12 # status
+            )]
+      colnames(temp_data) <-
+        c(
+          "alpha0_hat",
+          "alpha1_hat",
+          "alpha2_hat",
+          "alpha3_hat",
+          "gamma0_hat",
+          "gamma1_hat",
+          "gamma2_hat",
+          "gamma3_hat",
+          "theta_hat",
+          "status_indicator"
+          )
+    temp_data <-
+      temp_data %>% 
+      dplyr::rename(
+        `$\\alpha_{0}$` =
+          alpha0_hat,
+        `$\\alpha_{1}$` =
+          alpha1_hat,
+        `$\\alpha_{2}$` =
+          alpha2_hat,
+        `$\\alpha_{3}$` =
+          alpha3_hat,
+        `$\\gamma_{0}$` =
+          gamma0_hat,
+        `$\\gamma_{1}$` =
+          gamma1_hat,
+        `$\\gamma_{2}$` =
+          gamma2_hat,
+        `$\\gamma_{3}$` =
+          gamma3_hat,
+        `$\\theta$` =
+          theta_hat) %>% 
+      dplyr::mutate(
+        filename =
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            )
+        )
+    assign(
+      filename,
+      temp_data)
+  }
+}
+
+
 # linear without demand shifter
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
@@ -725,6 +818,8 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 ### with demand shifter {.tabset}
 
+#### 2SLS
+
 ```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001 <-
   rbind(
@@ -768,7 +863,50 @@ create_table_with_demand_shifter_bias_rmse(
 
 ```
 
+#### MPEC
 
+```{r,echo=FALSE,results = "asis"}
+linear_linear_sigma_0.001_mpec_linear_non_constraint_non_constraint <-
+  rbind(
+    linear_linear_n_50_sigma_0.001_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_100_sigma_0.001_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_200_sigma_0.001_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_1000_sigma_0.001_mpec_linear_non_constraint_non_constraint)
+
+create_table_with_demand_shifter_bias_rmse(
+  linear_linear_sigma_0.001_mpec_linear_non_constraint_non_constraint
+)
+linear_linear_sigma_0.5_mpec_linear_non_constraint_non_constraint <-
+  rbind(
+    linear_linear_n_50_sigma_0.5_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_100_sigma_0.5_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_200_sigma_0.5_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_1000_sigma_0.5_mpec_linear_non_constraint_non_constraint)
+create_table_with_demand_shifter_bias_rmse(
+  linear_linear_sigma_0.5_mpec_linear_non_constraint_non_constraint
+)
+
+linear_linear_sigma_1_mpec_linear_non_constraint_non_constraint <-
+  rbind(
+    linear_linear_n_50_sigma_1_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_100_sigma_1_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_200_sigma_1_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_1000_sigma_1_mpec_linear_non_constraint_non_constraint)
+create_table_with_demand_shifter_bias_rmse(
+  linear_linear_sigma_1_mpec_linear_non_constraint_non_constraint
+)
+
+linear_linear_sigma_2_mpec_linear_non_constraint_non_constraint <-
+  rbind(
+    linear_linear_n_50_sigma_2_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_100_sigma_2_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_200_sigma_2_mpec_linear_non_constraint_non_constraint,
+    linear_linear_n_1000_sigma_2_mpec_linear_non_constraint_non_constraint)
+create_table_with_demand_shifter_bias_rmse(
+  linear_linear_sigma_2_mpec_linear_non_constraint_non_constraint
+)
+
+```
 
 ## log-linear-demand log-linear-cost with demand shifter {.tabset}
 
