@@ -368,7 +368,7 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-    @variable(model, θ)
+    @variable(model, 0 <= θ <= 1)
 
     MC = Any[];
     for t = 1:T
