@@ -1,7 +1,15 @@
 include("00setting_julia.jl")
 include("00functions.jl")
 parameter = market_parameters_log()
-estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:log_constraint, :theta_constraint), (:simultaneous,:non_constraint, :non_constraint), (:simultaneous,:log_constraint, :theta_constraint)];
+estimation_methods = 
+    [
+    (:separate, :non_constraint, :non_constraint),
+    (:separate, :non_constraint, :theta_constraint),
+    (:separate, :log_constraint, :theta_constraint),
+    (:simultaneous, :non_constraint, :non_constraint),
+    (:simultaneous, :non_constraint, :theta_constraint),
+    (:simultaneous, :log_constraint, :theta_constraint)
+    ];
 starting_value = :default
 tol_level = :loose
 #--------------------------------------------------------------------------------------------------------------
@@ -19,6 +27,7 @@ for estimation_method = estimation_methods
             sigma = Int64(sigma)
         end
         filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+        print("Simulate : $filename")
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
@@ -46,7 +55,11 @@ end
 
 
 #estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec_linear,:non_constraint, :non_constraint)]
-estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec,:non_constraint, :theta_constraint)]
+estimation_methods = 
+    [
+    (:mpec, :non_constraint, :non_constraint),
+    (:mpec, :non_constraint, :theta_constraint)
+    ]
 #estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
 
 starting_value = :true
@@ -68,6 +81,7 @@ for estimation_method = estimation_methods
             sigma = Int64(sigma)
         end
         filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+        print("Simulate : $filename")
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
@@ -111,6 +125,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
             sigma = Int64(sigma)
         end
         filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
+        print("Simulate : $filename")
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
@@ -123,7 +138,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])
 
-        filename_begin = "../conduct_parameter/output/parameter_hat_table_mpec_linear_linear_n_"
+        filename_begin = "../conduct_parameter/output/parameter_hat_table_linear_linear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
 
