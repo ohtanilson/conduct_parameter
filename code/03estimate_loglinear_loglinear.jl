@@ -27,7 +27,6 @@ for estimation_method = estimation_methods
             sigma = Int64(sigma)
         end
         filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-        print("Simulate : $filename")
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
@@ -43,6 +42,7 @@ for estimation_method = estimation_methods
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+        print("Simulate : $filename \n")
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
     end
@@ -81,7 +81,6 @@ for estimation_method = estimation_methods
             sigma = Int64(sigma)
         end
         filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-        print("Simulate : $filename")
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
@@ -101,6 +100,7 @@ for estimation_method = estimation_methods
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+        print("Simulate : $filename \n")
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
     end
@@ -125,7 +125,6 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
             sigma = Int64(sigma)
         end
         filename = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_end
-        print("Simulate : $filename")
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
@@ -141,6 +140,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
         filename_begin = "../conduct_parameter/output/parameter_hat_table_linear_linear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
+        print("Simulate : $filename \n")
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
     end
