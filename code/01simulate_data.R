@@ -139,7 +139,7 @@ generate_data <-
       }else{
         # aggregate quantity
         #log_Q_t = (α_0 + log(1 - θ * (α_1 + α_2 * z_t))  
-        #+ α_3 * y_t - ( γ_0 + γ_2 * log(w_t) + γ_3 * log(r_t)) + ε_d- ε_c)
+        #+ α_3 * log(y_t) - ( γ_0 + γ_2 * log(w_t) + γ_3 * log(r_t)) + ε_d- ε_c)
         # / (γ_1 + α_1 + α_2 * z_t) # Equilibrium total quantity
         logQ <- 
           (alpha0 + 
@@ -147,9 +147,9 @@ generate_data <-
                    theta *
                    (alpha1 +
                       alpha2 * z)) +
-             alpha3 * y - 
+             alpha3 * log(y) - 
              (gamma0 + 
-                gamma2 * log(w) +
+                gamma2 *log(w) +
                 gamma3 *log(r)) +
              (epsilon_d -
                 epsilon_c)
@@ -158,7 +158,7 @@ generate_data <-
 
         # aggregate price
         # log_p_t = α_0 - (α_1 + α_2 * z_t )* log_Q_t  +
-        # α_3 * y_t + ε_d # The demand function
+        # α_3 * log_y_t + ε_d # The demand function
         logP <- 
           alpha0 - 
           (alpha1 +
@@ -229,7 +229,7 @@ generate_data <-
                    theta *
                    (alpha1 +
                       alpha2 * z)) +
-             0 - 
+             0 * log(y) - 
              (gamma0 +
                 gamma2 * log(w) +
                 gamma3 *log(r)) +
