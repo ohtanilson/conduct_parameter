@@ -163,7 +163,7 @@ generate_data <-
           alpha0 - 
           (alpha1 +
              alpha2 * z) * logQ + 
-              alpha3 * y +
+              alpha3 * log(y) +
           epsilon_d
         logw <-
           log(w)
@@ -245,7 +245,8 @@ generate_data <-
           alpha0 - 
           (alpha1 + 
              alpha2 * z) * logQ + 
-          0 + epsilon_d
+          0 * log(y) + 
+          epsilon_d
         logw <-
           log(w)
         logr <-

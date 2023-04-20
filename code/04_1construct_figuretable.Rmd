@@ -120,7 +120,7 @@ for(nn in 1:length(n_observation_list)){
       sigma_list[ss]
     filename <-
       paste(
-        "mpec_linear_linear_",
+        "linear_linear_",
         "n_",
         temp_nn,
         "_sigma_",
@@ -893,43 +893,43 @@ create_table_with_demand_shifter(
 #### mpec
 
 ```{r,echo=FALSE,results = "asis"}
-mpec_linear_linear_sigma_0.001_mpec_linear_non_constraint_theta_constraint <-
+linear_linear_sigma_0.001_mpec_linear_non_constraint_theta_constraint <-
   rbind(
-    mpec_linear_linear_n_50_sigma_0.001_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_100_sigma_0.001_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_200_sigma_0.001_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_1000_sigma_0.001_mpec_linear_non_constraint_theta_constraint)
+    linear_linear_n_50_sigma_0.001_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_100_sigma_0.001_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_200_sigma_0.001_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_1000_sigma_0.001_mpec_linear_non_constraint_theta_constraint)
 create_table_loglinear_mpec_with_demand_shifter(
-  mpec_linear_linear_sigma_0.001_mpec_linear_non_constraint_theta_constraint
+  linear_linear_sigma_0.001_mpec_linear_non_constraint_theta_constraint
 )
-mpec_linear_linear_sigma_0.5_mpec_linear_non_constraint_theta_constraint <-
+linear_linear_sigma_0.5_mpec_linear_non_constraint_theta_constraint <-
   rbind(
-    mpec_linear_linear_n_50_sigma_0.5_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_100_sigma_0.5_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_200_sigma_0.5_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_1000_sigma_0.5_mpec_linear_non_constraint_theta_constraint)
+    linear_linear_n_50_sigma_0.5_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_100_sigma_0.5_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_200_sigma_0.5_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_1000_sigma_0.5_mpec_linear_non_constraint_theta_constraint)
 create_table_loglinear_mpec_with_demand_shifter(
-  mpec_linear_linear_sigma_0.5_mpec_linear_non_constraint_theta_constraint
-)
-
-mpec_linear_linear_sigma_1_mpec_linear_non_constraint_theta_constraint <-
-  rbind(
-    mpec_linear_linear_n_50_sigma_1_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_100_sigma_1_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_200_sigma_1_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_1000_sigma_1_mpec_linear_non_constraint_theta_constraint)
-create_table_loglinear_mpec_with_demand_shifter(
-  mpec_linear_linear_sigma_1_mpec_linear_non_constraint_theta_constraint
+  linear_linear_sigma_0.5_mpec_linear_non_constraint_theta_constraint
 )
 
-mpec_linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint <-
+linear_linear_sigma_1_mpec_linear_non_constraint_theta_constraint <-
   rbind(
-    mpec_linear_linear_n_50_sigma_2_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_100_sigma_2_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_200_sigma_2_mpec_linear_non_constraint_theta_constraint,
-    mpec_linear_linear_n_1000_sigma_2_mpec_linear_non_constraint_theta_constraint)
+    linear_linear_n_50_sigma_1_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_100_sigma_1_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_200_sigma_1_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_1000_sigma_1_mpec_linear_non_constraint_theta_constraint)
 create_table_loglinear_mpec_with_demand_shifter(
-  mpec_linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint
+  linear_linear_sigma_1_mpec_linear_non_constraint_theta_constraint
+)
+
+linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint <-
+  rbind(
+    linear_linear_n_50_sigma_2_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_100_sigma_2_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_200_sigma_2_mpec_linear_non_constraint_theta_constraint,
+    linear_linear_n_1000_sigma_2_mpec_linear_non_constraint_theta_constraint)
+create_table_loglinear_mpec_with_demand_shifter(
+  linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint
 )
 
 ```

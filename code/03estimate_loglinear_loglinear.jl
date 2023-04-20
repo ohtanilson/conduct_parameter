@@ -42,7 +42,7 @@ for estimation_method = estimation_methods
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        print("Simulate : $filename \n")
+        print("Simulate : $file_name \n")
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
     end
@@ -69,12 +69,7 @@ tol_level = :loose
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
         # Load the simulation data from the rds files
-        if estimation_method[1] == :mpec_linear
-            filename_begin = "../conduct_parameter/output/data_linear_linear_n_"
-        else
-            filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
-        end
-        
+        filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
         filename_end   = ".rds"
 
         if sigma == 1 || sigma == 2
@@ -100,7 +95,7 @@ for estimation_method = estimation_methods
         filename_begin = "../conduct_parameter/output/parameter_hat_table_loglinear_loglinear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        print("Simulate : $filename \n")
+        print("Simulate : $file_name \n")
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
     end
@@ -111,9 +106,8 @@ end
 
 
 
-#Check the performance of the MPEC method by using the linear specification
+# Check the performance of the MPEC method by using the linear specification
 # The estimation outcome will be stored in "output"
-
 
 for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
@@ -140,7 +134,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
         filename_begin = "../conduct_parameter/output/parameter_hat_table_linear_linear_n_"
         filename_end   = ".csv"
         file_name = filename_begin*string(t)*"_sigma_"*string(sigma)*filename_estimation*filename_end
-        print("Simulate : $filename \n")
+        print("Simulate : $file_name \n")
 
         CSV.write(file_name, estimation_result, transform=(col, val) -> something(val, missing))
     end

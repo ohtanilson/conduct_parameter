@@ -696,3 +696,43 @@ for(nn in 1:length(n_observation_list)){
 modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table)
+
+
+
+# loglinear check ----
+
+filename <-
+  paste(
+    "loglinear_loglinear_",
+    "n_",
+    1000,
+    "_sigma_",
+    1,
+    sep = ""
+  )
+target_data <-
+  readRDS(
+    file = 
+      here::here(
+        paste(
+          "output/data_",
+          filename,
+          ".rds",
+          sep = ""
+        )
+      )
+  )
+target_data_k <-
+  target_data %>% 
+  dplyr::filter(
+    group_id_k == 1
+  ) %>% 
+  dplyr::mutate(
+    logQz =
+      logQ * z
+  )
+## interaction ----
+res_ivreg <-
+  AER::ivreg(
+    formula = "logP ~ logQ + logQ:z + logy|logy + z + logw + logr",
+    data = target_data_k)
