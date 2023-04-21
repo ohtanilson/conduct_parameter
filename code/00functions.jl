@@ -296,7 +296,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
 
     MC = Any[];
     for t = 1:T
-        push!(MC, @NLexpression(model, (1 - θ * (β[2] + β[3] * X[2*t, end]))* P[t]))
+        push!(MC, @NLexpression(model, (1 - θ * (β[2] + β[3] * X[2*t, end]))* exp(P[t])))
     end
 
     r = Any[];

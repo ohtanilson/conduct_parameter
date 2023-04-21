@@ -57,7 +57,8 @@ generate_data <-
       w <-
         runif(nk, min = 1, max = 3)
       r <-
-        runif(nk, min = 0, max = 1)
+        #runif(nk, min = 0, max = 1)
+        runif(nk, min = 1, max = 3)
       y <-
         runif(nk, min = 1, max = 3)
         #rnorm(nk, mean = 0, sd = 1)
@@ -70,11 +71,11 @@ generate_data <-
         r + rnorm(nk, mean = 0, sd = 1)
       ## set parameter ----
       theta <-
-        0.3#0.5
+        0.1#0.5
       alpha0 <-
-        1
+        10
       alpha1 <-
-        1#1
+        1
       alpha2 <-
         target_alpha2#0.1#1
       alpha3 <-
