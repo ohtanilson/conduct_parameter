@@ -315,7 +315,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
             @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
         end
     end
-    @NLobjective(model, Min, sum(g[l] *Ω[l,k] * g[k] for l = 1:L, k = 1:L))
+    @NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L, k = 1:L))
     optimize!(model)
     
     α_hat = value.(β)[1:K_d]
@@ -368,11 +368,7 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-    if estimation_method[3] == :theta_constraint
-        @variable(model, 0 <= θ <= 1)
-    else
-        @variable(model, θ)
-    end
+    @variable(model, 0 <= θ <= 1)
 
     MC = Any[];
     for t = 1:T
