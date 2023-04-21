@@ -33,10 +33,10 @@ market_parameters_log = @with_kw (
     γ_1 = 1,
     γ_2 = 1,
     γ_3 = 1,
-    θ = 0.1,  # Conduct paramter
+    θ = 0.2,  # Conduct paramter
     σ = 1,    # Standard deviation of the error term
     T = 50,   # Number of markets
-    S = 10, # Number of simulation
+    S = 1000, # Number of simulation
     start_θ = 0.0,
     start_γ = [0.0, 0.0, 0.0, 0.0]
 )
