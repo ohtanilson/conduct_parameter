@@ -528,7 +528,7 @@ true_parameter_loglinear <-
     0.1,#target_alpha2
     1,
     rep(1, 4),
-    0.1
+    0.2
     )
 
 create_table_with_demand_shifter_bias_rmse <-
@@ -987,7 +987,7 @@ create_table_with_demand_shifter_bias_rmse(
 
 ```
 
-#### MPEC
+#### mpec non_constraint_theta_constraint
 
 ```{r,echo=FALSE,results = "asis"}
 linear_linear_sigma_0.001_mpec_linear_non_constraint_theta_constraint <-
