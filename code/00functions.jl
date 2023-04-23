@@ -300,15 +300,15 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
         @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X[2*t, end])* exp(P[t]))
     end
 
-    #MC = Any[];
-    #for t = 1:T
+    # MC = Any[];
+    # for t = 1:T
     #    push!(MC, @NLexpression(model, (1 - θ * (β[2] + β[3] * X[2*t, end]))* exp(P[t])))
-    #end
-    #if estimation_method[2] == :log_constraint
+    # end
+    # if estimation_method[2] == :log_constraint
     #    for t = 1:T
     #        @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
     #    end
-    #end
+    # end
 
     r = Any[];
     g = Any[];
