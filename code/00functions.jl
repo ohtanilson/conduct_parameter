@@ -287,6 +287,8 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
+    @constraint(model, c1, β[1] >=0) # constant term should be positive
+    @constraint(model, c2, β[K_d+1] >=0)
 
     if estimation_method[3] == :theta_constraint
         @variable(model, 0 <= θ <= 1)
