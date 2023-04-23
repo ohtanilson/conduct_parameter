@@ -334,6 +334,113 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
     end 
 end
 
+function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+    
+    """ 
+    Estimate the demand and supply parameter given a market simultaneously
+    The 
+    
+    """
+    @unpack α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
+
+    L = size(Z, 2)
+    K_s = size(X_s, 2)
+    K_d = size(X_d, 2)
+
+    # The wight function for the GMM estimation
+    Ω = inv(Z' * Z)/T
+
+    if tol_level == :tight
+        tol = 1e-15
+        acceptable_tol = 1e-12
+    elseif tol_level == :loose
+        tol = 1e-6
+        acceptable_tol = 1e-5
+    end
+
+    if start_value == :true
+        global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
+        global start_θ = θ
+
+    elseif start_value == :random
+        global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
+        global start_θ = θ + rand(Uniform(-10, 1))
+    end
+
+    # model = Model(Ipopt.Optimizer)
+    # set_optimizer_attribute(model, "tol", tol)
+    # set_optimizer_attribute(model, "max_iter", 1000)
+    # set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
+    # set_silent(model)
+    #@variable(model, β[k = 1:K_d+K_s-1])
+    # if estimation_method[3] == :theta_constraint
+    #     θ = zeros(1)
+
+    # else
+    
+    # end
+    
+    
+    f = function(target_param)
+        β = target_param[1:K_d+K_s-1]
+        if estimation_method[3] == :theta_constraint
+            # logit: 0 <= x/(1+x) <= 1
+            θ = target_param[K_d+K_s]/(1+target_param[K_d+K_s])
+        else
+            θ = target_param[K_d+K_s]
+        end
+    
+        
+        MC = zeros(T);
+        for t = 1:T
+            MC[t] = (1.0 - θ * (β[2] + β[3] * X[2*t, end]))* exp(P[t])
+        end
+        r = zeros(2*T);
+        g = zeros(T);
+        for t = 1:T
+            xb = 0
+            for k = 1:K_d
+                xb += β[k] * X[2*t-1,k]    
+            end
+            r[2*t-1] = P[t] - xb
+            for k = K_d+1:K_d+K_s-1
+                xb += β[k] * X[2*t,k]  
+            end
+            r[2*t] = log(MC[t]) - xb
+        end
+        for l = 1:L
+            Zr = 0
+            for t = 1:2*T
+                Zr += Z[t,l] * r[t]
+            end
+            g[l] = Zr
+        end
+        objQ = 0
+        for l = 1:L, k = 1:L
+            objQ += g[l] *Ω[l,k] * g[k]
+        end
+        return objQ
+    end
+
+    initial_x = vcat(start_β,start_θ)
+    results = Optim.optimize(f, initial_x)
+    status = Optim.converged(results)
+    α_hat = results.minimizer[1:K_d]
+    γ_hat = results.minimizer[K_d+1:K_d+K_s-1]
+    if estimation_method[3] == :theta_constraint
+        # logit: 0 <= x/(1+x) <= 1
+        θ_hat = results.minimizer[K_d+K_s]/(1+results.minimizer[K_d+K_s])
+    else
+        θ_hat = results.minimizer[K_d+K_s]
+    end
+
+    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+        return α_hat, γ_hat, θ_hat, status#termination_status_code(termination_status(model))
+    else 
+        error("The estimation result violates the model assumption ")
+    end 
+end
+
 function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
     
     """ 
@@ -400,6 +507,7 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
 
     return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
 end
+
 
 
 function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
@@ -470,8 +578,10 @@ function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbo
         α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
     elseif estimation_method[1] == :mpec
         α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
-    else
+    elseif estimation_method[1] == :mpec_linear
         α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
+    elseif estimation_method[1] == :optim_nelder_mead
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
     end
 
     return α_hat, γ_hat, θ_hat, status
