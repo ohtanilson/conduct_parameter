@@ -1,17 +1,6 @@
 include("00setting_julia.jl")
 include("00functions.jl")
 parameter = market_parameters_log()
-estimation_methods = 
-    [
-    (:separate, :non_constraint, :non_constraint),
-    (:separate, :non_constraint, :theta_constraint),
-    (:separate, :log_constraint, :theta_constraint),
-    (:simultaneous, :non_constraint, :non_constraint),
-    (:simultaneous, :non_constraint, :theta_constraint),
-    (:simultaneous, :log_constraint, :theta_constraint)
-    ];
-starting_value = :default
-tol_level = :loose
 #--------------------------------------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 #--------------------------------------------------------------------------------------------------------------
