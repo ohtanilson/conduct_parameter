@@ -10,6 +10,7 @@
 # Pkg.add("Parameters")
 # Pkg.add("JuMP")
 # Pkg.add("Ipopt")
+# Pkg.add("Optim")
 
 #----------------------------------------------------------------------------------
 # We assume that the reader already downloaded the above packages

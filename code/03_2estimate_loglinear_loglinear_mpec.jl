@@ -6,7 +6,6 @@ parameter = market_parameters_log()
 #--------------------------------------------------------------------------------------------------------------
 # Code for MPEC
 
-
 #estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec_linear,:non_constraint, :non_constraint)]
 estimation_methods = 
     [
