@@ -61,7 +61,7 @@ As the simplest specification, \citet{bresnahan1982oligopoly} considers the iden
 \textcolor{blue}{Estimation problems arise, however, when searching parameters using the standard solver because the equilibrium condition given by demand and supply curves involve log-transformation. This is the obstacle to the flexible specification of the demand and supply function.}
 
 
-To overcome the problem, we propose a new estimator based on the mathematical program with equilibrium constraints (MPEC) approach advocated by \cite{su2012constrained} and \cite{dube2012improving}. MPEC is a constrained optimization problem whose constraint structure contains the equilibrium constraints. The basic idea is that we estimate the structural parameters by maximizing the likelihood of the data with the constraints that endogenous economic variables are consistent with an equilibrium for the structural parameters. To implement MPEC, researchers write down expressions that define the objective function and the equilibrium equations as constraints and solve the constrained optimization problem using optimization solvers. 
+To overcome the problem, we propose a new estimator based on the mathematical program with equilibrium constraints (MPEC) approach advocated by \cite{su2012constrained}. MPEC is a constrained optimization problem whose constraint structure contains the equilibrium constraints. The basic idea is that we estimate the structural parameters by maximizing the likelihood or minimizing the objective function of the data with the constraints that endogenous economic variables are consistent with an equilibrium for the structural parameters. To implement MPEC, researchers write down expressions that define the objective function and the equilibrium equations as constraints and solve the constrained optimization problem using optimization solvers. 
 
 \textcolor{blue}{We show that MPEC estimator works well for the log-linear model.}
 
@@ -123,11 +123,24 @@ By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{e
 \begin{align}
     \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{\gamma_1+ \alpha_1 + \alpha_2 Z^{R}_{t} }.\label{eq:quantity_loglinear}
 \end{align}
-\textcolor{blue}{An obstacle to estimate  parameters is the term $\log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}))$. The standard numerical}
+\textcolor{blue}{An obstacle to estimate parameters is log-transformation. First, the standard numerical algorithm faces invalid errors when evaluating the term, $\log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}))$, whose inner candidate value, $(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}))$, is negative. The problem is inevitable because the true values of parameters are unknown. As in practical situations, researchers may want to use multiple rotation demand instruments or conduct parameters varied with time- or market- fixed effects.\footnote{See \cite{michel2018estimating} for the case of differentiated goods markets.} Then, the problem regarding the term becomes severer because the number of parameters within the log term increases. Second, if researchers may want to specify the demand function as $P_t=\alpha_0-\left(\alpha_1+\alpha_2 Z_t^R\right) Q_t+\alpha_3 Y_t+\varepsilon_t^d$, then the supply equation is changed to $P_l=\theta \alpha_2 Z_l^R Q_t+\theta \alpha_1Q_t+\exp(\gamma_0+\gamma_1 \log Q_t+\gamma_2 \log W_t+\gamma_3 \log R_t+\varepsilon_t^c)$ which is nonlinear in cost parameters and conduct parameter $\theta$. When constructing moment conditions, researchers face the above problem on log-transformation, similarly.}
 
-\section{The MPEC estimator for the conduct parameter model}
+% \subsection{Log-linear demand and log-quadratic marginal cost}
+% Next, we consider more nonlinear specification.
+% Assume that the cost function is a log-quadratic form specified as:
+% \begin{align}
+%     \log MC_t &= \gamma_0 + \gamma_1 \log Q_t + \tilde{\gamma}_1 (\log Q_t)^{2} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}.
+% \end{align}
+% Then, the log aggregate quantity $\log Q_t $ is a solution of: 
+% \begin{align}
+%     (\log Q_t)^{2} + \frac{\gamma_1}{\tilde{\gamma}_{1}}\log Q_{t} +\frac{C}{\tilde{\gamma}_{1}} &= 0,
+% \end{align}
+% where $C=\alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}$.
+% Note that although this specification does not have an analytical solution, we can find numerically find a single positive solution.
 
-We propose a novel estimator for the log-linear conduct parameter model by utilizing the Mathematical Programming with Equilibrium Constraints (MPEC) procedure advocated by \cite{su2012constrained} and \cite{dube2012improving}. Let $\Theta$ be the set of parameters such that $\xi = (\alpha_0,\alpha_1, \ldots, \alpha_3, \gamma_0,\gamma_1, \ldots, \gamma_3, \theta)$. Then, we obtain $\xi$ by solving the following constrained optimization problem:
+\section{An MPEC estimator for the conduct parameter model}
+
+We propose a novel estimator for the log-linear conduct parameter model by utilizing the Mathematical Programming with Equilibrium Constraints (MPEC) procedure advocated by \cite{su2012constrained}. \textcolor{blue}{MPEC estimator avoids the above log-transformation problem by evaluating the equilibrium equations involving log-transformation as constraints.} Let $\Theta$ be the set of parameters such that $\xi = (\alpha_0,\alpha_1, \ldots, \alpha_3, \gamma_0,\gamma_1, \ldots, \gamma_3, \theta)$. Then, we obtain $\xi$ by solving the following constrained optimization problem:
 \begin{align}
     &\min_{\xi \in \Xi}\quad g(\xi)' W(\xi) g(\xi) \\
     \text{s.t.}\quad g(\xi)&=\left[\begin{array}{l}
@@ -211,9 +224,9 @@ Table \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
   \begin{center}
       \caption{MPEC Results of the log-linear model}
       \label{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint}}
+      \subfloat[$\sigma=0.001$]{\input{figuretable/loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   Note: 
@@ -246,7 +259,7 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 We illustrate that MPEC works for a linear model as in Two-Stage-Least-Square (2SLS) approach in \cite{matsumura2023revisiting}. 
 % We confirm that the simultaneous equation model in which demand and supply parameters are jointly estimated and 2SLS model in which demand and supply parameters are separately estimated generate the similar results. 
 We follow the setting of \cite{matsumura2023revisiting}.
-We put an additional restriction such that $\theta\in[0,1]$ as a theoretical restriction. Table \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse} shows that MPEC estimator works well.
+We put an additional restriction such that $\theta\in[0,1]$ as a theoretical restriction. Table \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse} shows that MPEC estimator reduces bias and RMSE in particular when the sample size is large rather than 2SLS estimator shown in Table \ref{tb:linear_linear_sigma_1}.
 
 
 
@@ -263,6 +276,16 @@ We put an additional restriction such that $\theta\in[0,1]$ as a theoretical res
 \end{table} 
 
 
-
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{2SLS Results of the linear model}
+      \label{tb:linear_linear_sigma_1} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_bias_rmse.tex}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_bias_rmse}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
+  \end{center}
+  \footnotesize
+  Note: This table is cited from \cite{matsumura2023revisiting}.
+\end{table} 
 
 \end{document}
