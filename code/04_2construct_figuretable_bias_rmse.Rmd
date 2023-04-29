@@ -291,7 +291,8 @@ constraint_list <-
     "_separate_log_constraint_theta_constraint",
     "_simultaneous_non_constraint_non_constraint",
     "_simultaneous_non_constraint_theta_constraint",
-    "_simultaneous_log_constraint_theta_constraint"
+    "_simultaneous_log_constraint_theta_constraint",
+    "_optim_nelder_mead_non_constraint_theta_constraint"
     )
 # loglinear with constraint
 for(nn in 1:length(n_observation_list)){
@@ -1323,7 +1324,49 @@ create_table_loglinear_with_demand_shifter_bias_rmse(
 
 ```
 
+#### optim_nelder_mead
 
+```{r,echo=FALSE,results = "asis"}
+loglinear_loglinear_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint
+)
+loglinear_loglinear_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint
+)
+
+loglinear_loglinear_sigma_1_optim_nelder_mead_non_constraint_theta_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_1_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_1_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_1_optim_nelder_mead_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_1_optim_nelder_mead_non_constraint_theta_constraint
+)
+
+loglinear_loglinear_sigma_2_optim_nelder_mead_non_constraint_theta_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_100_sigma_2_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_200_sigma_2_optim_nelder_mead_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_2_optim_nelder_mead_non_constraint_theta_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_2_optim_nelder_mead_non_constraint_theta_constraint
+)
+
+```
 
 ### log_constraint_theta_constraint {.tabset}
 

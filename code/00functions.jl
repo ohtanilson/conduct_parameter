@@ -365,14 +365,14 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
         acceptable_tol = 1e-5
     end
 
-    if start_value == :true
+    #if start_value == :true
         global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
         global start_θ = θ
 
-    elseif start_value == :random
+    #elseif start_value == :random
         global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
         global start_θ = θ + rand(Uniform(-10, 1))
-    end
+    #end
 
     # model = Model(Ipopt.Optimizer)
     # set_optimizer_attribute(model, "tol", tol)
@@ -396,6 +396,10 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
         else
             θ = target_param[K_d+K_s]
         end
+        β[1] = exp(β[1]) # constant term should be positive
+        β[K_d+1] = exp(β[K_d+1]) # constant term should be positive
+        β[2] = exp(β[2]) # demand curve should be downward
+        β[3] = exp(β[3]) # demand curve should be downward
     
         
         MC = zeros(T);
@@ -433,7 +437,13 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
     results = Optim.optimize(f, initial_x)
     status = Optim.converged(results)
     α_hat = results.minimizer[1:K_d]
+    α_hat[1] = exp(α_hat[1]) # constant term should be positive
+    α_hat[2] = exp(α_hat[2]) # demand curve should be downward
+    α_hat[3] = exp(α_hat[3]) # demand curve should be downward
     γ_hat = results.minimizer[K_d+1:K_d+K_s-1]
+    γ_hat[1] = exp(γ_hat) # constant term should be positive
+
+
     if estimation_method[3] == :theta_constraint
         # logit: 0 <= x/(1+x) <= 1
         θ_hat = results.minimizer[K_d+K_s]/(1+results.minimizer[K_d+K_s])
