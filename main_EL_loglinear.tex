@@ -46,7 +46,7 @@
 
 \maketitle
 \begin{abstract}
-    \textcolor{blue}{We propose a constrained maximum likelihood estimator for conduct parameter estimation in homogeneous goods markets, by formulating the estimation as an MPEC (Mathematical Programming with Equilibrium Constraints) problem. Our approach avoids the complex transformation within the equilibrium conditions and allows more complex specifications which could not be estimated by standard approaches. Monte Carlo simulations confirm that the proposed estimator reduces bias and standard deviation of the estimator for the typical specification, i.e., log-linear model.%, especially when the sample is small/medium.
+    \textcolor{blue}{We propose a constrained maximum likelihood estimator for conduct parameter estimation in homogeneous goods markets, by formulating the estimation as an MPEC (Mathematical Programming with Equilibrium Constraints) problem. Our approach avoids the complex transformation within the equilibrium conditions and allows more complex specifications which could not be estimated by standard approaches. Monte Carlo simulations confirm that the proposed estimator works with small bias and Root-Mean-Squared-Error for the typical specification, i.e., log-linear model.
     }
 \end{abstract}
 
@@ -57,31 +57,14 @@ Conduct parameter is considered to be a useful measure of competitiveness.
 However, it cannot be directly measured from data because data usually lack information about marginal cost.
 Therefore, researchers endeavor to identify and estimate the conduct parameter.
 
-As the simplest specification, \citet{bresnahan1982oligopoly} considers the identification of conduct parameter for the linear model. \cite{matsumura2023revisiting} resolves the conflict on identification problem between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity} numerically and theoretically. On the other hand, researchers may want to implement more flexible specification such as log-linear model, e.g., \cite{okazaki2022excess} and \cite{merel2009measuring}. As for the log-linear model, the identification strategy is provided by \citet{lau1982identifying}. 
-\textcolor{blue}{Estimation problems arise, however, when searching parameters using the standard solver because the equilibrium condition given by demand and supply curves involve log-transformation. This is the obstacle to the flexible specification of the demand and supply function.}
+As the simplest specification, \citet{bresnahan1982oligopoly} considers the identification of conduct parameter for the linear model. \cite{matsumura2023revisiting} resolves the conflict on identification problem between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity} numerically and theoretically. On the other hand, researchers may want to implement a different set of specifications such as log-linear model, e.g., \cite{okazaki2022excess} and \cite{merel2009measuring}. As for the log-linear model, the identification strategy is provided by \citet{lau1982identifying}. 
+\textcolor{blue}{Estimation problems arise for the case, however, when searching parameters using the standard solver because the equilibrium condition given by demand and supply curves involve log-transformation. This is the obstacle to choose the best specification of the demand and supply functions from the alternative set of different specifications.}
 
 
 To overcome the problem, we propose a new estimator based on the mathematical program with equilibrium constraints (MPEC) approach advocated by \cite{su2012constrained}. MPEC is a constrained optimization problem whose constraint structure contains the equilibrium constraints. The basic idea is that we estimate the structural parameters by maximizing the likelihood or minimizing the objective function of the data with the constraints that endogenous economic variables are consistent with an equilibrium for the structural parameters. To implement MPEC, researchers write down expressions that define the objective function and the equilibrium equations as constraints and solve the constrained optimization problem using optimization solvers. 
 
-\textcolor{blue}{We show that MPEC estimator works well for the log-linear model.}
+\textcolor{blue}{We show that MPEC estimator works well for the log-linear model.[TBA]}
 
-% There are two conflicting results regarding the conduct parameter estimation in homogeneous goods markets in linear demand and marginal cost systems.
-% On the one hand, \citet{bresnahan1982oligopoly} proposes an approach for identifying the conduct parameter by using the demand rotation instrument.
-% As the identification is guaranteed, the conduct parameter can be estimated using standard linear regression.
-% This result is extended to nonlinear cases by \citet{lau1982identifying}
-% and to the differentiated product markets by  \citet{nevoIdentificationOligopolySolution1998}.
-
-
-% On the other hand, \citet{perloff2012collinearity} (hereafter, PS) assert that the linear model considered in \citet{bresnahan1982oligopoly} suffers from the multicollinearity problem when the error terms in the demand and supply equations are zero, implying that the identification of the conduct parameter is impossible.
-% PS also use simulations to demonstrate that parameters cannot be estimated accurately even when the error terms are nonzero. 
-% This is a major obstacle in the literature. 
-% Several papers and handbook chapters reference the result in PS. See \citet{claessensWhatDrivesBank2004, coccoreseMultimarketContactCompetition2013, coccoreseWhatAffectsBank2021, garciaMarketStructuresProduction2020, kumbhakarNewMethodEstimating2012, perekhozhukRegionalLevelAnalysisOligopsony2015} and \citet{shafferMarketPowerCompetition2017}.
-
-% We revisit the identification and estimation of the conduct parameter in homogeneous product markets to determine which result is correct.
-% First, we show that the proof of the multicollinearity problem in PS is incorrect and that the multicollinearity problem does not occur under standard assumptions that reflect the insight in \citet{bresnahan1982oligopoly}.
-% Second, the simulation in PS lacks an excluded demand shifter in the supply equation estimation, and we confirm that the accuracy of the estimation holds by properly including a demand shifter in the supply equation estimation. 
-% We also show that increasing the sample size improves the accuracy of estimation. 
-% Hence, we support \cite{bresnahan1982oligopoly} theoretically and numerically.
 
 \section{Model}
 The researcher has data with $T$ markets with homogeneous products.
@@ -98,13 +81,13 @@ Consider an econometric model of the above model.
 Assume that the demand function and the marginal cost function are written as follows: 
 \begin{align}
     P_t = f(Q_{t}, Y_t, \varepsilon^{d}_{t}, \alpha) \label{eq:demand}\\
-    MC_t = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma)\label{eq:marginal_cost}
+    MC_t = g_{t}(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma)\label{eq:marginal_cost}
 \end{align}
 where $Y_t$ and $W_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
 We also have the demand- and supply-side instrument variables $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid Y_t, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
 
 \subsection{Log-linear demand and log-linear marginal cost}
-We consider the most typical nonlinear specification as the log-linear model.
+We consider the most typical specification which is nonlinear-in-parameters as the log-linear model.
 Assume that log-linear demand and cost functions are specified as:
 \begin{align}
     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\label{eq:log_linear_demand}\\
@@ -112,12 +95,12 @@ Assume that log-linear demand and cost functions are specified as:
 \end{align}
 Since $\partial P_t/\partial Q_t = - (\alpha_1 + \alpha_2 Z_{t}^R) (P_t/Q_t) $, Equation \eqref{eq:supply_equation} is written as:
 \begin{align}
-    P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t.
+    P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t.\label{eq:log_linear_supply_equation_direct}
 \end{align}
 By reformulating this and taking logarithm, $\log P_t(1 -\theta (\alpha_1 + \alpha_2 Z^{R}_{t})) = \log MC_t.$
 Then, we obtain:
 \begin{align}
-    \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}. \label{eq:log_linear_supply_equation}
+    \log P_t = - \log_{t}(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}. \label{eq:log_linear_supply_equation}
 \end{align}
 By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{eq:log_linear_supply_equation} and solving it for $P_{t}$, the log aggregate quantity is given as: 
 \begin{align}
@@ -140,22 +123,28 @@ By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{e
 
 \section{An MPEC estimator for the conduct parameter model}
 
-We propose a novel estimator for the log-linear conduct parameter model by utilizing the Mathematical Programming with Equilibrium Constraints (MPEC) procedure advocated by \cite{su2012constrained}. \textcolor{blue}{MPEC estimator avoids the above log-transformation problem by evaluating the equilibrium equations involving log-transformation as constraints.} Let $\Theta$ be the set of parameters such that $\xi = (\alpha_0,\alpha_1, \ldots, \alpha_3, \gamma_0,\gamma_1, \ldots, \gamma_3, \theta)$. Then, we obtain $\xi$ by solving the following constrained optimization problem:
+We propose a novel estimator for the log-linear conduct parameter model by utilizing the Mathematical Programming with Equilibrium Constraints (MPEC) procedure advocated by \cite{su2012constrained}. \textcolor{blue}{MPEC estimator avoids the above log-transformation problem by evaluating the equilibrium equations involving log-transformation as constraints.} Let $\mathcal{T}$ be the set of markets. Let $\Xi$ be the set of parameters $\xi = (\alpha_0,\alpha_1, \ldots, \alpha_3, \gamma_0,\gamma_1, \ldots, \gamma_3, \theta)$. Then, we obtain $\xi\in \Xi$ by solving the following constrained optimization problem:
 \begin{align}
-    &\min_{\xi \in \Xi}\quad g(\xi)' W(\xi) g(\xi) \\
-    \text{s.t.}\quad g(\xi)&=\left[\begin{array}{l}
-\varepsilon^{d}_{t}Z_{t}^{d} \\
-\varepsilon^{c}_{t}Z_{t}^{c}
-\end{array}\right]\\
-    \varepsilon^{d}_{t}(\xi)&=\log P_{t} -[\alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t] \\
-    \varepsilon^{c}_{t} (\xi)&= \log MC_t -[\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t]\\
-    MC_t &= P_t(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})),\\
-    W(\xi)&=Z_{t}'Z_{t}, \quad Z_{t}=\left[\begin{array}{ll}
+    &\min_{\xi \in \Xi}\quad \left(\frac{1}{T}\sum_{t=1}^{T}g_{t}(\xi)\right)' W\left(\frac{1}{T}\sum_{t=1}^{T}g_{t}(\xi)\right) \label{eq:objective_gmm}\\
+    \text{s.t.}\quad g_{t}(\xi)&=\left[\begin{array}{l}
+\varepsilon^{d}_{t}(\xi)Z_{t}^{d} \\
+\varepsilon^{c}_{t}(\xi)Z_{t}^{c}
+\end{array}\right], \quad W=\frac{1}{T}(Z'Z)^{-1}, \quad Z=\left[\begin{array}{c}
+Z_{1} \\
+\vdots \\
+Z_{t}
+\end{array}\right],\quad Z_{t}=\left[\begin{array}{ll}
 Z_{t}^{d} & 0 \\
 0 & Z_{t}^{c}
-\end{array}\right]
+\end{array}\right],\quad  \forall t \in \mathcal{T}\nonumber\\
+    \varepsilon^{d}_{t}(\xi)&=\log P_{t} -[\alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t],\quad  \forall t \in \mathcal{T} \label{eq:demand_gmm}\\
+    \varepsilon^{c}_{t} (\xi)&= \log MC_t -[\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t],\quad  \forall t \in \mathcal{T}\label{eq:supply_gmm}\\
+    MC_t &= P_t(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})),\quad  \forall t \in \mathcal{T},\label{eq:equilibrium_constraint}\\
+    &0\le\theta \le 1,\quad  0 \le \alpha_0,\quad  0\le \gamma_0 \label{eq:parameter_constraint}
 \end{align}
-where $W(\xi)$ is the weighting matrix. 
+where $W$ is the weighting matrix, Equation \eqref{eq:objective_gmm} is the GMM objective function of simultaneous equation model, 
+Equations \eqref{eq:demand_gmm} and \eqref{eq:supply_gmm} are specifications of demand \eqref{eq:log_linear_demand} and supply curves \eqref{eq:log_linear_marginal_cost}, 
+Equation \eqref{eq:equilibrium_constraint} is the equilibrium constraint from Equation \eqref{eq:log_linear_supply_equation_direct}, and Equation \eqref{eq:parameter_constraint} are constraints on the conduct parameter and constant term parameters of the demand and supply curves. Constraints \eqref{eq:parameter_constraint} are practically necessary to avoid searching theoretically implausible parameters from the theoretical model. MPEC allows for more flexible specifications on Equations \eqref{eq:demand_gmm}, \eqref{eq:supply_gmm}, and \eqref{eq:equilibrium_constraint} that the standard optimization does not allow. 
 
 
 
@@ -179,7 +168,7 @@ The instrument variables for the demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, 
             $\alpha_1$ & $1.0$  \\
             $\alpha_2$ & $0.1$ \\
             $\alpha_3$ & $1.0$ \\
-            $\gamma_0$ & $1.0$  \\
+            $\gamma_0$ & $5.0$  \\
             $\gamma_1$ & $1.0$  \\
             $\gamma_2$ & $1.0$ \\
             $\gamma_3$ & $1.0$ \\

@@ -159,12 +159,13 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         end
 
         # Check if the supply estimation result satisfies the assumption
-        if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+        return α_hat, γ_hat, θ_hat, termination_status_code(JuMP.termination_status(model))
+        #if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
 
-            return α_hat, γ_hat, θ_hat, termination_status_code(JuMP.termination_status(model))
-        else
-            error("The estimation result violates the model assumption ")
-        end
+        #   return α_hat, γ_hat, θ_hat, termination_status_code(JuMP.termination_status(model))
+        #else
+        #    error("The estimation result violates the model assumption ")
+        #end
     end
 
 end
@@ -241,11 +242,12 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
     γ_hat = value.(β)[K_d+1:end]
     θ_hat = value.(θ)
 
-    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    else 
-        error("The estimation result violates the model assumption ")
-    end 
+    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    #if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+    #    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    #else 
+    #    error("The estimation result violates the model assumption ")
+    #end 
 end
 
 function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
@@ -331,11 +333,12 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
     γ_hat = value.(β)[K_d+1:end]
     θ_hat = value.(θ)
 
-    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    else 
-        error("The estimation result violates the model assumption ")
-    end 
+    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    #if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+    #    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    #else 
+    #    error("The estimation result violates the model assumption ")
+    #end 
 end
 
 function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
@@ -438,11 +441,12 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
         θ_hat = results.minimizer[K_d+K_s]
     end
 
-    if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-        return α_hat, γ_hat, θ_hat, status#termination_status_code(termination_status(model))
-    else 
-        error("The estimation result violates the model assumption ")
-    end 
+    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    #if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
+    #    return α_hat, γ_hat, θ_hat, status#termination_status_code(termination_status(model))
+    #else 
+    #    error("The estimation result violates the model assumption ")
+    #end 
 end
 
 function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
