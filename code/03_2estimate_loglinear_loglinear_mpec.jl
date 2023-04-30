@@ -1,5 +1,5 @@
-include("00setting_julia.jl")
-include("00functions.jl")
+@everywhere include("../conduct_parameter/code/00setting_julia.jl")
+@everywhere include("../conduct_parameter/code/00functions.jl")
 parameter = market_parameters_log()
 #--------------------------------------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
@@ -14,9 +14,10 @@ estimation_methods =
     ]
 #estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
 
-starting_value = :true
+starting_value = :true_value
 tol_level = :loose
 
+# T = 1000 only
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]

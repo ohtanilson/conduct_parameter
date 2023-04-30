@@ -39,15 +39,13 @@ end
 
 #---------------------------------------------------------------------------------------------
 
-function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
 
     """
     Estimate the demand and supply parameter given a market
     The demand parameters are destimated by IV.
     The supply parameters and the conduct parameter are estimated by the GMM.
     """
-
-    @unpack γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
     # first stage
     QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
     Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  Q
@@ -71,21 +69,24 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         acceptable_tol = 1e-5
     end
 
-    if starting_value == :true
-        start_θ = θ
+
+    start_γ = zeros(4)
+    start_θ = 0
+    if starting_value == :true_value
+        start_θ = θ_0
         start_γ = [γ_0, γ_1, γ_2, γ_3]
 
     elseif starting_value == :random
         start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4)
         start_θ = 10
         while sum(1 .- start_θ .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) != 0
-            start_θ = θ + rand(Uniform(-10, 1))
+            start_θ = θ_0 + rand(Uniform(-10, 1))
         end
     end
 
     # Pick up the index of market under which the inside of the log has a negative value
     for t = 1:T
-        if 1 .- θ .*(α_hat[2] .+ α_hat[3] .* X_s[t,end]) <= 0
+        if 1 .- θ_0 .*(α_hat[2] .+ α_hat[3] .* X_s[t,end]) <= 0
             push!(sample_violatiton_index, t)
         end
     end
@@ -171,14 +172,13 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 end
 
 
-function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
     The 
     
     """
-    @unpack γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
 
     L = size(Z, 2)
     K_s = size(X_s, 2)
@@ -195,14 +195,17 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
         acceptable_tol = 1e-5
     end
 
-    if starting_value == :true
+    start_β = zeros(8)
+    start_θ = 0
+
+    if starting_value == :true_value
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
-        start_θ = θ
+        start_θ = θ_0
 
     elseif starting_value == :random
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
         while sum(1 .- start_θ .*(α_1[2] .+ α_2 .* X[:,end]) .<= 0) != 0
-            start_θ = θ + rand(Uniform(-10, 1))
+            start_θ = θ_0 + rand(Uniform(-10, 1))
         end
     end
 
@@ -250,14 +253,12 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
     #end 
 end
 
-function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
-    The 
-    
+
     """
-    @unpack γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
 
     L = size(Z, 2)
     K_s = size(X_s, 2)
@@ -274,30 +275,34 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
         acceptable_tol = 1e-5
     end
 
-    if starting_value == :true
-        start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
-        start_θ = θ
+    start_β = zeros(8)
+    start_θ = 0
 
+    if starting_value == :true_value
+        start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
+        start_θ = θ_0
     elseif starting_value == :random
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
-        start_θ = θ + rand(Uniform(-10, 1))
+        start_θ = θ_0 + rand(Uniform(-10, 1))
     end
+
 
     model = Model(Ipopt.Optimizer)
     set_optimizer_attribute(model, "tol", tol)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s-1])
-    @constraint(model, c1, β[1] >=0) # constant term should be positive
-    @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
-    @constraint(model, c3, β[2] >=0) # demand curve should be downward
-    @constraint(model, c4, β[3] >=0) # demand curve should be downward
+    @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
+
+    #@constraint(model, c1, β[1] >=0) # constant term should be positive
+    #@constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
+    #@constraint(model, c3, β[2] >=0) # demand curve should be downward
+    #@constraint(model, c4, β[3] >=0) # demand curve should be downward
 
     if estimation_method[3] == :theta_constraint
-        @variable(model, 0 <= θ <= 1)
+        @variable(model, 0 <= θ <= 1, start = start_θ)
     else
-        @variable(model, θ)
+        @variable(model, θ, start = start_θ)
     end
 
     @variable(model, 0 <= MC[t = 1:T])
@@ -340,15 +345,11 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
     #end 
 end
 
-function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
-    The 
-    
     """
-    @unpack α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
-
     L = size(Z, 2)
     K_s = size(X_s, 2)
     K_d = size(X_d, 2)
@@ -364,13 +365,13 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
         acceptable_tol = 1e-5
     end
 
-    #if starting_value == :true
+    #if starting_value == :true_value
         global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
-        global start_θ = θ
+        global start_θ = θ_0
 
     #elseif starting_value == :random
         global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
-        global start_θ = θ + rand(Uniform(-10, 1))
+        global start_θ = θ_0 + rand(Uniform(-10, 1))
     #end
 
     # model = Model(Ipopt.Optimizer)
@@ -458,14 +459,11 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
     #end 
 end
 
-function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,  estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
-    The 
-    
     """
-    @unpack γ_0, γ_1, γ_2, γ_3, θ, start_θ, start_γ = parameter
 
     L = size(Z, 2)
     K_s = size(X_s, 2)
@@ -482,7 +480,7 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
         acceptable_tol = 1e-5
     end
 
-    if starting_value == :true
+    if starting_value == :true_value
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
         start_θ = θ
 
@@ -527,31 +525,50 @@ end
 
 
 
-function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+@everywhere function estimate_nonlinear_2SLS(simulation_setting::SIMULATION_SETTING)
     """
     Given data, reshape the data and pass it to the function that implement the GMM estimation
 
     """
 
-    @unpack T = parameter
+    α_0 = simulation_setting.α_0
+    α_1 = simulation_setting.α_1
+    α_2 = simulation_setting.α_2
+    α_3 = simulation_setting.α_3
+    γ_0 = simulation_setting.γ_0
+    γ_1 = simulation_setting.γ_1
+    γ_2 = simulation_setting.γ_2
+    γ_3 = simulation_setting.γ_3
+    θ_0 = simulation_setting.θ_0
+    start_θ = simulation_setting.start_θ
+    start_γ = simulation_setting.start_γ
+    T = simulation_setting.T
+    data = simulation_setting.data
+    estimation_method = simulation_setting.estimation_method
+    starting_value = simulation_setting.starting_value
+    tol_level = simulation_setting.tol_level
+    simulation_index  = simulation_setting.simulation_index
+
+    data_s = data[(simulation_index-1)*T+1:simulation_index*T,:]
+
     if estimation_method[1] == :mpec_linear
-        Q  = data.Q
-        w  = data.w
-        r  = data.r
-        p  = data.P
-        y  = data.y
+        Q  = data_s.Q
+        w  = data_s.w
+        r  = data_s.r
+        p  = data_s.P
+        y  = data_s.y
     else
-        Q  = data.logQ
-        w  = data.logw
-        r  = data.logr
-        p  = data.logP
-        y  = data.logy
+        Q  = data_s.logQ
+        w  = data_s.logw
+        r  = data_s.logr
+        p  = data_s.logP
+        y  = data_s.logy
     end
 
     
-    z  = data.z
-    iv_w = data.iv_w
-    iv_r = data.iv_r
+    z  = data_s.z
+    iv_w = data_s.iv_w
+    iv_r = data_s.iv_r
     
     iv = hcat(iv_w, iv_r)
 
@@ -590,42 +607,43 @@ function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbo
     Z_s = reduce(vcat,(Z_s))
 
     if estimation_method[1] == :separate 
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method, starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ , estimation_method, starting_value, tol_level)
     elseif estimation_method[1] == :simultaneous
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :mpec
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d,  α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ ,estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :mpec_linear
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :optim_nelder_mead
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     end
 
     return α_hat, γ_hat, θ_hat, status
 end
 
-function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+@everywhere function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
 
     """
     Given the simulation data, run the estimation in each simulation index s = 1,..., 1000, and store the simulation results as a DataFrame file.
     """
 
-    @unpack T, S, σ = parameter
+    @unpack α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, T, S, σ = parameter
 
     α_est  = Vector{Float64}[]
     γ_est  = Vector{Union{Missing, Float64}}[]
     θ_est  = Union{Missing, Float64}[]
     status = Union{Missing, Int64}[]
 
-    for s = 1:S
-        data_s = data[(s-1)*T+1:s*T,:]
-        α_est_s, γ_est_s, θ_est_s, status_s = estimate_nonlinear_2SLS(parameter, data_s, estimation_method, starting_value, tol_level)
+    simulation_setting = [SIMULATION_SETTING(α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, T, σ, data, estimation_method, starting_value, tol_level,simulation_index) for simulation_index = 1:S]
 
-        push!(α_est, α_est_s)
-        push!(γ_est, γ_est_s)
-        push!(θ_est, θ_est_s)
-        push!(status,status_s)
-    end
+    @elapsed @time simulation_mpec_result = pmap(estimate_nonlinear_2SLS, simulation_setting);
+
+    for s = 1:S
+        push!(α_est, simulation_mpec_result[s][1])
+        push!(γ_est, simulation_mpec_result[s][2])
+        push!(θ_est, simulation_mpec_result[s][3])
+        push!(status,simulation_mpec_result[s][4])
+    end 
 
     α_est = reduce(vcat, α_est')
     γ_est = reduce(vcat, γ_est')
@@ -669,7 +687,7 @@ function generate_contour_set_of_GMM(parameter, data, theta_range, gamma_range)
     Draw the contour plot of the GMM value function with respect to the conduct parameter and the constant in the marginal cost function
     """
 
-    @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ, σ ,T = parameter
+    @unpack α_0, α_1, α_2, α_3,γ_0 , γ_1 ,γ_2 ,γ_3, θ_0, σ ,T = parameter
 
     γ = [γ_0 , γ_1 ,γ_2 ,γ_3]
     α = [α_0, α_1, α_2, α_3]
@@ -750,7 +768,7 @@ function generate_difference_GMM_value(parameter, data, estimation_result)
 
     """
     
-    @unpack α_0, α_1, α_2, α_3, γ_0, γ_1 ,γ_2 ,γ_3, θ, σ ,T = parameter
+    @unpack α_0, α_1, α_2, α_3, γ_0, γ_1 ,γ_2 ,γ_3, θ_0, σ ,T = parameter
 
     γ = [γ_0 , γ_1 ,γ_2 ,γ_3]
     α = [α_0, α_1, α_2, α_3]

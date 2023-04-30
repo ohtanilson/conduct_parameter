@@ -1,5 +1,5 @@
-include("00setting_julia.jl")
-include("00functions.jl")
+@everywhere include("../conduct_parameter/code/00setting_julia.jl")
+@everywhere include("../conduct_parameter/code/00functions.jl")
 parameter = market_parameters_log()
 estimation_methods = 
     [
@@ -19,7 +19,7 @@ tol_level = :loose
 
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 for estimation_method = estimation_methods
-    for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
+    for t = [50, 100, 200], sigma =  [0.001, 0.5, 1, 2]
         # Load the simulation data from the rds files
         filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
         filename_end   = ".rds"
