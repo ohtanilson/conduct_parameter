@@ -24,7 +24,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
         parameter = market_parameters_log(T = t, σ = sigma)
         
         # Estimation based on 2SLS
-        @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method, start_value, tol_level)
+        @time estimation_result = iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method, starting_value, tol_level)
 
         # Save the estimation result as csv file. The file is saved at "output" folder
         filename_estimation = "_"*String(estimation_method[1])*"_"*String(estimation_method[2])*"_"*String(estimation_method[3])

@@ -39,7 +39,7 @@ end
 
 #---------------------------------------------------------------------------------------------
 
-function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
 
     """
     Estimate the demand and supply parameter given a market
@@ -71,11 +71,11 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
         acceptable_tol = 1e-5
     end
 
-    if start_value == :true
+    if starting_value == :true
         start_θ = θ
         start_γ = [γ_0, γ_1, γ_2, γ_3]
 
-    elseif start_value == :random
+    elseif starting_value == :random
         start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4)
         start_θ = 10
         while sum(1 .- start_θ .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) != 0
@@ -171,7 +171,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, e
 end
 
 
-function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -195,11 +195,11 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
         acceptable_tol = 1e-5
     end
 
-    if start_value == :true
+    if starting_value == :true
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
         start_θ = θ
 
-    elseif start_value == :random
+    elseif starting_value == :random
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
         while sum(1 .- start_θ .*(α_1[2] .+ α_2 .* X[:,end]) .<= 0) != 0
             start_θ = θ + rand(Uniform(-10, 1))
@@ -250,7 +250,7 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, paramete
     #end 
 end
 
-function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -274,11 +274,11 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
         acceptable_tol = 1e-5
     end
 
-    if start_value == :true
+    if starting_value == :true
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
         start_θ = θ
 
-    elseif start_value == :random
+    elseif starting_value == :random
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
         start_θ = θ + rand(Uniform(-10, 1))
     end
@@ -340,7 +340,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estim
     #end 
 end
 
-function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -364,11 +364,11 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
         acceptable_tol = 1e-5
     end
 
-    #if start_value == :true
+    #if starting_value == :true
         global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
         global start_θ = θ
 
-    #elseif start_value == :random
+    #elseif starting_value == :random
         global start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
         global start_θ = θ + rand(Uniform(-10, 1))
     #end
@@ -458,7 +458,7 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, esti
     #end 
 end
 
-function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -482,11 +482,11 @@ function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter
         acceptable_tol = 1e-5
     end
 
-    if start_value == :true
+    if starting_value == :true
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
         start_θ = θ
 
-    elseif start_value == :random
+    elseif starting_value == :random
         start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
         start_θ = θ + rand(Uniform(-10, 1))
     end
@@ -527,7 +527,7 @@ end
 
 
 
-function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     """
     Given data, reshape the data and pass it to the function that implement the GMM estimation
 
@@ -590,21 +590,21 @@ function estimate_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbo
     Z_s = reduce(vcat,(Z_s))
 
     if estimation_method[1] == :separate 
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method, start_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method, starting_value, tol_level)
     elseif estimation_method[1] == :simultaneous
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :mpec
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :mpec_linear
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :optim_nelder_mead
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , start_value, tol_level)
+        α_hat, γ_hat, θ_hat, status = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, parameter, estimation_method , starting_value, tol_level)
     end
 
     return α_hat, γ_hat, θ_hat, status
 end
 
-function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, start_value, tol_level)
+function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
 
     """
     Given the simulation data, run the estimation in each simulation index s = 1,..., 1000, and store the simulation results as a DataFrame file.
@@ -619,7 +619,7 @@ function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tu
 
     for s = 1:S
         data_s = data[(s-1)*T+1:s*T,:]
-        α_est_s, γ_est_s, θ_est_s, status_s = estimate_nonlinear_2SLS(parameter, data_s, estimation_method, start_value, tol_level)
+        α_est_s, γ_est_s, θ_est_s, status_s = estimate_nonlinear_2SLS(parameter, data_s, estimation_method, starting_value, tol_level)
 
         push!(α_est, α_est_s)
         push!(γ_est, γ_est_s)
