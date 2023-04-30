@@ -1,5 +1,5 @@
-@everywhere include("../conduct_parameter/code/00setting_julia.jl")
-@everywhere include("../conduct_parameter/code/00functions.jl")
+@everywhere include("../code/00setting_julia.jl")
+@everywhere include("../code/00functions.jl")
 parameter = market_parameters_log()
 #--------------------------------------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms

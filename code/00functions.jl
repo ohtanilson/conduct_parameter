@@ -294,10 +294,10 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
 
-    #@constraint(model, c1, β[1] >=0) # constant term should be positive
-    #@constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
-    #@constraint(model, c3, β[2] >=0) # demand curve should be downward
-    #@constraint(model, c4, β[3] >=0) # demand curve should be downward
+    @constraint(model, c1, β[1] >=0) # constant term should be positive
+    @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
+    @constraint(model, c3, β[2] >=0) # demand curve should be downward
+    @constraint(model, c4, β[3] >=0) # demand curve should be downward
 
     if estimation_method[3] == :theta_constraint
         @variable(model, 0 <= θ <= 1, start = start_θ)
