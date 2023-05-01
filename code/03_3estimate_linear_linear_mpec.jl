@@ -1,6 +1,6 @@
 using Distributed
-Distributed.include("00setting_julia.jl")
-Distributed.include("00functions.jl")
+Distributed.@everywhere include("00setting_julia.jl")
+Distributed.@everywhere include("00functions.jl")
 parameter = market_parameters_log()
 starting_value = :default
 tol_level = :loose

@@ -612,6 +612,9 @@ end
         α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :mpec
         α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d,  α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ ,estimation_method , starting_value, tol_level)
+        if simulation_index % 100 == 0
+            print("\nsimulation_index $simulation_index\n")
+        end
     elseif estimation_method[1] == :mpec_linear
         α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :optim_nelder_mead
