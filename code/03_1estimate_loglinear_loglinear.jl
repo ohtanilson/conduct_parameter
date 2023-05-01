@@ -1,5 +1,6 @@
-@everywhere include("../code/00setting_julia.jl")
-@everywhere include("../code/00functions.jl")
+using Distributed
+Distributed.@everywhere include("../code/00setting_julia.jl")
+Distributed.@everywhere include("../code/00functions.jl")
 parameter = market_parameters_log()
 estimation_methods = 
     [

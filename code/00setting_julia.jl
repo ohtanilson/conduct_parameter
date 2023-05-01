@@ -23,7 +23,7 @@ using Plots
 using VegaLite
 using Parameters: @with_kw, @unpack
 using JuMP, Ipopt, Optim
-using Distributed
+
 
 # Set parameters for log-linear model
 market_parameters_log = @with_kw (
