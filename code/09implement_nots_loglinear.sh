@@ -6,7 +6,7 @@
 #SBATCH --mem-per-cpu=5G          # memory per cpu-core (4G is default)
 #SBATCH --time=02:00:00           # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=All           # send email when job begins and ends
-#SBATCH --mail-user=ym23@rice.edu
+#SBATCH --mail-user=ym23@rice.edu,so19@rice.edu
 #SBATCH --output=conduct_parameter_loglinear.out
 
 module purge
