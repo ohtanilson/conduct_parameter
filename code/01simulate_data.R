@@ -373,7 +373,7 @@ for(nn in 1:length(n_observation_list)){
         target_sigma = temp_sigma,
         specification = "loglinear_loglinear",
         demand_shifter_dummy = TRUE,
-        target_alpha2 = 0.1
+        target_alpha2 = - 0.2
       )
     filename <-
       paste(
