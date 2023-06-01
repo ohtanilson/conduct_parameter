@@ -526,7 +526,7 @@ true_parameter_loglinear <-
   c(
     10,
     1,
-    0.1,#target_alpha2
+    -0.2,#0.1,#target_alpha2
     1,
     5, # gamma0
     1,
