@@ -216,9 +216,9 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
-    @constraint(model, c1, β[1] >=0)     # constant term should be positive
-    @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
-    @constraint(model, c3, β[2] >=0)     # demand curve should be downward
+    # @constraint(model, c1, β[1] >=0)     # constant term should be positive
+    # @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
+    #@constraint(model, c3, β[2] >=0)     # demand curve should be downward
     #@constraint(model, c4, β[3] >=0)     # demand curve should be downward
 
 
@@ -300,9 +300,9 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
     set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
 
-    @constraint(model, c1, β[1] >=0) # constant term should be positive
-    @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
-    @constraint(model, c3, β[2] >=0) # demand curve should be downward
+    # @constraint(model, c1, β[1] >=0) # constant term should be positive
+    # @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
+    #@constraint(model, c3, β[2] >=0) # demand curve should be downward
     #@constraint(model, c4, β[3] >=0) # demand curve should be downward
 
     if estimation_method[3] == :theta_constraint
@@ -402,9 +402,9 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_
         else
             θ = target_param[K_d+K_s]
         end
-        β[1] = exp(β[1]) # constant term should be positive
-        β[K_d+1] = exp(β[K_d+1]) # constant term should be positive
-        β[2] = exp(β[2]) # demand curve should be downward
+        β[1] = β[1] # constant term should be positive
+        β[K_d+1] = β[K_d+1] # constant term should be positive
+        β[2] = β[2] # demand curve should be downward
         β[3] = β[3] # demand curve should be downward
     
         
@@ -443,11 +443,11 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_
     results = Optim.optimize(f, initial_x)
     status = Optim.converged(results)
     α_hat = results.minimizer[1:K_d]
-    α_hat[1] = exp(α_hat[1]) # constant term should be positive
-    α_hat[2] = exp(α_hat[2]) # demand curve should be downward
+    α_hat[1] = α_hat[1] # constant term should be positive
+    α_hat[2] = α_hat[2] # demand curve should be downward
     α_hat[3] = α_hat[3] # demand curve should be downward
     γ_hat = results.minimizer[K_d+1:K_d+K_s-1]
-    γ_hat[1] = exp(γ_hat) # constant term should be positive
+    γ_hat[1] = γ_hat # constant term should be positive
 
 
     if estimation_method[3] == :theta_constraint
