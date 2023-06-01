@@ -1,0 +1,376 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.4}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\DeclareMathOperator{\rank}{rank}
+
+
+\title{Resolving the Conflict on Conduct Parameter Estimation in Homogeneous Goods Markets between Bresnahan (1982) and Perloff and Shen (2012)}
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
+%Declarations of interest: none %this is for Economics Letters
+}}
+
+\begin{document}
+
+\maketitle
+% \begin{abstract}
+%     We revisit conduct parameter estimation in homogeneous goods markets to resolve [the] conflict between Bresnahan (1982) and Perloff and Shen (2012) regarding [the] identification and [the] accuracy of conduct parameter estimation. We point out that Perloff and Shen's (2012) proof is incorrect and its simulation setting is invalid. Our simulation shows that estimation becomes accurate when demand shifters are properly added in [the] supply estimation and [the] sample size is increased, supporting Bresnahan (1982).
+
+
+% \vspace{0.1in}
+% \noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Multicollinearity problem, Monte Carlo simulation
+% \vspace{0in}
+% \newline
+% \noindent\textbf{JEL Codes:} C5, C13, L1
+
+% \bigskip
+% \end{abstract}
+
+[Abstract]
+
+We revisit conduct parameter estimation in homogeneous goods markets to resolve [the]$_{\textcircled{1}}$ conflict between Bresnahan (1982) and Perloff and Shen (2012) regarding [the]$_{\textcircled{2}}$ identification and [the]$_{\textcircled{3}}$  accuracy of conduct parameter estimation. 
+We point out that Perloff and Shen's (2012) proof is incorrect and its simulation setting is invalid.
+Our simulation shows that estimation becomes accurate when demand shifters are properly added in [the]$_{\textcircled{4}}$ supply estimation and [the]$_{\textcircled{5}}$ sample size is increased, supporting Bresnahan (1982).
+
+\begin{itemize}
+    \item[\textcircled{1}] [the] conflict indicates specific conflict in literature. 
+    \item[\textcircled{2}] [the] identification indicates a specific problem of conduct parameter estimation, known in literature. 
+    \item[\textcircled{3}] [the] accuracy indicates a specific problem of conduct parameter estimation, known in literature. 
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] supply estimation" should be ``supply estimation" because this appears at first in the text.
+    \item[\textcircled{5}] ENAGO fixed this from ``sample size", but we think this should be ``sample size".
+\end{itemize}
+
+\newpage
+\section{Introduction}
+[Paragraph 1]
+Measuring competitiveness is one of [the]$_{\textcircled{1}}$  important tasks in [the]$_{\textcircled{2}}$  empirical industrial organization literature.
+[A]$_{\textcircled{3}}$ conduct parameter is considered to be a useful measure of competitiveness. 
+However, it cannot be directly measured from [the]$_{\textcircled{4}}$  data because data generally lack information about marginal costs.
+Therefore, researchers endeavor to identify and estimate conduct parameters.
+
+
+\begin{itemize}
+    \item[\textcircled{1}]  [the] important tasks indicate a set of many specific questions in literature.  
+    \item[\textcircled{2}] [the] empirical industrial organization literature indicates a specific research area.
+    \item[\textcircled{3}]  Here, [A] conduct parameter is introduced first as a concept known in literature.
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] data" should be ``data" because we do not imagine specific data.
+\end{itemize}
+
+\newpage
+[Paragraph 2]
+
+In this regard, there are two conflicting results regarding conduct parameter estimation in homogeneous goods markets in linear demand and marginal cost systems.
+On [the]$_{\textcircled{1}}$ one hand, \citet{bresnahan1982oligopoly} proposes [an]$_{\textcircled{2}}$ approach to identify [a]$_{\textcircled{3}}$ conduct parameter using [the]$_{\textcircled{4}}$ demand rotation instrument.
+With identification guaranteed, [the]$_{\textcircled{5}}$ conduct parameter can be estimated using standard linear regression.
+This result is extended to nonlinear cases by \citet{lau1982identifying} and differentiated product markets by \citet{nevoIdentificationOligopolySolution1998}.
+
+
+
+\begin{itemize}
+    \item[\textcircled{1}] ``On [the] one hand" is an idiom. 
+    \item[\textcircled{2}] ``[an] approach" is introduced here for the first time.
+    \item[\textcircled{3}] This conduct parameter does not indicate a specific conduct parameter that must be scalar in Bresnahan (1982).
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] demand rotation instrument" should be ``demand rotation instruments" because this instrument is introduced here and potentially a set of multiple variables.
+    \item[\textcircled{5}] Readers already know what "conduct parameter" means in Bresnahan (1982).
+\end{itemize}
+
+\newpage
+[Paragraph 3]
+
+On [the]$_{\textcircled{1}}$ other hand, \citet{perloff2012collinearity} (hereafter, PS) asserted that [the]$_{\textcircled{2}}$ linear model considered by \citet{bresnahan1982oligopoly} suffers from [the]$_{\textcircled{3}}$ multicollinearity problem when [the]$_{\textcircled{4}}$ error terms in [the]$_{\textcircled{5}}$ demand and supply equations are zero, implying that [the]$_{\textcircled{6}}$ identification of [the]$_{\textcircled{7}}$ conduct parameter is impossible for this condition.
+Moreover, PS used simulations to demonstrate that [the]$_{\textcircled{8}}$ conduct parameter cannot be estimated accurately even when [the]$_{\textcircled{9}}$ error terms are nonzero. 
+This disagreement is [a]$_{\textcircled{10}}$ major obstacle in [the] literature. 
+Several papers and handbook chapters have referenced PS’ results, such as \citet{claessensWhatDrivesBank2004, coccoreseMultimarketContactCompetition2013, coccoreseWhatAffectsBank2021, garciaMarketStructuresProduction2020, kumbhakarNewMethodEstimating2012, perekhozhukRegionalLevelAnalysisOligopsony2015}, and \citet{shafferMarketPowerCompetition2017}.
+
+\begin{itemize}
+    \item[\textcircled{1}]  ``On [the] one hand" is an idiom. 
+    \item[\textcircled{2}] The linear model of Bresnahan (1982) is already introduced.
+    \item[\textcircled{3}] ENAGO did not fix this, but ``[the] multicollinearity problem" should be ``a multicollinearity problem" because this multicollinearity problem is a new term here.
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] error terms" should be ``error terms" because readers do not imagine specific errors here.
+    \item[\textcircled{5}] ENAGO did not fix this, but ``[the] demand and supply equations" should be ``demand and supply equations" because readers do not imagine specific errors here.
+    \item[\textcircled{6}] ENAGO did not fix this, but ``[the] identification" should be ``identification" because it is an uncountable noun.
+    \item[\textcircled{7}]  Here, [the] conduct parameter is already introduced. 
+    \item[\textcircled{8}] Here, [the] conduct parameter is already introduced. 
+    \item[\textcircled{9}]  Readers already know what ``error terms"  mean.
+    \item[\textcircled{10}] We do not imagine a specific obstacle here. [the] literature indicates specific research area.
+\end{itemize}
+
+
+
+\newpage
+[Paragraph 4]
+
+We revisit conduct parameter identification and estimation in homogeneous product markets to determine [the]$_{\textcircled{1}}$ validity of these results.
+First, we show that [the]$_{\textcircled{2}}$ proof of [the]$_{\textcircled{3}}$ multicollinearity problem in PS is incorrect and that [the]$_{\textcircled{4}}$ problem does not occur under standard assumptions reflecting [the]$_{\textcircled{5}}$ insights by \citet{bresnahan1982oligopoly}.
+Second, [the]$_{\textcircled{6}}$ simulations in PS lack [an]$_{\textcircled{7}}$ excluded demand shifter in [the]$_{\textcircled{8}}$ supply equation estimation; we confirm that [the]$_{\textcircled{9}}$ accuracy of estimation holds by including a demand shifter in [the]$_{\textcircled{10}}$ supply estimation. 
+We also show that increasing [the]$_{\textcircled{11}}$ sample size improves [the]$_{\textcircled{12}}$ accuracy of estimation. 
+Hence, our results support those of \cite{bresnahan1982oligopoly} theoretically and numerically.
+\begin{itemize}
+    \item[\textcircled{1}] ENAGO did not fix this, but [the] validity should be ``validity" because this uncountable noun appears for the first time.
+    \item[\textcircled{2}] ENAGO did not fix this, but ``[the] proof" should be ``a proof" because readers do not imagine a specific proof here.
+    \item[\textcircled{3}] Readers already know what ``the multicolumn problem" means because it is introduced in the previous paragraph.
+    \item[\textcircled{4}] Here, [the] problem is already introduced as the multicollinearity problem. 
+    \item[\textcircled{5}] Readers already know what ``[the] insights of \citet{bresnahan1982oligopoly}" mean because it is discussed in the previous paragraph.
+    \item[\textcircled{6}] Here, [the] simulations indicate specific results of PS. 
+    \item[\textcircled{7}] ``[an] excluded demand shifter" is a new term here.
+    \item[\textcircled{8}] ENAGO did not fix this, but ``in [the] supply equation estimation" should be ``in supply equation estimation".
+    \item[\textcircled{9}] ENAGO did not fix this, but ``[the] accuracy of estimation" should be ``accuracy of estimation".
+    \item[\textcircled{10}] ENAGO did not fix this, but ``[the] supply estimation" should be ``supply estimation".
+    \item[\textcircled{11}] ENAGO fixed this from ``sample size", but ``[the] sample size " should be ``sample size"
+    \item[\textcircled{12}] ENAGO did not fix this, but ``[the] accuracy of estimation. " should be ``accuracy of estimation. "
+
+\end{itemize}
+
+
+\newpage
+\section{Model}
+[paragraph 1]
+Consider data with $T$ markets with homogeneous products.
+Assume that there are $N$ firms in each market.
+Let $t = 1,\ldots, T$ be [the]$_{\textcircled{1}}$ index of [the]$_{\textcircled{2}}$ markets.
+Then, we obtain [the]$_{\textcircled{3}}$ supply equation as follows:
+\begin{align}
+     P_t = -\theta\frac{\partial P_t(Q_{t})}{\partial Q_{t}}Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
+\end{align}
+where $Q_{t}$ is [the]$_{\textcircled{4}}$ aggregate quantity, $P_t(Q_{t})$ is [the]$_{\textcircled{5}}$ demand function, $MC_{t}(Q_{t})$ is [the]$_{\textcircled{6}}$ marginal cost function, and $\theta\in[0,1]$, which is called [the]$_{\textcircled{7}}$ conduct parameter. 
+[The]$_{\textcircled{8}}$ equation nests perfect competition, $\theta=0$, Cournot competition, $\theta=1/N, N$ firm symmetric perfect collusion, $\theta=1$, etc.\footnote{See \cite{bresnahan1982oligopoly}.} 
+
+
+\begin{itemize}
+    \item[\textcircled{1}] ENAGO did not fix this, but ``[the] index" should be ``an index" because readers do not imagine a specific index.
+    \item[\textcircled{2}] Readers already know what ``the market"  means.
+    \item[\textcircled{3}] ENAGO did not fix this, but ``[the] supply equation" should be ``a supply equation" because readers do not imagine a specific equation.
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] aggregate quantity" should be ``an aggregate quantity" because readers do not imagine a specific term.
+    \item[\textcircled{5}] ENAGO did not fix this, but ``[the] demand function" should be ``a demand function" because readers do not imagine a specific function.
+    \item[\textcircled{6}] ENAGO did not fix this, but ``[the] marginal cost function" should be ``a marginal cost function" because readers do not imagine a specific function.
+    \item[\textcircled{7}] Readers already know what ``the conduct parameter" introduced in Section 1 means.
+    \item[\textcircled{8}] Readers already know what ``the equation"  means.
+    % \item[\textcircled{9}]
+    % \item[\textcircled{10}] 
+    % \item[\textcircled{11}]  
+\end{itemize}
+
+
+
+\newpage
+
+[paragraph 2]
+Consider [an]$_{\textcircled{1}}$ econometric model that integrates [the]$_{\textcircled{2}}$ above model.
+Assume that [the]$_{\textcircled{3}}$ demand and marginal cost functions are written as follows: 
+\begin{align}
+    P_t = f(Q_{t}, Y_t, \varepsilon^{d}_{t}, \alpha), \label{eq:demand}\\
+    MC_t = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma),\label{eq:marginal_cost}
+\end{align}
+where $Y_t$ and $W_{t}$ are [the]$_{\textcircled{4}}$ vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are error terms, and $\alpha$ and $\gamma$ are [the]$_{\textcircled{5}}$ vector of [the]$_{\textcircled{6}}$ parameters.
+Additionally, we have [the]$_{\textcircled{7}}$ demand- and supply-side instrument variables, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that [the]$_{\textcircled{8}}$ error terms satisfy [the]$_{\textcircled{9}}$ mean independence condition, $E[\varepsilon^{d}_{t}\mid Y_t, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
+
+\begin{itemize}
+    \item[\textcircled{1}] Here, ``[an] econometric model" does not indicate a specific model.
+    \item[\textcircled{2}] Readers already know what ``the above model"  means.
+    \item[\textcircled{3}] Readers already know what ``the demand and marginal cost functions" mean.
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] vector " should be ``a vector" because readers do not imagine a specific term.
+    \item[\textcircled{5}] ENAGO did not fix this, but ``[the] vector " should be ``a vector" because readers do not imagine a specific term.
+    \item[\textcircled{6}] ENAGO did not fix this, but ``[the] parameters" should be ``parameters" because readers do not imagine a specific term.
+    \item[\textcircled{7}] ENAGO did not fix this, but ``[the] demand- and supply-side instrument variables" should be ``demand- and supply-side instrument variables" because readers do not imagine a specific term.
+    \item[\textcircled{8}]  Readers already know what ``[the] error terms"  means.
+    \item[\textcircled{9}] Readers already know what ``[the] mean independence condition"  means in literature.
+\end{itemize}
+
+\newpage
+\subsection{Linear demand and cost}
+Assume that linear demand and marginal cost functions are specified as follows:
+\begin{align}
+    P_t &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_{t} + \alpha_3 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
+    MC_t &= \gamma_0  + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t},\label{eq:linear_marginal_cost}
+\end{align}
+where $W_{t}$ and $R_{t}$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
+[The]$_{\textcircled{1}}$ supply equation is written as follows:
+\begin{align}
+    P_t 
+    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
+    &= \gamma_0 + \theta \alpha_2 Z^{R}_tQ_{t} + (\theta\alpha_1 + \gamma_1) Q_{t} + \gamma_2 W_t + \gamma_3 R_{t} +\varepsilon^c_t.\label{eq:linear_supply_equation}
+\end{align}
+By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_t$, we obtain [the]$_{\textcircled{2}}$ aggregate quantity $Q_{t}$ based on [the]$_{\textcircled{3}}$ parameters and exogenous variables as follows:
+\begin{align}
+    Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
+\end{align}
+
+\begin{itemize}
+    \item[\textcircled{1}] Readers already know what ``[The] supply equation"  means.
+    \item[\textcircled{2}] Readers already know what ``[the] aggregate quantity"  means.
+    \item[\textcircled{3}] Readers already know what ``[the] parameters"  means.
+\end{itemize}
+
+\newpage
+\subsection{Is [the] multicollinearity problem in PS incorrect?}
+[paragraph 1]
+
+To demonstrate [the]$_{\textcircled{1}}$ multicollinearity problem, PS attempt to demonstrate linear dependence between [the]$_{\textcircled{2}}$ variables in [the]$_{\textcircled{3}}$ supply equations. 
+PS begin [the]$_{\textcircled{4}}$ proof on page 137 in their appendix by stating [the]$_{\textcircled{5}}$ following (we modify [the]$_{\textcircled{6}}$ notations):
+\begin{quote}
+    ``We demonstrate that the $W_{t}, R_{t}, Z^{R}_{t}Q_{t}$, and $Q_{t}$ terms in Eq.4 are perfectly collinear for $\varepsilon_{t}^{d} = \varepsilon_{t}^{c} = 0$. We show this result by demonstrating that there exist nonzero coefficients $\chi_1,\chi_2,\chi_3,\chi_4$, and $\chi_5$ such that 
+   \begin{align*}
+    Z^{R}_{t} Q_{t} + \chi_1 Q_{t} + \chi_2 W_{t} + \chi_3 R_{t} + \chi_4 Y_{t} + \chi_5 = 0 \quad (\text{A1})."
+    \end{align*}
+\end{quote}
+Eq.4 in [the]$_{\textcircled{7}}$ quotation corresponds to [the]$_{\textcircled{8}}$ supply equation \eqref{eq:linear_supply_equation}.
+Therefore, PS show that there exists [a]$_{\textcircled{9}}$ nonzero vector of $\chi_1, \ldots, \chi_5$ that satisfies (A1).
+
+An incorrect detail in [the]$_{\textcircled{10}}$ proof is that while attempting to demonstrate linear dependence between $Z^{R}_{t}Q_{t}, Q_{t}, W_{t}$, and $R_{t}$, they show linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}, Q_{t}$, and $Y_t$. 
+However, linear dependence between $W_{t}, R_{t}, Z^{R}_{t}Q_{t}, Q_{t}$, and $Y_t$ does not always imply [the]$_{\textcircled{11}}$ linear dependence between $Z^{R}_{t}Q_{t}, Q_{t}, W_{t}$, and $R_{t}$.
+
+\begin{itemize}
+    \item[\textcircled{1}] ENAGO did not fix this, but ``[the] multicollinearity problem" should be ``a multicollinearity problem"  because this is a new term.
+    \item[\textcircled{2}] Readers already know what ``[the] variables"  means.
+    \item[\textcircled{3}] Readers already know what ``[the] supply equations"  means.
+    \item[\textcircled{4}] Readers already know what ``[the] proof"  means.
+    \item[\textcircled{5}] ``[the] following" indicates specific sentences later.
+    \item[\textcircled{6}] Readers already know what ``[the] notations"  means.
+    \item[\textcircled{7}] Readers already know what ``[the] quotation"  means.
+    \item[\textcircled{8}] Readers already know what ``[the] supply equation"  means.
+    \item[\textcircled{9}] Here, ``[a] nonzero vector"  does not mean a specific vector.
+    \item[\textcircled{10}] Readers already know what ``[the] proof"  means.
+    \item[\textcircled{11}] ENAGO fixed this from ``linear independence", but ``[the] linear independence" should be ``linear independence" because readers do not imagine a specific term.
+\end{itemize}
+
+\newpage
+[paragraph 3,4,5]
+
+
+Therefore, we contend that [the]$_{\textcircled{1}}$ multicollinearity problem does not occur under [the]$_{\textcircled{2}}$ additional standard assumptions in Proposition 1.
+\begin{proposition}
+    Assume that (i) $\alpha_2$ and $\alpha_3$ are nonzero and (ii) $Z^R_t, W_t, R_t$, and $Y_t$ are linearly independent.
+    Then, $Z^{R}_{t}Q_{t}, Q_{t}, W_{t}$, and $R_{t}$ are linearly independent.
+\end{proposition}
+
+See Appendix \ref{sec:appendix} for [the]$_{\textcircled{3}}$ proof.
+Equation \eqref{eq:linear_supply_equation} implies that [the]$_{\textcircled{4}}$ main challenge is separately identifying [the]$_{\textcircled{5}}$ conduct parameter and [the]$_{\textcircled{6}}$ slope of marginal cost.
+As quantity is endogenous, this requires two excluded instruments. 
+Assumption (i) makes [the]$_{\textcircled{7}}$ demand rotation instrument and [the]$_{\textcircled{8}}$ demand shifter relevant and Assumption (ii) ensures that these instruments and [the]$_{\textcircled{9}}$ other cost shifters do not covary.
+Under these assumptions, identification of [the]$_{\textcircled{10}}$ conduct parameter is possible.
+
+In [the]$_{\textcircled{11}}$ context of differentiated products markets, \cite{magnolfi2022falsifying} discuss similar issues concerning instrument requirements for falsifying models with upward sloping marginal cost. 
+They build on [the]$_{\textcircled{12}}$ results of \cite{berry2014identification}, who show that with instruments, falsification of models of conduct with flexible cost functions is possible.
+
+\begin{itemize}
+    
+    \item[\textcircled{1}] Readers already know what ``[the] multicollinearity problem"  means.
+    \item[\textcircled{2}] Here, ``[the] additional standard assumptions" indicate specific terms introduced next.
+    \item[\textcircled{3}] Readers already know what ``[the] proof"  means.
+    \item[\textcircled{4}] Here, ``[the]$_{\textcircled{4}}$ main challenge" indicates a specific challenge of our model.
+    \item[\textcircled{5}] Readers already know what ``[the] conduct parameter"  means.
+    \item[\textcircled{6}] Readers already know what ``[the] slope of marginal cost"  means.
+    \item[\textcircled{7}] Readers already know what ``[the] demand rotation instrument"  means.
+    \item[\textcircled{8}] Readers already know what ``[the] demand shifter"  means.
+    \item[\textcircled{9}] Readers already know what ``[the] other cost shifters"  means.
+    \item[\textcircled{10}] Readers already know what ``[the] conduct parameter"  means.
+    \item[\textcircled{11}] Here, ``[the] context" indicates a specific context in literature. 
+    \item[\textcircled{12}] Here, ``[the] results" indicate specific results of Berry and Haile (2014). 
+\end{itemize}
+
+
+\newpage
+\section{Simulation results}\label{sec:results}
+
+Table \ref{tb:linear_linear_sigma_1} presents [the]$_{\textcircled{1}}$ results of [the]$_{\textcircled{2}}$ linear model with [the]$_{\textcircled{3}}$ demand shifter.\footnote{See Appendix \ref{sec:appendix} for simulation details and additional results.}
+Panel (a) shows that when [the]$_{\textcircled{4}}$ standard deviation of [the]$_{\textcircled{5}}$ error terms in [the]$_{\textcircled{6}}$ demand and supply equations is $\sigma = 0.001$, estimation of all parameters is extremely accurate.
+When sample size is large, [the]$_{\textcircled{7}}$ root-mean-squared error (RMSE) of all parameters are less than or equal to 0.001. 
+Panel (c) shows [the]$_{\textcircled{8}}$ case with $\sigma = 2.0$. 
+As sample size increases, [the]$_{\textcircled{9}}$ RMSE sharply decreases. 
+Thus, [the]$_{\textcircled{10}}$ imprecise results reported by PS are due to [the]$_{\textcircled{11}}$ lack of demand shifters and [the]$_{\textcircled{12}}$ small sample size.
+
+\begin{itemize}
+    \item[\textcircled{1}] Readers already know what ``[the] results"  means.
+    \item[\textcircled{2}] Readers already know what ``[the] linear model"  means.
+    \item[\textcircled{3}] Readers already know what ``[the] demand shifter"  means.
+    \item[\textcircled{4}] ENAGO did not fix this, but ``[the] standard deviation" should be ``standard deviations"  because it must be plural for error terms and this is a new term.
+    \item[\textcircled{5}] Readers already know what ``[the] error terms"  means.
+    \item[\textcircled{6}] Readers already know what ``[the] demand and supply equations"  mean.
+    \item[\textcircled{7}] ENAGO fixed this from RMSEs, but ``[the] root-mean-squared error (RMSE)" should be ``root-mean-squared errors (RMSEs)" because it must be plural for all parameters.
+    \item[\textcircled{8}] Readers already know what ``[the] case"  means.
+    \item[\textcircled{9}] ENAGO fixed this from RMSEs, but this should be ``RMSEs sharply decrease" because it must be plural for all parameters.
+    \item[\textcircled{10}] Readers already know what ``[the] imprecise results" means.
+    \item[\textcircled{11}] Readers already know what ``[the] lack of demand shifters" means.
+    \item[\textcircled{12}] ENAGO fixed this from ``small sample size", but ``[the] small sample size" should be ``small sample size".
+\end{itemize}
+
+%\begin{table}[!htbp]
+%  \begin{center}
+%      \caption{Results of [the] linear model with demand shifter}
+%      \label{tb:linear_linear_sigma_1} 
+%      \subfloat[$\sigma=0.001$]%{\input{figuretable/linear_linear_sigma_0.001_bias_rmse.tex}}\\
+%      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_bias_rmse}}\\
+%    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
+%  \end{center}
+%  \footnotesize
+%  Note: [the] error terms in [the] demand and supply equation are drawn from [a] normal distribution, $N(0,\sigma)$.
+%\end{table} 
+
+
+\newpage
+\section{Conclusion}
+We revisit [the]$_{\textcircled{1}}$ conduct parameter estimation in homogeneous goods markets.
+There is [a]$_{\textcircled{2}}$ conflict between \citet{bresnahan1982oligopoly} and \citet{perloff2012collinearity} in terms of identification and estimation.
+We highlight [the]$_{\textcircled{3}}$ problems in [the]$_{\textcircled{4}}$ proof and simulation in \citet{perloff2012collinearity}.
+Our simulation shows that estimation of [the]$_{\textcircled{5}}$ conduct parameter becomes accurate when demand shifters are appropriately introduced in [the]$_{\textcircled{6}}$ supply estimation and [the]$_{\textcircled{7}}$ sample size is increased. 
+Based on our theoretical and numerical investigation, we support [the]$_{\textcircled{8}}$ argument made by \citet{bresnahan1982oligopoly}.
+
+\begin{itemize}
+    \item[\textcircled{1}] ENAGO did not fix this, but we think using [a] is appropriate because we discuss one of  estimation methods in homogeneous goods markets.
+    \item[\textcircled{2}] ENAGO did not fix this, but we think that this should be replaced with [the] because the readers already know it.
+    \item[\textcircled{3}] This should be [the] because it is a specific problem argued in PS.
+    \item[\textcircled{4}] This should be [the] because it is argued in PS.
+    \item[\textcircled{5}] Readers already know what "conduct parameter" means in our model.
+    \item[\textcircled{6}] ENAGO did not fix, but ``[the] supply estimation" should be ``supply estimation".
+    \item[\textcircled{7}] ENAGO did not fix, but this should be eliminated as you mentioned.
+    \item[\textcircled{8}] This is a specific argument in Breshnahan (1982).
+\end{itemize}
+
+
+
+
+
+\paragraph{Acknowledgments}
+We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This research did not receive any specific grant from funding agencies in [the] public, commercial, or not-for-profit sectors. 
+
+\newpage
+
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
+
+
+\end{document}

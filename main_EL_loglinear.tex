@@ -105,10 +105,7 @@ Then, we obtain:
 \begin{align}
     \log P_t = - \log_{t}(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}. \label{eq:log_linear_supply_equation}
 \end{align}
-By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{eq:log_linear_supply_equation} and solving it for $P_{t}$, the log aggregate quantity is given as: 
-\begin{align}
-    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{\gamma_1+ \alpha_1 + \alpha_2 Z^{R}_{t} }.\label{eq:quantity_loglinear}
-\end{align}
+
 %An obstacle to estimate parameters is log-transformation in Equation \eqref{eq:log_linear_supply_equation}. First, the standard numerical algorithm faces invalid errors when evaluating the term, $\log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}))$, whose inner candidate value, $(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}))$, is negative. The problem is inevitable because the true values of parameters are unknown. As in practical situations, researchers may want to use multiple rotation demand instruments or conduct parameters varied with time- or market- fixed effects.\footnote{See \cite{michel2018estimating} for the case of differentiated goods markets.} Then, the problem regarding the term becomes severer because the number of parameters within the log term increases. Second, if researchers may want to specify the demand function as $P_t=\alpha_0-\left(\alpha_1+\alpha_2 Z_t^R\right) Q_t+\alpha_3 Y_t+\varepsilon_t^d$, then the supply equation \eqref{eq:log_linear_supply_equation} is changed to $P_t=\theta \alpha_2 Z_t^R Q_t+\theta \alpha_1Q_t+\exp(\gamma_0+\gamma_1 \log Q_t+\gamma_2 \log W_t+\gamma_3 \log R_t+\varepsilon_t^c)$ which is nonlinear in cost parameters and conduct parameter $\theta$. 
 %When constructing moment conditions, researchers face the above problem on log-transformation which limit researchers' alternative set of potential specifications.
 
@@ -167,6 +164,13 @@ Constraints \eqref{eq:parameter_constraint} are practically necessary to avoid s
 
 \section{Simulation results}\label{sec:results}
 
+We summarize the results of the standard estimation using a derivative-free optimization algorithm such as Nelder-Mead algorithm and the standard estimation using state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems. 
+First, as mentioned in the main text, the standard simultaneous equation approach using derivative-free algorithms such as Nelder-Mead algorithm could not properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values. 
+Second, we examine the Two-Stage-Least-Square (2SLS) model in which Ipopt is implemented for minimizing its supply side moments and the simultaneous equation model in which Ipopt is implemented for minimizing both demand and supply side moments. 
+We refer to the former as separate estimation and the latter as simultaneous estimation.
+These two estimation procedures are considered to be a middle ground between MPEC and standard approaches because these do not use equilibrium constraints but state-of-the-art constrained optimization
+solvers.
+
 Table \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} presents the results of the log-linear model.\footnote{See Appendix \ref{sec:appendix} for the simulation details and additional results. We confirm that the standard simultaneous equation approach using derivative free algorithms such as Nelder-Mead could not properly solve the model because the above log-transformation problem often arises.} 
 First, MPEC solves all simulation data properly, which is the practical advantage over the standard approach.
 Second, Panel (a) shows that when the standard deviation of the error terms in the demand and supply equation is $\sigma = 0.5$, the estimation of all parameters is reasonably accurate.
@@ -178,14 +182,16 @@ That is, MPEC for the log-linear model is as good as the linear model.
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{MPEC Results of the log-linear model}
+      \caption{MPEC vs standard approaches}
       \label{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}
+      % \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$ (MPEC)]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$ (Separate)]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$ (Simultaneous)]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+    % \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}
   \end{center}
   \footnotesize
-  Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0, \sigma)$.
+  Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=10.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.2$.
 \end{table} 
 
 
@@ -218,6 +224,10 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 We assess the performance of the MPEC estimator using Monte Carlo simulation.
 We set the true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
 To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z^{R}_{t}, W_t, R_{t}, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{eq:log_linear_supply_equation} and solving it for $P_{t}$, the log aggregate quantity is given as: 
+\begin{align}
+    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{\gamma_1+ \alpha_1 + \alpha_2 Z^{R}_{t} }.\label{eq:quantity_loglinear}
+\end{align}
 We compute the equilibrium quantity $Q_{t}$ for the log-linear model by \eqref{eq:quantity_loglinear}.
 We then compute the equilibrium price $P_t$ by substituting $Q_{t}$ and other variables into the demand function \eqref{eq:log_linear_demand}.
 We generate 1,000 data sets.
@@ -277,6 +287,7 @@ Second, we examine the Two-Stage-Least-Square (2SLS) model in which Ipopt is imp
 We refer to the former as separate estimation and the latter as simultaneous estimation.
 These two estimation procedures are considered to be a middle ground between MPEC and standard approaches because these do not use equilibrium constraints but state-of-the-art constrained optimization
 solvers.
+
 Tables \ref{tb:loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint_bias_rmse} and \ref{tb:loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint_bias_rmse} shows that both estimations fail in estimation for about 1\% of the simulation samples even if the parameter search starts from the true values. 
 Also, if $\sigma=2.0$ and $T=1000$, RMSEs are more than 10 for three parameters. Thus, MPEC is better than these approaches even for the typical and simple log-linear model. 
 
