@@ -56,7 +56,7 @@ Conduct parameter is considered to be a useful measure of competitiveness.
 However, it cannot be directly measured from data because data usually lack information about marginal cost.
 Therefore, researchers endeavor to identify and estimate the conduct parameter.
 
-As the simplest specification, \citet{bresnahan1982oligopoly} considers the identification of conduct parameter for the linear model. \cite{matsumura2023revisiting} resolves the conflict on identification problem between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. 
+As the simplest specification, \citet{bresnahan1982oligopoly} considers the identification of conduct parameter for the linear model. \cite{matsumura2023resolving} resolves the conflict on identification problem between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. 
 On the other hand, researchers may want to implement a different set of specifications such as log-linear model, e.g., \cite{okazaki2022excess} and \cite{merel2009measuring}. As for the log-linear model, the identification strategy is provided by \citet{lau1982identifying}. 
 Estimation problems arise for the case, however, when searching parameters using the standard solvers because the equilibrium condition given by demand and supply curves involves log-transformation. 
 This is the obstacle to choosing the better specification of the demand and supply functions.
@@ -182,16 +182,16 @@ That is, MPEC for the log-linear model is as good as the linear model.
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{MPEC vs standard approaches}
+      \caption{MPEC vs standard approaches ($\sigma=1.0$)}
       \label{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
       % \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$ (MPEC)]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$ (Separate)]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$ (Simultaneous)]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}}
     % \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}
   \end{center}
   \footnotesize
-  Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=10.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.2$.
+  Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=10.0,\alpha_1=1.0,\alpha_2=-0.2,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.2$.
 \end{table} 
 
 
@@ -293,15 +293,13 @@ Also, if $\sigma=2.0$ and $T=1000$, RMSEs are more than 10 for three parameters.
 
 
 
-
-
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Results of separate estimation of the log-linear model}
-      \label{tb:loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint_bias_rmse}}
+      \caption{MPEC vs standard approaches ($\sigma=0.001$)}
+      \label{tb:loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint_bias_rmse} 
+      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint_bias_rmse}}\\
+    \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_theta_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   %Note: 
@@ -310,11 +308,24 @@ Also, if $\sigma=2.0$ and $T=1000$, RMSEs are more than 10 for three parameters.
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Results of simultaneous estimation of the log-linear model}
-      \label{tb:loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+      \caption{MPEC vs standard approaches ($\sigma=0.5$)}
+      \label{tb:loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse} 
+      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse}}\\
+    \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{table} 
+
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{MPEC vs standard approaches ($\sigma=2.0$)}
+      \label{tb:loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint_bias_rmse} 
+      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+      \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint_bias_rmse}}\\
+    \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   %Note: 
@@ -324,9 +335,9 @@ Also, if $\sigma=2.0$ and $T=1000$, RMSEs are more than 10 for three parameters.
 
 \subsection{MPEC for the linear model}
 
-We illustrate that MPEC works for the linear model as in Two-Stage-Least-Square (2SLS) approach in \cite{matsumura2023revisiting}. 
+We illustrate that MPEC works for the linear model as in Two-Stage-Least-Square (2SLS) approach in \cite{matsumura2023resolving}. 
 % We confirm that the simultaneous equation model in which demand and supply parameters are jointly estimated and 2SLS model in which demand and supply parameters are separately estimated generate the similar results. 
-We follow the setting of \cite{matsumura2023revisiting}.
+We follow the setting of \cite{matsumura2023resolving}.
 We put an additional restriction such that $\theta\in[0,1]$ as a theoretical restriction. 
 Table \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse} shows that MPEC estimator reduces bias and RMSE in particular when the sample size is large rather than 2SLS estimator shown in Table \ref{tb:linear_linear_sigma_1}.
 
@@ -339,7 +350,7 @@ Table \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_
     \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}}
   \end{center}
   \footnotesize
-  Note: The data generating process follows \cite{matsumura2023revisiting}.
+  Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table} 
 
 
@@ -352,7 +363,7 @@ Table \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_
     \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
   \end{center}
   \footnotesize
-  Note: The data generating process follows \cite{matsumura2023revisiting}.
+  Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table} 
 
 \end{document}
