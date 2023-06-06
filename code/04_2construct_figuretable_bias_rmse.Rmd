@@ -526,7 +526,7 @@ true_parameter_loglinear <-
   c(
     10,
     1,
-    -0.2,#0.1,#target_alpha2
+    0.1,#target_alpha2
     1,
     5, # gamma0
     1,
@@ -1503,3 +1503,12 @@ create_table_loglinear_with_demand_shifter_bias_rmse(
 )
 
 ```
+
+### non_constraint_non_constraint {.tabset}
+
+#### separate
+
+#### simultaneous
+
+
+#### mpec

@@ -413,9 +413,11 @@ for(nn in 1:length(n_observation_list)){
 
 # mpec loglinear with demand shifter
 constraint_list <-
-  c("_mpec_non_constraint_non_constraint",
+  c(
+    #"_mpec_non_constraint_non_constraint",
     "_mpec_non_constraint_theta_constraint",
-    "_optim_nelder_mead_non_constraint_theta_constraint")
+    "_optim_nelder_mead_non_constraint_theta_constraint"
+    )
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     for(cc in 1:length(constraint_list)){
@@ -1405,4 +1407,15 @@ create_table_loglinear_with_demand_shifter(
 )
 
 ```
+
+
+### non_constraint_non_constraint {.tabset}
+
+#### separate
+
+#### simultaneous
+
+
+#### mpec
+
 
