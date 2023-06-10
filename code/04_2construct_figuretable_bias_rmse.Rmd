@@ -727,8 +727,38 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     #    dplyr::filter(
     #      status_indicator == 1
     #    )
+    locally_solved_list <-
+      target_data %>% 
+      dplyr::distinct(
+        filename,
+        locally_solved_percent
+      )
+    locally_solved_row <- 
+      data.frame(
+        #"Runs converged (\\%)",
+        "",
+        locally_solved_list[1,2],
+        "",
+        locally_solved_list[2,2],
+        "",
+        locally_solved_list[3,2],
+        "",
+        locally_solved_list[4,2]
+        )
     bias_info <-
       target_data %>%
+      # dplyr::group_by(
+      #   filename,
+      #   status_indicator
+      #   ) %>% 
+      # dplyr::mutate(
+      #   solved_some_samples_indicator =
+      #     ifelse(
+      #       sum(status_indicator) > 0,
+      #       1,
+      #       0
+      #     )
+      # ) %>% 
        dplyr::filter(
          status_indicator == 1
        ) %>% 
@@ -819,23 +849,46 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
       ) %>% 
       dplyr::ungroup()
     file_name_list <-
-      unique(rmse_info$filename)
+      unique(target_data$filename)
+    
     for(nn in 1:length(file_name_list)){
       temp_file_name <-
         as.character(
           file_name_list[nn])
-      temp_bias <-
-        bias_info %>% 
-        dplyr::filter(
-          filename == 
-            temp_file_name
-        )
-      temp_rmse <-
-        rmse_info %>% 
-        dplyr::filter(
-          filename == 
-            temp_file_name
-          )
+      if(locally_solved_list$locally_solved_percent[nn] != "0.000"){
+        temp_bias <-
+          bias_info %>% 
+          dplyr::filter(
+            filename == 
+              temp_file_name
+            )
+        temp_rmse <-
+          rmse_info %>% 
+          dplyr::filter(
+            filename == 
+              temp_file_name
+            )
+      }else{
+        # no data solved
+        temp_bias <-
+          bias_info %>% 
+          dplyr::filter(
+            filename == 
+              temp_file_name
+            )
+        temp_bias[1,1] <-
+          temp_file_name
+        temp_rmse <-
+          rmse_info %>% 
+          dplyr::filter(
+            filename == 
+              temp_file_name
+            )
+        temp_rmse[1,1] <-
+          temp_file_name
+      }
+      
+      
       temp_bias_rmse <-
         data.frame(
           "Bias" = 
@@ -873,23 +926,7 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
         "200",
         "",
         "1000")
-    locally_solved_list <-
-      target_data %>% 
-      dplyr::distinct(
-        filename,
-        locally_solved_percent
-      )
-    locally_solved_row <- 
-      data.frame(
-        #"Runs converged (\\%)",
-        "",
-        locally_solved_list[1,2],
-        "",
-        locally_solved_list[2,2],
-        "",
-        locally_solved_list[3,2],
-        "",
-        locally_solved_list[4,2])
+    
     # keep consistency of colnames for latex
     colnames(new_rows) <-
       colnames(all_bias_rmse)
@@ -1508,7 +1545,136 @@ create_table_loglinear_with_demand_shifter_bias_rmse(
 
 #### separate
 
+```{r,echo=FALSE,results = "asis"}
+loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint
+)
+loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint
+)
+
+```
+
+
 #### simultaneous
+
+```{r,echo=FALSE,results = "asis"}
+loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_simultaneous_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint
+)
+loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_simultaneous_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_1_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_1_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_1_simultaneous_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_2_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_2_simultaneous_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_2_simultaneous_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint
+)
+
+```
+
+
 
 
 #### mpec
+
+```{r,echo=FALSE,results = "asis"}
+loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.001_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.001_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint
+)
+loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_0.5_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_0.5_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_1_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_1_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint
+)
+
+loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint <-
+  rbind(
+    loglinear_loglinear_n_50_sigma_2_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_100_sigma_2_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_non_constraint,
+    loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_non_constraint)
+create_table_loglinear_with_demand_shifter_bias_rmse(
+  loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint
+)
+
+```
