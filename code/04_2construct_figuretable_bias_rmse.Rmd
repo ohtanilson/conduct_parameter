@@ -855,7 +855,8 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
       temp_file_name <-
         as.character(
           file_name_list[nn])
-      if(locally_solved_list$locally_solved_percent[nn] != "0.000"){
+      if(locally_solved_list$locally_solved_percent[nn] !=
+         "0.000"){
         temp_bias <-
           bias_info %>% 
           dplyr::filter(
