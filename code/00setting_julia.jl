@@ -43,7 +43,6 @@ market_parameters_log = @with_kw (
     start_γ = [0.0, 0.0, 0.0, 0.0]
 )
 
-
 mutable struct SIMULATION_SETTING
     α_0::Float64
     α_1::Float64
