@@ -2,22 +2,14 @@ using Distributed
 Distributed.@everywhere include("../code/00setting_julia.jl")
 Distributed.@everywhere include("../code/00functions.jl")
 parameter = market_parameters_log()
-#--------------------------------------------------------------------------------------------------------------
-# Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
-#--------------------------------------------------------------------------------------------------------------
-# Code for MPEC
-
-#estimation_methods = [(:mpec,:non_constraint, :non_constraint),(:mpec_linear,:non_constraint, :non_constraint)]
-estimation_methods = [(:mpec, :non_constraint, :theta_constraint), (:mpec, :non_constraint, :non_constraint)]
+estimation_methods = [(:mpec, :non_constraint, :theta_constraint), (:mpec_separate,:non_constraint, :theta_constraint)]
 #estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
-
 starting_value = :true_value
 tol_level = :loose
 
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1, 2]
-    #for t = [50, 100, 200, 1000], sigma =  [0.001, 0.5, 1]
         # Load the simulation data from the rds files
         filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
         filename_end   = ".rds"

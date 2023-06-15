@@ -261,18 +261,10 @@ end
 
 function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
-    """ 
+    """
     Estimate the demand and supply parameter given a market simultaneously
 
     """
-
-    L = size(Z, 2)
-    K_s = size(X_s, 2)
-    K_d = size(X_d, 2)
-
-    # The wight function for the GMM estimation
-    Ω = inv(Z' * Z)/T
-
     if tol_level == :tight
         tol = 1e-15
         acceptable_tol = 1e-12
@@ -281,75 +273,176 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
         acceptable_tol = 1e-5
     end
 
-    start_β = zeros(8)
-    start_θ = 0
+    L = size(Z, 2)
+    L_d = size(Z_d,2)
+    L_s = size(Z_s,2)
+    K_s = size(X_s, 2)
+    K_d = size(X_d, 2)
 
-    if starting_value == :true_value
-        start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
-        start_θ = θ_0
-    elseif starting_value == :random
-        start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
-        start_θ = θ_0 + rand(Uniform(-10, 1))
-    end
+    if estimation_method[1] == :mpec
+
+        start_β = zeros(8)
+        start_θ = 0
+        if starting_value == :true_value
+            start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3]
+            start_θ = θ_0
+        elseif starting_value == :random
+            start_β = [α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 8)
+            start_θ = θ_0 + rand(Uniform(-10, 1))
+        end
+
+        Ω = inv(Z' * Z)/T
+
+        model = Model(Ipopt.Optimizer)
+        set_optimizer_attribute(model, "tol", tol)
+        set_optimizer_attribute(model, "max_iter", 1000)
+        set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
+        set_silent(model)
+        @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
+
+        #@constraint(model, c1, β[1] >=0) # constant term should be positive
+        # @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
+        #@constraint(model, c3, β[2] >=0) # demand curve should be downward
+        #@constraint(model, c4, β[3] >=0) # demand curve should be downward
+
+        if estimation_method[3] == :theta_constraint
+            @variable(model, 0 <= θ <= 1, start = start_θ)
+        else
+            @variable(model, θ, start = start_θ)
+        end
+
+        @variable(model, 0 <= MC[t = 1:T])
+        for t = 1:T
+            @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X[2*t, end])* exp(P[t]))
+        end
+
+        r = Any[];
+        g = Any[];
+        for t =1:T
+            push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
+            push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
+        end
+
+        for l = 1:L
+            push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
+        end
+        @NLobjective(model, Min, sum( g[l] * Ω[l,k] * g[k] for l = 1:L, k = 1:L))
+        optimize!(model)
+
+        α_hat = value.(β)[1:K_d]
+        γ_hat = value.(β)[K_d+1:end]
+        θ_hat = value.(θ)
+
+        return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+
+    elseif estimation_method[1] == :mpec_separate
 
 
-    model = Model(Ipopt.Optimizer)
-    set_optimizer_attribute(model, "tol", tol)
-    set_optimizer_attribute(model, "max_iter", 1000)
-    set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
-    set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
+        # first stage
+        QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
+        Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  Q
+        # second stage
+        X_dd = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end])
+        α_hat = inv(X_dd' * X_dd) * (X_dd' * P)
 
-    # @constraint(model, c1, β[1] >=0) # constant term should be positive
-    # @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
-    #@constraint(model, c3, β[2] >=0) # demand curve should be downward
-    #@constraint(model, c4, β[3] >=0) # demand curve should be downward
-
-    if estimation_method[3] == :theta_constraint
-        @variable(model, 0 <= θ <= 1, start = start_θ)
-    else
-        @variable(model, θ, start = start_θ)
-    end
-
-    @variable(model, 0 <= MC[t = 1:T])
-    for t = 1:T
-        @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X[2*t, end])* exp(P[t]))
-    end
-
-    # MC = Any[];
-    # for t = 1:T
-    #    push!(MC, @NLexpression(model, (1 - θ * (β[2] + β[3] * X[2*t, end]))* exp(P[t])))
-    # end
-    # if estimation_method[2] == :log_constraint
-    #    for t = 1:T
-    #        @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
-    #    end
-    # end
-
-    r = Any[];
-    g = Any[];
-    for t =1:T
-        push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
-        push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
-    end
-
-    for l = 1:L
-        push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
-    end
-    @NLobjective(model, Min, sum( g[l] * Ω[l,k] * g[k] for l = 1:L, k = 1:L))
-    optimize!(model)
+        start_γ = zeros(4)
+        start_θ = 0
+        if starting_value == :true_value
+            start_θ = θ_0
+            start_γ = [γ_0, γ_1, γ_2, γ_3]
     
-    α_hat = value.(β)[1:K_d]
-    γ_hat = value.(β)[K_d+1:end]
-    θ_hat = value.(θ)
+        elseif starting_value == :random
+            start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-20, 20), 4)
+            start_θ = 10
+            while sum(1 .- start_θ .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) != 0
+                start_θ = θ_0 + rand(Uniform(-10, 1))
+            end
+        end
+        
+        sample_violatiton_index = Int64[]
+        # Pick up the index of market under which the inside of the log has a negative value
+        for t = 1:T
+            if 1 .- θ_0 .*(α_hat[2] .+ α_hat[3] .* X_s[t,end]) <= 0
+                push!(sample_violatiton_index, t)
+            end
+        end
+        println("Demand part is done")
+        # If all markets do not satisfy the assumption, stop the supply estimation and rerutns missing values
+        if length(sample_violatiton_index) == T
+            γ_hat = repeat([missing], K_s-1)
+            θ_hat = missing
+            return α_hat, γ_hat, θ_hat, missing
+        else
+            # Drop the samples that violate the assumption
+            if  1 <= length(sample_violatiton_index)
 
-    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    #if  sum(1 .- θ_hat .*(α_hat[2] .+ α_hat[3] .* X_s[:,end]) .<= 0) == 0
-    #    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
-    #else 
-    #    error("The estimation result violates the model assumption ")
-    #end 
+                sample_index = setdiff([1:T;], sample_violatiton_index)
+                Z_s = Z_s[sample_index, :]
+                X_s = X_s[sample_index, :]
+                T = length(sample_index)
+                L_s = size(Z_s,2)
+                K_s = size(X_s, 2)
+            end
+
+            # Check if the weight matrix can be obtained
+            if LinearAlgebra.rank(Z_s' * Z_s) == L_s
+
+                Ω = inv(Z_s' * Z_s)/T
+
+                model = JuMP.Model(Ipopt.Optimizer)
+                JuMP.set_optimizer_attribute(model, "tol", tol)
+                JuMP.set_optimizer_attribute(model, "max_iter", 1000)
+                JuMP.set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
+                JuMP.set_silent(model)
+                JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
+
+                if estimation_method[3] == :theta_constraint
+                    JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
+                else
+                    JuMP.@variable(model, θ, start = start_θ)
+                end
+
+                @variable(model, 0 <= MC[t = 1:T])
+                for t = 1:T
+                    @NLconstraint(model, exp(P[t]) == MC[t] + θ * (α_hat[2] + α_hat[3] * X[t, end])* exp(P[t]))
+                end
+
+                r = Any[];
+                g = Any[];
+                for t =1:T
+                    push!(r, @NLexpression(model, log(MC[t]) - sum(γ[k] * X_s[t,k] for k = 1:K_s-1)))
+                end
+
+                for l = 1:L_s
+                    push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
+                end
+
+                if estimation_method[2] == :log_constraint
+                    for t = 1:T
+                        JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+                    end
+                end
+
+                JuMP.@NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
+
+                JuMP.optimize!(model)
+
+                γ_hat = JuMP.value.(γ)
+                θ_hat = JuMP.value.(θ)
+
+                return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+
+            else
+                # If the weight matrix cannot be obtained, return missing values
+                γ_hat = repeat([missing], K_s-1)
+                θ_hat = missing
+
+                return α_hat, γ_hat, θ_hat, missing
+            end
+        end
+    end
 end
+
 
 function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
     
@@ -616,7 +709,7 @@ end
         α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ , estimation_method, starting_value, tol_level)
     elseif estimation_method[1] == :simultaneous
         α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
-    elseif estimation_method[1] == :mpec
+    elseif estimation_method[1] == :mpec || estimation_method[1] == :mpec_separate
         α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d,  α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ ,estimation_method , starting_value, tol_level)
         if simulation_index % 100 == 0
             print("\nsimulation_index $simulation_index\n")
