@@ -2,8 +2,8 @@ using Distributed
 Distributed.@everywhere include("../code/00setting_julia.jl")
 Distributed.@everywhere include("../code/00functions.jl")
 parameter = market_parameters_log()
-estimation_methods = [(:mpec, :non_constraint, :theta_constraint), (:mpec_separate,:non_constraint, :theta_constraint)]
-#estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
+#estimation_methods = [(:mpec, :non_constraint, :theta_constraint), (:mpec_separate,:non_constraint, :theta_constraint)]
+estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
 starting_value = :true_value
 tol_level = :loose
 

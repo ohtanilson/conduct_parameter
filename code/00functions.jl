@@ -300,11 +300,6 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
         set_silent(model)
         @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
 
-        #@constraint(model, c1, β[1] >=0) # constant term should be positive
-        # @constraint(model, c2, β[K_d+1] >=0) # constant term should be positive
-        #@constraint(model, c3, β[2] >=0) # demand curve should be downward
-        #@constraint(model, c4, β[3] >=0) # demand curve should be downward
-
         if estimation_method[3] == :theta_constraint
             @variable(model, 0 <= θ <= 1, start = start_θ)
         else
@@ -313,16 +308,25 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
 
         @variable(model, 0 <= MC[t = 1:T])
         for t = 1:T
-            @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X[2*t, end])* exp(P[t]))
+            @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X_s[t, end])* exp(P[t]))
         end
 
         r = Any[];
-        g = Any[];
         for t =1:T
             push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
             push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
         end
 
+
+        @constraint(model, β[K_d+2] >=0)                    # supply curve is upward sloping
+        @constraint(model, β[2] >= 0)
+        for t = 1:T
+            #@NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)  # demand curve is downward sloping
+            @NLconstraint(model, 1 - θ * (β[2] + β[3] * X_s[t, end]) >= 0)          # Equilibrium constraint
+            @NLconstraint(model, β[1] - P[t] + β[4] * X_d[t,end] + r[2*t-1] >= 0)   # Equilibrium constraint
+        end
+
+        g = Any[];
         for l = 1:L
             push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
         end
@@ -336,7 +340,6 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
         return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
 
     elseif estimation_method[1] == :mpec_separate
-
 
         # first stage
         QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* Q)
@@ -395,7 +398,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
                 JuMP.set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
                 JuMP.set_silent(model)
                 JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
-
+                JuMP.@constraint(model, c1, γ[2] >=0) # supply curve is upword sloping
                 if estimation_method[3] == :theta_constraint
                     JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
                 else
