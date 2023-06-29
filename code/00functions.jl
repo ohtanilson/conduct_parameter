@@ -317,11 +317,9 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
             push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
         end
 
-
         @constraint(model, β[K_d+2] >=0)                    # supply curve is upward sloping
-        @constraint(model, β[2] >= 0)
         for t = 1:T
-            #@NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)  # demand curve is downward sloping
+            @NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)  # demand curve is downward sloping
             @NLconstraint(model, 1 - θ * (β[2] + β[3] * X_s[t, end]) >= 0)          # Equilibrium constraint
             @NLconstraint(model, β[1] - P[t] + β[4] * X_d[t,end] + r[2*t-1] >= 0)   # Equilibrium constraint
         end
