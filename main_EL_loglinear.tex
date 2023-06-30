@@ -113,7 +113,7 @@ Then, we obtain:
 An obstacle in estimation is log-transformation in Equation \eqref{eq:log_linear_supply_equation}.
 The standard numerical algorithm stops with invalid errors when the inside of the log function, $(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}))$, becomes negative during the search for an optimizer.\footnote{\textcolor{blue}{When the term is negative, equilibrium price and quantity do not exist. When the term is positive, equilibrium price and quantity are uniquely determined as an intersection of downward-sloping demand and upward-sloping supply curves.}}
 This could happen even when researchers restrict the parameter space.
-This problem is not specific to the above model and happens in other specification such as a model with linear demand and log-linear marginal cost.
+This problem is not specific to the above model and happens in other specifications such as a model with linear demand and log-linear marginal cost.
 
 
 
@@ -367,5 +367,125 @@ Table \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_
   \footnotesize
   Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table} 
+
+
+\newpage
+
+%     \section{Existence of Equilibrium}
+
+% Consider a homogeneous product market where $N$ firms compete with each other.
+% There are $N$ firms in the market and firm $j$, $j=1,\ldots, N$, maximizes its profit function with respect to quantity $q_j$.
+% Let $P(Q)$ be the inverse demand function where $Q = \sum_{j=1}^N q_j$ is the aggregate demand for the product and $mc_j(q_j)$ be the marginal cost function of firm $j$.
+
+% The profit function of firm $j$ is written as
+% \begin{align}
+%     \hat{\pi}(q_j,q_{-j}) \equiv \underbrace{P(Q)q_j - \int_0^{q_j} mc_j(q)dq}_{=\pi_j(q_j,q_{-j})} + \kappa_j \sum_{k\ne j} \pi_k(q_k,q_{-k})\label{eq: profit_internalization}.
+% \end{align}
+% where $\kappa_j\in [0,1]$ is an internalization parameter (Porter 2020).
+% The first-order condition for the maximization problem of \eqref{eq: profit_internalization} is
+% \begin{align}
+%     0 & = \frac{\partial \hat{\pi}(q_j,q_{-j}) }{\partial q_j}\\
+%       & = P'(Q)q_j + P(Q) - mc(q_j) + \kappa_j \sum_{k\ne j} P'(Q)q_k\\
+%       & = P(Q) - mc(q_j) + P'(Q)\left(q_j + \kappa_j \sum_{k\ne j} q_k\right).
+% \end{align}
+
+% The term $\kappa_j \sum_{k\ne j} P'(Q)q_k$ is an additional term to the first-order condition in a normal Cournot competition.
+% Then the marginal revenue is 
+% \begin{align*}
+%     MR(q_j, q_{-j}) & =   P(Q) + P'(Q)\left(q_j + \kappa_j \sum_{k\ne j} q_k\right)\\
+%     & =  P(Q) + P'(Q)\left(q_j + \kappa_j Q_{-j}\right)
+% \end{align*}
+
+% By dividing the first-order condition by $Q$ and denoting the share of firm $j$ as $s_j = \frac{q_j}{Q}$, we have
+% \begin{align}
+%     \frac{P(Q) - mc(q_j)}{Q}&= - P'(Q)[s_j + \kappa_j (1- s_j)]\\
+%     \frac{P(Q) - mc(q_j)}{P(Q)} \frac{P(Q)}{Q} &= - P'(Q)[s_j + \kappa_j (1- s_j)]\\
+%      \frac{P(Q) - mc(q_j)}{P(Q)}  & = - \frac{P'(Q)Q}{P(Q)} [s_j + \kappa_j (1- s_j)]\\
+%     L_j & = \frac{\theta_j}{\varepsilon},
+% \end{align}
+% where $L_j =  \frac{P(Q) - mc(q_j)}{P(Q)} $ is the Lerner index for firm $j$, $\varepsilon = - \frac{P'(Q)Q}{P(Q)}$ is the price elasticity, and $\theta_j = s_j + \kappa_j (1- s_j)$ is a conduct parameter.
+% Given a value of the internalization parameter, this conduct parameter does not correspond to a common conduct parameter because the domain of $\theta_j$ is not from zero to one but from $\kappa_j$ to $1$ with respect to the change in the share of firm $j$, $s_j \in [0,1]$.
+
+
+
+% \begin{theorem}[Bamon/Fraysee-Novshek Existence]
+%     Let $A_j$ be a compact interval of the reals, and suppose that best replies are upper hemicontinuous strongly decreasing correspondence of the type $\Psi_j(\sum_{k\ne j}a_k)$ for all $j$. A fixed point of the best reply map exists. 
+% \end{theorem}
+% In a Cournot competition model, this existence theorem requires that the marginal revenue is downward-sloping, $\frac{\partial MR_j}{\partial Q_{-j}}<0$.
+% In our case, this requires 
+% \begin{align}
+%     \frac{\partial MR_j}{\partial Q_{-j}} & = P'(Q) + P''(Q)(q_j + \kappa_j Q_{-j}) + \kappa_jP'(Q)\\
+%     & = P'(Q) (1 + \kappa_j) + P''(Q)(q_j + \kappa_j Q_{-j})\\
+%     & = P'(Q) (1 + \kappa_j) + P''(Q)Q\theta_j.
+% \end{align}
+
+% Consider a log-demand function, $\log P = a - b\log Q$. In this case, $P(Q) = \exp(a)Q^{-b}$.
+% \begin{align*}
+%     P'(Q) &= \exp(a)(-b)Q^{-b-1}\\
+%     P''(Q) & = \exp(a)(-b) (-b-1)Q^{-b-2}.
+% \end{align*}
+% Then
+% \begin{align*}
+%     \frac{\partial MR_j}{\partial Q_{-j}} &= \exp(a)(-b)Q^{-b-1} (1 + \kappa_j) + \exp(a)(-b) (-b-1)Q^{-b-2} Q \theta_j\\
+%     & = \exp(a)(-b)Q^{-b-1} [ 1+\kappa_j - (b+1) \theta_j]
+% \end{align*}
+% Thus, a downward sloping marginal revenue implies $1+\kappa_j - (b+1) \theta_j > 0$.
+% Since $\theta_j = s_j + \kappa_j (1- s_j)$, the left-hand side of the inequality implies
+% \begin{align}
+%     &(1- s_j)(1+\kappa_j)+ s_j -  (1- s_j)(b+1)\theta_j - s_j\\
+%     = & (1-s_j) + \theta_j -  (1- s_j)(b+1)\theta_j - s_j\\
+%     = & 1 - 2s_j + \theta_j[1 - (1- s_j)(b+1)] >0.
+% \end{align}
+
+
+\newpage
+\section{Unique existence of equilibrium prices}
+We need to show the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
+% \begin{align}
+%     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\\
+%     P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t\nonumber\\
+%     &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}).
+% \end{align}
+Rewriting the demand equation \eqref{eq:log_linear_demand} as 
+\begin{align*}
+    \log Q_t^*= \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}   
+\end{align*}
+and substituting it into the supply equation \eqref{eq:log_linear_supply_equation}, we obtain
+\begin{align}
+    P_t &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp\left(\gamma_0 + \gamma_1 \log Q^*_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}\right). \label{eq:equilibrium_equation}
+\end{align}
+To find a fixed point of $P_{t}$, we define $\Delta(P_t)$ as follows:
+\begin{align*}
+    \Delta(P_t)
+    %&=P_t -\left(\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log (\frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t})\right)\\
+    &= [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp\left( \gamma_0 + \gamma_1 \log Q_t^* + \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t})\right)
+\end{align*}
+If $\frac{\partial\Delta(P_t)}{\partial P_t}$ is monotonically increasing at any $P_{t}>0$ and $\Delta(\hat{P}_t)\cdot \Delta(\tilde{P}_t)<0$ for $\hat{P}_t < \tilde{P}_t$, then a unique fixed point $P_t$ exists such that $\Delta(P_t)=0$ by the mean value theorem.
+
+First, when $P_t$ goes to zero, $\Delta P_t$ becomes negative because the first term vanishes and the second term remains.
+When $P_t$ is large, whether $\Delta (P_t)$ is positive depends on the sign of $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$. 
+\textcolor{blue}{Note that we have an upper bound on the value of $P_t$ because the demand will be zero for an extremely large price.}
+If $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})<0$, as the second term in $\Delta(P_t)$ is negative, $\Delta(P_t)$ becomes negative, which implies that there is no fixed point and no equilibrium in this model.
+If $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})>0$, $\Delta(P_t)$ becomes positive when $P_{t}$ is enough large.
+Thus, we assume $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})>0$ as the first condition for the unique existence of $P_{t}$. 
+
+Second, we check if $\frac{\partial\Delta(P_t)}{\partial P_t}$ is monotonically increasing.
+When this holds, we should have
+\begin{align*}
+    \frac{\partial\Delta(P_t)}{\partial P_t}&=1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) + \exp(C)\gamma_1 \frac{(\alpha_1 + \alpha_2 Z^{R}_{t})}{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}} \frac{1/P_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}\\
+    &=1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) + \frac{\exp(C)}{P_t} \frac{\gamma_1}{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}\\
+    & >0
+\end{align*}
+where $C=\gamma_0 + \gamma_1 \log Q_t^* +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$. 
+If $\theta=0$, $\frac{\partial \Delta (P_t)}{\partial P_t} >0$ holds if and only if $\frac{\gamma_1}{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}>0$. 
+
+
+%ここから先を編集する必要あり
+Since $C$ is large enough based on the marginal cost specification, the necessary condition is $\frac{\gamma_1}{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}>0$ which is a key condition for generating standard downward-sloping demand and upward-sloping supply curves. Note that this is not sufficient condition.
+To search the conduct parameter over any $\theta\in [0,1]$, at least this condition must hold. 
+
+Third, we need to impose the condition that the model generates standard downward-sloping demand and upward-sloping supply curves. Specifically, $\gamma_1>0$ must hold.\footnote{If $\gamma_1<0$, $\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}>0$ so $(\alpha_1 + \alpha_2 Z^{R}_{t})<0$ in Equation \eqref{eq:equilibrium_equation}. This also gives the upward-sloping demand curve which is verified only for Giffen goods.} Given this, the second condition leads to $\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}>0$. Whether this condition is satisfied depends on demand shifter $\log Y_t$. In our numerical setting, since $Y$ is i.i.d. drawn from $N(0,1)$, $\alpha_0<0$ must violate the condition, so we need to impose $\alpha_0>0$. Note that if $\gamma_1>0$ and $\alpha_0>0$, then the above second condition hold.
+
+In summary, the conditions for the unique existence of $P_{t}$ are (i) $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})>0$ and (ii) $\gamma_1>0$ and $\alpha_0>0$. MPEC needs to incorporate the conditions to avoid searching over implausible parameter domains.
 
 \end{document}
