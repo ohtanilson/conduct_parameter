@@ -73,7 +73,7 @@ generate_data <-
       theta <-
         0.2#0.5
       alpha0 <-
-        10
+        20
       alpha1 <-
         1
       alpha2 <-
@@ -81,7 +81,7 @@ generate_data <-
       alpha3 <-
         1
       gamma0 <-
-        5
+        1
       gamma1 <-
         1
       gamma2 <-
