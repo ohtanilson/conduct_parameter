@@ -81,7 +81,7 @@ generate_data <-
       alpha3 <-
         1
       gamma0 <-
-        3#1
+        5#1
       gamma1 <-
         1
       gamma2 <-
