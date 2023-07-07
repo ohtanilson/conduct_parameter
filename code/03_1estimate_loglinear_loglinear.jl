@@ -12,7 +12,7 @@ estimation_methods =
     #(:simultaneous, :log_constraint, :theta_constraint)
     #(:optim_nelder_mead, :non_constraint, :theta_constraint)
     ];
-starting_value = :default
+starting_value = :true_value
 tol_level = :loose
 #--------------------------------------------------------------------------------------------------------------
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
