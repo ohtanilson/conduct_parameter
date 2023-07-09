@@ -23,7 +23,8 @@ n_observation_list <-
     50,
     100,
     200,
-    1000
+    1000,
+    2000
     )
 sigma_list <-
   c(
@@ -352,3 +353,20 @@ generate_plot_log_log(
     loglinear_loglinear_n_1000_sigma_2
   )
 ```
+
+
+### n = 2000 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot_log_log(
+    loglinear_loglinear_n_2000_sigma_0.001
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_2000_sigma_0.5
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_2000_sigma_1
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_2000_sigma_2
+  )
