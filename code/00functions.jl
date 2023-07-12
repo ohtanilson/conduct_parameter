@@ -317,19 +317,19 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
 
         @variable(model, 0 <= MC[t = 1:T])
         for t = 1:T
-            @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X_s[t, end])* exp(P[t]))
+            @NLconstraint(model, exp(P[t]) == MC[t] + θ * (β[2] + β[3] * X[2*t,end])* exp(P[t]))
         end
 
         r = Any[];
         for t =1:T
-            push!(r, @NLexpression(model, P[t] - sum(β[k] * X_d[t,k] for k = 1:K_d) ))
-            push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X_s[t,k] for k = 1:K_s-1)))
+            push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
+            push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
         end
 
-        @constraint(model, β[K_d+2] >=0)                    # upward-sloping marginal cost
+        @constraint(model, β[K_d+2] >=0)         # supply curve is upward sloping
         for t = 1:T
-            @NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)                    # downward-sloping demand
-            @NLconstraint(model, 1 - θ * (β[2] + β[3] * X_s[t, end]) >= 0)          # Equilibrium constraint
+            @NLconstraint(model, β[2] + β[3] * X[2*t,end] >= 0)  # demand curve is downward sloping
+            @NLconstraint(model, 1 - θ * (β[2] + β[3] * X[2*t,end]) >= 0)          # Equilibrium constraint
         end
 
         g = Any[];
