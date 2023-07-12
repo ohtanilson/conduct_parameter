@@ -24,7 +24,6 @@ using VegaLite
 using Parameters: @with_kw, @unpack
 using JuMP, Ipopt, Optim
 
-
 # Set parameters for log-linear model
 market_parameters_log = @with_kw (
     α_0 = 20, # Demand parameter
