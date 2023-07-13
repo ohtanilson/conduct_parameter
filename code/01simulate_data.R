@@ -280,8 +280,7 @@ n_observation_list <-
     50,
     100,
     200, 
-    1000#,
-    #2000
+    1000
     )
 sigma_list <-
   c(
@@ -361,6 +360,23 @@ for(nn in 1:length(n_observation_list)){
 ## log-linear demand and log-linear cost ----
 ### with demand shifter ----
 
+n_observation_list <-
+  c(
+    50,
+    100,
+    200, 
+    1000,
+    2000
+  )
+
+sigma_list <-
+  c(
+    0.001,
+    0.5, 
+    1.0, 
+    2.0
+  )
+
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     temp_nn <-
@@ -370,7 +386,7 @@ for(nn in 1:length(n_observation_list)){
     data <-
       generate_data(
         target_n_observation = temp_nn,
-        target_k_observation = 1000,#200,#500,#1000,
+        target_k_observation = 200,#500,#1000,
         target_sigma = temp_sigma,
         specification = "loglinear_loglinear",
         demand_shifter_dummy = TRUE,
@@ -404,7 +420,7 @@ for(nn in 1:length(n_observation_list)){
     data <-
       generate_data(
         target_n_observation = temp_nn,
-        target_k_observation = 1000,
+        target_k_observation = 200,#1000,
         target_sigma = temp_sigma,
         specification = "loglinear_loglinear",
         demand_shifter_dummy = FALSE,
@@ -431,6 +447,20 @@ for(nn in 1:length(n_observation_list)){
 
 # Appendix ---- 
 ## linear with zero sigma ----
+n_observation_list <-
+  c(
+    50,
+    100,
+    200, 
+    1000
+  )
+sigma_list <-
+  c(
+    0.001,
+    0.5, 
+    1.0, 
+    2.0
+  )
 temp_sigma_list <-
   0
 for(nn in 1:length(n_observation_list)){
