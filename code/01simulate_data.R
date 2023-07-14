@@ -71,7 +71,7 @@ generate_data <-
         r + rnorm(nk, mean = 0, sd = 1)
       ## set parameter ----
       theta <-
-        0.2#0.5
+        0.5#0.2#0.5
       alpha0 <-
         20
       alpha1 <-
@@ -366,7 +366,7 @@ n_observation_list <-
     100,
     200, 
     1000,
-    2000
+    1500
   )
 
 sigma_list <-
