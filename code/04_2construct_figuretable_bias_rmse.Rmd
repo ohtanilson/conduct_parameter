@@ -284,15 +284,24 @@ for(nn in 1:length(n_observation_list)){
       temp_data)
   }
 }
+
+n_observation_list <-
+  c(
+    50,
+    100, 
+    #200, 
+    1000,
+    1500 #addd
+    )
 constraint_list <-
   c(
     "_separate_non_constraint_non_constraint",
     "_separate_non_constraint_theta_constraint",
-    "_separate_log_constraint_theta_constraint",
+    #"_separate_log_constraint_theta_constraint",
     "_simultaneous_non_constraint_non_constraint",
-    "_simultaneous_non_constraint_theta_constraint",
-    "_simultaneous_log_constraint_theta_constraint",
-    "_optim_nelder_mead_non_constraint_theta_constraint"
+    "_simultaneous_non_constraint_theta_constraint"#,
+    #"_simultaneous_log_constraint_theta_constraint",
+    #"_optim_nelder_mead_non_constraint_theta_constraint"
     )
 # loglinear with constraint
 for(nn in 1:length(n_observation_list)){
@@ -405,9 +414,10 @@ for(nn in 1:length(n_observation_list)){
 }
 # mpec loglinear with demand shifter
 constraint_list <-
-  c("_mpec_non_constraint_non_constraint",
-    "_mpec_separate_non_constraint_theta_constraint",
-    "_mpec_non_constraint_theta_constraint")
+  c(#"_mpec_non_constraint_non_constraint",
+    #"_mpec_separate_non_constraint_theta_constraint",
+    "_mpec_non_constraint_theta_constraint"
+    )
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     for(cc in 1:length(constraint_list)){
@@ -533,7 +543,7 @@ true_parameter_loglinear <-
     1,
     1,
     1,
-    0.2
+    0.5#0.2
     )
 
 create_table_with_demand_shifter_bias_rmse <-
@@ -744,7 +754,9 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
         "",
         locally_solved_list[3,2],
         "",
-        locally_solved_list[4,2]
+        locally_solved_list[4,2]#,
+        # "",
+        # locally_solved_list[5,2]
         )
     bias_info <-
       target_data %>%
@@ -924,10 +936,13 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
         "50",
         "",
         "100",
+        # "",
+        # "200",
         "",
-        "200",
+        "1000",
         "",
-        "1000")
+        "1500"
+        )
     
     # keep consistency of colnames for latex
     colnames(new_rows) <-
@@ -1236,8 +1251,9 @@ loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_0.001_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint
 )
@@ -1245,8 +1261,9 @@ loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_0.5_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint
 )
@@ -1255,8 +1272,9 @@ loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_1_separate_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_1_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_1_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint
 )
@@ -1265,8 +1283,9 @@ loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_2_separate_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_2_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_2_separate_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_2_separate_non_constraint_theta_constraint
 )
@@ -1281,8 +1300,9 @@ loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_0.001_simultaneous_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_0.001_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_simultaneous_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_0.001_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_0.001_simultaneous_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_theta_constraint
 )
@@ -1290,8 +1310,9 @@ loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_0.5_simultaneous_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_0.5_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_simultaneous_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_0.5_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_0.5_simultaneous_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint
 )
@@ -1300,8 +1321,9 @@ loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_1_simultaneous_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_1_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_simultaneous_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_1_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_1_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_1_simultaneous_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint
 )
@@ -1310,8 +1332,9 @@ loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_2_simultaneous_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_2_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_simultaneous_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_simultaneous_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_2_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_2_simultaneous_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_2_simultaneous_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint
 )
@@ -1326,8 +1349,9 @@ loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_0.001_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_0.001_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_0.001_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint
 )
@@ -1335,8 +1359,9 @@ loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_0.5_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_0.5_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_0.5_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint
 )
@@ -1345,8 +1370,9 @@ loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_1_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_1_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_1_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint
 )
@@ -1355,8 +1381,9 @@ loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint <-
   rbind(
     loglinear_loglinear_n_50_sigma_2_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_100_sigma_2_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_theta_constraint)
+    #loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_theta_constraint,
+    loglinear_loglinear_n_1500_sigma_2_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
   loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint
 )
@@ -1365,362 +1392,368 @@ create_table_loglinear_with_demand_shifter_bias_rmse(
 
 #### mpec separate
 
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_mpec_separate_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_mpec_separate_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_mpec_separate_non_constraint_theta_constraint
-)
-loglinear_loglinear_sigma_0.5_mpec_separate_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_mpec_separate_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_mpec_separate_non_constraint_theta_constraint
-)
+omit
 
-loglinear_loglinear_sigma_1_mpec_separate_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_1_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_mpec_separate_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_mpec_separate_non_constraint_theta_constraint
-)
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_mpec_separate_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_mpec_separate_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_mpec_separate_non_constraint_theta_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_mpec_separate_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_mpec_separate_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_mpec_separate_non_constraint_theta_constraint -->
+<!-- ) -->
 
-loglinear_loglinear_sigma_2_mpec_separate_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_2_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_mpec_separate_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_mpec_separate_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_mpec_separate_non_constraint_theta_constraint
-)
+<!-- loglinear_loglinear_sigma_1_mpec_separate_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_mpec_separate_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_mpec_separate_non_constraint_theta_constraint -->
+<!-- ) -->
 
-```
+<!-- loglinear_loglinear_sigma_2_mpec_separate_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_mpec_separate_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_mpec_separate_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_mpec_separate_non_constraint_theta_constraint -->
+<!-- ) -->
+
+<!-- ``` -->
 
 #### optim_nelder_mead
 
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint
-)
-loglinear_loglinear_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint
-)
+omit
 
-loglinear_loglinear_sigma_1_optim_nelder_mead_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_1_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_optim_nelder_mead_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_optim_nelder_mead_non_constraint_theta_constraint
-)
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_optim_nelder_mead_non_constraint_theta_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_optim_nelder_mead_non_constraint_theta_constraint -->
+<!-- ) -->
 
-loglinear_loglinear_sigma_2_optim_nelder_mead_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_2_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_optim_nelder_mead_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_optim_nelder_mead_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_optim_nelder_mead_non_constraint_theta_constraint
-)
+<!-- loglinear_loglinear_sigma_1_optim_nelder_mead_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_optim_nelder_mead_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_optim_nelder_mead_non_constraint_theta_constraint -->
+<!-- ) -->
 
-```
+<!-- loglinear_loglinear_sigma_2_optim_nelder_mead_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_optim_nelder_mead_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_optim_nelder_mead_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_optim_nelder_mead_non_constraint_theta_constraint -->
+<!-- ) -->
 
-### log_constraint_theta_constraint {.tabset}
+<!-- ``` -->
 
-#### separate
+<!-- ### log_constraint_theta_constraint {.tabset} -->
 
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_separate_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_separate_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_separate_log_constraint_theta_constraint
-)
-loglinear_loglinear_sigma_0.5_separate_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_separate_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_separate_log_constraint_theta_constraint
-)
+<!-- #### separate -->
 
-loglinear_loglinear_sigma_1_separate_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_1_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_separate_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_separate_log_constraint_theta_constraint
-)
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_separate_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_separate_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_separate_log_constraint_theta_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_separate_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_separate_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_separate_log_constraint_theta_constraint -->
+<!-- ) -->
 
-loglinear_loglinear_sigma_2_separate_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_2_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_separate_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_separate_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_separate_log_constraint_theta_constraint
-)
+<!-- loglinear_loglinear_sigma_1_separate_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_separate_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_separate_log_constraint_theta_constraint -->
+<!-- ) -->
 
-```
+<!-- loglinear_loglinear_sigma_2_separate_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_separate_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_separate_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_separate_log_constraint_theta_constraint -->
+<!-- ) -->
 
-
-#### simultaneous
-
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_simultaneous_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_simultaneous_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_simultaneous_log_constraint_theta_constraint
-)
-loglinear_loglinear_sigma_0.5_simultaneous_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_simultaneous_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_simultaneous_log_constraint_theta_constraint
-)
-
-loglinear_loglinear_sigma_1_simultaneous_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_1_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_simultaneous_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_simultaneous_log_constraint_theta_constraint
-)
-
-loglinear_loglinear_sigma_2_simultaneous_log_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_2_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_simultaneous_log_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_simultaneous_log_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_simultaneous_log_constraint_theta_constraint
-)
-
-```
+<!-- ``` -->
 
 
-#### mpec
+<!-- #### simultaneous -->
 
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint
-)
-loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint
-)
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_simultaneous_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_simultaneous_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_simultaneous_log_constraint_theta_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_simultaneous_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_simultaneous_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_simultaneous_log_constraint_theta_constraint -->
+<!-- ) -->
 
-loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_1_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint
-)
+<!-- loglinear_loglinear_sigma_1_simultaneous_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_simultaneous_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_simultaneous_log_constraint_theta_constraint -->
+<!-- ) -->
 
-loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_100_sigma_2_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_theta_constraint,
-    loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_theta_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint
-)
+<!-- loglinear_loglinear_sigma_2_simultaneous_log_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_simultaneous_log_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_simultaneous_log_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_simultaneous_log_constraint_theta_constraint -->
+<!-- ) -->
 
-```
+<!-- ``` -->
+
+
+<!-- #### mpec -->
+
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint -->
+<!-- ) -->
+
+<!-- loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint -->
+<!-- ) -->
+
+<!-- loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_theta_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_theta_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint -->
+<!-- ) -->
+
+<!-- ``` -->
 
 ### non_constraint_non_constraint {.tabset}
 
-#### separate
+omit
 
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint
-)
-loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint
-)
+<!-- #### separate -->
 
-loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint
-)
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_separate_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_separate_non_constraint_non_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_separate_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_separate_non_constraint_non_constraint -->
+<!-- ) -->
 
-loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint
-)
+<!-- loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_separate_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_separate_non_constraint_non_constraint -->
+<!-- ) -->
 
-```
+<!-- loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_separate_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_separate_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_separate_non_constraint_non_constraint -->
+<!-- ) -->
 
-
-#### simultaneous
-
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_simultaneous_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint
-)
-loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_simultaneous_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint
-)
-
-loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_1_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_1_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_1_simultaneous_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint
-)
-
-loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_2_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_2_simultaneous_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_2_simultaneous_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint
-)
-
-```
+<!-- ``` -->
 
 
+<!-- #### simultaneous -->
+
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_simultaneous_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_simultaneous_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint -->
+<!-- ) -->
+
+<!-- loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_simultaneous_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint -->
+<!-- ) -->
+
+<!-- loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_simultaneous_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_simultaneous_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint -->
+<!-- ) -->
+
+<!-- ``` -->
 
 
-#### mpec
 
-```{r,echo=FALSE,results = "asis"}
-loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.001_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_0.001_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint
-)
-loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_0.5_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_0.5_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint
-)
 
-loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_1_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_1_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint
-)
+<!-- #### mpec -->
 
-loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint <-
-  rbind(
-    loglinear_loglinear_n_50_sigma_2_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_100_sigma_2_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_non_constraint,
-    loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_non_constraint)
-create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint
-)
+<!-- ```{r,echo=FALSE,results = "asis"} -->
+<!-- loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.001_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.001_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.001_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint -->
+<!-- ) -->
+<!-- loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_0.5_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_0.5_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_0.5_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint -->
+<!-- ) -->
 
-```
+<!-- loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_1_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_1_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_1_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint -->
+<!-- ) -->
+
+<!-- loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint <- -->
+<!--   rbind( -->
+<!--     loglinear_loglinear_n_50_sigma_2_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_100_sigma_2_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_200_sigma_2_mpec_non_constraint_non_constraint, -->
+<!--     loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_non_constraint) -->
+<!-- create_table_loglinear_with_demand_shifter_bias_rmse( -->
+<!--   loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint -->
+<!-- ) -->
+
+<!-- ``` -->
