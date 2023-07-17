@@ -386,7 +386,7 @@ for(nn in 1:length(n_observation_list)){
     data <-
       generate_data(
         target_n_observation = temp_nn,
-        target_k_observation = 200,#500,#1000,
+        target_k_observation = 1000,
         target_sigma = temp_sigma,
         specification = "loglinear_loglinear",
         demand_shifter_dummy = TRUE,
