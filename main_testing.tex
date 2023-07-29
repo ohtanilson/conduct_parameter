@@ -111,39 +111,40 @@ By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear
     Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
 \end{align}
 
-\subsection{Test statistics}
+\subsection{Test statistics and statistical power}
 
 XXX
 
 \section{Simulation results}\label{sec:results}
 
-% Table \ref{tb:linear_linear_sigma_1} presents the results of estimating the linear model with the demand shifter.\footnote{See online appendix for simulation details and additional results.}
-% Panel (a) shows that when the standard deviations of the error terms in the demand and supply equations are $\sigma = 0.001$, estimation of all parameters is extremely accurate.
-% When sample size is large, root-mean-squared errors (RMSEs) of all parameters are less than or equal to 0.001. 
-% Panel (c) shows the case with $\sigma = 2.0$. 
-% As sample size increases, the RMSEs sharply decrease. 
-% Thus, the imprecise results reported by PS are due to the lack of demand shifters and small sample size.
+Figure \ref{fg:theta_hat_t_statistics} presents the results of finite sample performance.\footnote{See online appendix for simulation details.}
+We focus on the mean of t-statistics of conduct parameter $\theta$ over 100 datasets. 
+First, when sample size is large, that is, the number of markets is large, the mean of t-statistics increases. %M
+Second, when $\theta$ is large, that is, the number of firms is smaller, the mean of t-statistics increases. %theta
+Third, when $\alpha_2$ is large, that is, the rotation instrument is stronger, the mean of t-statistics increases. %alpha2
+
+
 
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_50.png}}
+  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
+  % {figuretable/theta_hat_t_statistics_50.png}}
   \subfloat[M=100]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_100.png}}
   \subfloat[M=200]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_200.png}}\\
+  {figuretable/theta_hat_t_statistics_200.png}}
   \subfloat[M=1000]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_1000.png}}
+  {figuretable/theta_hat_t_statistics_1000.png}}\\
   \subfloat[M=2000]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_2000.png}}
   \subfloat[M=5000]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_5000.png}}
-  %\caption{Transition of route-year-level tonnage share in the conference market}
-  \label{fg:}
+  \caption{Mean t-statistics of conduct parameter $\theta$}
+  \label{fg:theta_hat_t_statistics}
   \end{center}
   \footnotesize
-   %Note: Tonnage shares are calculated by the tonnage share of ships deployed in the conference market. Additional information can be found in Appendix.
+   Note: We simulate 100 datasets and calculate mean t-statistics of conduct parameter $\theta$.
 \end{figure} 
 
 
