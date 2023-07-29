@@ -93,8 +93,8 @@ for(nn in 1:length(n_observation_list)){
           filename,
           temp_data
           )
-        mean_theta_hat_t_stats <-
-          mean(temp_data$theta_hat_t_stats)
+        reject_probability <-
+          sum(temp_data$theta_hat_t_stats > 1.96)/100
         if(nn == 1 & ss == 1 & aa == 1 &tt == 1){
           data_for_plot <-
             cbind(
@@ -102,7 +102,7 @@ for(nn in 1:length(n_observation_list)){
               temp_theta,
               temp_alpha2,
               temp_sigma,
-              mean_theta_hat_t_stats
+              reject_probability
               ) %>% 
             tibble::as_tibble() 
         }else{
@@ -112,7 +112,7 @@ for(nn in 1:length(n_observation_list)){
               temp_theta,
               temp_alpha2,
               temp_sigma,
-              mean_theta_hat_t_stats
+              reject_probability
               ) %>% 
             tibble::as_tibble() 
           data_for_plot <-
@@ -156,7 +156,7 @@ for(nn in 1:length(n_observation_list)){
     ), 
   aes(
     x = as.character(temp_theta),
-    y = mean_theta_hat_t_stats, 
+    y = reject_probability, 
     fill = 
       as.factor(
         temp_alpha2
@@ -171,9 +171,9 @@ for(nn in 1:length(n_observation_list)){
     yintercept = 1.96, 
     linetype = "dashed"
       ) +
-  ylim(-0.2, 30) +
+  ylim(0, 1) +
   xlab(expression(theta == 1/n)) +
-  ylab(paste("Mean t-statistics, M=", target_nn, sep="")) +
+  ylab(paste("Power, M=", target_nn, sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
   theme_classic() +
   theme(legend.position = 'top') +
