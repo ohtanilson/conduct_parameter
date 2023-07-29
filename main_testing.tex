@@ -118,11 +118,9 @@ XXX
 \section{Simulation results}\label{sec:results}
 
 Figure \ref{fg:theta_hat_t_statistics} presents the results of finite sample performance.\footnote{See online appendix for simulation details.}
-We focus on the mean of t-statistics of conduct parameter $\theta$ over 100 datasets. 
-First, when sample size is large, that is, the number of markets is large, the mean of t-statistics increases. %M
-Second, when $\theta$ is large, that is, the number of firms is smaller, the mean of t-statistics increases. %theta
-Third, when $\alpha_2$ is large, that is, the rotation instrument is stronger, the mean of t-statistics increases. %alpha2
-
+We focus on the power of conduct parameter $\theta$ over 100 datasets. 
+The power increases when (1) sample size is large, that is, the number of markets is large, (2) $\theta$ is large, that is, the number of firms is smaller, (3) when $\alpha_2$ is large, that is, the rotation instrument is stronger.
+Panel (f) shows the most remarkable result that if the number of firms is twenty, with enough large number of markets, we can reject the null hypothesis that markets are perfectly competitive at a significance level of 0.05 only when the rotation instrument is extremely strong ($\alpha_2\ge 5$), which is larger than price coefficient ($\alpha_1=1$).
 
 
 
@@ -130,16 +128,18 @@ Third, when $\alpha_2$ is large, that is, the rotation instrument is stronger, t
   \begin{center}
   % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
   % {figuretable/theta_hat_t_statistics_50.png}}
-  \subfloat[M=100]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_100.png}}
-  \subfloat[M=200]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_200.png}}
-  \subfloat[M=1000]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_1000.png}}\\
-  \subfloat[M=2000]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_2000.png}}
-  \subfloat[M=5000]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_t_statistics_5000.png}}
+  \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_t_statistics_10000.png}}
   \caption{Mean t-statistics of conduct parameter $\theta$}
   \label{fg:theta_hat_t_statistics}
   \end{center}
