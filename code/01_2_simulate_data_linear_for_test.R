@@ -283,7 +283,8 @@ n_observation_list <-
     200, 
     1000,
     2000,
-    5000
+    5000,
+    10000
     )
 sigma_list <-
   c(

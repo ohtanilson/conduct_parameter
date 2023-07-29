@@ -23,7 +23,8 @@ n_observation_list <-
     200, 
     1000,
     2000,
-    5000
+    5000,
+    10000
   )
 sigma_list <-
   c(
@@ -170,7 +171,7 @@ for(nn in 1:length(n_observation_list)){
     yintercept = 1.96, 
     linetype = "dashed"
       ) +
-  ylim(-0.2, 15) +
+  ylim(-0.2, 20) +
   xlab(expression(theta == 1/n)) +
   ylab(paste("Mean t-statistics, M=", target_nn, sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
