@@ -137,6 +137,9 @@ estimate_supply <-
     theta_hat <-
       res_supply %>% 
       purrr::map_dbl(~coef(.)[5]) 
+    theta_hat_t_stats <-
+      res_supply %>% 
+      purrr::map_dbl(~coef(.)[5,"t value"]) 
     supply_hat <-
       cbind(
         gamma0_hat,
@@ -144,6 +147,7 @@ estimate_supply <-
         gamma2_hat,
         gamma3_hat,
         theta_hat,
+        theta_hat_t_stats,
         R2_supply
       ) %>% 
       tibble::as_tibble() %>% 
@@ -194,7 +198,7 @@ estimate_demand_and_supply <-
         dplyr::select(
           group_id_k,
           alpha0_hat:alpha3_hat,
-          gamma0_hat:theta_hat,
+          gamma0_hat:theta_hat_t_stats,
           R2_demand,
           R2_supply
         )
@@ -208,7 +212,7 @@ estimate_demand_and_supply <-
         dplyr::select(
           group_id_k,
           alpha0_hat:alpha2_hat, # drop alpha3
-          gamma0_hat:theta_hat,
+          gamma0_hat:theta_hat_t_stats,
           R2_demand,
           R2_supply
         )
@@ -223,339 +227,112 @@ n_observation_list <-
     50,
     100,
     200, 
-    1000
-    )
+    1000,
+    2000,
+    5000
+  )
 sigma_list <-
   c(
-    0.001,
+    #0.001,
+    #0.5, 
+    1.0#, 
+    #2.0
+  )
+alpha2_list <-
+  c(
+    0.1,
     0.5,
-    1.0, 
-    2.0
-    )
-
+    1.0,
+    5.0,
+    20.0
+  )
+theta_list <-
+  c(
+    0.05,
+    0.1,
+    0.2,
+    0.33,
+    0.5,
+    1.0
+  )
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
 ### with demand_shifter_y ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
-    temp_nn <-
-      n_observation_list[nn]
-    temp_sigma <-
-      sigma_list[ss]
-    filename <-
-      paste(
-        "linear_linear_",
-        "n_",
-        temp_nn,
-        "_sigma_",
-        temp_sigma,
-        sep = ""
-      )
-    cat(filename,"\n")
-    # load 
-    target_data <-
-      readRDS(
-        file = 
-          here::here(
+    for(aa in 1:length(alpha2_list)){
+      for(tt in 1:length(theta_list)){
+        temp_nn <-
+          n_observation_list[nn]
+        temp_sigma <-
+          sigma_list[ss]
+        temp_theta <-
+          theta_list[tt]
+        temp_alpha2 <-
+          alpha2_list[aa]
+        filename <-
+          paste(
+            "data_linear_linear_",
+            "n_",
+            temp_nn,
+            "_theta_",
+            temp_theta,
+            "_alpha2_",
+            temp_alpha2,
+            "_sigma_",
+            temp_sigma,
+            sep = ""
+          )
+        cat(filename,"\n")
+        # load 
+        target_data <-
+          readRDS(
+            file = 
+              here::here(
+                paste(
+                  "output/",
+                  filename,
+                  ".rds",
+                  sep = ""
+                )
+              )
+          )
+        # assign(filename,
+        #        temp_data)
+        # estimate 
+        linear_demand_formula <-
+          "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
+        linear_demand_linear_supply_formula <-
+          paste("P ~ composite_z:Q + Q + w + r|",
+                "composite_z + w + r + y")
+        parameter_hat_table <-
+          estimate_demand_and_supply(
+            target_data =
+              target_data,
+            target_demand_formula = 
+              linear_demand_formula,
+            target_supply_formula =
+              linear_demand_linear_supply_formula,
+            demand_shifter_dummy = TRUE
+            )
+        # save 
+        saveRDS(
+          parameter_hat_table,
+          file = 
             paste(
-              "output/data_",
+              "output/",
+              "parameter_hat_table",
               filename,
               ".rds",
               sep = ""
-              )
             )
         )
-    # assign(filename,
-    #        temp_data)
-    # estimate 
-    linear_demand_formula <-
-      "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
-    linear_demand_linear_supply_formula <-
-      paste("P ~ composite_z:Q + Q + w + r|",
-            "composite_z + w + r + y")
-    parameter_hat_table <-
-      estimate_demand_and_supply(
-        target_data =
-          target_data,
-        target_demand_formula = 
-          linear_demand_formula,
-        target_supply_formula =
-          linear_demand_linear_supply_formula,
-        demand_shifter_dummy = TRUE)
-    # save 
-    saveRDS(
-      parameter_hat_table,
-      file = 
-        paste(
-          "output/",
-          "parameter_hat_table",
-          filename,
-          ".rds",
-          sep = ""
-          )
-      )
+      }
+    }
   }
 }
 modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table)
-### without demand_shifter_y ----
-for(nn in 1:length(n_observation_list)){
-  for(ss in 1:length(sigma_list)){
-    temp_nn <-
-      n_observation_list[nn]
-    temp_sigma <-
-      sigma_list[ss]
-    filename <-
-      paste(
-        "linear_linear_",
-        "n_",
-        temp_nn,
-        "_sigma_",
-        temp_sigma,
-        "_without_demand_shifter_y",
-        sep = ""
-      )
-    cat(filename,"\n")
-    # load 
-    target_data <-
-      readRDS(
-        file = 
-          here::here(
-            paste(
-              "output/data_",
-              filename,
-              ".rds",
-              sep = ""
-              )
-            )
-        )
-    # assign(filename,
-    #        temp_data)
-    # estimate 
-    linear_demand_formula <-
-      "P ~ Q + Q:z|z + iv_w + iv_r"
-    linear_demand_linear_supply_formula <-
-      paste("P ~ composite_z:Q + Q + w + r|",
-            "composite_z + w + r + iv_w + iv_r")
-    parameter_hat_table <-
-      estimate_demand_and_supply(
-        target_data =
-          target_data,
-        target_demand_formula = 
-          linear_demand_formula,
-        target_supply_formula =
-          linear_demand_linear_supply_formula,
-        demand_shifter_dummy = F)
-    # save 
-    saveRDS(
-      parameter_hat_table,
-      file = 
-        paste(
-          "output/",
-          "parameter_hat_table",
-          filename,
-          ".rds",
-          sep = ""
-          )
-      )
-  }
-}
 
-modelsummary::datasummary_skim(
-  fmt = 3,
-  parameter_hat_table)
-
-## log-linear demand and log-linear cost ----
-
-### with demand_shifter_y ----
-temp_nn <-
-  n_observation_list[1]
-temp_sigma <-
-  sigma_list[1]
-filename <-
-  paste(
-    "loglinear_loglinear_",
-    "n_",
-    temp_nn,
-    "_sigma_",
-    temp_sigma,
-    sep = ""
-  )
-cat(filename,"\n")
-# load 
-target_data <-
-  readRDS(
-    file = 
-      here::here(
-        paste(
-          "output/data_",
-          filename,
-          ".rds",
-          sep = ""
-          )
-        )
-    )
-
-#### demand ----
-target_demand_formula =
-  "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
-data_with_demand_hat <-
-  estimate_demand(
-    target_data = 
-      target_data,
-    target_demand_formula =
-      target_demand_formula,
-    demand_shifter_dummy =
-      TRUE)
-modelsummary::datasummary_skim(
-  fmt = 3,
-  data_with_demand_hat %>% 
-    dplyr::select(
-      group_id_k,
-      alpha0_hat:R2_demand
-    ) %>% 
-    dplyr::distinct(
-      group_id_k,
-      .keep_all = T)
-  ) 
-
-
-for(nn in 1:length(n_observation_list)){
-  for(ss in 1:length(sigma_list)){
-    temp_nn <-
-      n_observation_list[nn]
-    temp_sigma <-
-      sigma_list[ss]
-    filename <-
-      paste(
-        "loglinear_loglinear_",
-        "n_",
-        temp_nn,
-        "_sigma_",
-        temp_sigma,
-        sep = ""
-      )
-    cat(filename,"\n")
-    # load
-    target_data <-
-      readRDS(
-        file =
-          here::here(
-            paste(
-              "output/data_",
-              filename,
-              ".rds",
-              sep = ""
-              )
-            )
-        )
-    target_demand_formula <-
-      "logP ~ logQ + logQ:z + y|y + z + iv_w + iv_r"
-    data_with_demand_hat <-
-      estimate_demand(
-        target_data = 
-          target_data,
-        target_demand_formula =
-          target_demand_formula,
-        demand_shifter_dummy =
-          TRUE)
-    # save
-    saveRDS(
-      data_with_demand_hat,
-      file = 
-        paste(
-          "output/",
-          "data_with_demand_hat_",
-          filename,
-          ".rds",
-          sep = ""
-          )
-      )
-  }
-}
-
-
-
-#### supply ----
-# see julia code
-
-# appendix: test AER::ivreg, lm(2sls) ----
-filename <-
-  paste(
-    "linear_linear_",
-    "n_",
-    50,
-    "_sigma_",
-    1,
-    sep = ""
-  )
-target_data <-
-  readRDS(
-    file = 
-      here::here(
-        paste(
-          "output/data_",
-          filename,
-          ".rds",
-          sep = ""
-          )
-        )
-    )
-target_data_k <-
-  target_data %>% 
-  dplyr::filter(
-    group_id_k == 1
-  ) %>% 
-  dplyr::mutate(
-    Qz =
-      Q * z
-  )
-## interaction ----
-res_ivreg <-
-  AER::ivreg(
-    formula = "P ~ Q + Q:z + y|y + z + iv_w + iv_r",
-    data = target_data_k)
-res_lm_first_stage <-
-  lm(
-    formula = "Q ~ y + z + iv_w + iv_r",
-    data = target_data_k)
-target_data_k$Q_hat <-
-  fitted.values(
-    res_lm_first_stage
-    )
-res_lm_first_stage_interaction <-
-  lm(
-    formula = "Qz ~ y + z + iv_w + iv_r",
-    data = target_data_k)
-target_data_k$Q_hat_z <-
-  fitted.values(
-    res_lm_first_stage_interaction
-  )
-res_lm_second_stage <-
-  lm(
-    formula = "P ~ Q_hat + Q_hat_z + y",
-    data = target_data_k)
-## no interaction ----
-res_ivreg_no_interaction <-
-  AER::ivreg(
-    formula = "P ~ Q + y|y + z + iv_w + iv_r",
-    data = target_data_k)
-res_lm_first_stage_no_interaction <-
-  lm(
-    formula = "Q ~ y + z + iv_w + iv_r",
-    data = target_data_k)
-target_data_k$Q_hat <-
-  fitted.values(
-    res_lm_first_stage_no_interaction
-  )
-res_lm_second_stage_no_interaction <-
-  lm(
-    formula = "P ~ Q_hat + y",
-    data = target_data_k)
-## compare ----
-res_ivreg$coefficients
-res_lm_second_stage$coefficients
-res_ivreg_no_interaction$coefficients
-res_lm_second_stage_no_interaction$coefficients
 
