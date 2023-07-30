@@ -177,7 +177,7 @@ for(nn in 1:length(n_observation_list)){
       ) +
   ylim(0, 1) +
   xlab(expression(theta == 1/N)) +
-  ylab(paste("Rejection frequencies",
+  ylab(paste("Rejection frequency",
              #target_nn,
              sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
