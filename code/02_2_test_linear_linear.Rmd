@@ -164,16 +164,20 @@ for(nn in 1:length(n_observation_list)){
     )
   ) +
   geom_col(
-    width = 0.1,
+    width = 0.2,
     position = position_dodge(0.7)
     ) +
   geom_hline(
-    yintercept = 1.96, 
+    yintercept = 1.00, 
     linetype = "dashed"
       ) +
+  geom_hline(
+  yintercept = 0.90, 
+  linetype = "dashed"
+      ) +
   ylim(0, 1) +
-  xlab(expression(theta == 1/n)) +
-  ylab(paste("Power, M=", target_nn, sep="")) +
+  xlab(expression(theta == 1/N)) +
+  ylab(paste("Rejection frequencies, M=", target_nn, sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
   theme_classic() +
   theme(legend.position = 'top') +
@@ -182,7 +186,7 @@ for(nn in 1:length(n_observation_list)){
   # save
   figure_name <-
     paste(
-      "../figuretable/theta_hat_t_statistics_",
+      "../figuretable/theta_hat_power_",
       target_nn,
       ".png",
       sep = ""
