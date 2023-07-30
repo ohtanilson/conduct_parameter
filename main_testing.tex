@@ -46,7 +46,7 @@
 
 \maketitle
 \begin{abstract}
-    We show that it is impossible to statistically test perfect competition against Cournot competition when the number of firms is more than XXX.
+    We conduct a statistical power analysis for conduct parameter estimation. The power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is stronger. We provide a unified reference about the relationship between sample size, conduct parameters, and the strength of demand rotation instruments.
 \vspace{0.1in}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Monte Carlo simulation
@@ -65,92 +65,154 @@ However, the parameter cannot be directly measured from data because data genera
 Therefore, researchers endeavor to learn conduct parameters.
 
 Researchers both estimate and test structural models to learn firm conduct.
-We focus on homogenous good markets.
+We focus on homogenous good markets.\footnote{See \cite{nevoIdentificationOligopolySolution1998}, \cite{magnolfi2022comparison}, and \cite{duarte2023testing} for the case of differentiated goods markets.}
 For estimation of conduct parameters, \citet{bresnahan1982oligopoly} considers identification of conduct parameters for the linear model. \cite{matsumura2023resolving} resolves the conflict on some identification problems between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. \cite{matsumura2023mpec} show the importance of equilibrium existence conditions of the log-linear model. 
-For testing conduct parameters, XXX. 
+For testing conduct parameters, \cite{genesove1998testing} estimate and test conduct parameters and compare these with direct measures using actual marginal cost data of the U.S. sugar industry. 
+They show that perfect competition cannot be rejected when market power is around 0.1 and the number of markets is less than 100.
 
-First, we examine the extent to test XXX.
+Although conduct parameter estimation and testing are one of the most well-known approaches in the literature, to the best of our knowledge, there is no paper conducting formal Monte Carlo simulations. 
+To fill in the gap between conceptual discussion and empirical performance, we investigate finite sample performance of conduct parameter estimation of homogeneous good markets. 
+Concretely, we conduct a statistical power analysis varying the number of markets, firms, and strength of demand rotation instruments.
+
+We find that the power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is stronger. 
+As a remarkable finding is that 
 
 Our results can help applied researchers to evaluate the assumption on firm conduct in competitive markets, i.e., homogenous good markets are assumed to be perfect competition or Cournot competition.
 
 \section{Model}
-Consider data with $T$ markets with homogeneous products.
+Consider data with $M$ markets with homogeneous products.
 Assume that there are $N$ firms in each market.
-Let $t = 1,\ldots, T$ be the index for markets.
+Let $m = 1,\ldots, M$ be the index for markets.
 Then, we obtain a supply equation as follows:
 \begin{align}
-     P_t = -\theta\frac{\partial P_t(Q_{t})}{\partial Q_{t}}Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
+     P_m = -\theta\frac{\partial P_m(Q_{m})}{\partial Q_{m}}Q_{m} + MC_m(Q_{m}),\label{eq:supply_equation}
 \end{align}
-where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ is the demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
+where $Q_{m}$ is the aggregate quantity, $P_m(Q_{m})$ is the demand function, $MC_{m}(Q_{m})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
 The equation nests perfect competition ($\theta=0$), Cournot competition ($\theta=1/N$), and perfect collusion ($\theta=1$).\footnote{See \cite{bresnahan1982oligopoly}.} 
 
 Consider an econometric model that integrates the above model.
 Assume that the demand and marginal cost functions are written as follows: 
 \begin{align}
-    P_t = f(Q_{t}, Y_t, \varepsilon^{d}_{t}, \alpha), \label{eq:demand}\\
-    MC_t = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma),\label{eq:marginal_cost}
+    P_m = f(Q_{m}, Y_m, \varepsilon^{d}_{m}, \alpha), \label{eq:demand}\\
+    MC_m = g(Q_{m}, W_{m}, \varepsilon^{c}_{m}, \gamma),\label{eq:marginal_cost}
 \end{align}
-where $Y_t$ and $W_{t}$ are vectors of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are error terms, and $\alpha$ and $\gamma$ are vectors of parameters.
-Additionally, we have demand- and supply-side instrumental variables, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence conditions, $E[\varepsilon^{d}_{t}\mid Y_t, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
+where $Y_m$ and $W_{m}$ are vectors of exogenous variables, $\varepsilon^{d}_{m}$ and $\varepsilon^{c}_{m}$ are error terms, and $\alpha$ and $\gamma$ are vectors of parameters.
+Additionally, we have demand- and supply-side instrumental variables, $Z^{d}_{m}$ and $Z^{c}_{m}$, and assume that the error terms satisfy the mean independence conditions, $E[\varepsilon^{d}_{m}\mid Y_m, Z^{d}_{m}] = E[\varepsilon^{c}_{m} \mid W_{m}, Z^{c}_{m}] =0$.
 
 \subsection{Linear demand and cost}
 Assume that linear demand and marginal cost functions are specified as follows:
 \begin{align}
-    P_t &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_{t} + \alpha_3 Y_t + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
-    MC_t &= \gamma_0  + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t},\label{eq:linear_marginal_cost}
+    P_m &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{m})Q_{m} + \alpha_3 Y_m + \varepsilon^{d}_{m},\label{eq:linear_demand}\\
+    MC_m &= \gamma_0  + \gamma_1 Q_{m} + \gamma_2 W_{m} + \gamma_3 R_{m} + \varepsilon^{c}_{m},\label{eq:linear_marginal_cost}
 \end{align}
-where $W_{t}$ and $R_{t}$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
+where $W_{m}$ and $R_{m}$ are excluded cost shifters and $Z^{R}_{m}$ is Bresnahan's demand rotation instrument. 
 The supply equation is written as follows:
 \begin{align}
-    P_t 
-    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
-    &= \gamma_0 + \theta \alpha_2 Z^{R}_tQ_{t} + (\theta\alpha_1 + \gamma_1) Q_{t} + \gamma_2 W_t + \gamma_3 R_{t} +\varepsilon^c_t.\label{eq:linear_supply_equation}
+    P_m 
+    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{m})+ \gamma_1] Q_{m}   + \gamma_2 W_{m} + \gamma_3 R_{m} + \varepsilon^{c}_{m}\nonumber\\ 
+    &= \gamma_0 + \theta \alpha_2 Z^{R}_mQ_{m} + (\theta\alpha_1 + \gamma_1) Q_{m} + \gamma_2 W_m + \gamma_3 R_{m} +\varepsilon^c_m.\label{eq:linear_supply_equation}
 \end{align}
-By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_t$, we obtain the aggregate quantity $Q_{t}$ based on the parameters and exogenous variables as follows:
+By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_m$, we obtain the aggregate quantity $Q_{m}$ based on the parameters and exogenous variables as follows:
 \begin{align}
-    Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
+    Q_{m} =  \frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}.\label{eq:quantity_linear}
 \end{align}
 
-\subsection{Test statistics and statistical power}
-
-XXX
 
 \section{Simulation results}\label{sec:results}
 
-Figure \ref{fg:theta_hat_t_statistics} presents the results of finite sample performance.\footnote{See online appendix for simulation details.}
-We focus on the power of conduct parameter $\theta$ over 100 datasets. 
-The power increases when (1) sample size is large, that is, the number of markets is large, (2) $\theta$ is large, that is, the number of firms is smaller, (3) when $\alpha_2$ is large, that is, the rotation instrument is stronger.
-Panel (f) shows the most remarkable result that if the number of firms is twenty, with enough large number of markets, we can reject the null hypothesis that markets are perfectly competitive at a significance level of 0.05 only when the rotation instrument is extremely strong ($\alpha_2\ge 5$), which is larger than price coefficient ($\alpha_1=1$).
+\subsection{Simulation and estimation procedure}
+
+We set true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
+We vary the true value of $\theta$ from 0.05 (20-firms symmetric Cournot) to 1 (perfect collusion) and the strength of demand rotation instrument, $\alpha_2$, from 0.1 (weak) to 20.0 (extremely strong) which is unrealistically larger than the price coefficient, $\alpha_1$.
+For simulation, we generate 100 data sets.
+We separately estimate the demand and supply equation by using two-stage least squares (2SLS) estimation.
+The instrumental variables for demand estimation are $Z^{d}_{m} = (Z^{R}_{m}, Y_m, H_{m}, K_{m})$ and the instrumental variables for supply estimation are $Z^{c}_{m} = (Z^{R}_{m}, W_{m}, R_{m}, Y_m)$. 
+
+\begin{table}[!htbp]
+    \caption{True parameters and distributions}
+    \label{tb:parameter_setting}
+    \begin{center}
+    \subfloat[Parameters]{
+    \begin{tabular}{cr}
+            \hline
+            & linear  \\
+            $\alpha_0$ & $10.0$  \\
+            $\alpha_1$ & $1.0$  \\
+            $\alpha_2$ & $\{0.1,0.5,1.0,5.0,20.0\}$ \\
+            $\alpha_3$ & $1.0$  \\
+            $\gamma_0$ & $1.0$ \\
+            $\gamma_1$ & $1.0$  \\
+            $\gamma_2$ & $1.0$ \\
+            $\gamma_3$ & $1.0$\\
+            $\theta$ & $\{0.05,0.1,0.2,0.33,0.5,1.0\}$ \\
+            \hline
+        \end{tabular}
+    }
+    \subfloat[Distributions]{
+    \begin{tabular}{crr}
+            \hline
+            & linear\\
+            Demand shifter&  \\
+            $Y_m$ & $N(0,1)$  \\
+            Demand rotation instrument&   \\
+            $Z^{R}_{m}$ & $N(10,1)$ \\
+            Cost shifter&    \\
+            $W_{m}$ & $N(3,1)$  \\
+            $R_{m}$ & $N(0,1)$   \\
+            $H_{m}$ & $W_{m}+N(0,1)$  \\
+            $K_{m}$ & $R_{m}+N(0,1)$   \\
+            Error&  &  \\
+            $\varepsilon^{d}_{m}$ & $N(0,\sigma)$  \\
+            $\varepsilon^{c}_{m}$ & $N(0,\sigma)$ \\
+            \hline
+        \end{tabular}
+    }
+    \end{center}
+    \footnotesize
+    Note: $\sigma=1.0$. $N:$ Normal distribution. $U:$ Uniform distribution.
+\end{table}
+
+Figure \ref{fg:theta_hat_power} presents the results of finite sample performance.\footnote{See online appendix for simulation details. See the author's github for the results of all other parameters.}
+We focus on the power of conduct parameter $\theta$. 
+The null hypothesis is that markets are given by Cournot competition.
+I compute the non-rejection
+frequency as the power by using t-statistics at a significance level of 0.05 over 100 datasets.
+The non-rejection
+frequency increases when ; (1) sample size is large, that is, the number of markets is large, (2) $\theta$ is large, that is, the number of firms is smaller, (3) when $\alpha_2$ is large, that is, the rotation instrument is stronger.
+Panel (f) shows the most remarkable result that if the number of firms is twenty $(\theta=0.05)$, with enough large number of markets, will give us approximately 70\% power to reject the null hypothesis that markets are given by Cournot competition.
+
+Practical advice for applied researchers is summarized as follows. XXX.
 
 
 
 \begin{figure}[!ht]
   \begin{center}
   % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
-  % {figuretable/theta_hat_t_statistics_50.png}}
+  % {figuretable/theta_hat_power_50.png}}
   \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_100.png}}
+  {figuretable/theta_hat_power_100.png}}
   \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_200.png}}
+  {figuretable/theta_hat_power_200.png}}
   \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_1000.png}}\\
+  {figuretable/theta_hat_power_1000.png}}\\
   \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_2000.png}}
+  {figuretable/theta_hat_power_2000.png}}
   \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_5000.png}}
+  {figuretable/theta_hat_power_5000.png}}
   \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_t_statistics_10000.png}}
-  \caption{Mean t-statistics of conduct parameter $\theta$}
-  \label{fg:theta_hat_t_statistics}
+  {figuretable/theta_hat_power_10000.png}}
+  \caption{Statistical power of conduct parameter $\theta$}
+  \label{fg:theta_hat_power}
   \end{center}
   \footnotesize
-   Note: We simulate 100 datasets and calculate mean t-statistics of conduct parameter $\theta$.
+   Note: We simulate 100 datasets.
 \end{figure} 
 
 
 
 \section{Conclusion}
 
+We conduct a statistical power analysis for conduct parameter estimation. The power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is stronger. We provide a unified reference about the relationship between sample size, conduct parameters, and the strength of demand rotation instruments.
 
 
 \paragraph{Acknowledgments}
@@ -169,131 +231,20 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 \section{Online appendix}\label{sec:appendix}
 
 
-\subsection{Simulation and estimation procedure}
 
-We set true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
-We follow the setting of PS. For simulation, we generate 1,000 data sets.
-We separately estimate the demand and supply equation by using two-stage least squares (2SLS) estimation.
-The instrumental variables for demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, Y_t, H_{t}, K_{t})$ and the instrumental variables for supply estimation are $Z^{c}_{t} = (Z^{R}_{t}, W_{t}, R_{t}, Y_t)$. 
-
-\begin{table}[!htbp]
-    \caption{True parameters and distributions}
-    \label{tb:parameter_setting}
-    \begin{center}
-    \subfloat[Parameters]{
-    \begin{tabular}{cr}
-            \hline
-            & linear  \\
-            $\alpha_0$ & $10.0$  \\
-            $\alpha_1$ & $1.0$  \\
-            $\alpha_2$ & $1.0$ \\
-            $\alpha_3$ & $1.0$  \\
-            $\gamma_0$ & $1.0$ \\
-            $\gamma_1$ & $1.0$  \\
-            $\gamma_2$ & $1.0$ \\
-            $\gamma_3$ & $1.0$\\
-            $\theta$ & $0.5$ \\
-            \hline
-        \end{tabular}
-    }
-    \subfloat[Distributions]{
-    \begin{tabular}{crr}
-            \hline
-            & linear\\
-            Demand shifter&  \\
-            $Y_t$ & $N(0,1)$  \\
-            Demand rotation instrument&   \\
-            $Z^{R}_{t}$ & $N(10,1)$ \\
-            Cost shifter&    \\
-            $W_{t}$ & $N(3,1)$  \\
-            $R_{t}$ & $N(0,1)$   \\
-            $H_{t}$ & $W_{t}+N(0,1)$  \\
-            $K_{t}$ & $R_{t}+N(0,1)$   \\
-            Error&  &  \\
-            $\varepsilon^{d}_{t}$ & $N(0,\sigma)$  \\
-            $\varepsilon^{c}_{t}$ & $N(0,\sigma)$ \\
-            \hline
-        \end{tabular}
-    }
-    \end{center}
-    \footnotesize
-    Note: $\sigma=\{0.001, 0.5, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
-\end{table}
 
 \subsection{Details for our simulation settings}
 
-To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z^{R}_{t}, W_t, R_{t}, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
-We compute the equilibrium quantity $Q_{t}$ for the linear model by \eqref{eq:quantity_linear}.
-We then compute the equilibrium price $P_t$ by substituting $Q_{t}$ and other variables into the demand function \eqref{eq:linear_demand}.
+To generate the simulation data, for each model, we first generate the exogenous variables $Y_m, Z^{R}_{m}, W_m, R_{m}, H_m$, and $K_m$ and the error terms $\varepsilon_{m}^c$ and $\varepsilon_{m}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+We compute the equilibrium quantity $Q_{m}$ for the linear model by \eqref{eq:quantity_linear}.
+We then compute the equilibrium price $P_m$ by substituting $Q_{m}$ and other variables into the demand function \eqref{eq:linear_demand}.
 
 We estimate the equations using the \texttt{ivreg} package in \texttt{R}.
-An important feature of the model is that we have an interaction term of the endogenous variable $Q_{t}$ and the instrumental variable $Z^{R}_{t}$.
-The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_{t}$ and the interaction term $Z^{R}_{t}Q_{t}$, running the first stage regression for each endogenous variable with the same instruments. To confirm this, we manually write R code to implement the 2SLS model. 
-When the first stage includes only the regression of $Q_{t}$, estimation results from our code differ from the results from \texttt{ivreg}. 
-However, when we modify the code to regress $Z^{R}_{t}Q_{t}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{t}$ and $Z^{R}_{t}Q_{t}$, the result from our code and the result from \texttt{ivreg} coincide.
+An important feature of the model is that we have an interaction term of the endogenous variable $Q_{m}$ and the instrumental variable $Z^{R}_{m}$.
+The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_{m}$ and the interaction term $Z^{R}_{m}Q_{m}$, running the first stage regression for each endogenous variable with the same instruments. To confirm this, we manually write R code to implement the 2SLS model. 
+When the first stage includes only the regression of $Q_{m}$, estimation results from our code differ from the results from \texttt{ivreg}. 
+However, when we modify the code to regress $Z^{R}_{m}Q_{m}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{m}$ and $Z^{R}_{m}Q_{m}$, the result from our code and the result from \texttt{ivreg} coincide.
 
-
-\subsection{Other experiments}
-
-\begin{table}[!htbp]
-    \caption{Estimation results in Table 2 of from PS}
-    \label{tb:linear_linear_sigma_Perloff_Shen}
-    \begin{center}
-        \begin{tabular}{cllll}
-            \hline
-            & $\sigma=0.001$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ \\
-            $\alpha_0$ & $10.00\ (0.001)$ & $9.96\ (0.33)$ & $9.86\ (0.65)$ & $9.46 (1.20)$ \\
-            $\alpha_1$ & $1.00\ (0.004)$ & $0.99\ (1.98)$ & $0.97\ (3.96)$ & $0.88 (7.80)$ \\
-            $\alpha_2$ & $1.00\ (0.004)$ & $0.99\ (0.21)$ & $0.97\ (0.42)$ & $0.87\ (0.82)$ \\
-            $\gamma_1$ & $0.46\ (0.88)$ & $0.46\ (0.91)$ & $0.47\ (0.93)$ & $0.49\ (1.04)$ \\
-            $\gamma_2$ & $5.85\ (7.89)$ & $5.85\ (8.15)$ & $5.78\ (8.21)$ & $5.73\ (8.66)$ \\
-            $\theta$ & $-0.31\ (1.31)$ & $-0.29\ (1.34)$ & $0.09\ (11.48)$ & $-1.53\ (30.41)$ \\
-            \hline
-        \end{tabular}
-    \end{center}\footnotesize
-    Note: True parameters: $\alpha_1 = \alpha_2 = \gamma_0 = \gamma_1 = \gamma_2  = \gamma_3 = 1, \alpha_0 = 10, \alpha_3 = 0,$ and $\theta = 0.5$. PS exclude $Y_t$. We change the parameter notations from the original study. Note that PS do not provide $\gamma_0$ and $\gamma_3$.
-\end{table}
-
-First, we replicate the result in PS. For comparison, we report the means and standard deviations (SDs).
-To replicate the result, we exclude the demand shifter $Y_t$ and assume the coefficient $\alpha_3$ of $Y_t$ is zero, indicating that there is no demand shifter for supply estimation.
-For reference, Table \ref{tb:linear_linear_sigma_Perloff_Shen} is quoted from PS, although we modify some notation.
-Sample size in each simulation dataset is 50 and the table shows the means and SDs of the 2SLS estimators from 1,000 simulations.
-It shows that demand estimation becomes more accurate as the values of the SDs of the error terms, that is, $\sigma$ decreases.
-In contrast, supply estimation is still biased and the SD of the conduct parameter becomes larger as the value of $\sigma$ increases.
-
-Our replication results are presented in Table \ref{tb:linear_linear_sigma_1_without_demand_shifter_y}.
-Each panel presents the simulation results under different SDs.
-This result uses the same data generation process as PS. 
-To determine whether we can correctly replicate the result in PS, we focus on the first two columns in each panel.
-These two columns show the means and SDs of the simulation results when sample size is 50.
-While demand parameters can be accurately estimated, although the value of $\sigma$ becomes higher, the supply parameters are biased.
-In particular, when $\sigma$ is large and sample size is small, the SDs of the parameters in supply equation become large.
-Thus, we reveal the patterns in PS that do not provide any details.
-
-As PS fix sample size to 50, we also examine the effect of changing sample size.
-As expected, increasing sample size given a value of $\sigma$ decreases the SDs of supply parameters.
-However, no simulation result is close to the true values of supply parameters as well as the conduct parameter.
-These results are consistent with PS.
-
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{Estimation results of the linear model without demand shifter}
-      \label{tb:linear_linear_sigma_1_without_demand_shifter_y} 
-      \subfloat[$\sigma=0.001$]{\input{figuretable/linear_linear_sigma_0.001_without_demand_shifter_y}}\\
-      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_without_demand_shifter_y}}\\
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$. For comparison, we report the mean and SD.
-\end{table} 
-
-\begin{table}[!htbp]
-  \ContinuedFloat
-  \begin{center}
-      \caption{Estimation results of the linear model without demand shifter (Continued)}
-      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_without_demand_shifter_y}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_without_demand_shifter_y}}
-  \end{center}\footnotesize
-  Note: True parameters: $\alpha_1 = \alpha_2 =  \gamma_0 = \gamma_1 = \gamma_2  =  1, \alpha_0 = 10, \theta = 0.5.$ and $\alpha_3 =0$. For comparison, we report the mean and SD.
-\end{table} 
 
 
 
