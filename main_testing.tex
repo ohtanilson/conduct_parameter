@@ -37,7 +37,7 @@
 \DeclareMathOperator{\rank}{rank}
 
 
-\title{It is impossible to statistically test perfect competition against Cournot competition.}
+\title{Finite Sample Performance for Conduct Parameter Estimation in Homogenous Good Markets: Testing Perfect Competition is Difficult with 1000 Markets.}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
 %Declarations of interest: none %this is for Economics Letters
 }}
@@ -46,7 +46,7 @@
 
 \maketitle
 \begin{abstract}
-    We conduct a statistical power analysis for conduct parameter estimation. The power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is stronger. We provide a unified reference about the relationship between sample size, conduct parameters, and the strength of demand rotation instruments.
+    We investigate finite sample performance for conduct parameter estimation. The statistical power increases when ; (1) the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is strong. We find that rejecting the null hypothesis that markets are given by perfect competition is difficult even when the number of markets is moderate, e.g. 1000 and the number of firms is five regardless of the strength of instruments.
 \vspace{0.1in}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Monte Carlo simulation
@@ -67,17 +67,20 @@ Therefore, researchers endeavor to learn conduct parameters.
 Researchers both estimate and test structural models to learn firm conduct.
 We focus on homogenous good markets.\footnote{See \cite{nevoIdentificationOligopolySolution1998}, \cite{magnolfi2022comparison}, and \cite{duarte2023testing} for the case of differentiated goods markets.}
 For estimation of conduct parameters, \citet{bresnahan1982oligopoly} considers identification of conduct parameters for the linear model. \cite{matsumura2023resolving} resolves the conflict on some identification problems between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. \cite{matsumura2023mpec} show the importance of equilibrium existence conditions of the log-linear model. 
-For testing conduct parameters, \cite{genesove1998testing} estimate and test conduct parameters and compare these with direct measures using actual marginal cost data of the U.S. sugar industry. 
+For testing conduct parameters, \cite{genesove1998testing} estimate and test conduct parameters, then compare these with direct measures using actual marginal cost data of the U.S. sugar industry. 
 They show that perfect competition cannot be rejected when market power is around 0.1 and the number of markets is less than 100.
+\cite{corts1999conduct} argues that the conduct parameter fails to measure and test market power accurately if firms consider dynamic features in a repeated game.
 
-Although conduct parameter estimation and testing are one of the most well-known approaches in the literature, to the best of our knowledge, there is no paper conducting formal Monte Carlo simulations. 
+Although conduct parameter estimation and testing are one of the most popular but controversial approaches in the literature, to the best of our knowledge, there is no paper conducting formal Monte Carlo simulations. 
 To fill in the gap between conceptual discussion and empirical performance, we investigate finite sample performance of conduct parameter estimation of homogeneous good markets. 
-Concretely, we conduct a statistical power analysis varying the number of markets, firms, and strength of demand rotation instruments.
+Concretely, we conduct a statistical power analysis varying the number of markets, firms, and strength of demand rotation instruments under the null hypothesis that markets are given by perfect competition.
 
-We find that the power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is stronger. 
-As a remarkable finding is that 
+We find that the power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is strong. 
+As a remarkable finding is that the rejection frequency cannot achieve 90\% when the number of markets is moderate, e.g. 1000, and the number of firms is five regardless of the strength of instruments. 
+This confirms that the testing problem 
+ of \cite{genesove1998testing} caused by the small number of markets.
 
-Our results can help applied researchers to evaluate the assumption on firm conduct in competitive markets, i.e., homogenous good markets are assumed to be perfect competition or Cournot competition.
+Our results and code provide a unified reference for applied researchers to consider the feasibility to test the assumption on firm conduct, i.e., homogenous good markets are assumed to be perfect competition, Cournot competition, or perfect collusion.
 
 \section{Model}
 Consider data with $M$ markets with homogeneous products.
@@ -174,15 +177,15 @@ The instrumental variables for demand estimation are $Z^{d}_{m} = (Z^{R}_{m}, Y_
 
 Figure \ref{fg:theta_hat_power} presents the results of finite sample performance.\footnote{See online appendix for simulation details. See the author's github for the results of all other parameters.}
 We focus on the power of conduct parameter $\theta$. 
-The null hypothesis is that markets are given by Cournot competition.
-I compute the non-rejection
+The null hypothesis is that markets are given by perfect competition.
+I compute the rejection
 frequency as the power by using t-statistics at a significance level of 0.05 over 100 datasets.
-The non-rejection
+The rejection
 frequency increases when ; (1) sample size is large, that is, the number of markets is large, (2) $\theta$ is large, that is, the number of firms is smaller, (3) when $\alpha_2$ is large, that is, the rotation instrument is stronger.
-Panel (f) shows the most remarkable result that if the number of firms is twenty $(\theta=0.05)$, with enough large number of markets, will give us approximately 70\% power to reject the null hypothesis that markets are given by Cournot competition.
-
-Practical advice for applied researchers is summarized as follows. XXX.
-
+Panel (f) shows that if the number of firms is twenty $(\theta=0.05)$, with enough large number of markets, will give us approximately 70\% power to reject the null hypothesis that markets are given by perfect competition.
+As a remarkable finding is that the rejection frequency cannot achieve 90\% even when the number of markets is moderate, e.g. 1000 and the number of firms is five regardless of the strength of instruments. 
+This confirms that the rejection problem 
+ of \cite{genesove1998testing} caused by the small number of markets.
 
 
 \begin{figure}[!ht]
@@ -205,14 +208,14 @@ Practical advice for applied researchers is summarized as follows. XXX.
   \label{fg:theta_hat_power}
   \end{center}
   \footnotesize
-   Note: We simulate 100 datasets.
+   %Note: We simulate 100 datasets.
 \end{figure} 
 
 
 
 \section{Conclusion}
 
-We conduct a statistical power analysis for conduct parameter estimation. The power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is stronger. We provide a unified reference about the relationship between sample size, conduct parameters, and the strength of demand rotation instruments.
+We conduct a statistical power analysis for conduct parameter estimation. The power increases when ; (1) sample size is large, that is, the number of markets is large, (2) the conduct parameter is large, (3) when the rotation instrument is strong. We find that rejecting the null hypothesis that markets are given by perfect competition is difficult even when the number of markets is moderate, e.g. 1000 and the number of firms is five regardless of the strength of instruments.
 
 
 \paragraph{Acknowledgments}
