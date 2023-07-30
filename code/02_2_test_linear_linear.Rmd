@@ -172,12 +172,14 @@ for(nn in 1:length(n_observation_list)){
     linetype = "dashed"
       ) +
   geom_hline(
-  yintercept = 0.90, 
+  yintercept = 0.80, 
   linetype = "dashed"
       ) +
   ylim(0, 1) +
   xlab(expression(theta == 1/N)) +
-  ylab(paste("Rejection frequencies, M=", target_nn, sep="")) +
+  ylab(paste("Rejection frequencies",
+             #target_nn,
+             sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
   theme_classic() +
   theme(legend.position = 'top') +
