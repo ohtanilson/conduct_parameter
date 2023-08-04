@@ -4,11 +4,10 @@ Distributed.@everywhere include("../code/00functions.jl")
 parameter = market_parameters_log()
 estimation_methods = 
     [
-    (:separate, :non_constraint, :non_constraint),
-    (:separate, :non_constraint, :theta_constraint),
-    #(:separate, :log_constraint, :theta_constraint),
-    (:simultaneous, :non_constraint, :non_constraint),
-    (:simultaneous, :non_constraint, :theta_constraint),
+    (:separate,:theta_constraint, :slope_constraint, :equilibrium_constraint),
+    (:separate,:theta_constraint, :non_constraint, :non_constraint),
+    (:simultaneous,:theta_constraint, :slope_constraint, :equilibrium_constraint),
+    (:simultaneous,:theta_constraint, :non_constraint, :non_constraint),
     #(:simultaneous, :log_constraint, :theta_constraint)
     #(:optim_nelder_mead, :non_constraint, :theta_constraint)
     ];

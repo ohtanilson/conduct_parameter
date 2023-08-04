@@ -3,13 +3,16 @@ Distributed.@everywhere include("../code/00setting_julia.jl")
 Distributed.@everywhere include("../code/00functions.jl")
 parameter = market_parameters_log()
 #estimation_methods = [(:mpec, :non_constraint, :theta_constraint), (:mpec_separate,:non_constraint, :theta_constraint)]
-estimation_methods = [(:mpec,:non_constraint, :theta_constraint)]
+estimation_methods = [
+    (:mpec,:theta_constraint, :slope_constraint, :equilibrium_constraint), 
+    (:mpec,:theta_constraint, :non_constraint, :non_constraint)
+    ]
 starting_value = :true_value
 tol_level = :loose
 
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 for estimation_method = estimation_methods
-    for t = [50,100,200,1000,1500], sigma =  [0.001, 0.5, 1, 2]
+    for t = [50,100,200,1000,1500], sigma = [0.001, 0.5, 1, 2]
         # Load the simulation data from the rds files
         filename_begin = "../conduct_parameter/output/data_loglinear_loglinear_n_"
         filename_end   = ".rds"
