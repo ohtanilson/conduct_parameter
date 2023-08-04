@@ -9,8 +9,8 @@ using Pkg;
  Pkg.add("Parameters")
  Pkg.add("JuMP")
  Pkg.add("Ipopt")
+ Pkg.add("Optim")
  Pkg.add("RData")
-
 #-----------------------------------------------------------------
 #-----------------------------------------------------------------
 # This code is based on https://github.com/magerton/julia-slurm-example
@@ -38,7 +38,7 @@ println("We have ",length(workers()), " workers\n")
 #----------------------------------------------------------------------------
 # Run your code which needs parallelization
 
-include("../code/03_1estimate_loglinear_loglinear.jl")
+include("../code/03_2_estimate_loglinear_loglinear_mpec.jl")
 
 #-----------------------------------------------------------------------------
 rmprocs(number_workers)
