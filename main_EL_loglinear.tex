@@ -214,11 +214,11 @@ We can also use the same weight matrix \eqref{eq:weight_matrix} in the N2SLS.
 \subsection{Other parameter constraints}
 Based on the assumptions in Proposition \ref{prop:equilibrium_existence}, we also impose the following constraints for the estimation of the conduct parameter model:
 \begin{align}
-    &0\le\theta \le 1,\label{eq:condcut_constraint}\\
+    &0\le\theta \le 1,\label{eq:conduct_constraint}\\
     &\alpha_1 + \alpha_2 Z_{t}^{R} >0, \quad \gamma_1>0 ,\quad t = 1,\ldots, T\label{eq:slope_constraint}\\
     &1- \theta(\alpha_1 + \alpha_2 Z_{t}^{R}) >0,\quad t = 1,\ldots, T.\label{eq:equlibrium_existence}
 \end{align}
-Constraint \eqref{eq:condcut_constraint} is a standard assumption on the conduct parameter.
+Constraint \eqref{eq:conduct_constraint} is a standard assumption on the conduct parameter.
 Constraints \eqref{eq:slope_constraint} imply the downward slope of the demand curve and the upward slope of the marginal cost.
 As we explained in Proposition \ref{prop:equilibrium_existence}, these are not necessary for the existence of an equilibrium price.
 However, we impose them to make the demand equation and the supply equation realistic.
@@ -226,7 +226,7 @@ Constraints \eqref{eq:equlibrium_existence} are necessary to avoid searching par
 
 \section{Simulation results}\label{sec:results}
 
-We compare MPEC estimation with the N2SLS.
+We compare MPEC estimation with the N2SLS with or without Constraints \eqref{eq:slope_constraint} and \ref{prop:equilibrium_existence}.
 We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems.
 Note that derivative-free algorithms such as Nelder-Mead algorithm cannot properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values. See online appendix for the detailed numerical setting. 
 
@@ -237,7 +237,7 @@ Note that derivative-free algorithms such as Nelder-Mead algorithm cannot proper
 Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} presents the results.
 First, as the sample size increases, the RMSE and bias decrease for both models. 
 These magnitudes show comparable levels of the results of the linear model, shown in online appendix. 
-Second, MPEC estimation gives smaller bias and RMSE than N2SLS for estimating a conduct parameter, although estimation of other parameters is comparable.
+Second, MPEC estimation with slope and equilibrium existence constraints gives the smallest bias and RMSE than N2SLS for estimating a conduct parameter, although estimation of other parameters is comparable.
 Third, MPEC can finish estimation for more data than N2SLS. 
 This is the practical advantage of MPEC over the standard approach. 
 With additional experiments under various $\sigma$, these results are robust, shown in online appendix. 
@@ -245,11 +245,12 @@ That is, MPEC is a better estimation approach than N2SLS.
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{MPEC vs N2SLS}
+      \caption{Performance comparison}
       \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint_bias_rmse}}\\
       % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+    \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
   \end{center}
   \footnotesize
   Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
@@ -488,27 +489,37 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
 
 
 
+% \begin{table}[!htbp]
+%   \begin{center}
+%       \caption{MPEC vs standard approaches ($\sigma=0.5$)}
+%       \label{tb:loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse} 
+%       \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+%       % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint_bias_rmse}}\\
+%     \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+%   \end{center}
+%   \footnotesize
+%   %Note: 
+% \end{table} 
+
 \begin{table}[!htbp]
   \begin{center}
-      \caption{MPEC vs standard approaches ($\sigma=0.5$)}
-      \label{tb:loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+      \caption{MPEC vs N2SLS ($\sigma=0.5$)}
+      \label{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} 
+      \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
-  %Note: 
+  
 \end{table} 
 
 \begin{table}[!htbp]
   \begin{center}
       \caption{MPEC vs N2SLS ($\sigma=2.0$)}
       \label{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
-      % \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint_bias_rmse}}
-    % \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}
+      \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   
