@@ -121,7 +121,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, 
             JuMP.set_silent(model)
             JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
 
-            if estimation_method[3] == :theta_constraint
+            if estimation_method[2] == :theta_constraint
                 JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
             else
                 JuMP.@variable(model, θ, start = start_θ)
@@ -133,21 +133,23 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, 
                 push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s-1) + log(1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) ) ) )
             end
 
-            @constraint(model, γ[1] >=0)                    # upward-sloping marginal cost
-            for t = 1:T
-                @NLconstraint(model, 1 - θ * (α_hat[2] + α_hat[3]  * X_s[t, end]) >= 0)          # Equilibrium constraint
+
+            if estimation_method == :slope_constraint
+                @constraint(model, γ[1] >=0)                    # upward-sloping marginal cost
             end
+
+            if estimation_method[4] == :equilibrium_constraint
+                for t = 1:T
+                    JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
+                end
+            end
+
+
 
             for l = 1:L_s
                 push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
             end
 
-            if estimation_method[2] == :log_constraint
-
-                for t = 1:T
-                    JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
-                end
-            end
 
             JuMP.@NLobjective(model, Min, sum( g[l] *Ω[l,k] * g[k] for l = 1:L_s, k = 1:L_s))
 
@@ -225,7 +227,7 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α
     #@constraint(model, c4, β[3] >=0)     # demand curve should be downward
 
 
-    if estimation_method[3] == :theta_constraint
+    if estimation_method[2] == :theta_constraint
         @variable(model, 0 <= θ <= 1)
     else
         @variable(model, θ)
@@ -238,17 +240,25 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α
         push!(r, @NLexpression(model, P[t]- sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1) + log(1 - θ *(β[2] + β[3] * X[2*t, end]) ) ) )
     end
 
-    @constraint(model, β[K_d+2] >=0)                    # upward-sloping marginal cost
-    for t = 1:T
-        @NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)                    # downward-sloping demand
-        @NLconstraint(model, 1 - θ * (β[2] + β[3] * X_s[t, end]) >= 0)          # Equilibrium constraint
+
+    if estimation_method[3] == :slope_constraint
+        @constraint(model, β[K_d+2] >=0)                    # upward-sloping marginal cost
+        for t = 1:T
+            @NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)                    # downward-sloping demand
+        end
+    end
+
+    if estimation_method[4] == :equilibrium_constraint
+        for t = 1:T
+            @NLconstraint(model, 1 - θ * (β[2] + β[3] * X_s[t, end]) >= 0)          # Equilibrium constraint
+        end
     end
 
     for l = 1:L
         push!(g, @NLexpression(model, sum(Z[t,l] * r[t] for t = 1:2*T)))
     end
 
-    if estimation_method[2] == :log_constraint
+    if estimation_method[4] == :equilibrium_constraint
         for t = 1:T
             @NLconstraint(model, 0 <= 1 - θ *(β[2] + β[3] * X[2*t, end]))
         end
@@ -309,7 +319,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
         #set_silent(model)
         @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
 
-        if estimation_method[3] == :theta_constraint
+        if estimation_method[2] == :theta_constraint
             @variable(model, 0 <= θ <= 1, start = start_θ)
         else
             @variable(model, θ, start = start_θ)
@@ -325,11 +335,18 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
             push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
             push!(r, @NLexpression(model, log(MC[t]) - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
         end
+            
+        if estimation_method[3] == :slope_constraint
+            @constraint(model, β[K_d+2] >=0)                    # upward-sloping marginal cost
+            for t = 1:T
+                @NLconstraint(model, β[2] + β[3] * X_s[t, end] >= 0)                    # downward-sloping demand
+            end
+        end
 
-        @constraint(model, β[K_d+2] >=0)         # supply curve is upward sloping
-        for t = 1:T
-            @NLconstraint(model, β[2] + β[3] * X[2*t,end] >= 0)  # demand curve is downward sloping
-            @NLconstraint(model, 1 - θ * (β[2] + β[3] * X[2*t,end]) >= 0)          # Equilibrium constraint
+        if estimation_method[4] == :equilibrium_constraint
+            for t = 1:T
+                @NLconstraint(model, 1 - θ * (β[2] + β[3] * X_s[t, end]) >= 0)          # Equilibrium constraint
+            end
         end
 
         g = Any[];
@@ -405,7 +422,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
                 JuMP.set_silent(model)
                 JuMP.@variable(model, γ[k = 1:K_s-1], start = start_γ[k])
                 JuMP.@constraint(model, c1, γ[2] >=0) # supply curve is upword sloping
-                if estimation_method[3] == :theta_constraint
+                if estimation_method[2] == :theta_constraint
                     JuMP.@variable(model, 0 <= θ <= 1, start = start_θ)
                 else
                     JuMP.@variable(model, θ, start = start_θ)
@@ -426,7 +443,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
                     push!(g, JuMP.@NLexpression(model, sum(Z_s[t,l] * r[t] for t = 1:T)))
                 end
 
-                if estimation_method[2] == :log_constraint
+                if estimation_method[4] == :equilibrium_constraint
                     for t = 1:T
                         JuMP.@NLconstraint(model, 0 <= 1 - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) )
                     end
@@ -488,7 +505,7 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_
     # set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     # set_silent(model)
     #@variable(model, β[k = 1:K_d+K_s-1])
-    # if estimation_method[3] == :theta_constraint
+    # if estimation_method[2] == :theta_constraint
     #     θ = zeros(1)
 
     # else
@@ -498,7 +515,7 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_
     
     f = function(target_param)
         β = target_param[1:K_d+K_s-1]
-        if estimation_method[3] == :theta_constraint
+        if estimation_method[2] == :theta_constraint
             # logit: 0 <= x/(1+x) <= 1
             θ = target_param[K_d+K_s]/(1+target_param[K_d+K_s])
         else
@@ -552,7 +569,7 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_
     γ_hat[1] = γ_hat # constant term should be positive
 
 
-    if estimation_method[3] == :theta_constraint
+    if estimation_method[2] == :theta_constraint
         # logit: 0 <= x/(1+x) <= 1
         θ_hat = results.minimizer[K_d+K_s]/(1+results.minimizer[K_d+K_s])
     else

@@ -12,4 +12,4 @@
 module purge
 module load Julia/1.8.2
 
-julia "../conduct_parameter/code/08_2run_simulation_mpec.jl"
+julia "../conduct_parameter/code/08_2_run_simulation_mpec.jl"

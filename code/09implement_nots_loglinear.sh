@@ -12,4 +12,4 @@
 module purge
 module load Julia/1.8.2
 
-julia "../conduct_parameter/code/08_1run_simulation_loglinear.jl"
+julia "../conduct_parameter/code/08_1_run_simulation_loglinear.jl"
