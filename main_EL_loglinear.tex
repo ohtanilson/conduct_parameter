@@ -18,6 +18,7 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{tikz}
 \usepackage{booktabs}
 \usepackage{pdfpages}
 \usepackage{threeparttable}
@@ -131,7 +132,7 @@ Explicitly, we derive the conditions for the number of equilibrium prices:
         \end{itemize}
     \end{itemize}
 \end{proposition}
-See online appendix for the proof.
+See online appendix for the proof and the detail.
 The proof is not based on the optimization by individual firms but checks if there exists a point where the demand function and the marginal cost function cross.
 Therefore, we allow an equilibrium
 price to exist when the demand and the marginal cost are upward-sloping.
@@ -213,11 +214,11 @@ We can also use the same weight matrix \eqref{eq:weight_matrix} in the N2SLS.
 \subsection{Other parameter constraints}
 Based on the assumptions in Proposition \ref{prop:equilibrium_existence}, we also impose the following constraints for the estimation of the conduct parameter model:
 \begin{align}
-    &0\le\theta \le 1,\label{eq:condcut_constraint}\\
+    &0\le\theta \le 1,\label{eq:conduct_constraint}\\
     &\alpha_1 + \alpha_2 Z_{t}^{R} >0, \quad \gamma_1>0 ,\quad t = 1,\ldots, T\label{eq:slope_constraint}\\
     &1- \theta(\alpha_1 + \alpha_2 Z_{t}^{R}) >0,\quad t = 1,\ldots, T.\label{eq:equlibrium_existence}
 \end{align}
-Constraint \eqref{eq:condcut_constraint} is a standard assumption on the conduct parameter.
+Constraint \eqref{eq:conduct_constraint} is a standard assumption on the conduct parameter.
 Constraints \eqref{eq:slope_constraint} imply the downward slope of the demand curve and the upward slope of the marginal cost.
 As we explained in Proposition \ref{prop:equilibrium_existence}, these are not necessary for the existence of an equilibrium price.
 However, we impose them to make the demand equation and the supply equation realistic.
@@ -225,7 +226,7 @@ Constraints \eqref{eq:equlibrium_existence} are necessary to avoid searching par
 
 \section{Simulation results}\label{sec:results}
 
-We compare MPEC estimation with the N2SLS.
+We compare MPEC estimation with the N2SLS with or without Constraints \eqref{eq:slope_constraint} and \ref{prop:equilibrium_existence}.
 We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems.
 Note that derivative-free algorithms such as Nelder-Mead algorithm cannot properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values. See online appendix for the detailed numerical setting. 
 
@@ -236,7 +237,7 @@ Note that derivative-free algorithms such as Nelder-Mead algorithm cannot proper
 Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} presents the results.
 First, as the sample size increases, the RMSE and bias decrease for both models. 
 These magnitudes show comparable levels of the results of the linear model, shown in online appendix. 
-Second, MPEC estimation gives smaller bias and RMSE than N2SLS for estimating a conduct parameter, although estimation of other parameters is comparable.
+Second, MPEC estimation with slope and equilibrium existence constraints gives the smallest bias and RMSE than N2SLS for estimating a conduct parameter, although estimation of other parameters is comparable.
 Third, MPEC can finish estimation for more data than N2SLS. 
 This is the practical advantage of MPEC over the standard approach. 
 With additional experiments under various $\sigma$, these results are robust, shown in online appendix. 
@@ -244,11 +245,12 @@ That is, MPEC is a better estimation approach than N2SLS.
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{MPEC vs N2SLS}
+      \caption{Performance comparison}
       \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint_bias_rmse}}\\
       % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+    \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
   \end{center}
   \footnotesize
   Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
@@ -280,72 +282,141 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 \appendix
 
 \section{Online appendix}\label{sec:appendix}
-\subsection{Unique existence of equilibrium prices}
-We find the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
-% \begin{align}
-%     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\\
-%     P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t\nonumber\\
-%     &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}).
-% \end{align}
-Rewriting the demand equation \eqref{eq:log_linear_demand} as 
-\begin{align*}
-    \log Q_t^*(P_{t})= \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}   
-\end{align*}
-and substituting this into the supply equation \eqref{eq:log_linear_supply_equation}, we obtain
-\begin{align}
-    P_t &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp\left(\gamma_0 + \gamma_1 \log Q^*_t(P_{t}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}\right). \nonumber\\
-    & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t + \exp\left(\gamma_0 + \gamma_1 \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})} +\gamma_2 \log W_{t} + \gamma_3 \log R_{t} + \varepsilon^{c}_{t} \right)\nonumber\\
-    & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp\left(\Xi + \frac{-\gamma_1}{\alpha_1+\alpha_2 Z^{R}_t} \log P_t \right)\nonumber\\
-    &= \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}
-\end{align}
-where $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
+\subsection{Existence and uniqueness of equilibrium prices}
+    Proposition \ref{prop:equilibrium_existence} proposes the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
+    \begin{proof}
+        
+    % \begin{align}
+    %     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\\
+    %     P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t\nonumber\\
+    %     &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}).
+    % \end{align}
+    Rewriting the demand equation \eqref{eq:log_linear_demand} as 
+    \begin{align*}
+        \log Q_t^*(P_{t})= \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}   
+    \end{align*}
+    and substituting this into the supply equation \eqref{eq:log_linear_supply_equation}, we obtain
+    \begin{align}
+        P_t &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp\left(\gamma_0 + \gamma_1 \log Q^*_t(P_{t}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}\right). \nonumber\\
+        & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t + \exp\left(\gamma_0 + \gamma_1 \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})} +\gamma_2 \log W_{t} + \gamma_3 \log R_{t} + \varepsilon^{c}_{t} \right)\nonumber\\
+        & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp\left(\Xi + \frac{-\gamma_1}{\alpha_1+\alpha_2 Z^{R}_t} \log P_t \right)\nonumber\\
+        &= \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}
+    \end{align}
+    where $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
+    
+    To find a fixed point of $P_{t}$, we define $\Delta(P_t)$ as follows:
+    \begin{align}
+        \Delta(P_t)
+        %&=P_t -\left(\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log (\frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t})\right)\\
+        &= [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}\label{eq:fixed_point}.
+    \end{align}
+    If $\frac{\partial\Delta(P_t)}{\partial P_t}$ is monotonically increasing at any $P_{t}> 0$ and $\Delta(\hat{P}_t)\cdot \Delta(\tilde{P}_t)<0$ for $0\le \hat{P}_t < \tilde{P}_t$, then a unique fixed point $P_t$ exists such that $\Delta(P_t)=0$ by the mean value theorem. 
+    Note that the second term in \eqref{eq:fixed_point} is always positive regardless of the sign of $-\gamma_1/(\alpha_1+\alpha_2 Z^R)$ and the range is from zero to infinity on $P_t\ge 0$.
+    
+    When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$.
+    In this case, the first term in \eqref{eq:fixed_point} is always negative in $P_t >0$.
+    Thus $\Delta(P_t)$ is also negative in $P_t>0$, which implies that there is no equilibrium point in the conduct parameter model.
+    Hereafter, we assume that $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$, which implies that the first term is a straight line passing through the origin with a positive slope. 
+    \begin{itemize}
+        \item When $-\gamma_1/(\alpha_1+\alpha_2 Z^R) < 0$, the second term in \eqref{eq:fixed_point} is a monotone decreasing function in $P_t >0$. Since the first term is monotone increasing in $P_t >0$, the first term and second term cross only once on $P_t >0$, which implies that there is a unique equilibrium in the conduct parameter model.
+        \item When $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \in [0, 1)$, the second term becomes a monotone increasing concave function passing through the origin. Thus the first term and the second term cross only once on $P_t >0$.
+        \item When $-\gamma_1/(\alpha_1+\alpha_2 Z^R) = 1$, \eqref{eq:fixed_point} becomes
+        \[ 0 = [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) - \exp(\Xi)] P_t. \]
+        If $ 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) = \exp(\Xi)$, as Equation \eqref{eq:fixed_point}  holds for any $P_t$, there are infinitely many fixed points on $P_t >0$, but there is no fixed point on $P_t >0$ otherwise.
+        \item When $-\gamma_1/(\alpha_1+\alpha_2 Z^R) > 1$, the second term becomes a monotone increasing convex function passing through the origin. From $\Delta (P_t) = 0$, the fixed point can be written as 
+        \begin{align}
+            0 & = [1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}\nonumber \\ 
+            0 & = 1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t}) - \exp(\Xi)P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}- 1} \nonumber\\ 
+            P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}- 1} & = \frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{ \exp(\Xi)}\nonumber\\ 
+            P_t^{\frac{-\gamma_1 - \alpha_1 - \alpha_2 Z^{R}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}}}&= \frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{ \exp(\Xi)}\nonumber\\
+            P_t^* &= \left(\frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{\exp(\Xi)}\right)^{-\frac{\alpha_1 + \alpha_2 Z^{R}_{t}}{\gamma_1 +\alpha_1 + \alpha_2 Z^{R}_{t}}}.
+        \end{align} 
+        Since $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$ and $\exp(\Xi)>0$, $P^* >0$ is uniquely determined. Therefore, we have a unique fixed point on $P_t >0$.
+    \end{itemize}
+\end{proof}
 
-To find a fixed point of $P_{t}$, we define $\Delta(P_t)$ as follows:
-\begin{align}
-    \Delta(P_t)
-    %&=P_t -\left(\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log (\frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t})\right)\\
-    &= [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}\label{eq:fixed_point}.
-\end{align}
-If $\frac{\partial\Delta(P_t)}{\partial P_t}$ is monotonically increasing at any $P_{t}> 0$ and $\Delta(\hat{P}_t)\cdot \Delta(\tilde{P}_t)<0$ for $0\le \hat{P}_t < \tilde{P}_t$, then a unique fixed point $P_t$ exists such that $\Delta(P_t)=0$ by the mean value theorem. 
-Note that the second term in \eqref{eq:fixed_point} is always positive regardless of the sign of $-\gamma_1/(\alpha_1+\alpha_2 Z^R)$ and the range is from zero to infinity on $P_t\ge 0$.
-
-The first case is when $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$.
-In this case, the first term in \eqref{eq:fixed_point} is always negative in $P_t >0$.
-Thus $\Delta(P_t)$ is also negative in $P_t>0$, which implies that there is no equilibrium point in the conduct parameter model.
-Hereafter, we assume that $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$, which implies that the first term is a straight line passing through the origin with a positive slope. 
-
-The second case is when $-\gamma_1/(\alpha_1+\alpha_2 Z^R) < 0$.
-In this case, the second term in \eqref{eq:fixed_point} is a monotone decreasing function in $P_t >0$.
-Since the first term is monotone increasing in $P_t >0$, the first term and second term cross only once on $P_t >0$, which implies that there is a unique equilibrium in the conduct parameter model.
-
-The third case is when $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \in [0, 1)$. 
-The second term becomes a monotone increasing concave function passing through the origin. 
-Thus the first term and the second term cross only once on $P_t >0$.
-
-The fourth case is when $-\gamma_1/(\alpha_1+\alpha_2 Z^R) = 1$. 
-The second term becomes a straight line with slope $\exp(\Xi)$.
-Then, there are infinitely many fixed point on $P_t >0$ when $\exp(\Xi) = 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, but there is no fixed point on $P_t >0$ otherwise. 
-
-The final case is when $-\gamma_1/(\alpha_1+\alpha_2 Z^R) > 1$.
-The second term becomes a monotone increasing convex function passing through the origin.
-From $\Delta (P_t) = 0$, the fixed point can be written as 
-\begin{align}
-    0 & = [1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}\nonumber \\ 
-    0 & = 1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t}) - \exp(\Xi)P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}- 1} \nonumber\\ 
-    P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}- 1} & = \frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{ \exp(\Xi)}\nonumber\\ 
-    P_t^{\frac{-\gamma_1 - \alpha_1 - \alpha_2 Z^{R}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}}}&= \frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{ \exp(\Xi)}\nonumber\\
-    P_t^* &= \left(\frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{\exp(\Xi)}\right)^{-\frac{\alpha_1 + \alpha_2 Z^{R}_{t}}{\gamma_1 +\alpha_1 + \alpha_2 Z^{R}_{t}}}.
-\end{align}
-Since $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$ and $\exp(\Xi)>0$, $P^* >0$ is uniquely determined.
-Therefore, we have a unique fixed point on $P_t >0$. \qed
-
-\textcolor{blue}{For illustration, we consider the case in which no equilibrium exists. 
-Suppose $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) < 0$, then $\alpha_1 + \alpha_2 Z^{R}_{t}>\frac{1}{\theta}$. 
-Since the inequality must hold for $\theta\in [0,1]$, $\alpha_1 + \alpha_2 Z^{R}_{t}>\frac{1}{0}$ which is not well-defined in the perfect competition and means that demand curve is vertical line at the origin of the demand-supply diagram. Then, there is no intersection of the two curves.
-As another case, suppose $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) > 0$ and $-\gamma_1/(\alpha_1+\alpha_2 Z^R) = 1$ but $\exp(\Xi) \neq 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$. Then, $1 + \gamma_1\theta> 0$. Since the inequality must hold for $\theta\in [0,1]$, $\gamma_1>-1$ which implies that the log-supply curve has a negative slope. Also, since $\alpha_1 + \alpha_2 Z^{R}_{t}<\frac{1}{\theta}$ for $\theta\in [0,1]$, the slope of the log-demand curve can be larger than that of the log-supply curve. Then, there is no intersection of the two curves.
-}
+Figure \ref{fg:equilibrium_existence} illustrates how the demand and supply equations cross under the conditions.
+When $1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, the supply equation \eqref{eq:log_linear_supply_equation} is ill-defined because the inside of the log function becomes negative.
+Thus, there should not be any equilibrium.
+Hereafter, assume that $1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t}) > 0$.
+When $-\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) = 1$ and $\exp(\Xi) = 1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t})$, the demand equation and supply equation coincides.
+Thus there are infinitely many equilibria in the model.
+When $-\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) = 1$ and $\exp(\Xi) \ne 1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t})$, the demand and supply equations have a same slope and different intercepts, which means that both equations become parallel.
+Thus, there is no equilibrium.
+When $-\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) \ne 1$, the demand and supply equations have different slopes, and hence we can find a unique equilibrium. 
 
 
+\begin{figure}[!ht]
+    \caption{The illustrations of the equilibrium existence}
+    \label{fg:equilibrium_existence}
+    \begin{subfigure}{0.45\textwidth}
+        \begin{tikzpicture}
+            \draw[->,thick] (-0.5,0)--(4,0) node[right]{$Q_t$};
+            \draw[->,thick] (0,-0.5)--(0,4) node[above]{$P_t$};
+            \draw[blue, thick] (0,0.5) .. controls (1, 2.2)..(4,3) node[right]{$S$};
+            \draw[red, thin] (0,0.5) .. controls (1, 2.2)..(4,3) node[above]{$D$};
+        \end{tikzpicture}
+         \caption{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \begin{tikzpicture}
+            \draw[->,thick] (-0.5,0)--(4,0) node[right]{$Q_t$};
+            \draw[->,thick] (0,-0.5)--(0,4) node[above]{$P_t$};
+            \draw[blue, thick] (0, 0.5) .. controls (1, 2.2)..(4,3) node[right]{$S$};
+            \draw[red, thick, yshift = 5mm] (0, 0.5) .. controls (1, 2.2)..(4,3) node[right]{$D$};
+        \end{tikzpicture}
+        \caption{}
+    \end{subfigure}
+    
+    \vspace{1em}
+    \begin{subfigure}{0.45\textwidth}
+        \begin{tikzpicture}
+            \draw[->,thick] (-0.5,0)--(4,0) node[right]{$Q_t$};
+            \draw[->,thick] (0,-0.5)--(0,4) node[above]{$P_t$};
+            \draw[blue, thick] (0,0.5) .. controls (1, 2.2)..(4,3) node[right]{$S$};
+            \draw[red, thick] (0,3.8) .. controls (1, 1.5) .. (4,1.0)  node[right]{$D$};
+        \end{tikzpicture}
+         \caption{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \begin{tikzpicture}
+            \draw[->,thick] (-0.5,0)--(4,0) node[right]{$Q_t$};
+            \draw[->,thick] (0,-0.5)--(0,4) node[above]{$P_t$};
+            \draw[blue, thick] (0,0.5) .. controls (1, 2.2)..(4,3.2) node[right]{$S$};
+            \draw[red, thick] (0,1.4) .. controls (1, 2.2) .. (4,2.8)  node[below]{$D$};
+        \end{tikzpicture}
+         \caption{}
+    \end{subfigure}
+    \vspace{1em}
+    \begin{subfigure}{0.45\textwidth}
+        \begin{tikzpicture}
+            \draw[->,thick] (-0.5,0)--(4,0) node[right]{$Q_t$};
+            \draw[->,thick] (0,-0.5)--(0,4) node[above]{$P_t$};
+            \draw[blue, thick] (0,3.0) .. controls (1, 2.0)..(4,1.5) node[right]{$S$};
+            \draw[red, thick] (0,3.8) .. controls (1, 1.5) .. (4,1.0)  node[right]{$D$};
+        \end{tikzpicture}
+         \caption{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \begin{tikzpicture}
+            \draw[->,thick] (-0.5,0)--(4,0) node[right]{$Q_t$};
+            \draw[->,thick] (0,-0.5)--(0,4) node[above]{$P_t$};
+            \draw[red, thick] (0,0.5) .. controls (1, 2.2)..(4,3) node[right]{$D$};
+            \draw[blue, thick] (0,3.8) .. controls (1, 1.5) .. (4,1.0)  node[right]{$S$};
+        \end{tikzpicture}
+         \caption{}
+    \end{subfigure}
+    
+    \footnotesize
+    Note: As there is no equilibrium when $1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, the above figures assume that $1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t}) > 0$. Case (a) considers the case $-\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) = 1$ and $\exp(\Xi) = 1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t})$. Case (b) considers the case $-\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) = 1$ and $\exp(\Xi) \ne 1- \theta(\alpha_1 + \alpha_2 Z^{R}_{t})$. Case (c), (d), (e), and (f) consider the case $\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) \ne 1$. Case (a) and (b) also allow both the demand and supply equations to be downward sloping.
+\end{figure}
+
+
+
+\newpage
 \subsection{Simulation and estimation procedure}
 We assess the performance of the MPEC estimator using Monte Carlo simulation.
 To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z^{R}_{t}, W_t, R_{t}, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
@@ -418,27 +489,37 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
 
 
 
+% \begin{table}[!htbp]
+%   \begin{center}
+%       \caption{MPEC vs standard approaches ($\sigma=0.5$)}
+%       \label{tb:loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse} 
+%       \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
+%       % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint_bias_rmse}}\\
+%     \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+%   \end{center}
+%   \footnotesize
+%   %Note: 
+% \end{table} 
+
 \begin{table}[!htbp]
   \begin{center}
-      \caption{MPEC vs standard approaches ($\sigma=0.5$)}
-      \label{tb:loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.001_separate_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_theta_constraint_bias_rmse}}
+      \caption{MPEC vs N2SLS ($\sigma=0.5$)}
+      \label{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} 
+      \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
-  %Note: 
+  
 \end{table} 
 
 \begin{table}[!htbp]
   \begin{center}
       \caption{MPEC vs N2SLS ($\sigma=2.0$)}
       \label{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
-      % \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}\\
-      % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_1_separate_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[Simultaneous]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_theta_constraint_bias_rmse}}
-    % \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint_bias_rmse}}
+      \subfloat[N2SLS]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC with equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   
