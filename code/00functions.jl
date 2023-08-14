@@ -39,7 +39,7 @@ end
 
 #---------------------------------------------------------------------------------------------
 
-function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
 
     """
     Estimate the demand and supply parameter given a market
@@ -178,7 +178,7 @@ function GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, 
 end
 
 
-function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -278,7 +278,7 @@ function GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α
     #end 
 end
 
-function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """
     Estimate the demand and supply parameter given a market simultaneously
@@ -470,7 +470,7 @@ function GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2
 end
 
 
-function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -584,7 +584,7 @@ function GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_
     #end 
 end
 
-function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,  estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+function GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ,  estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -749,7 +749,7 @@ end
     return α_hat, γ_hat, θ_hat, status
 end
 
-@everywhere function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol}, starting_value, tol_level)
+@everywhere function iterate_esimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
 
     """
     Given the simulation data, run the estimation in each simulation index s = 1,..., 1000, and store the simulation results as a DataFrame file.

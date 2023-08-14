@@ -57,7 +57,7 @@ mutable struct SIMULATION_SETTING
     T::Int64
     σ::Float64
     data::DataFrame
-    estimation_method::Tuple{Symbol, Symbol, Symbol}
+    estimation_method::Tuple{Symbol, Symbol, Symbol,Symbol}
     starting_value::Symbol
     tol_level::Symbol
     simulation_index::Int64
