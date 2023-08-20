@@ -976,7 +976,8 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     all_bias_rmse_for_latex %>%
       kableExtra::kbl(
         format = "latex",
-        align = c("l","r","r","r","r","r","r","r","r"),
+        #align = c("l","r","r","r","r","r","r","r","r"),
+        align = c("r","r","r","r","r","r","r","r","r"),
         escape = FALSE,
         booktabs = TRUE,
         linesep = ""
