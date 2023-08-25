@@ -50,7 +50,7 @@
 \maketitle
 \begin{abstract}
     We propose a constrained generalized method of moments estimator (GMM) for estimating conduct parameters in homogeneous goods markets. We formulate the estimation as a mathematical programming with equilibrium constraints (MPEC) problem incorporating theoretical conditions for the unique existence of equilibrium prices. 
-    Monte Carlo simulations confirm that in a log-linear model, the MPEC estimator performs better than the nonlinear system two-stage least square estimator in estimating conduct parameters. %81 words
+    Monte Carlo simulations confirm that in a log-linear model, the MPEC estimator performs better than the nonlinear system two-stage least square estimator in estimating conduct parameters in large sample sizes. %81 words
 \end{abstract}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogenous Goods Market, Mathematical Programming with Equilibrium Constraints, Monte Carlo simulation
@@ -67,14 +67,14 @@ However, it cannot be directly measured from data because data usually lack info
 Therefore, researchers aim to identify and estimate the conduct parameter.
 
 As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of conduct parameters for the linear model. \cite{matsumura2023resolving} resolves the conflict on some identification problems between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. 
-However, researchers may want to implement a different set of specifications such as the log-linear model \citep{okazaki2022excess,merel2009measuring}. 
+However, researchers often implement alternative specifications, such as the log-linear model\citep{okazaki2022excess,merel2009measuring}. 
 Regarding the log-linear model, the identification strategy is provided by \citet{lau1982identifying}, but  
 estimation problems arise when searching parameters using standard solvers because the equilibrium condition given by demand and supply curves involves log-transformation. 
 This is an obstacle to choosing a better specification of the demand and supply functions.
 
-To overcome the problem, we propose a new estimator based on the mathematical program with equilibrium constraints (MPEC) approach advocated by \cite{su2012constrained}. 
+To overcome the problem, we propose an estimator based on the mathematical program with equilibrium constraints (MPEC) approach advocated by \cite{su2012constrained}. 
 MPEC is a constrained optimization problem whose constraint structure contains equilibrium constraints. 
-We show that the MPEC estimator performs better in estimating conduct parameters than the standard approach such as nonlinear system two-stage-least-squares (N2SLS).
+We show that the MPEC estimator performs better in estimating conduct parameters than the standard approach such as nonlinear system two-stage-least-squares (N2SLS) in large sample sizes.\footnote{\cite{merel2009measuring} and \cite{okazaki2022excess} use N2SLS.}
 
 
 \section{Model}
@@ -86,20 +86,20 @@ Then, we obtain the supply equation:
      P_t = -\theta\frac{\partial P_t(Q_{t})}{\partial Q_{t}}Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
 \end{align}
 where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ is the demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$, which is the conduct parameter. 
-The equation nests perfect competition $(\theta=0)$, Cournot competition $(\theta=1 / N)$, and perfect collusion $(\theta=$ $1)$. See \cite{bresnahan1982oligopoly}.
+The equation nests perfect competition $(\theta=0)$, Cournot competition $(\theta=1 / N)$, and perfect collusion $(\theta=$ $1)$ \citep{bresnahan1982oligopoly}.
 
 Consider an econometric model.
 Assume that the demand and the marginal cost functions are written as follows: 
 \begin{align*}
-    P_t = f(Q_{t}, Y_t, \varepsilon^{d}_{t}, \alpha), %\label{eq:demand}
+    P_t = f(Q_{t}, X^{d}_{t}, \varepsilon^{d}_{t}, \alpha), %\label{eq:demand}
     \\
-    MC_t = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma),%\label{eq:marginal_cost}
+    MC_t = g(Q_{t}, X^{c}_{t}, \varepsilon^{c}_{t}, \gamma),%\label{eq:marginal_cost}
 \end{align*}
-where $Y_t$ and $W_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
-We also have the demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid Y_t, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$. Note that $Z_t^d$ often is $W_t$, and $Z_t^c$ often is $Y_t$.
+where $X^{d}_{t}$ and $X^{c}_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
+We also have the demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid X^{d}_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid X^{c}_{t}, Z^{c}_{t}] =0$. 
 
 \subsection{Log-linear demand and log-linear marginal cost}
-Consider a log-linear model, which is one of the most typical specifications.
+Consider a log-linear model, which is a typical specification.
 The demand and marginal cost functions are specified as
 \begin{align}
     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\label{eq:log_linear_demand}\\
@@ -122,8 +122,23 @@ By taking logarithm of Equation \eqref{eq:log_linear_supply_equation_direct} and
 
 An obstacle in the estimation is log-transformation in Equation \eqref{eq:log_linear_supply_equation}.
 The standard numerical algorithm stops with invalid errors when the inside of the log function, $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, becomes negative during the search for an optimizer.
-When the term is negative, equilibrium prices do not exist. 
 This problem is not specific to the above model and happens in other specifications, such as a model with linear demand and log-linear marginal cost.
+
+In this model, the number of equilibrium prices varies. 
+The conditions for the uniqueness in the following proposition are used in our estimation. 
+\begin{proposition}\label{prop:equilibrium_existence}
+    Assume that $\alpha_1 + \alpha_2 Z^{R}_{t}\ne 0$. Let $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
+    The number of equilibrium prices $P_{t}^*>0$ is determined as follows:
+    \begin{itemize}
+        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, there is no equilibrium price,
+        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$, 
+        \begin{itemize}
+            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \ne 1$, there is a unique equilibrium price,
+            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) =1$, there are infinitely many equilibrium prices when $\exp(\Xi) = 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, but there is no equilibrium price otherwise.
+        \end{itemize}
+    \end{itemize}
+\end{proposition}
+See the online appendix \ref{sec:appendix_proof} for the proof.
 
 
 
@@ -141,27 +156,26 @@ This problem is not specific to the above model and happens in other specificati
 % where $C=\alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}$.
 % Note that although this specification does not have an analytical solution, we can find numerically find a single positive solution.
 \section{MPEC estimator}
-To estimate parameters in the demand and supply equations, a standard approach is to use GMM estimation.
-Among GMM estimators, the N2SLS estimator directly uses Equation \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation}, which leads to the log-transformation problem.\footnote{See the online appendix and section 14.2 of \cite{wooldridge2010econometric}}
-To avoid the obstacle, we propose a novel and simple estimator by utilizing the MPEC procedure advocated by \cite{su2012constrained}. 
-Our setting is similar to \cite{dube2012improving} in which the GMM objective function with equilibrium constraints is constructed.
+To estimate parameters in the demand and supply equations, we use GMM estimation.
+Among GMM estimators, the N2SLS estimator directly uses Equation \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation}, which leads to the log-transformation problem.
+See online appendix \ref{sec:n2sls} for the construction of N2SLS based on Section 14.2 of \cite{wooldridge2010econometric}.
+To avoid the obstacle, we propose an estimator utilizing the MPEC procedure \citep{su2012constrained,dube2012improving}.
 
-Let $\xi = (\alpha_0,\alpha_1, \ldots, \alpha_3, \gamma_0,\gamma_1, \ldots, \gamma_3, \theta)$ be the vector of parameters in the demand and supply equations.
+Let $\xi = (\alpha_0,\alpha_1, \alpha_2, \alpha_3, \gamma_0,\gamma_1, \gamma_2, \gamma_3, \theta)$ be the vector of parameters.
 To estimate the parameters, we convert the conditional moment conditions, $E[\varepsilon_t^d\mid Z_t^d] = E[\varepsilon_t^c\mid Z_t^c]=0$, into unconditional moment conditions, $E[\varepsilon_t^d Z_t^d] = E[\varepsilon_t^cZ_t^c]=0$.
-To construct the sample analog of the unconditional moments, we use the demand function \eqref{eq:log_linear_demand} and the marginal cost function \eqref{eq:log_linear_marginal_cost} directly.
-Then the residuals are
+Using the demand function \eqref{eq:log_linear_demand} and the marginal cost function \eqref{eq:log_linear_marginal_cost} directly, the sample analog of the moment conditions is given as
+\begin{align*}
+    g(\xi) = \left[\begin{array}{l}
+    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{d}_{t}(\xi)Z_{t}^{d} \\
+    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{c}_{t}(\xi)Z_{t}^{c}
+    \end{array}\right],
+\end{align*}
+where
 \begin{align}
     \varepsilon_t^d(\xi) & =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t, \label{eq:residual_demand_mpec}\\
     \varepsilon_t^c(\xi) & = \log MC_{t} - \gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} - \gamma_3 \log R_t \label{eq:residual_supply_mpec}.
 \end{align}
 
-Using Equations \eqref{eq:residual_demand_mpec} and \eqref{eq:residual_supply_mpec}, we construct the sample analog of the moment conditions:
-\begin{align*}
-    g(\xi) = \left[\begin{array}{l}
-    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{d}_{t}(\xi)Z_{t}^{d} \\
-    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{c}_{t}(\xi)Z_{t}^{c}
-    \end{array}\right].
-\end{align*}
 For some weighting matrix $W$, we define an MPEC estimator as $\xi^{*}$ solving the problem
 \begin{align}
     &\min_{\xi, \{MC_t\}_{t=1}^T}\ g(\xi)^\top W g(\xi)\\
@@ -170,9 +184,9 @@ For some weighting matrix $W$, we define an MPEC estimator as $\xi^{*}$ solving 
 \end{align}
 Constraint \eqref{eq:positive_mc} is necessary because $\log MC_t$ becomes invalid when $MC_t$ is negative.
 
-The MPEC estimator avoids the log-transformation problem by putting the first-order condition as an equality constraint and regarding $MC_t$ as a variable for the minimization problem.
-Notably, while we focus on the log-linear specification, MPEC allows for more flexible specifications on the demand and marginal cost.
-Additionally, the programming cost of MPEC is lower than that of N2SLS because MPEC does not need analytical equilibrium expressions for constructing moment conditions.
+As the main difference from N2SLS, the MPEC estimator avoids the log-transformation problem by putting the first-order condition as an equality constraint and regarding $MC_t$ as a variable for the minimization problem.
+While we focus on the log-linear specification, MPEC allows for more flexible specifications on the demand and marginal cost.
+The programming cost of MPEC is lower than that of N2SLS because MPEC does not need analytical equilibrium expressions for constructing moment conditions.
 
 We also impose the following constraints:
 \begin{align}
@@ -181,38 +195,44 @@ We also impose the following constraints:
     &1- \theta(\alpha_1 + \alpha_2 Z_{t}^{R}) >0,\quad t = 1,\ldots, T.\label{eq:equlibrium_existence}
 \end{align}
 Constraint \eqref{eq:conduct_constraint} is a standard assumption on the conduct parameter.
-Constraint \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} relate to the uniqueness of equilibrium prices. 
-See the online appendix.
-Constraint \eqref{eq:slope_constraint} implies the downward slope of the demand curve and the upward slope of the marginal cost.
+Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} relate to the uniqueness of equilibrium prices. 
+Constraint \eqref{eq:slope_constraint} implies the downward-sloping demand and upward-sloping marginal cost.
+
+
+
+
+
+
+
 
 \section{Simulation results}\label{sec:results}
 
-We compare MPEC estimation with N2SLS estimation with or without Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence}.
+We compare MPEC estimation with N2SLS estimation with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}.
 %Second, we examine the Two-Stage-Least-Square (2SLS) model in which Ipopt is implemented for minimizing its supply side moments and the simultaneous equation model in which Ipopt is implemented for minimizing both demand and supply side moments. 
 %We refer to the former as separate estimation and the latter as simultaneous estimation.
 %These two estimation procedures are considered to be a middle ground between MPEC and standard approaches because these do not use equilibrium constraints but state-of-the-art constrained optimization solvers.
 Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} presents the results.
 First, as the sample size increases, the root-mean-square error (RMSE) and bias decrease for all models. 
 Second, we focus on estimating the conduct parameter because the results in the other parameters are comparable.
-When the sample size is $T=1500$, MPEC estimation has a smaller bias (0.014) and RMSE (0.217) than those under N2SLS without these constraints (-0.058 and 0.281) and those under N2SLS with the constraint (-0.148 and 0.333).
+When the sample size is $T=1500$, MPEC estimation has a smaller bias (0.014) and RMSE (0.217) than those under N2SLS with the constraint (-0.148 and 0.333).
 These differences arise only from whether we solve log-transformation as a constraint.
 Third, the percentage of convergence in MPEC estimation is larger than N2SLS. 
-With additional experiments under various $\sigma$, these results are robust. 
-The same results also hold for the linear model.
-See the online appendix.
-Therefore, MPEC is a better estimation approach than N2SLS in estimating the conduct parameter.
+Therefore, MPEC is a better estimation approach than N2SLS in estimating the conduct parameter in large sample sizes.
+
+See online appendix \ref{sec:n2sls} and \ref{sec:linear_results} for additional experiments under different variances of errors, comparison to N2SLS without constraints, and the results of a linear model. 
+Our findings are robust.
 
 \begin{table}[!htbp]
   \begin{center}
       \caption{Performance comparison}
       \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
       % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[N2SLS without the parameter constraints]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with the parameter constraints]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    % \subfloat[N2SLS without the parameter constraints]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
     \subfloat[MPEC ]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
   \end{center}
   \footnotesize
-  Note: The error terms in the demand and marginal cost are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
+  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
 \end{table} 
 
 
@@ -220,7 +240,7 @@ Therefore, MPEC is a better estimation approach than N2SLS in estimating the con
 \section{Conclusion}
 We propose an MPEC estimator for conduct parameter estimation in homogeneous goods markets.
 Our approach avoids the complex transformation within the equilibrium conditions and allows a broader set of specifications. 
-Monte Carlo simulations confirms that the MPEC estimator performs better than N2SLS for estimating conduct parameters. 
+Monte Carlo simulations confirm that the MPEC estimator performs better than N2SLS for estimating conduct parameters in a log-linear model in large sample sizes. 
 %We conclude that MPEC enables us to estimate a broader set of specifications which are identified theoretically shown in \cite{lau1982identifying} but practically and numerically difficult to estimate.
 % We revisit the conduct parameter estimation in homogeneous goods markets.
 % There is a conflict between \citet{bresnahan1982oligopoly} and \citet{perloff2012collinearity} in terms of identification and estimation.
@@ -230,7 +250,7 @@ Monte Carlo simulations confirms that the MPEC estimator performs better than N2
 
 
 \paragraph{Acknowledgments}
-We thank Jeremy Fox, Yelda Gungor, and Isabelle Perrigne for their valuable comments. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
+We thank Jeremy Fox, Yelda Gungor, and Isabelle Perrigne for valuable comments. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
 
 \newpage
 \bibliographystyle{aer}
@@ -239,73 +259,63 @@ We thank Jeremy Fox, Yelda Gungor, and Isabelle Perrigne for their valuable comm
 \newpage
 \appendix
 
-\section{Online appendix}\label{sec:appendix}
-\subsection{Existence and uniqueness of equilibrium prices}
-Explicitly, we derive the conditions for the number of equilibrium prices:
+\section{Online appendix}
+\subsection{Existence and uniqueness of equilibrium prices}\label{sec:appendix_proof}
 
-\begin{proposition}\label{prop:equilibrium_existence}
-    Let $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
-    The number of equilibrium prices $P_{t}>0$ is determined as follows:
-    \begin{itemize}
-        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, there is no equilibrium price,
-        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$, 
-        \begin{itemize}
-            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) =1$, there are infinitely many equilibrium prices when $\exp(\Xi) = 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, but there is no equilibrium price otherwise,
-            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \ne 1$, there is a unique equilibrium price.
-        \end{itemize}
-    \end{itemize}
-\end{proposition}
-    Proposition \ref{prop:equilibrium_existence} proposes the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
-    The proof is not based on the optimization by individual firms but checks if there exists a point at which the demand function and the marginal cost function cross.
-    Therefore, we allow an equilibrium price to exist when the demand and the marginal cost are upward-sloping.
-    \begin{proof}
-        
-    % \begin{align}
-    %     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\\
-    %     P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t\nonumber\\
-    %     &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}).
-    % \end{align}
-    Rewriting the demand equation \eqref{eq:log_linear_demand} as 
-    \begin{align*}
-        \log Q_{t}(P_{t})= \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}   
-    \end{align*}
-    and substituting this into the supply equation \eqref{eq:log_linear_supply_equation}, we obtain
-    \begin{align}
-        P_t &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp\left(\gamma_0 + \gamma_1 \log Q_t(P_{t}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}\right). \nonumber\\
-        & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t + \exp\left(\gamma_0 + \gamma_1 \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})} +\gamma_2 \log W_{t} + \gamma_3 \log R_{t} + \varepsilon^{c}_{t} \right)\nonumber\\
-        & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp\left(\Xi + \frac{-\gamma_1}{\alpha_1+\alpha_2 Z^{R}_t} \log P_t \right)\nonumber\\
-        &= \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}} \label{eq:equilibrium_equation}
-    \end{align}
-    where $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
-
-    Any price that satisfies \eqref{eq:equilibrium_equation} becomes an equilibrium price.
-    To find an equilibrium price $P_{t}$, we define $\Delta(P_t)$ as follows:
-    \begin{align}
-        \Delta(P_t)
-        %&=P_t -\left(\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log (\frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t})\right)\\
-        &= [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}\label{eq:fixed_point}.
-    \end{align}
-    Some remarks exist. First, $P_t =0$ satisfies $\Delta(P_{t}) = 0$.
-    However, our interest is a unique positive equilibrium price so we seek conditions in which there is a unique positive price that satisfies $\Delta(P_t)=0$.
-    Second, the second term in \eqref{eq:fixed_point} is non-negative regardless of the sign of $-\gamma_1/(\alpha_1+\alpha_2 Z^R)$ on $P_t \ge 0$.
-    This means that, when $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, the first term in \eqref{eq:fixed_point} is always negative on $P_t >0$ so
-    $\Delta(P_t)$ is always negative on $P_t>0$, which implies that there is no positive equilibrium price.
-    Therefore, we need to assume that $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$ for positive equilibrium prices.
-    Under the condition, the first term in \eqref{eq:fixed_point} becomes a line passing through the origin with a positive slope in Figure \ref{fg:equilibrium_existence}.
-
-    To derive conditions in which a unique positive equilibrium price exists, we check how many times the first and second terms in \eqref{eq:fixed_point} cross on $P_t >0$. 
+Proposition \ref{prop:equilibrium_existence} proposes the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
+The proof is not based on the optimization by individual firms but checks if there exists a point at which the demand function and the marginal cost function cross.
+Therefore, we allow an equilibrium price to exist when the demand and the marginal cost are upward-sloping.
     
-    Note that the first and second derivatives of the second term in \eqref{eq:fixed_point} are given as
-    \begin{align}
-        \frac{d}{dP_t}\exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}} &= -\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} \exp(\Xi)P_t^{-\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} - 1},\\
-        \frac{d^2}{dP_t^2} \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}} &= -\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t}\left(-\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} - 1\right) \exp(\Xi) P_t^{-\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} - 2}.
-    \end{align}
+\begin{proof}
+    
+% \begin{align}
+%     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\\
+%     P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t\nonumber\\
+%     &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}).
+% \end{align}
+Rewriting the demand equation \eqref{eq:log_linear_demand} as 
+\begin{align*}
+    \log Q_{t}(P_{t})= \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}   
+\end{align*}
+and substituting this into the supply equation \eqref{eq:log_linear_supply_equation}, we obtain
+\begin{align}
+    P_t &=\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp\left(\gamma_0 + \gamma_1 \log Q_t(P_{t}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}\right). \nonumber\\
+    & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t + \exp\left(\gamma_0 + \gamma_1 \frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})} +\gamma_2 \log W_{t} + \gamma_3 \log R_{t} + \varepsilon^{c}_{t} \right)\nonumber\\
+    & = \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp\left(\Xi + \frac{-\gamma_1}{\alpha_1+\alpha_2 Z^{R}_t} \log P_t \right)\nonumber\\
+    &= \theta(\alpha_1 + \alpha_2 Z^{R}_{t})P_t  + \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}} \label{eq:equilibrium_equation}
+\end{align}
+where $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
 
+Any price that satisfies \eqref{eq:equilibrium_equation} becomes an equilibrium price.
+To find an equilibrium price $P_{t}^*$, we define $\Delta(P_t)$ as follows:
+\begin{align}
+    \Delta(P_t)
+    %&=P_t -\left(\theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + \exp(\gamma_0 + \gamma_1 \log (\frac{\alpha_0 - \log P_{t} + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{(\alpha_1 + \alpha_2 Z^{R}_{t})}) +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t})\right)\\
+    &= \underbrace{[1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})]P_t}_{(I)} - \underbrace{\exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}}_{(II)} \label{eq:fixed_point}.
+\end{align}
 
-The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) < 0$ is illustrated in Figure \ref{fig:fixed_monotone_decreasing}. In this case, the second term in \eqref{eq:fixed_point} is a monotone decreasing convex function because the first and second derivatives are both negative. As the first term is monotone increasing in $P_t >0$, the first and second terms cross only once on $P_t >0$. Thus there is a unique equilibrium price.
+We label the first term as (I) and the second term as (II).
 
-The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \in [0, 1)$ is illustrated in Figure \ref{fig:fixed_concave}. In this case, the second term becomes a monotone increasing concave function passing through the origin because the first derivative is positive and the second derivative is negative.
-As the value of the first derivative is infinity at $P_t = 0$ since $-\gamma_1/(\alpha_1+\alpha_2 Z^R)-1<0$, the second term should be greater than the first term around $P_t = 0$. Then as $P_t$ becomes large starting from zero, the difference in both terms becomes small, and both terms cross only once on $P_t >0$ eventually.
+An important note is that $P_t =0$ satisfies $\Delta(P_{t}) = 0$.
+Thus $P_t^* = 0$ holds.
+However, our interest is a unique positive equilibrium price, so we seek conditions in which there is a unique positive price that satisfies $\Delta(P_t)>0$.
+    
+When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, (I) is always negative on $P_t >0$. 
+In contrast, (II) is non-negative regardless of the sign of $-\gamma_1/(\alpha_1+\alpha_2 Z^R)$ on $P_t > 0$.
+Therefore, $\Delta(P_t)$ is always negative on $P_t>0$, which implies that there is no positive equilibrium price.
+
+When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, (I) becomes a line passing through the origin with a positive slope, illustrated in Figure \ref{fg:equilibrium_existence}. 
+Note that the first and second derivatives of (II) are given as
+\begin{align}
+    \frac{d}{dP_t}\exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}} &= -\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} \exp(\Xi)P_t^{-\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} - 1},\\
+    \frac{d^2}{dP_t^2} \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}} &= -\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t}\left(-\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} - 1\right) \exp(\Xi) P_t^{-\frac{\gamma_1}{\alpha_1 + \alpha_2 Z^R_t} - 2}.
+\end{align}
+Therefore, the shape of (II) on $P_t >0$ is changed based on the value of $-\gamma_1/(\alpha_1+\alpha_2 Z^R)$ and the number that (I) and (II) cross on $P_t >0$ is also determined.
+
+The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) < 0$ is illustrated in Figure \ref{fig:fixed_monotone_decreasing}. In this case, (II) is a monotone decreasing convex function because the first and second derivatives are both negative. As (I) is monotone increasing in $P_t >0$, (I) and (II) cross only once on $P_t >0$.
+
+The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \in [0, 1)$ is illustrated in Figure \ref{fig:fixed_concave}. In this case, (II) becomes a monotone increasing concave function passing through the origin because the first derivative is positive and the second derivative is negative.
+As the value of the first derivative is infinity at $P_t = 0$ since $-\gamma_1/(\alpha_1+\alpha_2 Z^R)-1<0$, (II) should be greater than (I) around $P_t = 0$. Then as $P_t$ becomes large starting from zero, the difference in both terms becomes small, and both terms cross only once on $P_t >0$ eventually.
 
 When $-\gamma_1/(\alpha_1+\alpha_2 Z^R) = 1$, \eqref{eq:fixed_point} becomes
 \[ 0 = [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) - \exp(\Xi)] P_t. \]
@@ -313,7 +323,7 @@ If $ 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) = \exp(\Xi)$, the above equation
 Thus there are infinitely many equilibrium prices on $P_t >0$, which is illustrated in Figure \ref{fig:fixed_coinside}.
 When $ 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \ne \exp(\Xi)$, there is no equilibrium price on $P_t >0$ because the right-hand side of the equation is always non-zero on $P_t >0$, which is illustrated in Figure \ref{fig:fixed_parallel}.
 
-The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) > 1$ is illustrated in Figure \ref{fig:fixed_convex}. In this case, the second term becomes a monotone increasing convex function passing through the origin because the first and second derivatives are positive. Therefore, the first term and the second term cross only once on $P_t >0$.
+The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) > 1$ is illustrated in Figure \ref{fig:fixed_convex}. In this case, (II) becomes a monotone increasing convex function passing through the origin because the first and second derivatives are positive. Therefore, (I) and (II) cross only once on $P_t >0$.
 
 
 
@@ -390,7 +400,7 @@ From $\Delta (P_t) = 0$, the positive equilibrium price can be written as
     0 & = [1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})]P_t - \exp(\Xi) P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}}\nonumber \\ 
     0 & = 1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t}) - \exp(\Xi)P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}- 1} \nonumber\\ 
     P_t^{\frac{-\gamma_1}{\alpha_1 + \alpha_2 Z^{R}_{t}}- 1} & = \frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{ \exp(\Xi)}\nonumber\\ 
-    P_{t} &= \left(\frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{\exp(\Xi)}\right)^{-\frac{\alpha_1 + \alpha_2 Z^{R}_{t}}{\gamma_1 +\alpha_1 + \alpha_2 Z^{R}_{t}}}.
+    P_{t}^* &= \left(\frac{1-\theta(\alpha_1 + \alpha_2 Z^{R}_{t})}{\exp(\Xi)}\right)^{-\frac{\alpha_1 + \alpha_2 Z^{R}_{t}}{\gamma_1 +\alpha_1 + \alpha_2 Z^{R}_{t}}}.
 \end{align} 
 
 Figure \ref{fg:equilibrium_existence_demand_supply} illustrates how the demand and supply equations cross under the conditions.
@@ -484,7 +494,7 @@ When $-\gamma_1/(\alpha_1 + \alpha_2 Z^{R}_{t}) \ne 1$, the demand and supply eq
 \newpage
 
 
-\subsection{Simulation and estimation procedure}
+\subsection{Simulation and estimation procedure}\label{sec:setting}
 We assess the performance of the MPEC estimator using Monte Carlo simulation.
 To generate the simulation data, for each model, we first generate the exogenous variables $Y_t, Z^{R}_{t}, W_t, R_{t}, H_t$, and $K_t$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
 By substituting the Equation \eqref{eq:log_linear_demand} into Equation \eqref{eq:log_linear_supply_equation} and solving it for $P_{t}$, the log aggregate quantity is given as: 
@@ -506,29 +516,6 @@ We use the following weight matrix:
     \end{array}\right].\label{eq:weight_matrix}
 \end{align}
 
-\subsection{Nonlinear system of 2SLS estimator}
-Given the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation}, we can write the error terms in the demand and supply equation as
-\begin{align}
-    {\varepsilon}_t^d(\xi) & =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t \label{eq:residual_demand_2sls}, \\
-    {\varepsilon}_t^c(\xi) & =  \log P_t + \log_{t}(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t \label{eq:residual_supply_2sls}.
-\end{align}
-To estimate the parameters, we convert the conditional moment conditions, $E[\varepsilon_t^d\mid Z_t^d] = E[\varepsilon_t^c\mid Z_t^c]=0$, into unconditional moment conditions, $E[\varepsilon_t^d Z_t^d] = E[\varepsilon_t^cZ_t^c]=0$.
-Using Equations \eqref{eq:residual_demand_2sls} and \eqref{eq:residual_supply_2sls}, we construct the sample analog of the moment conditions:
-\begin{align*}
-    g(\xi) = \left[\begin{array}{l}
-    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{d}_{t}(\xi)Z_{t}^{d} \\
-    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{c}_{t}(\xi)Z_{t}^{c}
-    \end{array}\right].
-\end{align*}
-For some weighting matrix $W$, we define the GMM estimator as the vector $\xi^*$ that solves the problem,
-\begin{align}
-    \min_{\xi}\ g(\xi)^\top W g(\xi) \label{eq:minimization_gmm}. 
-\end{align}
-When we use the weight matrix \eqref{eq:weight_matrix}, the solution to \eqref{eq:minimization_gmm} is called the nonlinear system 2SLS estimator.
-%We denote $\xi^{N2SLS}$ as the solution.
-
-Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} and \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint}. 
-Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse} shows that N2SLS without equilibrium constraints searches parameters in the domain where no equilibrium exists and obtains implausible estimated parameters.
 
 \begin{table}[!htbp]
     \caption{True parameters and distributions}
@@ -572,6 +559,48 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
     Note: $\sigma=\{0.5, 1.0, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
 \end{table}
 
+
+\subsection{Nonlinear system of 2SLS estimator}\label{sec:n2sls}
+Given the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation}, we can write the error terms in the demand and supply equation as
+\begin{align}
+    {\varepsilon}_t^d(\xi) & =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t \label{eq:residual_demand_2sls}, \\
+    {\varepsilon}_t^c(\xi) & =  \log P_t + \log_{t}(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t \label{eq:residual_supply_2sls}.
+\end{align}
+To estimate the parameters, we convert the conditional moment conditions, $E[\varepsilon_t^d\mid Z_t^d] = E[\varepsilon_t^c\mid Z_t^c]=0$, into unconditional moment conditions, $E[\varepsilon_t^d Z_t^d] = E[\varepsilon_t^cZ_t^c]=0$.
+Using Equations \eqref{eq:residual_demand_2sls} and \eqref{eq:residual_supply_2sls}, we construct the sample analog of the moment conditions:
+\begin{align*}
+    g(\xi) = \left[\begin{array}{l}
+    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{d}_{t}(\xi)Z_{t}^{d} \\
+    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{c}_{t}(\xi)Z_{t}^{c}
+    \end{array}\right].
+\end{align*}
+For some weighting matrix $W$, we define the GMM estimator as the vector $\xi^*$ that solves the problem,
+\begin{align}
+    \min_{\xi}\ g(\xi)^\top W g(\xi) \label{eq:minimization_gmm}. 
+\end{align}
+When we use the weight matrix \eqref{eq:weight_matrix}, the solution to \eqref{eq:minimization_gmm} is called the nonlinear system 2SLS estimator (N2SLS). 
+We emphasize that the primary distinction between the MPEC and 2SLS estimators lies in the construction of the supply residuals. This means that while the MPEC estimator circumvents the log-transformation problem by treating the first-order condition as an equality constraint and considering $MC_t$ as a variable for the minimization problem, N2SLS encounters the log-transformation problem when using \eqref{eq:residual_supply_2sls}.
+
+In Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}, we compare MPEC estimation with N2SLS estimation with and without Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} by adding an extra table to the main text.
+Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} and \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint}.
+
+Note that Constraint \eqref{eq:conduct_constraint} is crucial in estimating the model.
+Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse} shows that N2SLS without all constraints searches parameters in the domain where no equilibrium exists and obtains implausible estimated parameters.
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Performance comparison}
+      \label{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} 
+      % \subfloat[Separate]{\input{figuretable/loglinear_loglinear_sigma_0.5_separate_non_constraint_theta_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC ]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
+  \end{center}
+  \footnotesize
+  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
+\end{table} 
+
+
 % \subsection{Standard Estimation Methods}
 % We summarize the results of the standard estimation using a derivative-free optimization algorithm such as Nelder-Mead algorithm and the standard estimation using state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems. 
 % First, as mentioned in the main text, the standard simultaneous equation approach using derivative-free algorithms such as Nelder-Mead algorithm could not properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values. 
@@ -601,9 +630,9 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
   \begin{center}
       \caption{MPEC vs N2SLS ($\sigma=0.5$)}
       \label{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} 
-      \subfloat[N2SLS without slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
-    \subfloat[MPEC with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}
+      \subfloat[N2SLS with Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   
@@ -613,9 +642,9 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
   \begin{center}
       \caption{MPEC vs N2SLS ($\sigma=2.0$)}
       \label{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint} 
-      \subfloat[N2SLS without slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
-    \subfloat[MPEC with slope and equilibrium existence constraints]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
+      \subfloat[N2SLS with Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[MPEC]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   
@@ -625,7 +654,7 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
 \begin{landscape}{
 \begin{table}[!htbp]
   \begin{center}
-      \caption{N2SLS without parameter constraint on $\theta$}
+      \caption{N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}}
       \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse} 
       % \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint_bias_rmse}}\\
       \subfloat[N2SLS ($\sigma=0.5$)]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
@@ -638,7 +667,7 @@ Also, Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_
 }
 \end{landscape}
 
-\subsection{MPEC for the linear model}
+\subsection{MPEC for the linear model}\label{sec:linear_results}
 
 We illustrate that MPEC works for the linear model as in nolinear system two-stage least square (2SLS) approach in \cite{matsumura2023resolving}. 
 % We confirm that the simultaneous equation model in which demand and supply parameters are jointly estimated and 2SLS model in which demand and supply parameters are separately estimated generate the similar results. 
