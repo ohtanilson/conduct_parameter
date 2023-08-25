@@ -334,6 +334,7 @@ for(nn in 1:length(n_observation_list)){
 }
 modelsummary::datasummary_skim(
   fmt = 3,
-  parameter_hat_table)
+  parameter_hat_table
+  )
 
 
