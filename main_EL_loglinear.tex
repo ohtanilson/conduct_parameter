@@ -604,7 +604,10 @@ Thus, Constraint \eqref{eq:conduct_constraint} is crucial in estimating the mode
   Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
 \end{table} 
 
-\textcolor{blue}{Table \ref{tb:fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint} provides the fraction of convergence and smaller GMM objective value for MPEC and N2SLS for 1,000 dataset. For illustration, We compare the case of $T=1500, \sigma=1.0$ with the case of $T=100, \sigma=1.0$}
+Tables \ref{tab:unnamed-chunk-13} and \ref{tab:unnamed-chunk-22} provide the fraction of convergence and whether MPEC has a smaller GMM objective value than N2SLS or not for 1,000 datasets. For illustration, we compare the case of $T=1500, \sigma=1.0$ with the case of $T=100, \sigma=1.0$. 
+If the absolute difference of any estimated parameters between N2SLS and MPEC is larger than 1e-2, we say that each approach gives a different solution (``different sol"). 
+If the absolute difference of GMM objective values given estimated parameters between N2SLS and MPEC is smaller than 1e-4, we say that each approach gives the same GMM objective value (``same obj").
+Main results are not sensitive to the choice of these tolerance levels.
 
 % \subsection{Standard Estimation Methods}
 % We summarize the results of the standard estimation using a derivative-free optimization algorithm such as Nelder-Mead algorithm and the standard estimation using state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems. 
@@ -672,15 +675,6 @@ Thus, Constraint \eqref{eq:conduct_constraint} is crucial in estimating the mode
 }
 \end{landscape}
 
-
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{Fraction of convergence and smaller GMM objective value}
-      
-  \end{center}
-  \footnotesize
-  Note: 
-\end{table} 
 
 \input{figuretable/fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint}
 
