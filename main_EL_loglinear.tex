@@ -604,7 +604,7 @@ Thus, Constraint \eqref{eq:conduct_constraint} is crucial in estimating the mode
   Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
 \end{table} 
 
-\textcolor{blue}{Table XXX provides the fraction of convergence and smaller GMM objective value for MPEC and N2SLS for 1,000 dataset. For illustration, We compare the case of $T=1500, \sigma=1.0$ with the case of $T=100, \sigma=1.0$}
+\textcolor{blue}{Table \ref{tb:fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint} provides the fraction of convergence and smaller GMM objective value for MPEC and N2SLS for 1,000 dataset. For illustration, We compare the case of $T=1500, \sigma=1.0$ with the case of $T=100, \sigma=1.0$}
 
 % \subsection{Standard Estimation Methods}
 % We summarize the results of the standard estimation using a derivative-free optimization algorithm such as Nelder-Mead algorithm and the standard estimation using state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems. 
@@ -671,6 +671,20 @@ Thus, Constraint \eqref{eq:conduct_constraint} is crucial in estimating the mode
 \end{table} 
 }
 \end{landscape}
+
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Fraction of convergence and smaller GMM objective value}
+      
+  \end{center}
+  \footnotesize
+  Note: 
+\end{table} 
+
+\input{figuretable/fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint}
+
+\input{figuretable/fraction_convergence_and_objective_value_n_1500_sigma_1.0_theta_constraint_slope_constraint}
 
 
 We illustrate that MPEC works for the linear model as in nolinear system two-stage least square (2SLS) approach in \cite{matsumura2023resolving}. 
