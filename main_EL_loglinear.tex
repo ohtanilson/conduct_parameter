@@ -215,11 +215,11 @@ Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_cons
 First, as the sample size increases, the root-mean-square error (RMSE) and bias decrease for all models. 
 Second, we focus on estimating the conduct parameter because the results in the other parameters are comparable.
 When the sample size is $T=1500$, MPEC estimation has a smaller bias (0.014) and RMSE (0.217) than those under N2SLS with the constraint (-0.148 and 0.333).
-These differences arise only from whether we solve log-transformation as a constraint.
+These differences arise only from whether we solve log-transformation as a constraint.\footnote{Specifically, for some datasets, N2SLS converges to the different points from true values of cost constant and conduct parameters by giving extremely low conduct parameter estimates by trying to avoid the log-transformation problem, whereas MPEC converges to the close points to the true values.}
 Third, the percentage of convergence in MPEC estimation is larger than N2SLS. 
 Therefore, MPEC is a better estimation approach than N2SLS in estimating the conduct parameter in large sample sizes.
 
-See online appendix \ref{sec:n2sls} and \ref{sec:linear_results} for additional experiments under different variances of errors, comparison to N2SLS without constraints, and the results of a linear model. 
+See online appendix \ref{sec:n2sls} and \ref{sec:additional_experiments} for additional experiments under different variances of errors, comparison to N2SLS without constraints, and the results of a linear model. 
 Our findings are robust.
 
 \begin{table}[!htbp]
@@ -505,14 +505,14 @@ We compute the equilibrium quantity $Q_{t}$ for the log-linear model by \eqref{e
 We then compute the equilibrium price $P_t$ by substituting $Q_{t}$ and other variables into the demand function \eqref{eq:log_linear_demand}.
 We generate 1000 data sets of 100, 200, 1000, 1500 markets.
 We jointly estimate the demand and supply parameters by the simultaneous equation model \citep{wooldridge2010econometric} from the true values.
-The instrument variables for the demand estimation are $Z^{d}_{t} = (Z^{R}_{t}, Y_t, H_{t}, K_{t})$ and the instrument variables for the supply estimation are $Z^{c}_{t} = (Z^{R}_{t}, W_{t}, R_{t}, Y_t)$. 
+The instrument variables for the demand estimation are $Z^{d}_{t} = (1, Z^{R}_{t}, \log Y_t, H_{t}, K_{t})^\top$ and the instrument variables for the supply estimation are $Z^{c}_{t} = (1, Z^{R}_{t}, \log W_{t}, \log R_{t}, \log Y_t)^\top$. 
 We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems.
 Note that derivative-free algorithms such as Nelder-Mead algorithm cannot properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values.\footnote{Note that we conduct experiments without any constraints, but estimated conduct parameters are implausibly high for both MPEC and N2SLS. That is, explicitly incorporating the constraints is necessary.}
 We use the following weight matrix:
 \begin{align}
     W = \left[\frac{1}{T}\sum_{t = 1}^T Z_t^\top Z_t\right]^{-1} \text{ where } Z_{t}=\left[\begin{array}{ll}
-        Z_{t}^{d} & 0 \\
-        0 & Z_{t}^{c}
+        Z_{t}^{d\top} & 0 \\
+        0 & Z_{t}^{c\top}
     \end{array}\right].\label{eq:weight_matrix}
 \end{align}
 
@@ -564,7 +564,7 @@ We use the following weight matrix:
 Given the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation}, we can write the error terms in the demand and supply equation as
 \begin{align}
     {\varepsilon}_t^d(\xi) & =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t \label{eq:residual_demand_2sls}, \\
-    {\varepsilon}_t^c(\xi) & =  \log P_t + \log_{t}(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t \label{eq:residual_supply_2sls}.
+    {\varepsilon}_t^c(\xi) & =  \log P_t + \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t \label{eq:residual_supply_2sls}.
 \end{align}
 To estimate the parameters, we convert the conditional moment conditions, $E[\varepsilon_t^d\mid Z_t^d] = E[\varepsilon_t^c\mid Z_t^c]=0$, into unconditional moment conditions, $E[\varepsilon_t^d Z_t^d] = E[\varepsilon_t^cZ_t^c]=0$.
 Using Equations \eqref{eq:residual_demand_2sls} and \eqref{eq:residual_supply_2sls}, we construct the sample analog of the moment conditions:
@@ -581,11 +581,15 @@ For some weighting matrix $W$, we define the GMM estimator as the vector $\xi^*$
 When we use the weight matrix \eqref{eq:weight_matrix}, the solution to \eqref{eq:minimization_gmm} is called the nonlinear system 2SLS estimator (N2SLS). 
 We emphasize that the primary distinction between the MPEC and 2SLS estimators lies in the construction of the supply residuals. This means that while the MPEC estimator circumvents the log-transformation problem by treating the first-order condition as an equality constraint and considering $MC_t$ as a variable for the minimization problem, N2SLS encounters the log-transformation problem when using \eqref{eq:residual_supply_2sls}.
 
-In Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}, we compare MPEC estimation with N2SLS estimation with and without Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} by adding an extra table to the main text.
-Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} and \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint}.
 
-Note that Constraint \eqref{eq:conduct_constraint} is crucial in estimating the model.
+\subsection{Additional experiments}\label{sec:additional_experiments}
+
+Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} compares MPEC estimation with N2SLS estimation with and without Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} by adding an extra table to the main text.
+Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} and \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint}. 
+As a summary, the main findings in the main text are robust.
+
 Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse} shows that N2SLS without all constraints searches parameters in the domain where no equilibrium exists and obtains implausible estimated parameters.
+Thus, Constraint \eqref{eq:conduct_constraint} is crucial in estimating the model.
 
 \begin{table}[!htbp]
   \begin{center}
@@ -600,6 +604,7 @@ Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constr
   Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
 \end{table} 
 
+\textcolor{blue}{Table XXX provides the fraction of convergence and smaller GMM objective value for MPEC and N2SLS for 1,000 dataset. For illustration, We compare the case of $T=1500, \sigma=1.0$ with the case of $T=100, \sigma=1.0$}
 
 % \subsection{Standard Estimation Methods}
 % We summarize the results of the standard estimation using a derivative-free optimization algorithm such as Nelder-Mead algorithm and the standard estimation using state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems. 
@@ -667,7 +672,6 @@ Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constr
 }
 \end{landscape}
 
-\subsection{MPEC for the linear model}\label{sec:linear_results}
 
 We illustrate that MPEC works for the linear model as in nolinear system two-stage least square (2SLS) approach in \cite{matsumura2023resolving}. 
 % We confirm that the simultaneous equation model in which demand and supply parameters are jointly estimated and 2SLS model in which demand and supply parameters are separately estimated generate the similar results. 
