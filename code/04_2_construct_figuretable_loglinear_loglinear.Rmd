@@ -853,9 +853,6 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     return(res)
   }
 
-
-
-
 options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ```
 
@@ -1768,18 +1765,19 @@ compute_converged_fraction <-
       dplyr::mutate(
         classification =
           dplyr::case_when(
-            classification == 0 ~ "no algorithm converged",
+            classification == 0 ~ "No algorithm converged",
             classification == 1 ~ "N2SLS only converged",
             classification == 2 ~ "MPEC only converged",
-            classification == 3 ~ "both converged, same sol",
-            classification == 4 ~ "both converged, different sol, same obj",
-            classification == 5 ~ "both converged, different sol, MPEC has lower obj",
-            classification == 6 ~ "both converged, different sol, N2SLS has lower obj"
+            classification == 3 ~ "Both converged, same sol",
+            classification == 4 ~ "Both converged, different sol, same obj",
+            classification == 5 ~ "Both converged, different sol, MPEC has lower obj",
+            classification == 6 ~ "Both converged, different sol, N2SLS has lower obj"
             )
         ) %>% 
       dplyr::select(
         classification
-      )
+      ) %>% 
+      tidyr::drop_na()
     return(classification_list)
   }
 # datasummary_skim(
@@ -1821,7 +1819,12 @@ res <-
     )
 datasummary_skim(
   res,
+  type = "categorical"
+)
+datasummary_skim(
+  res,
   type = "categorical",
+  title = "Fraction of convergence and smaller GMM objective value ($T=100,\\sigma=1.0$)",
   output = "../figuretable/fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint.tex"
 )
 ```
@@ -1972,7 +1975,12 @@ res <-
     )
 datasummary_skim(
   res,
+  type = "categorical"
+)
+datasummary_skim(
+  res,
   type = "categorical",
+  title = "Fraction of convergence and smaller GMM objective value ($T=1500,\\sigma=1.0$)",
   output = "../figuretable/fraction_convergence_and_objective_value_n_1500_sigma_1.0_theta_constraint_slope_constraint.tex"
 )
 ```
