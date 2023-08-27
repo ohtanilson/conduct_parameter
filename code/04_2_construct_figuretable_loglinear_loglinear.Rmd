@@ -1711,9 +1711,9 @@ compute_converged_fraction <-
     target_mpec
     ){
     parameter_diff_tol <-
-      1e-1
-    obj_diff_tol <-
       1e-2
+    obj_diff_tol <-
+      1e-4
     classification_solved_indicator <-
       # no algorithm converged == 0
       # n2sls only converged == 1
