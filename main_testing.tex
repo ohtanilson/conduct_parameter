@@ -266,7 +266,7 @@ where $\xi=\left(\alpha_0, \alpha_1, \alpha_2, \alpha_3, \gamma_0, \gamma_1, \ga
 Let $Z_{m}=(Z_{m}^{d},Z_{m}^{s})$ and $\varepsilon_{m}(\xi)=(\varepsilon_{m}^{d}(\xi),\varepsilon_{m}^{s}(\xi))'$.
 We make the assumption that $\Omega=E[\varepsilon_{m}\varepsilon_{m}'|Z_{m}]$ is a constant $2\times 2$ matrix, defining the covariance structure of the demand and supply residuals.
  
-The optimal instrument matrix is $g_{m}(Z_{m})=D_{m}(Z_{m})'\Omega^{-1}$
+The optimal instrument matrix of \cite{chamberlain1987asymptotic} is $g_{m}(Z_{m})=D_{m}(Z_{m})'\Omega^{-1}$
 where the $2\times 9$ matrix $D_{m}(Z_{m})=E\left[\frac{\partial \varepsilon_{m}}{\partial \xi}| Z_{m}\right]$ is the conditional expectation of the derivative of the conditional moment restrictions with respect to parameters $\xi$. 
 
 The conditional expectation $D_{m}(Z_{m})$ is difficult to compute, so most applications have considered approximations. As in \cite{reynaert2014improving}, we consider two types of approximation. 
@@ -286,51 +286,44 @@ The second approximation for $D_{m}(Z_{m})$ implements the conditional expectati
     \end{pmatrix} \\
     &=\begin{pmatrix}
     -1 & 
-    E[Q_{m}\mid Z_{m}] & 
-    E[Z^{R}_{m}Q_{m}\mid Z_{m}] & 
-    - E[Y_{m}\mid Z_{m}] &
-    0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 
-    -1 &
-    E[Q_{m}\mid Z_{m}] &
-    E[W_{m}\mid Z_{m}] &
-    E[R_{m}\mid Z_{m}] &
-    -E[(\alpha_1 + \alpha_2 Z^{R}_m)Q_{m}\mid Z_{m}]
-    \end{pmatrix}\\
-    &=\begin{pmatrix}
-    -1 & 
-    E[Q_{m}\mid Z_{m}] & 
-    E[Z^{R}_{m}Q_{m}\mid Z_{m}] & 
+    \overline{Q}_{m} & 
+    Z^{R} \overline{Q}_{m} & 
     - Y_{m} &
     0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 
+    0 &- \theta \overline{Q}_{m} & -\theta Z^{R}_{m}\overline{Q}_{m} & 0 & 
     -1 &
-    E[Q_{m}\mid Z_{m}] &
+    - \overline{Q}_{m} &
     -W_{m} &
     -R_{m} &
-    -E[(\alpha_1 + \alpha_2 Z^{R}_m)Q_{m}\mid Z_{m}]
+    -(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{m}
     \end{pmatrix}
 \end{align*}
-where 
+where $ \overline{Q}_{m} \equiv E[Q_{m}\mid Z_{m}]$.
+In our model, $E[Q_{m}\mid Z_{m}]$ can be explicitly obtained because $E[\varepsilon_{t}^{d}\mid Z_{t}^{R}] = E[\varepsilon_{t}^{c}\mid Z_{t}^{R}] = 0 $:
 \begin{align*}
-    E[Q_{m}\mid Z_{m}] &=E[\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\mid Z_{m}] \\
-    E[Z^{R}_{m}Q_{m}\mid Z_{m}] &=E[Z^{R}_{m}\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\mid Z_{m}]\\
-    -E[(\alpha_1 + \alpha_2 Z^{R}_m)Q_{m}\mid Z_{m}] &=E[(\alpha_1 + \alpha_2 Z^{R}_m)\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\mid Z_{m}]
+    E[Q_{m}\mid Z_{m}] &=E\left[\left.\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\right| Z_{m}\right] \\
+    & = \frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1},\\
+    E[Z^{R}_{m}Q_{m}\mid Z_{m}] &=E\left[\left. Z^{R}_{m}\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\right | Z_{m}\right]\\
+    & = Z^{R}_{m}\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1},\\
+    E[(\alpha_1 + \alpha_2 Z^{R}_m)Q_{m}\mid Z_{m}] &=E\left[\left. (\alpha_1 + \alpha_2 Z^{R}_m)\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\right | Z_{m}\right]\\
+    &= (\alpha_1 + \alpha_2 Z^{R}_m)\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}.
 \end{align*}
 
-
-
-
-
-
-
-When only the supply side is estimated, the earlier optimal instrument matrix modified into $g_{m}(Z_{m})=D_{m}(Z_{m})'$ where 
+When only the supply side is estimated, the earlier optimal instrument matrix is modified into $g_{m}(Z_{m})=D_{m}(Z_{m})'$ where 
 \begin{align*}
-    D_{m}(Z_{m}) = \begin{pmatrix}
+    D_{m}(Z_{m}) &= \begin{pmatrix}
     & E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \alpha^{\prime}} \mid Z_{m}\right] & 
     E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \gamma^{\prime}} \mid Z_{m}\right] & 
     E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \theta} \mid Z_{m}\right]
-    \end{pmatrix} 
+    \end{pmatrix} \\
+    &=\begin{pmatrix}
+    0 &- \theta \overline{Q}_{m} & -\theta Z^{R}_{m}\overline{Q}_{m} & 0 & 
+    -1 &
+    \overline{Q}_{m} &
+    -W_{m} &
+    -R_{m} &
+    -(\alpha_1 + \alpha_2 Z^{R}_m)\overline{Q}_{m}
+    \end{pmatrix}
 \end{align*}
 
 \end{document}
