@@ -569,6 +569,33 @@ for(nn in 1:length(n_observation_list)){
           temp_data,
           temp_data_obj_value
         )
+      if(temp_constraint == "_simultaneous_theta_constraint_slope_constraint"){
+        # read gmm objective value at true values
+        temp_data_obj_value_at_true_values <-
+          readr::read_csv(
+            file =
+              here::here(
+                paste(
+                  "output/",
+                  "gmm_objective_value_at_true_values_",
+                  filename,
+                  ".csv",
+                  sep = ""
+                  )
+                ),
+            show_col_types = FALSE
+            )
+        # drop id
+        temp_data_obj_value_at_true_values <-
+          temp_data_obj_value_at_true_values[,2]
+        colnames(temp_data_obj_value_at_true_values)[1] <-
+          "gmm_objective_value_at_true_values"
+        temp_data <-
+          cbind(
+            temp_data,
+            temp_data_obj_value_at_true_values
+          )
+      }
     assign(
       filename,
       temp_data
@@ -576,6 +603,8 @@ for(nn in 1:length(n_observation_list)){
     }
   }
 }
+
+
 
 true_parameter_loglinear <-
   c(
@@ -1785,6 +1814,34 @@ compute_converged_fraction <-
 #   type = "categorical",
 #   output = "table.tex"
 #   )
+compute_rate_mpec_gmm_closer_to_true_gmm <-
+  function(
+    target_simultaneous,
+    target_mpec
+    ){
+  rate_mpec_gmm_closer_to_true_gmm <-
+    sum(
+    # mpec gmm is close to true gmm
+    # distance simultaneous from true
+    abs(target_simultaneous[
+      res$classification == "Both converged, different sol, N2SLS has lower obj" |
+        res$classification == "Both converged, different sol, MPEC has lower obj",13] -
+    target_simultaneous[
+      res$classification == "Both converged, different sol, N2SLS has lower obj" |
+        res$classification == "Both converged, different sol, MPEC has lower obj",14]) <
+    # distance simultaneous from true
+    abs(target_mpec[
+      res$classification == "Both converged, different sol, N2SLS has lower obj" |
+        res$classification == "Both converged, different sol, MPEC has lower obj",13] -
+    target_simultaneous[
+      res$classification == "Both converged, different sol, N2SLS has lower obj" |
+        res$classification == "Both converged, different sol, MPEC has lower obj",14])
+  )/length(target_mpec[
+      res$classification == "Both converged, different sol, N2SLS has lower obj" |
+        res$classification == "Both converged, different sol, MPEC has lower obj",13])
+  return(rate_mpec_gmm_closer_to_true_gmm)
+}
+
 
 ```
 
@@ -1805,6 +1862,16 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+
+
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_100_sigma_0.5_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_100_sigma_0.5_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 #### sigma = 1.0
@@ -1827,6 +1894,15 @@ datasummary_skim(
   title = "Fraction of convergence and smaller GMM objective value ($T=100,\\sigma=1.0$)",
   output = "../figuretable/fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint.tex"
 )
+
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_100_sigma_1_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_100_sigma_1_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 #### sigma = 2.0
@@ -1843,6 +1919,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_100_sigma_2_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_100_sigma_2_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 ### $T = 200$ {.tabset}
@@ -1861,6 +1945,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_200_sigma_0.5_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_200_sigma_0.5_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 #### sigma = 1.0
@@ -1877,6 +1969,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_200_sigma_1_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_200_sigma_1_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 #### sigma = 2.0
@@ -1893,6 +1993,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_200_sigma_2_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_200_sigma_2_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 ### $T = 1000$ {.tabset}
@@ -1911,6 +2019,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_1000_sigma_0.5_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_1000_sigma_0.5_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 #### sigma = 1.0
@@ -1927,6 +2043,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_1000_sigma_1_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_1000_sigma_1_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 #### sigma = 2.0
@@ -1943,6 +2067,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_1000_sigma_2_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_1000_sigma_2_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
 ```
 
 ### $T = 1500$ {.tabset}
@@ -1961,6 +2093,15 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_1500_sigma_0.5_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_1500_sigma_0.5_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
+
 ```
 
 #### sigma = 1.0
@@ -1983,6 +2124,16 @@ datasummary_skim(
   title = "Fraction of convergence and smaller GMM objective value ($T=1500,\\sigma=1.0$)",
   output = "../figuretable/fraction_convergence_and_objective_value_n_1500_sigma_1.0_theta_constraint_slope_constraint.tex"
 )
+
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_1500_sigma_1_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_1500_sigma_1_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
+
 ```
 
 #### sigma = 2.0
@@ -1999,4 +2150,14 @@ datasummary_skim(
   res,
   type = "categorical"
 )
+
+rate_mpec_gmm_closer_to_true_gmm <-
+  compute_rate_mpec_gmm_closer_to_true_gmm(
+    target_simultaneous =
+      loglinear_loglinear_n_1500_sigma_2_simultaneous_theta_constraint_slope_constraint,
+    target_mpec =
+      loglinear_loglinear_n_1500_sigma_2_mpec_theta_constraint_slope_constraint
+    )
+cat("rate_mpec_gmm_closer_to_true_gmm_among_both_converged_different_sol", rate_mpec_gmm_closer_to_true_gmm)
+
 ```
