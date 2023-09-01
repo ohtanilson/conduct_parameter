@@ -381,7 +381,7 @@ constraint_list <-
     #"_separate_theta_constraint_non_constraint",
     #"_separate_theta_constraint_slope_constraint",
     #"_separate_log_constraint_theta_constraint",
-    #"_simultaneous_non_constraint_non_constraint",
+    "_simultaneous_non_constraint_non_constraint",
     #"_simultaneous_theta_constraint_non_constraint",
     "_simultaneous_theta_constraint_slope_constraint"#,
     #"_simultaneous_log_constraint_theta_constraint",
@@ -727,6 +727,7 @@ for(nn in 1:length(n_observation_list)){
     }
   }
 }
+
 
 # gmm value loglinear with constraint at true value ----
 for(nn in 1:length(n_observation_list)){

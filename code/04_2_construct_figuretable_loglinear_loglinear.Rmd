@@ -427,7 +427,7 @@ constraint_list <-
     # "_separate_theta_constraint_non_constraint",
     # "_separate_theta_constraint_slope_constraint",
     #"_separate_log_constraint_theta_constraint",
-    # "_simultaneous_non_constraint_non_constraint",
+    "_simultaneous_non_constraint_non_constraint",
     # "_simultaneous_theta_constraint_non_constraint",
     "_simultaneous_theta_constraint_slope_constraint",
     #"_simultaneous_log_constraint_theta_constraint",
@@ -1497,6 +1497,45 @@ create_table_loglinear_with_demand_shifter_bias_rmse(
 )
 
 ```
+
+
+#### compare gmm non_constraint_non_constraint with theta_constraint_slope_constraint
+
+```{r,echo=FALSE,results = "asis"}
+# note gmm obj is  - Q(theta) for minimization
+loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint$lower_obj_than_non_constraint <-
+  loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint[,13] <
+  loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint[,13]
+cat("sigma_0.5")
+loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint %>% 
+  dplyr::group_by(filename) %>% 
+  dplyr::summarise(
+    const_has_lower_obj_than_non_constraint = 
+      sum(lower_obj_than_non_constraint, na.rm = TRUE)/1000
+  )
+loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint$lower_obj_than_non_constraint <-
+  loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint[,13] <
+  loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint[,13]
+cat("sigma_1")
+loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint %>% 
+  dplyr::group_by(filename) %>% 
+  dplyr::summarise(
+    const_has_lower_obj_than_non_constraint = 
+      sum(lower_obj_than_non_constraint, na.rm = TRUE)/1000
+  )
+
+loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint$lower_obj_than_non_constraint <-
+  loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint[,13] <
+  loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint[,13]
+cat("sigma_2")
+loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint %>% 
+  dplyr::group_by(filename) %>% 
+  dplyr::summarise(
+    const_has_lower_obj_than_non_constraint = 
+      sum(lower_obj_than_non_constraint, na.rm = TRUE)/1000
+  )
+```
+
 
 
 <!-- #### mpec separate -->
