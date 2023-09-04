@@ -272,6 +272,40 @@ generate_data <-
     return(data)
   }
 
+get_fitted_values_on_iv <-
+  function(
+    target_data,
+    target_ols_formula
+  ){
+    data <-
+      target_data
+    res_ols <-
+      data %>% 
+      split(
+        .$group_id_k
+      ) %>% 
+      purrr::map(
+        ~ lm(
+          formula = target_ols_formula,
+          data = .x)
+      ) 
+    for(kk in 1:100){
+      temp_fitted_values <-
+        predict(res_ols[[kk]])
+      if(kk == 1){
+        fitted_values <-
+          temp_fitted_values
+      }else{
+        fitted_values <-
+          c(
+            fitted_values,
+            temp_fitted_values
+          )
+      }
+    }
+    return(fitted_values)
+  }
+
 # set constant ----
 # one thousand replications of experiments with 50 observations each
 ## set list ----
@@ -334,7 +368,35 @@ for(nn in 1:length(n_observation_list)){
             demand_shifter_dummy = TRUE,
             target_alpha2 = temp_alpha2,
             target_theta = temp_theta
+          ) %>% 
+          dplyr::arrange(
+            group_id_k
           )
+        # get fitted values of E[Q|Z] for optimal iv
+        linear_ols_of_quantity_on_iv_formula <-
+          paste(
+            "Q ~ y + z + w + r + iv_w + iv_r",
+            "+ y^2 + z^2 + w^2 + r^2 + iv_w^2 + iv_r^2",
+            "+ y:z + y:w + y:r + y:iv_w + y:iv_r",
+            "+ z:w + z:r + z:iv_w + z:iv_r",
+            "+ w:r + w:iv_w + w:iv_r",
+            "+ r:iv_w + r:iv_r + iv_w:iv_r",
+            sep = ""
+          )
+        fitted_values <-
+          get_fitted_values_on_iv(
+            target_data =
+              data,
+            target_ols_formula =
+              linear_ols_of_quantity_on_iv_formula
+          )
+        data <-
+          cbind(
+            data,
+            fitted_values
+          )
+        colnames(data)[10] <-
+          "fitted_values_of_quantity_on_z"
         filename <-
           paste(
             "output/data_linear_linear_",
@@ -350,8 +412,10 @@ for(nn in 1:length(n_observation_list)){
             sep = ""
           )
         cat(filename,"\n")
-        saveRDS(data,
-                file = filename)
+        saveRDS(
+          data,
+          file = filename
+          )
       }
     }
   }
