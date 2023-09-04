@@ -9,7 +9,7 @@ Monte Carlo Simulation with linear model and compute optimal instrument variable
 
 #----------------------------------------------------------------------------------
 # We assume that the reader already downloaded the above packages
-using LinearAlgebra
+using LinearAlgebra, Distributed
 using Random
 using Distributions
 using CSV
@@ -62,13 +62,14 @@ mutable struct SIMULATION_SETTING
     simulation_index::Int64
 end
 
+using Distributed
+Distributed.@everywhere include("../code/00setting_julia.jl")
+Distributed.@everywhere include("../code/00functions.jl")
 
 ##
 
 
-
-
-function GMM_estimation_linear(T, P, Z, X, X_s, X_d, Ω, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+@everywhere function GMM_estimation_linear(T, P, Z, X, X_s, X_d, Ω, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
     
     """ 
     Estimate the demand and supply parameter given a market simultaneously
@@ -125,10 +126,6 @@ function GMM_estimation_linear(T, P, Z, X, X_s, X_d, Ω, α_0, α_1, α_2, α_3,
 
     return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
 end
-
-
-
-
 
 
 @everywhere function estimate_linear_optimal_GMM(simulation_setting::SIMULATION_SETTING)
@@ -228,7 +225,7 @@ end
 
 
 
-function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, Z_d, Z_s, X_s, X_d, P )
+@everywhere function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, Z_d, Z_s, X_s, X_d, P )
 
     K_d = size(X_d, 2)
     K_s = size(X_s, 2) - 1
@@ -241,6 +238,7 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, Z_d, Z_s, X_s, X
 
     Ω_inverse = inv(sum(ε[t,:]' * ε[t,:] for t = 1:T)/T)
 
+    @show size(Q_inverse)
 
     Q_bar = (α_hat[1] .+ α_hat[4] .* X_d[:,4] .- γ_hat[1] .- γ_hat[3] .* X_s[:,3]  .- γ_hat[4] .* X_s[:,4] .+  ε_d .- ε_s)./((1 + θ_hat) * (α_hat[2] .+ α_hat[3] .* Z_s[:,2]) .+ γ_hat[2])
     Q_bar_Z = Z_s[:,2] .* Q_bar
@@ -252,6 +250,8 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, Z_d, Z_s, X_s, X
     Q_bar_α_Z = mean(Q_bar_α_Z)
 
     D_z = [-1 Q_bar Q_bar_Z -mean(X_d[:,4]) 0 0 0 0 0; 0 (- θ_hat * Q_bar) (θ_hat*Q_bar_Z) 0 (-1)  (-Q_bar) (-mean(X_s[:,3])) (- mean(X_s[:,4])) -Q_bar_α_Z]
+
+    @show size(D_z)
 
     Z_optimal = D_z * Ω_inverse
 
@@ -331,10 +331,6 @@ estimation_methods = [
 starting_value = :true_value
 tol_level = :loose
 
-
-
-
-
 # Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 for estimation_method = estimation_methods
     for t = [100], sigma =  [1]
@@ -350,7 +346,7 @@ for estimation_method = estimation_methods
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
         # Set parameter values
-        parameter = market_parameters_log(T = t, σ = sigma)
+        parameter = market_parameters(T = t, σ = sigma)
         
         # Estimation based on 2SLS
         @time estimation_result = iterate_esimation_linear_GMM(parameter, data, estimation_method, starting_value, tol_level)
