@@ -291,7 +291,7 @@ for(nn in 1:length(n_observation_list)){
             file = 
               here::here(
                 paste(
-                  "output/",
+                  "output/testing_project/",
                   filename,
                   ".rds",
                   sep = ""
@@ -321,7 +321,7 @@ for(nn in 1:length(n_observation_list)){
           parameter_hat_table,
           file = 
             paste(
-              "output/",
+              "output/testing_project/",
               "parameter_hat_table",
               filename,
               ".rds",
