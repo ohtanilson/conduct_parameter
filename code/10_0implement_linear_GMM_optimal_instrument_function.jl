@@ -54,7 +54,7 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     # second stage
     X_dd = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end])
 
-    @show α_hat = inv(X_dd' * X_dd) * (X_dd' * P)
+    α_hat = inv(X_dd' * X_dd) * (X_dd' * P)
 
     L_s = size(Z_s,2)
     K_s = size(X_s,2) - 1
@@ -84,7 +84,7 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     set_optimizer_attribute(model, "tol", tol)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
-    #set_silent(model)
+    set_silent(model)
     @variable(model, γ[k = 1:K_s], start = start_γ[k])
     @variable(model, 0 <= θ <= 1, start = start_θ)
 
@@ -140,7 +140,7 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     set_optimizer_attribute(model, "tol", tol)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
-    #set_silent(model)
+    set_silent(model)
     @variable(model, β[k = 1:K_d+K_s-1])
     @variable(model, 0 <= θ <= 1)
 
@@ -180,6 +180,10 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
 
     ε = hcat(ε_d, ε_s)  # T × 2 mateix 
 
+
+    Ω_estimate = inv(ε' * ε)/T
+
+
     Q_bar = Q_fitted_on_Z
     Q_bar_Z = X_s[:,end] .* Q_bar
     Q_bar_α_Z = (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* Q_bar
@@ -188,13 +192,14 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
 
     for t = 1:T
 
-        Ω_t = inv(ε[t,:] * ε[t,:]') + diagm(ones(2) * 10e-8)
+        #Ω_t = inv(ε[t,:] * ε[t,:]') + diagm(ones(2) * 10e-8)
 
         D_z = [-1 Q_bar[t] Q_bar_Z[t] (-X_d[t,4]) 0 0 0 0 0; 0 (- θ_hat * Q_bar[t]) (θ_hat*Q_bar_Z[t]) 0 (-1)  (-Q_bar[t]) (-X_s[t,3]) (- X_s[t,4]) (-Q_bar_α_Z[t])]
 
-        Z_optimal = D_z' * Ω_t        
+        Z_t_optimal = D_z' * Ω_estimate        
 
-        @show size(Z_optimal)
+        push!(Z_optimal, Z_t_optimal)
+
     end
 
 
@@ -301,11 +306,11 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
 
         Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
 
-        #Z_optimal = Z_optimal'
+        Z_optimal = Z_optimal'
     
-        #I_weight = diagm(ones(size(Z_optimal, 2)))
+        I_weight = diagm(ones(size(Z_optimal, 2)))
     
-        #α_optimal, γ_optimal, θ_optimal, status = GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+        α_optimal, γ_optimal, θ_optimal, status = GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
     
     
     elseif estimation_method == :linear_optimal_simultaneous
@@ -314,11 +319,11 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
 
         Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
 
-        #Z_optimal = Z_optimal'
+        Z_optimal = Z_optimal'
     
-        #I_weight = diagm(ones(size(Z_optimal, 2)))
+        I_weight = diagm(ones(size(Z_optimal, 2)))
     
-        #α_optimal, γ_optimal, θ_optimal, status = GMM_estimation_linear_simultaneous(T, P, Z_optimal, X, X_s, X_d, I_weight, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+        α_optimal, γ_optimal, θ_optimal, status = GMM_estimation_linear_simultaneous(T, P, Z_optimal, X, X_s, X_d, I_weight, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
     end
 
     #return α_hat, γ_hat, θ_hat, status
