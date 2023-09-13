@@ -17,7 +17,7 @@ for estimation_method = [(:mpec_linear, :non_constraint, :theta_constraint)]
         if sigma == 1 || sigma == 2
             sigma = Int64(sigma)
         end
-        filename = filename_begin*string(t)*"_theta_"*string(theta)*"_alpha2_"*string(alpha2)*"_sigma_"*string(sigma)**filename_end
+        filename = filename_begin*string(t)*"_theta_"*string(theta)*"_alpha2_"*string(alpha2)*"_sigma_"*string(sigma)*filename_end
 
         data = load(filename)
         data = DataFrames.sort(data, [:group_id_k])
