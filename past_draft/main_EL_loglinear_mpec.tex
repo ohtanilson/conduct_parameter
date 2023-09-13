@@ -158,7 +158,7 @@ See the online appendix \ref{sec:appendix_proof} for the proof.
 \section{MPEC estimator}
 To estimate parameters in the demand and supply equations, we use GMM estimation.
 Among GMM estimators, the N2SLS estimator directly uses Equation \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation}, which leads to the log-transformation problem.
-See online appendix \ref{sec:n2sls} for the construction of N2SLS based on Section 14.2 of \cite{wooldridge2010econometric}.
+See online appendix \ref{sec:setting} and \ref{sec:n2sls} for the construction of N2SLS based on Section 14.2 of \cite{wooldridge2010econometric}.
 To avoid the obstacle, we propose an estimator utilizing the MPEC procedure \citep{su2012constrained,dube2012improving}.
 
 Let $\xi = (\alpha_0,\alpha_1, \alpha_2, \alpha_3, \gamma_0,\gamma_1, \gamma_2, \gamma_3, \theta)$ be the vector of parameters.
@@ -215,11 +215,12 @@ Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_cons
 First, as the sample size increases, the root-mean-square error (RMSE) and bias decrease for all models. 
 Second, we focus on estimating the conduct parameter because the results in the other parameters are comparable.
 When the sample size is $T=1500$, MPEC estimation has a smaller bias (0.014) and RMSE (0.217) than those under N2SLS with the constraint (-0.148 and 0.333).
-These differences arise only from whether we solve log-transformation as a constraint.\footnote{Specifically, for some datasets, N2SLS converges to the different points from true values of cost constant and conduct parameters by giving extremely low conduct parameter estimates by trying to avoid the log-transformation problem, whereas MPEC converges to the close points to the true values.}
+These differences arise only from whether we solve log-transformation as a constraint.
+% \footnote{Specifically, for some datasets, N2SLS converges to the different points from true values of cost constant and conduct parameters by giving extremely low conduct parameter estimates by trying to avoid the log-transformation problem, whereas MPEC converges to the close points to the true values.}
 Third, the percentage of convergence in MPEC estimation is larger than N2SLS. 
 Therefore, MPEC is a better estimation approach than N2SLS in estimating the conduct parameter in large sample sizes.
 
-See online appendix \ref{sec:n2sls} and \ref{sec:additional_experiments} for additional experiments under different variances of errors, comparison to N2SLS without constraints, and the results of a linear model. 
+See online appendix \ref{sec:n2sls} and \ref{sec:additional_experiments} for a comparison of the GMM objective values, additional experiments under different variances of errors, comparison to N2SLS without constraints, and the results of a linear model. 
 Our findings are robust.
 
 \begin{table}[!htbp]
@@ -507,7 +508,7 @@ We generate 1000 data sets of 100, 200, 1000, 1500 markets.
 We jointly estimate the demand and supply parameters by the simultaneous equation model \citep{wooldridge2010econometric} from the true values.
 The instrument variables for the demand estimation are $Z^{d}_{t} = (1, Z^{R}_{t}, \log Y_t, H_{t}, K_{t})^\top$ and the instrument variables for the supply estimation are $Z^{c}_{t} = (1, Z^{R}_{t}, \log W_{t}, \log R_{t}, \log Y_t)^\top$. 
 We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems.
-Note that derivative-free algorithms such as Nelder-Mead algorithm cannot properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values.\footnote{Note that we conduct experiments without any constraints, but estimated conduct parameters are implausibly high for both MPEC and N2SLS. That is, explicitly incorporating the constraints is necessary.}
+Note that derivative-free algorithms such as Nelder-Mead algorithm cannot properly finish the optimization routine to solve the model because the above log-transformation problem arises even if the parameter search starts from the true values.
 We use the following weight matrix:
 \begin{align}
     W = \left[\frac{1}{T}\sum_{t = 1}^T Z_t^\top Z_t\right]^{-1} \text{ where } Z_{t}=\left[\begin{array}{ll}
@@ -579,10 +580,24 @@ For some weighting matrix $W$, we define the GMM estimator as the vector $\xi^*$
     \min_{\xi}\ g(\xi)^\top W g(\xi) \label{eq:minimization_gmm}. 
 \end{align}
 When we use the weight matrix \eqref{eq:weight_matrix}, the solution to \eqref{eq:minimization_gmm} is called the nonlinear system 2SLS estimator (N2SLS). 
-We emphasize that the primary distinction between the MPEC and 2SLS estimators lies in the construction of the supply residuals. This means that while the MPEC estimator circumvents the log-transformation problem by treating the first-order condition as an equality constraint and considering $MC_t$ as a variable for the minimization problem, N2SLS encounters the log-transformation problem when using \eqref{eq:residual_supply_2sls}.
+We emphasize that the primary distinction between the MPEC and 2SLS estimators lies in the construction of the supply residuals. 
+This means that while the MPEC estimator circumvents the log-transformation problem by treating the first-order condition as an equality constraint and considering $MC_t$ as a variable for the minimization problem, N2SLS encounters the log-transformation problem when using \eqref{eq:residual_supply_2sls}.
 
 
 \subsection{Additional experiments}\label{sec:additional_experiments}
+
+Tables \ref{tab:unnamed-chunk-13} and \ref{tab:unnamed-chunk-22} compare MPEC and N2SLS in 1,000 datasets, examining convergence and the GMM objective value. 
+We illustrate this with $T=1500$ and $\sigma=1.0$ compared to $T=100$ and $\sigma=1.0$ in the main text. 
+If the absolute parameter difference between N2SLS and MPEC for at least one parameter exceeds 1e-2, we label it as ``different sol." When the GMM objective value difference is less than 1e-4, we label it as ``same obj." 
+In small samples ($T=100$), MPEC outperforms N2SLS in GMM objective function for 37.8\% of datasets, while N2SLS is better in 24.6\%. 
+This suggests MPEC is not clearly superior in small samples. 
+However, in large samples ($T=1500$), MPEC beats N2SLS in GMM objective function for 76.5\% of datasets, with N2SLS better in 23.0\%. 
+This implies that MPEC is better than N2SLS but not perfect in large samples, using the same starting values as true values.
+These results are robust to tolerance levels and $\sigma$ choices. 
+
+\input{figuretable/fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint}
+
+\input{figuretable/fraction_convergence_and_objective_value_n_1500_sigma_1.0_theta_constraint_slope_constraint}
 
 Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} compares MPEC estimation with N2SLS estimation with and without Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} by adding an extra table to the main text.
 Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint} and \ref{tb:loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint}. 
@@ -604,10 +619,7 @@ Thus, Constraint \eqref{eq:conduct_constraint} is crucial in estimating the mode
   Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$.
 \end{table} 
 
-Tables \ref{tab:unnamed-chunk-13} and \ref{tab:unnamed-chunk-22} provide the fraction of convergence and whether MPEC has a smaller GMM objective value than N2SLS or not for 1,000 datasets. For illustration, we compare the case of $T=1500, \sigma=1.0$ with the case of $T=100, \sigma=1.0$. 
-If the absolute difference of any estimated parameters between N2SLS and MPEC is larger than 1e-2, we say that each approach gives a different solution (``different sol"). 
-If the absolute difference of GMM objective values given estimated parameters between N2SLS and MPEC is smaller than 1e-4, we say that each approach gives the same GMM objective value (``same obj").
-Main results are not sensitive to the choice of these tolerance levels.
+
 
 % \subsection{Standard Estimation Methods}
 % We summarize the results of the standard estimation using a derivative-free optimization algorithm such as Nelder-Mead algorithm and the standard estimation using state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl} which implements an interior point line search filter method that aims to find a local solution of nonlinear programming problems. 
@@ -676,12 +688,10 @@ Main results are not sensitive to the choice of these tolerance levels.
 \end{landscape}
 
 
-\input{figuretable/fraction_convergence_and_objective_value_n_100_sigma_1.0_theta_constraint_slope_constraint}
-
-\input{figuretable/fraction_convergence_and_objective_value_n_1500_sigma_1.0_theta_constraint_slope_constraint}
 
 
-We illustrate that MPEC works for the linear model as in nolinear system two-stage least square (2SLS) approach in \cite{matsumura2023resolving}. 
+
+We illustrate that MPEC works for the linear model as in the nolinear system two-stage least square (2SLS) approach in \cite{matsumura2023resolving}. 
 % We confirm that the simultaneous equation model in which demand and supply parameters are jointly estimated and 2SLS model in which demand and supply parameters are separately estimated generate the similar results. 
 We follow the setting of \cite{matsumura2023resolving}.
 We put an additional restriction such that $\theta\in[0,1]$ as a theoretical restriction. 
