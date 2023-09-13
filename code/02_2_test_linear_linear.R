@@ -259,6 +259,7 @@ theta_list <-
 # load, estimate, and save data ----
 ## linear demand and linear cost ----
 ### with demand_shifter_y ----
+#### benchmark ----
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     for(aa in 1:length(alpha2_list)){
@@ -337,4 +338,87 @@ modelsummary::datasummary_skim(
   parameter_hat_table
   )
 
-
+#### 1st approximation (a second-order polynomial) ----
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    for(aa in 1:length(alpha2_list)){
+      for(tt in 1:length(theta_list)){
+        temp_nn <-
+          n_observation_list[nn]
+        temp_sigma <-
+          sigma_list[ss]
+        temp_theta <-
+          theta_list[tt]
+        temp_alpha2 <-
+          alpha2_list[aa]
+        filename <-
+          paste(
+            "data_linear_linear_",
+            "n_",
+            temp_nn,
+            "_theta_",
+            temp_theta,
+            "_alpha2_",
+            temp_alpha2,
+            "_sigma_",
+            temp_sigma,
+            sep = ""
+          )
+        cat(filename,"\n")
+        # load 
+        target_data <-
+          readRDS(
+            file = 
+              here::here(
+                paste(
+                  "output/testing_project/",
+                  filename,
+                  ".rds",
+                  sep = ""
+                )
+              )
+          )
+        # assign(filename,
+        #        temp_data)
+        # estimate 
+        linear_demand_formula <-
+          "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
+        linear_demand_linear_supply_formula <-
+          paste("P ~ composite_z:Q + Q + w + r|",
+                # iv benchmark
+                "composite_z + w + r + y",
+                # iv polynomial 
+                "+ composite_z^2 + w^2 + r^2 + y^2",
+                "+ composite_z:w + composite_z:r + composite_z:y + w:r + w:y + r:y"#,
+                #"+ iv_w + iv_r + iv_w^2 + iv_r^2"
+                )
+        parameter_hat_table <-
+          estimate_demand_and_supply(
+            target_data =
+              target_data,
+            target_demand_formula = 
+              linear_demand_formula,
+            target_supply_formula =
+              linear_demand_linear_supply_formula,
+            demand_shifter_dummy = TRUE
+          )
+        # save 
+        saveRDS(
+          parameter_hat_table,
+          file = 
+            paste(
+              "output/testing_project/",
+              "parameter_hat_table_iv_polynomial_",
+              filename,
+              ".rds",
+              sep = ""
+            )
+        )
+      }
+    }
+  }
+}
+modelsummary::datasummary_skim(
+  fmt = 3,
+  parameter_hat_table
+)
