@@ -104,7 +104,14 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     γ_hat = JuMP.value.(γ)
     θ_hat = JuMP.value.(θ)
 
-    return α_hat, γ_hat, θ_hat, termination_status_code(JuMP.termination_status(model))
+    ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+
+
+    variance_demand = (X_d' * X_d)^(-1) * (sum(ε_d[t].^2 * X_d[t,:] * X_d[t,:]' for t = 1:T)/(T - K_d)) * (X_d' * X_d)^(-1)
+    variacne_supply = (X_s' * X_s)^(-1) * (sum(ε_s[t].^2 * X_s[t,1:K_s-1] * X_s[t,1:K_s-1]' for t = 1:T))/(T - K_s) * (X_s' * X_s)^(-1)
+
+    return α_hat, γ_hat, θ_hat, variance_demand, variacne_supply, termination_status_code(JuMP.termination_status(model))
 end
 
 
@@ -163,7 +170,15 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     γ_hat = value.(β)[K_d+1:end]
     θ_hat = value.(θ)
 
-    return α_hat, γ_hat, θ_hat, termination_status_code(termination_status(model))
+    
+    ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+
+
+    variance_demand = (X_d' * X_d)^(-1) * (sum(ε_d[t].^2 * X_d[t,:] * X_d[t,:]' for t = 1:T)/(T - K_d)) * (X_d' * X_d)^(-1)
+    variacne_supply = (X_s' * X_s)^(-1) * (sum(ε_s[t].^2 * X_s[t,1:K_s-1] * X_s[t,1:K_s-1]' for t = 1:T))/(T - K_s) * (X_s' * X_s)^(-1)
+
+    return α_hat, γ_hat, θ_hat, variance_demand, variacne_supply, termination_status_code(JuMP.termination_status(model))
 end
 
 
@@ -294,42 +309,36 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
     Z_s = reduce(vcat,(Z_s))
 
 
-
-
     if estimation_method == :linear_optimal_separate
 
         # The wight function for the GMM estimation
         Ω_initial = inv(Z_s' * Z_s)/T
 
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω_initial, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, variance_demand, variacne_supply,status = GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω_initial, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
 
-        #Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
+        Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
+        Ω_optimal = inv(Z_optimal' * Z_optimal)/T
     
-        #I_weight = diagm(ones(size(Z_optimal,2)))
-    
-        #α_optimal, γ_optimal, θ_optimal, status = GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, I_weight, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+        α_optimal, γ_optimal, θ_optimal, variance_demand, variacne_supply, status = GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, I_weight, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
 
-        return α_hat, γ_hat, θ_hat, status
-        #return  α_optimal, γ_optimal, θ_optimal, status
+        #return α_hat, γ_hat, θ_hat, variance_demand, variacne_supply, status
+        return  α_optimal, γ_optimal, θ_optimal, variance_demand, variacne_supply, status
     
     elseif estimation_method == :linear_optimal_simultaneous
 
         # The wight function for the GMM estimation
         Ω_initial = inv(Z' * Z)/T
 
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω_initial, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, variance_demand, variacne_supply, status = GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω_initial, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
 
         Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
-
-        #I_weight = diagm(ones(size(Z_optimal,2)))
+        Ω_optimal = inv(Z_optimal' * Z_optimal)/T
     
-        #α_optimal, γ_optimal, θ_optimal, status = GMM_estimation_linear_simultaneous(T, P, Z_optimal, X, X_s, X_d, I_weight, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
+        α_optimal, γ_optimal, θ_optimal, variance_demand, variacne_supply, status = GMM_estimation_linear_simultaneous(T, P, Z_optimal, X, X_s, X_d, Ω_optimal, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
 
-        return α_hat, γ_hat, θ_hat, status
-        #return  α_optimal, γ_optimal, θ_optimal, status
+        #return α_hat, γ_hat, θ_hat, status
+        return  α_optimal, γ_optimal, θ_optimal, variance_demand, variacne_supply, status
     end
-
-
 end
 
 function simulation_GMM_optimal_instrument(parameter, data, estimation_method::Symbol, starting_value, tol_level)
@@ -343,6 +352,8 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
     α_est  = Vector{Float64}[]
     γ_est  = Vector{Union{Missing, Float64}}[]
     θ_est  = Union{Missing, Float64}[]
+    variance_demand_est = Union{Missing, Float64}[]
+    variacne_supply_est = Union{Missing, Float64}[]
     status = Union{Missing, Int64}[]
 
     simulation_setting = [SIMULATION_SETTING(α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, T, σ, data, estimation_method, starting_value, tol_level,simulation_index) for simulation_index = 1:S]
@@ -353,12 +364,16 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
         push!(α_est, simulation_mpec_result[s][1])
         push!(γ_est, simulation_mpec_result[s][2])
         push!(θ_est, simulation_mpec_result[s][3])
-        push!(status,simulation_mpec_result[s][4])
+        push!(variance_demand_est, simulation_mpec_result[s][4])
+        push!(variacne_supply_est, simulation_mpec_result[s][5])
+        push!(status,simulation_mpec_result[s][6])
     end 
 
     α_est = reduce(vcat, α_est')
     γ_est = reduce(vcat, γ_est')
     θ_est = reduce(vcat, θ_est')
+    variance_demand_est = reduce(vcat, variance_demand_est)
+    variacne_supply_est = reduce(vcat, variacne_supply_est)
     status = reduce(vcat, status)
 
     status_indicator = []
@@ -387,6 +402,8 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
     γ_2 = γ_est[:,3],
     γ_3 = γ_est[:,4],
     θ = θ_est,
+    variance_demand = variance_demand_est,
+    variacne_supply = variacne_supply_est,
     status = status,
     status_indicator = status_indicator)
 
