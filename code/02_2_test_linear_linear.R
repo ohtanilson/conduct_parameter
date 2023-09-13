@@ -389,7 +389,8 @@ for(nn in 1:length(n_observation_list)){
                 "composite_z + w + r + y",
                 # iv polynomial 
                 "+ composite_z^2 + w^2 + r^2 + y^2",
-                "+ composite_z:w + composite_z:r + composite_z:y + w:r + w:y + r:y"
+                "+ composite_z:w + composite_z:r + composite_z:y + w:r + w:y + r:y"#,
+                #"+ iv_w + iv_r + iv_w^2 + iv_r^2"
                 )
         parameter_hat_table <-
           estimate_demand_and_supply(
