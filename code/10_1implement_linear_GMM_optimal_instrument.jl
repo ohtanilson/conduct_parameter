@@ -3,13 +3,15 @@
 #number_workers = addprocs(Sys.CPU_THREADS-1)
 ##
 using Distributed
+
+##
+
 Distributed.@everywhere include("../code/10_0implement_linear_GMM_optimal_instrument_setting.jl")
 Distributed.@everywhere include("../code/10_0implement_linear_GMM_optimal_instrument_function.jl")
 
-##
 estimation_methods = [
     #(:linear,:theta_constraint, :slope_constraint, :equilibrium_constraint), 
-    :linear_optimal_separate,
+    #:linear_optimal_separate,
     :linear_optimal_simultaneous
     ]
 starting_value = :true_value
@@ -46,4 +48,4 @@ tol_level = :loose
     end
     println("\n")
     println("----------------------------------------------------------------------------------\n")
-end
+end        
