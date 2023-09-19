@@ -88,16 +88,17 @@ for(nn in 1:length(n_observation_list)){
                   ".csv",
                   sep = ""
                   )
-                )
+                ),
+            show_col_types = FALSE
             )
         assign(
           filename,
           temp_data
           )
         reject_probability <-
-          sum(temp_data$sd_θ/sqrt(temp_nn) > 1.96)/100
+          sum((temp_theta/(temp_data$sd_θ/sqrt(temp_nn))) > 1.96)/100
         if(nn == 1 & ss == 1 & aa == 1 &tt == 1){
-          data_for_plot <-
+          data_for_plot_iv_optimal <-
             cbind(
               temp_nn,
               temp_theta,
@@ -116,9 +117,9 @@ for(nn in 1:length(n_observation_list)){
               reject_probability
               ) %>% 
             tibble::as_tibble() 
-          data_for_plot <-
+          data_for_plot_iv_optimal <-
             rbind(
-              data_for_plot,
+              data_for_plot_iv_optimal,
               data_for_plot_temp
               )
         }
@@ -202,9 +203,9 @@ for(nn in 1:length(n_observation_list)){
   }
 }
 data_for_plot_relative_rejection_probability <-
-  data_for_plot_iv_polynomial
+  data_for_plot_iv_optimal
 data_for_plot_relative_rejection_probability$reject_probability_relative_to_benchmark <-
-  data_for_plot_iv_polynomial$reject_probability/
+  data_for_plot_iv_optimal$reject_probability/
   data_for_plot$reject_probability
 
 # colnames(data_for_plot) <-
@@ -1502,7 +1503,7 @@ modelsummary::datasummary_skim(
 
 ## Plot {.tabset}
 
-### iv_polynomial
+### iv_optimal
 
 ```{r,echo=FALSE,results = 'asis'}
 for(nn in 1:length(n_observation_list)){
@@ -1511,14 +1512,14 @@ for(nn in 1:length(n_observation_list)){
   cat(target_nn,"\n")
   x <-
   ggplot(
-  data_for_plot_relative_rejection_probability %>% 
+  data_for_plot_relative_rejection_probability %>%
     dplyr::filter(
       temp_nn == target_nn
-    ), 
+    ),
   aes(
     x = as.character(temp_theta),
-    y = reject_probability_relative_to_benchmark, 
-    fill = 
+    y = reject_probability_relative_to_benchmark,
+    fill =
       as.factor(
         temp_alpha2
         )
@@ -1529,16 +1530,16 @@ for(nn in 1:length(n_observation_list)){
     position = position_dodge(0.7)
     ) +
   geom_hline(
-    yintercept = 1.00, 
+    yintercept = 1.00,
     linetype = "dashed"
       ) +
   # geom_hline(
-  # yintercept = 0.80, 
+  # yintercept = 0.80,
   # linetype = "dashed"
   #     ) +
   ylim(0, 2.1) +
   xlab(expression(theta == 1/N)) +
-  ylab(paste("Rate of rejection frequency (approx/base)",
+  ylab(paste("Rate of rejection frequency (optimal/base)",
              #target_nn,
              sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
@@ -1549,7 +1550,7 @@ for(nn in 1:length(n_observation_list)){
   # save
   figure_name <-
     paste(
-      "../figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_",
+      "../figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_",
       target_nn,
       ".png",
       sep = ""
