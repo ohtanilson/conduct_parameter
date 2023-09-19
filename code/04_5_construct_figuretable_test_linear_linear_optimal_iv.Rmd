@@ -127,6 +127,7 @@ for(nn in 1:length(n_observation_list)){
     }
   }
 }
+# benchmark
 for(nn in 1:length(n_observation_list)){
   for(ss in 1:length(sigma_list)){
     for(aa in 1:length(alpha2_list)){
@@ -234,7 +235,7 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.05_alpha2_0.1_sigma_1)
+  linear_linear_n_50_theta_0.05_alpha2_0.1_sigma_1)
 
 ```
 
@@ -243,7 +244,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.05_alpha2_0.1_sigma_1)
+  linear_linear_n_100_theta_0.05_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -251,7 +252,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.05_alpha2_0.1_sigma_1)
+  linear_linear_n_200_theta_0.05_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -259,7 +260,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.05_alpha2_0.1_sigma_1)
+  linear_linear_n_1000_theta_0.05_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -267,7 +268,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.05_alpha2_0.1_sigma_1)
+  linear_linear_n_2000_theta_0.05_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -275,7 +276,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.05_alpha2_0.1_sigma_1)
+  linear_linear_n_5000_theta_0.05_alpha2_0.1_sigma_1)
 ```
 
 
@@ -286,7 +287,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.05_alpha2_0.5_sigma_1)
+  linear_linear_n_50_theta_0.05_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -294,7 +295,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.05_alpha2_0.5_sigma_1)
+  linear_linear_n_100_theta_0.05_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -302,7 +303,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.05_alpha2_0.5_sigma_1)
+  linear_linear_n_200_theta_0.05_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -310,7 +311,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.05_alpha2_0.5_sigma_1)
+  linear_linear_n_1000_theta_0.05_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -318,7 +319,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.05_alpha2_0.5_sigma_1)
+  linear_linear_n_2000_theta_0.05_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -326,7 +327,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.05_alpha2_0.5_sigma_1)
+  linear_linear_n_5000_theta_0.05_alpha2_0.5_sigma_1)
 ```
 
 #### $\alpha_2 = 1.0$ {.tabset}
@@ -336,7 +337,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.05_alpha2_1_sigma_1)
+  linear_linear_n_50_theta_0.05_alpha2_1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -344,7 +345,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.05_alpha2_1_sigma_1)
+  linear_linear_n_100_theta_0.05_alpha2_1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -352,7 +353,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.05_alpha2_1_sigma_1)
+  linear_linear_n_200_theta_0.05_alpha2_1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -360,7 +361,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.05_alpha2_1_sigma_1)
+  linear_linear_n_1000_theta_0.05_alpha2_1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -368,7 +369,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.05_alpha2_1_sigma_1)
+  linear_linear_n_2000_theta_0.05_alpha2_1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -376,7 +377,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.05_alpha2_1_sigma_1)
+  linear_linear_n_5000_theta_0.05_alpha2_1_sigma_1)
 ```
 
 
@@ -387,7 +388,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.05_alpha2_5_sigma_1)
+  linear_linear_n_50_theta_0.05_alpha2_5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -395,7 +396,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.05_alpha2_5_sigma_1)
+  linear_linear_n_100_theta_0.05_alpha2_5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -403,7 +404,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.05_alpha2_5_sigma_1)
+  linear_linear_n_200_theta_0.05_alpha2_5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -411,7 +412,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.05_alpha2_5_sigma_1)
+  linear_linear_n_1000_theta_0.05_alpha2_5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -419,7 +420,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.05_alpha2_5_sigma_1)
+  linear_linear_n_2000_theta_0.05_alpha2_5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -427,7 +428,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.05_alpha2_5_sigma_1)
+  linear_linear_n_5000_theta_0.05_alpha2_5_sigma_1)
 ```
 
 #### $\alpha_2 = 20.0$ {.tabset}
@@ -437,7 +438,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.05_alpha2_20_sigma_1)
+  linear_linear_n_50_theta_0.05_alpha2_20_sigma_1)
 ```
 
 ##### $n = 100$
@@ -445,7 +446,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.05_alpha2_20_sigma_1)
+  linear_linear_n_100_theta_0.05_alpha2_20_sigma_1)
 ```
 
 ##### $n = 200$
@@ -453,7 +454,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.05_alpha2_20_sigma_1)
+  linear_linear_n_200_theta_0.05_alpha2_20_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -461,7 +462,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.05_alpha2_20_sigma_1)
+  linear_linear_n_1000_theta_0.05_alpha2_20_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -469,7 +470,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.05_alpha2_20_sigma_1)
+  linear_linear_n_2000_theta_0.05_alpha2_20_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -477,7 +478,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.05_alpha2_20_sigma_1)
+  linear_linear_n_5000_theta_0.05_alpha2_20_sigma_1)
 ```
 
 
@@ -490,7 +491,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.1_alpha2_0.1_sigma_1)
+  linear_linear_n_50_theta_0.1_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -498,7 +499,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.1_alpha2_0.1_sigma_1)
+  linear_linear_n_100_theta_0.1_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -506,7 +507,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.1_alpha2_0.1_sigma_1)
+  linear_linear_n_200_theta_0.1_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -514,7 +515,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.1_alpha2_0.1_sigma_1)
+  linear_linear_n_1000_theta_0.1_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -522,7 +523,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.1_alpha2_0.1_sigma_1)
+  linear_linear_n_2000_theta_0.1_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -530,7 +531,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.1_alpha2_0.1_sigma_1)
+  linear_linear_n_5000_theta_0.1_alpha2_0.1_sigma_1)
 ```
 
 
@@ -541,7 +542,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.1_alpha2_0.5_sigma_1)
+  linear_linear_n_50_theta_0.1_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -549,7 +550,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.1_alpha2_0.5_sigma_1)
+  linear_linear_n_100_theta_0.1_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -557,7 +558,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.1_alpha2_0.5_sigma_1)
+  linear_linear_n_200_theta_0.1_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -565,7 +566,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.1_alpha2_0.5_sigma_1)
+  linear_linear_n_1000_theta_0.1_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -573,7 +574,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.1_alpha2_0.5_sigma_1)
+  linear_linear_n_2000_theta_0.1_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -581,7 +582,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.1_alpha2_0.5_sigma_1)
+  linear_linear_n_5000_theta_0.1_alpha2_0.5_sigma_1)
 ```
 
 #### $\alpha_2 = 1.0$ {.tabset}
@@ -591,7 +592,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.1_alpha2_1_sigma_1)
+  linear_linear_n_50_theta_0.1_alpha2_1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -599,7 +600,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.1_alpha2_1_sigma_1)
+  linear_linear_n_100_theta_0.1_alpha2_1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -607,7 +608,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.1_alpha2_1_sigma_1)
+  linear_linear_n_200_theta_0.1_alpha2_1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -615,7 +616,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.1_alpha2_1_sigma_1)
+  linear_linear_n_1000_theta_0.1_alpha2_1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -623,7 +624,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.1_alpha2_1_sigma_1)
+  linear_linear_n_2000_theta_0.1_alpha2_1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -631,7 +632,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.1_alpha2_1_sigma_1)
+  linear_linear_n_5000_theta_0.1_alpha2_1_sigma_1)
 ```
 
 
@@ -642,7 +643,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.1_alpha2_5_sigma_1)
+  linear_linear_n_50_theta_0.1_alpha2_5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -650,7 +651,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.1_alpha2_5_sigma_1)
+  linear_linear_n_100_theta_0.1_alpha2_5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -658,7 +659,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.1_alpha2_5_sigma_1)
+  linear_linear_n_200_theta_0.1_alpha2_5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -666,7 +667,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.1_alpha2_5_sigma_1)
+  linear_linear_n_1000_theta_0.1_alpha2_5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -674,7 +675,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.1_alpha2_5_sigma_1)
+  linear_linear_n_2000_theta_0.1_alpha2_5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -682,7 +683,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.1_alpha2_5_sigma_1)
+  linear_linear_n_5000_theta_0.1_alpha2_5_sigma_1)
 ```
 
 #### $\alpha_2 = 20.0$ {.tabset}
@@ -692,7 +693,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.1_alpha2_20_sigma_1)
+  linear_linear_n_50_theta_0.1_alpha2_20_sigma_1)
 ```
 
 ##### $n = 100$
@@ -700,7 +701,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.1_alpha2_20_sigma_1)
+  linear_linear_n_100_theta_0.1_alpha2_20_sigma_1)
 ```
 
 ##### $n = 200$
@@ -708,7 +709,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.1_alpha2_20_sigma_1)
+  linear_linear_n_200_theta_0.1_alpha2_20_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -716,7 +717,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.1_alpha2_20_sigma_1)
+  linear_linear_n_1000_theta_0.1_alpha2_20_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -724,7 +725,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.1_alpha2_20_sigma_1)
+  linear_linear_n_2000_theta_0.1_alpha2_20_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -732,7 +733,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.1_alpha2_20_sigma_1)
+  linear_linear_n_5000_theta_0.1_alpha2_20_sigma_1)
 ```
 
 ### $\theta = 0.2$ {.tabset}
@@ -744,7 +745,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.2_alpha2_0.1_sigma_1)
+  linear_linear_n_50_theta_0.2_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -752,7 +753,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.2_alpha2_0.1_sigma_1)
+  linear_linear_n_100_theta_0.2_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -760,7 +761,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.2_alpha2_0.1_sigma_1)
+  linear_linear_n_200_theta_0.2_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -768,7 +769,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.2_alpha2_0.1_sigma_1)
+  linear_linear_n_1000_theta_0.2_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -776,7 +777,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.2_alpha2_0.1_sigma_1)
+  linear_linear_n_2000_theta_0.2_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -784,7 +785,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.2_alpha2_0.1_sigma_1)
+  linear_linear_n_5000_theta_0.2_alpha2_0.1_sigma_1)
 ```
 
 #### $\alpha_2 = 0.5$ {.tabset}
@@ -794,7 +795,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.2_alpha2_0.5_sigma_1)
+  linear_linear_n_50_theta_0.2_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -802,7 +803,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.2_alpha2_0.5_sigma_1)
+  linear_linear_n_100_theta_0.2_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -810,7 +811,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.2_alpha2_0.5_sigma_1)
+  linear_linear_n_200_theta_0.2_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -818,7 +819,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.2_alpha2_0.5_sigma_1)
+  linear_linear_n_1000_theta_0.2_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -826,7 +827,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.2_alpha2_0.5_sigma_1)
+  linear_linear_n_2000_theta_0.2_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -834,7 +835,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.2_alpha2_0.5_sigma_1)
+  linear_linear_n_5000_theta_0.2_alpha2_0.5_sigma_1)
 ```
 
 #### $\alpha_2 = 1.0$ {.tabset}
@@ -844,7 +845,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.2_alpha2_1_sigma_1)
+  linear_linear_n_50_theta_0.2_alpha2_1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -852,7 +853,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.2_alpha2_1_sigma_1)
+  linear_linear_n_100_theta_0.2_alpha2_1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -860,7 +861,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.2_alpha2_1_sigma_1)
+  linear_linear_n_200_theta_0.2_alpha2_1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -868,7 +869,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.2_alpha2_1_sigma_1)
+  linear_linear_n_1000_theta_0.2_alpha2_1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -876,7 +877,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.2_alpha2_1_sigma_1)
+  linear_linear_n_2000_theta_0.2_alpha2_1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -884,7 +885,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.2_alpha2_1_sigma_1)
+  linear_linear_n_5000_theta_0.2_alpha2_1_sigma_1)
 ```
 
 
@@ -895,7 +896,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.2_alpha2_5_sigma_1)
+  linear_linear_n_50_theta_0.2_alpha2_5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -903,7 +904,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.2_alpha2_5_sigma_1)
+  linear_linear_n_100_theta_0.2_alpha2_5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -911,7 +912,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.2_alpha2_5_sigma_1)
+  linear_linear_n_200_theta_0.2_alpha2_5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -919,7 +920,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.2_alpha2_5_sigma_1)
+  linear_linear_n_1000_theta_0.2_alpha2_5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -927,7 +928,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.2_alpha2_5_sigma_1)
+  linear_linear_n_2000_theta_0.2_alpha2_5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -935,7 +936,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.2_alpha2_5_sigma_1)
+  linear_linear_n_5000_theta_0.2_alpha2_5_sigma_1)
 ```
 
 #### $\alpha_2 = 20.0$ {.tabset}
@@ -945,7 +946,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.2_alpha2_20_sigma_1)
+  linear_linear_n_50_theta_0.2_alpha2_20_sigma_1)
 ```
 
 ##### $n = 100$
@@ -953,7 +954,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.2_alpha2_20_sigma_1)
+  linear_linear_n_100_theta_0.2_alpha2_20_sigma_1)
 ```
 
 ##### $n = 200$
@@ -961,7 +962,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.2_alpha2_20_sigma_1)
+  linear_linear_n_200_theta_0.2_alpha2_20_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -969,7 +970,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.2_alpha2_20_sigma_1)
+  linear_linear_n_1000_theta_0.2_alpha2_20_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -977,7 +978,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.2_alpha2_20_sigma_1)
+  linear_linear_n_2000_theta_0.2_alpha2_20_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -985,7 +986,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.2_alpha2_20_sigma_1)
+  linear_linear_n_5000_theta_0.2_alpha2_20_sigma_1)
 ```
 
 
@@ -998,7 +999,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.33_alpha2_0.1_sigma_1)
+  linear_linear_n_50_theta_0.33_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1006,7 +1007,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.33_alpha2_0.1_sigma_1)
+  linear_linear_n_100_theta_0.33_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1014,7 +1015,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.33_alpha2_0.1_sigma_1)
+  linear_linear_n_200_theta_0.33_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1022,7 +1023,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.33_alpha2_0.1_sigma_1)
+  linear_linear_n_1000_theta_0.33_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1030,7 +1031,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.33_alpha2_0.1_sigma_1)
+  linear_linear_n_2000_theta_0.33_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1038,7 +1039,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.33_alpha2_0.1_sigma_1)
+  linear_linear_n_5000_theta_0.33_alpha2_0.1_sigma_1)
 ```
 
 #### $\alpha_2 = 0.5$ {.tabset}
@@ -1048,7 +1049,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.33_alpha2_0.5_sigma_1)
+  linear_linear_n_50_theta_0.33_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1056,7 +1057,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.33_alpha2_0.5_sigma_1)
+  linear_linear_n_100_theta_0.33_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1064,7 +1065,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.33_alpha2_0.5_sigma_1)
+  linear_linear_n_200_theta_0.33_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1072,7 +1073,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.33_alpha2_0.5_sigma_1)
+  linear_linear_n_1000_theta_0.33_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1080,7 +1081,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.33_alpha2_0.5_sigma_1)
+  linear_linear_n_2000_theta_0.33_alpha2_0.5_sigma_1)
 ```
 
 
@@ -1089,7 +1090,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.33_alpha2_0.5_sigma_1)
+  linear_linear_n_5000_theta_0.33_alpha2_0.5_sigma_1)
 ```
 
 #### $\alpha_2 = 1.0$ {.tabset}
@@ -1099,7 +1100,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.33_alpha2_1_sigma_1)
+  linear_linear_n_50_theta_0.33_alpha2_1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1107,7 +1108,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.33_alpha2_1_sigma_1)
+  linear_linear_n_100_theta_0.33_alpha2_1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1115,7 +1116,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.33_alpha2_1_sigma_1)
+  linear_linear_n_200_theta_0.33_alpha2_1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1123,7 +1124,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.33_alpha2_1_sigma_1)
+  linear_linear_n_1000_theta_0.33_alpha2_1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1131,7 +1132,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.33_alpha2_1_sigma_1)
+  linear_linear_n_2000_theta_0.33_alpha2_1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1139,7 +1140,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.33_alpha2_1_sigma_1)
+  linear_linear_n_5000_theta_0.33_alpha2_1_sigma_1)
 ```
 
 
@@ -1150,7 +1151,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.33_alpha2_5_sigma_1)
+  linear_linear_n_50_theta_0.33_alpha2_5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1158,7 +1159,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.33_alpha2_5_sigma_1)
+  linear_linear_n_100_theta_0.33_alpha2_5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1166,7 +1167,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.33_alpha2_5_sigma_1)
+  linear_linear_n_200_theta_0.33_alpha2_5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1174,7 +1175,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.33_alpha2_5_sigma_1)
+  linear_linear_n_1000_theta_0.33_alpha2_5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1182,7 +1183,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.33_alpha2_5_sigma_1)
+  linear_linear_n_2000_theta_0.33_alpha2_5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1190,7 +1191,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.33_alpha2_5_sigma_1)
+  linear_linear_n_5000_theta_0.33_alpha2_5_sigma_1)
 ```
 
 #### $\alpha_2 = 20.0$ {.tabset}
@@ -1200,7 +1201,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.33_alpha2_20_sigma_1)
+  linear_linear_n_50_theta_0.33_alpha2_20_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1208,7 +1209,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.33_alpha2_20_sigma_1)
+  linear_linear_n_100_theta_0.33_alpha2_20_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1216,7 +1217,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.33_alpha2_20_sigma_1)
+  linear_linear_n_200_theta_0.33_alpha2_20_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1224,7 +1225,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.33_alpha2_20_sigma_1)
+  linear_linear_n_1000_theta_0.33_alpha2_20_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1232,7 +1233,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.33_alpha2_20_sigma_1)
+  linear_linear_n_2000_theta_0.33_alpha2_20_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1240,7 +1241,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.33_alpha2_20_sigma_1)
+  linear_linear_n_5000_theta_0.33_alpha2_20_sigma_1)
 ```
 
 
@@ -1253,7 +1254,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.5_alpha2_0.1_sigma_1)
+  linear_linear_n_50_theta_0.5_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1261,7 +1262,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.5_alpha2_0.1_sigma_1)
+  linear_linear_n_100_theta_0.5_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1269,7 +1270,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.5_alpha2_0.1_sigma_1)
+  linear_linear_n_200_theta_0.5_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1277,7 +1278,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.5_alpha2_0.1_sigma_1)
+  linear_linear_n_1000_theta_0.5_alpha2_0.1_sigma_1)
 ```
 
 
@@ -1286,7 +1287,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.5_alpha2_0.1_sigma_1)
+  linear_linear_n_2000_theta_0.5_alpha2_0.1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1294,7 +1295,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.5_alpha2_0.1_sigma_1)
+  linear_linear_n_5000_theta_0.5_alpha2_0.1_sigma_1)
 ```
 
 #### $\alpha_2 = 0.5$ {.tabset}
@@ -1304,7 +1305,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.5_alpha2_0.5_sigma_1)
+  linear_linear_n_50_theta_0.5_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1312,7 +1313,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.5_alpha2_0.5_sigma_1)
+  linear_linear_n_100_theta_0.5_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1320,7 +1321,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.5_alpha2_0.5_sigma_1)
+  linear_linear_n_200_theta_0.5_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1328,7 +1329,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.5_alpha2_0.5_sigma_1)
+  linear_linear_n_1000_theta_0.5_alpha2_0.5_sigma_1)
 ```
 
 
@@ -1337,7 +1338,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.5_alpha2_0.5_sigma_1)
+  linear_linear_n_2000_theta_0.5_alpha2_0.5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1345,7 +1346,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.5_alpha2_0.5_sigma_1)
+  linear_linear_n_5000_theta_0.5_alpha2_0.5_sigma_1)
 ```
 
 
@@ -1356,7 +1357,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.5_alpha2_1_sigma_1)
+  linear_linear_n_50_theta_0.5_alpha2_1_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1364,7 +1365,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.5_alpha2_1_sigma_1)
+  linear_linear_n_100_theta_0.5_alpha2_1_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1372,7 +1373,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.5_alpha2_1_sigma_1)
+  linear_linear_n_200_theta_0.5_alpha2_1_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1380,7 +1381,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.5_alpha2_1_sigma_1)
+  linear_linear_n_1000_theta_0.5_alpha2_1_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1388,7 +1389,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.5_alpha2_1_sigma_1)
+  linear_linear_n_2000_theta_0.5_alpha2_1_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1396,7 +1397,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.5_alpha2_1_sigma_1)
+  linear_linear_n_5000_theta_0.5_alpha2_1_sigma_1)
 ```
 
 #### $\alpha_2 = 5.0$ {.tabset}
@@ -1406,7 +1407,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.5_alpha2_5_sigma_1)
+  linear_linear_n_50_theta_0.5_alpha2_5_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1414,7 +1415,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.5_alpha2_5_sigma_1)
+  linear_linear_n_100_theta_0.5_alpha2_5_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1422,7 +1423,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.5_alpha2_5_sigma_1)
+  linear_linear_n_200_theta_0.5_alpha2_5_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1430,7 +1431,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.5_alpha2_5_sigma_1)
+  linear_linear_n_1000_theta_0.5_alpha2_5_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1438,7 +1439,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_2000_theta_0.5_alpha2_5_sigma_1)
+  linear_linear_n_2000_theta_0.5_alpha2_5_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1446,7 +1447,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.5_alpha2_5_sigma_1)
+  linear_linear_n_5000_theta_0.5_alpha2_5_sigma_1)
 ```
 
 
@@ -1457,7 +1458,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_50_theta_0.5_alpha2_20_sigma_1)
+  linear_linear_n_50_theta_0.5_alpha2_20_sigma_1)
 ```
 
 ##### $n = 100$
@@ -1465,7 +1466,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_100_theta_0.5_alpha2_20_sigma_1)
+  linear_linear_n_100_theta_0.5_alpha2_20_sigma_1)
 ```
 
 ##### $n = 200$
@@ -1473,7 +1474,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_200_theta_0.5_alpha2_20_sigma_1)
+  linear_linear_n_200_theta_0.5_alpha2_20_sigma_1)
 ```
 
 ##### $n = 1000$
@@ -1481,7 +1482,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.5_alpha2_20_sigma_1)
+  linear_linear_n_1000_theta_0.5_alpha2_20_sigma_1)
 ```
 
 ##### $n = 2000$
@@ -1489,7 +1490,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_1000_theta_0.5_alpha2_20_sigma_1)
+  linear_linear_n_1000_theta_0.5_alpha2_20_sigma_1)
 ```
 
 ##### $n = 5000$
@@ -1497,7 +1498,7 @@ modelsummary::datasummary_skim(
 ```{r,echo=FALSE,results = 'asis'}
 modelsummary::datasummary_skim(
   fmt = 3,
-  data_linear_linear_n_5000_theta_0.5_alpha2_20_sigma_1)
+  linear_linear_n_5000_theta_0.5_alpha2_20_sigma_1)
 ```
 
 
