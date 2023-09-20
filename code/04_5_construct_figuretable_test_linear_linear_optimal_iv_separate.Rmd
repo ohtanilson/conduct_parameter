@@ -1508,62 +1508,62 @@ modelsummary::datasummary_skim(
 ### iv_optimal
 
 ```{r,echo=FALSE,results = 'asis'}
-# for(nn in 1:length(n_observation_list)){
-#   target_nn <-
-#     n_observation_list[nn]
-#   cat(target_nn,"\n")
-#   x <-
-#   ggplot(
-#   data_for_plot_iv_optimal %>% 
-#     dplyr::filter(
-#       temp_nn == target_nn
-#     ), 
-#   aes(
-#     x = as.character(temp_theta),
-#     y = reject_probability, 
-#     fill = 
-#       as.factor(
-#         temp_alpha2
-#         )
-#     )
-#   ) +
-#   geom_col(
-#     width = 0.2,
-#     position = position_dodge(0.7)
-#     ) +
-#   geom_hline(
-#     yintercept = 1.00, 
-#     linetype = "dashed"
-#       ) +
-#   geom_hline(
-#   yintercept = 0.80, 
-#   linetype = "dashed"
-#       ) +
-#   ylim(0, 1) +
-#   xlab(expression(theta == 1/N)) +
-#   ylab(paste("Rejection frequency",
-#              #target_nn,
-#              sep="")) +
-#   guides(fill = guide_legend(title = expression(alpha[2]))) +
-#   theme_classic() +
-#   theme(legend.position = 'top') +
-#   scale_fill_viridis_d()
-#   x
-#   # save
-#   figure_name <-
-#     paste(
-#       "../figuretable/theta_hat_power_separate_",
-#       target_nn,
-#       ".png",
-#       sep = ""
-#     )
-#   ggsave(filename = figure_name,
-#        plot = x,
-#        device = "png",
-#        width = 4,
-#        height = 3)
-# 
-# }
+for(nn in 1:length(n_observation_list)){
+  target_nn <-
+    n_observation_list[nn]
+  cat(target_nn,"\n")
+  x <-
+  ggplot(
+  data_for_plot_iv_optimal %>%
+    dplyr::filter(
+      temp_nn == target_nn
+    ),
+  aes(
+    x = as.character(temp_theta),
+    y = reject_probability,
+    fill =
+      as.factor(
+        temp_alpha2
+        )
+    )
+  ) +
+  geom_col(
+    width = 0.2,
+    position = position_dodge(0.7)
+    ) +
+  geom_hline(
+    yintercept = 1.00,
+    linetype = "dashed"
+      ) +
+  geom_hline(
+  yintercept = 0.80,
+  linetype = "dashed"
+      ) +
+  ylim(0, 1) +
+  xlab(expression(theta == 1/N)) +
+  ylab(paste("Rejection frequency",
+             #target_nn,
+             sep="")) +
+  guides(fill = guide_legend(title = expression(alpha[2]))) +
+  theme_classic() +
+  theme(legend.position = 'top') +
+  scale_fill_viridis_d()
+  x
+  # save
+  figure_name <-
+    paste(
+      "../figuretable/theta_hat_power_separate_",
+      target_nn,
+      ".png",
+      sep = ""
+    )
+  ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+
+}
 
 ```
 
