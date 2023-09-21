@@ -1602,7 +1602,7 @@ for(nn in 1:length(n_observation_list)){
   # yintercept = 0.80,
   # linetype = "dashed"
   #     ) +
-  ylim(0, 101.1) +
+  ylim(0, 55.0) +
   xlab(expression(theta == 1/N)) +
   ylab(paste("Rate of rejection frequency (optimal/base)",
              #target_nn,
