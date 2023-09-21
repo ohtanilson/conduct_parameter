@@ -622,7 +622,8 @@ true_parameter_loglinear <-
 
 
 create_table_loglinear_with_demand_shifter_bias_rmse <-
-  function(target_data){
+  function(target_data,
+           non_constraint_indicator){
     # pick up locally converged id
     # target_data <-
     #   target_data %>%
@@ -758,7 +759,8 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
     for(nn in 1:length(file_name_list)){
       temp_file_name <-
         as.character(
-          file_name_list[nn])
+          file_name_list[nn]
+          )
       if(locally_solved_list$locally_solved_percent[nn] !=
          "0.000"){
         temp_bias <-
@@ -792,23 +794,69 @@ create_table_loglinear_with_demand_shifter_bias_rmse <-
         temp_rmse[1,1] <-
           temp_file_name
       }
-      
-      
-      temp_bias_rmse <-
-        data.frame(
-          "Bias" = 
-            format(
-              round(
-                t(temp_bias[-1]),
-                digits = 3),
-              nsmall = 3),
-          "RMSE" = 
-            format(
-              round(
-                t(temp_rmse[-1]),
-                digits = 3),
-              nsmall = 3)
-          )
+      if(non_constraint_indicator == TRUE){
+        temp_bias_rmse <-
+          data.frame(
+            "Bias" = 
+              c(
+                format(
+                round(
+                  
+                  t(temp_bias[c(-1,-10)]),
+                  digits = 3),
+                nsmall = 3),
+                # theta
+                formatC(
+                  t(temp_bias[10]),
+                  format = "e",
+                  digits = 0
+                  )
+              )
+              ,
+            "RMSE" = 
+              c(
+                format(
+                round(
+                  t(temp_rmse[c(-1,-10)]),
+                  digits = 3),
+                nsmall = 3),
+                # theta
+                formatC(
+                  t(temp_rmse[10]),
+                  format = "e",
+                  digits = 0
+                  )
+                )
+            )
+        rownames(temp_bias_rmse) <-
+          c(
+            "$\\alpha_{0}$",
+            "$\\alpha_{1}$",
+            "$\\alpha_{2}$",
+            "$\\alpha_{3}$",
+            "$\\gamma_{0}$",
+            "$\\gamma_{1}$",
+            "$\\gamma_{2}$",
+            "$\\gamma_{3}$",
+            "$\\theta$"
+            )
+      }else{
+        temp_bias_rmse <-
+          data.frame(
+            "Bias" = 
+              format(
+                round(
+                  t(temp_bias[-1]),
+                  digits = 3),
+                nsmall = 3),
+            "RMSE" = 
+              format(
+                round(
+                  t(temp_rmse[-1]),
+                  digits = 3),
+                nsmall = 3)
+            )
+      }
       if(nn == 1){
         all_bias_rmse <-
           temp_bias_rmse
@@ -1056,7 +1104,8 @@ loglinear_loglinear_sigma_0.001_separate_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_0.001_separate_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_separate_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_separate_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_0.001_separate_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 loglinear_loglinear_sigma_0.5_separate_theta_constraint_non_constraint <-
   rbind(
@@ -1066,7 +1115,8 @@ loglinear_loglinear_sigma_0.5_separate_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_separate_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_separate_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_separate_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_0.5_separate_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_1_separate_theta_constraint_non_constraint <-
@@ -1077,7 +1127,8 @@ loglinear_loglinear_sigma_1_separate_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_1_separate_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_1_separate_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_separate_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_1_separate_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_2_separate_theta_constraint_non_constraint <-
@@ -1088,7 +1139,8 @@ loglinear_loglinear_sigma_2_separate_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_2_separate_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_2_separate_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_separate_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_2_separate_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 
 ```
@@ -1105,7 +1157,8 @@ loglinear_loglinear_sigma_0.001_simultaneous_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_0.001_simultaneous_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_simultaneous_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_simultaneous_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_0.001_simultaneous_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint <-
   rbind(
@@ -1115,7 +1168,8 @@ loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_simultaneous_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_simultaneous_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint <-
@@ -1126,7 +1180,8 @@ loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_1_simultaneous_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_1_simultaneous_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint <-
@@ -1137,7 +1192,8 @@ loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_2_simultaneous_theta_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_2_simultaneous_theta_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint
+  loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint,
+  non_constraint_indicator = FALSE
 )
 
 ```
@@ -1154,7 +1210,8 @@ loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint <-
     loglinear_loglinear_n_1000_sigma_0.001_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint
+  loglinear_loglinear_sigma_0.001_mpec_non_constraint_theta_constraint,
+  non_constraint_indicator = FALSE
 )
 loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint <-
   rbind(
@@ -1164,7 +1221,8 @@ loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint
+  loglinear_loglinear_sigma_0.5_mpec_non_constraint_theta_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint <-
@@ -1175,7 +1233,8 @@ loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint <-
     loglinear_loglinear_n_1000_sigma_1_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_1500_sigma_1_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint
+  loglinear_loglinear_sigma_1_mpec_non_constraint_theta_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint <-
@@ -1186,7 +1245,8 @@ loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint <-
     loglinear_loglinear_n_1000_sigma_2_mpec_non_constraint_theta_constraint,
     loglinear_loglinear_n_1500_sigma_2_mpec_non_constraint_theta_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint
+  loglinear_loglinear_sigma_2_mpec_non_constraint_theta_constraint,
+  non_constraint_indicator = FALSE
 )
 
 ```
@@ -1204,7 +1264,8 @@ loglinear_loglinear_sigma_0.001_separate_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_0.001_separate_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_separate_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_separate_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_0.001_separate_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 loglinear_loglinear_sigma_0.5_separate_theta_constraint_slope_constraint <-
   rbind(
@@ -1214,7 +1275,8 @@ loglinear_loglinear_sigma_0.5_separate_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_separate_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_separate_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_separate_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_0.5_separate_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_1_separate_theta_constraint_slope_constraint <-
@@ -1225,7 +1287,8 @@ loglinear_loglinear_sigma_1_separate_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_1_separate_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_1_separate_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_separate_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_1_separate_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_2_separate_theta_constraint_slope_constraint <-
@@ -1236,7 +1299,8 @@ loglinear_loglinear_sigma_2_separate_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_2_separate_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_2_separate_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_separate_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_2_separate_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 ```
@@ -1253,7 +1317,8 @@ loglinear_loglinear_sigma_0.001_simultaneous_theta_constraint_slope_constraint <
     loglinear_loglinear_n_1000_sigma_0.001_simultaneous_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_simultaneous_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_simultaneous_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_0.001_simultaneous_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint <-
   rbind(
@@ -1263,7 +1328,8 @@ loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_simultaneous_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_simultaneous_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint <-
@@ -1274,7 +1340,8 @@ loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_1_simultaneous_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_1_simultaneous_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint <-
@@ -1285,7 +1352,8 @@ loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_2_simultaneous_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_2_simultaneous_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 ```
@@ -1302,7 +1370,8 @@ loglinear_loglinear_sigma_0.001_mpec_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_0.001_mpec_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_mpec_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_mpec_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_0.001_mpec_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint <-
   rbind(
@@ -1312,7 +1381,8 @@ loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_mpec_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_mpec_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint <-
@@ -1323,7 +1393,8 @@ loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_1_mpec_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_1_mpec_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint <-
@@ -1334,7 +1405,8 @@ loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint <-
     loglinear_loglinear_n_1000_sigma_2_mpec_theta_constraint_slope_constraint,
     loglinear_loglinear_n_1500_sigma_2_mpec_theta_constraint_slope_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint
+  loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint,
+  non_constraint_indicator = FALSE
 )
 
 
@@ -1406,7 +1478,8 @@ loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_0.001_simultaneous_non_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_0.001_simultaneous_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint
+  loglinear_loglinear_sigma_0.001_simultaneous_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint <-
   rbind(
@@ -1416,7 +1489,8 @@ loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_0.5_simultaneous_non_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_0.5_simultaneous_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint
+  loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 
 loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint <-
@@ -1427,7 +1501,8 @@ loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_1_simultaneous_non_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_1_simultaneous_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint
+  loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 
 loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint <-
@@ -1438,7 +1513,8 @@ loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint <-
     loglinear_loglinear_n_1000_sigma_2_simultaneous_non_constraint_non_constraint,
     loglinear_loglinear_n_1500_sigma_2_simultaneous_non_constraint_non_constraint)
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint
+  loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 
 ```
@@ -1458,7 +1534,8 @@ loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint <-
     #loglinear_loglinear_n_1500_sigma_0.001_mpec_non_constraint_non_constraint
     )
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint
+  loglinear_loglinear_sigma_0.001_mpec_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint <-
   rbind(
@@ -1469,7 +1546,8 @@ loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint <-
     #loglinear_loglinear_n_1500_sigma_0.5_mpec_non_constraint_non_constraint
     )
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint
+  loglinear_loglinear_sigma_0.5_mpec_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 
 loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint <-
@@ -1481,7 +1559,8 @@ loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint <-
     #loglinear_loglinear_n_1500_sigma_1_mpec_non_constraint_non_constraint
     )
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint
+  loglinear_loglinear_sigma_1_mpec_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 
 loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint <-
@@ -1493,7 +1572,8 @@ loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint <-
     #loglinear_loglinear_n_1500_sigma_2_mpec_non_constraint_non_constraint
     )
 create_table_loglinear_with_demand_shifter_bias_rmse(
-  loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint
+  loglinear_loglinear_sigma_2_mpec_non_constraint_non_constraint,
+  non_constraint_indicator = TRUE
 )
 
 ```
