@@ -37,7 +37,7 @@
 \DeclareMathOperator{\rank}{rank}
 
 
-\title{Finite Sample Performance of Conduct Parameter Test in Homogenous Good Markets}
+\title{Finite Sample Performance of Conduct Parameter Test in Homogenous Goods Markets}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
 %Declarations of interest: none %this is for Economics Letters
 }}
@@ -253,6 +253,16 @@ The \texttt{ivreg} package automatically detects that the endogenous variables a
 When the first stage includes only the regression of $Q_{m}$, estimation results from our code differ from the results from \texttt{ivreg}. 
 However, when we modify the code to regress $Z^{R}_{m}Q_{m}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{m}$ and $Z^{R}_{m}Q_{m}$, the result from our code and the result from \texttt{ivreg} coincide.
 
+\subsubsection{GMM}
+
+
+In the first step, solve the minimization problem with a weight matrix $\Omega = (Z^\top Z)^{-1}/T$.
+Then compute the optimal instrument based on the estimation result in the first step.
+In the second step, replace the instrument variables with the optimal instrument and solve the minimization problem.
+
+
+
+
 \subsection{Additional results}
 Estimation results of all parameters except conduct parameter $\theta$ are shown on the author's github.
 
@@ -334,5 +344,33 @@ problem
     \min \varepsilon'(\xi)g(\xi)\Omega g(\xi)'\varepsilon . 
 \end{align*}
 In this case, $\Omega$ is replaced by the identity matrix.
+
+
+\subsection{First approximation results}
+
+\begin{figure}[!ht]
+  \begin{center}
+  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
+  % {figuretable/theta_hat_power_50.png}}
+  \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_100.png}}
+  \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_200.png}}
+  \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_1000.png}}\\
+  \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_2000.png}}
+  \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_5000.png}}
+  \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_10000.png}}
+  \caption{Rate of statistical power of conduct parameter $\theta$}
+  \label{fg:theta_hat_power_iv_polynomial_relative_to_benchmark}
+  \end{center}
+  % \footnotesize
+  % Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
+\end{figure} 
+
+
 
 \end{document}
