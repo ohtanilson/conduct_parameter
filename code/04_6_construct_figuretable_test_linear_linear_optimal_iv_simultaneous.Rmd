@@ -96,7 +96,8 @@ for(nn in 1:length(n_observation_list)){
           temp_data
           )
         reject_probability <-
-          sum((temp_theta/(temp_data$sd_θ/sqrt(temp_nn))) > 1.96)/100
+          #sum((temp_theta/(temp_data$sd_θ/sqrt(temp_nn))) > 1.96)/100
+          sum((temp_theta/temp_data$sd_θ) > 1.96)/100
         if(nn == 1 & ss == 1 & aa == 1 &tt == 1){
           data_for_plot_iv_optimal <-
             cbind(
@@ -1601,7 +1602,7 @@ for(nn in 1:length(n_observation_list)){
   # yintercept = 0.80,
   # linetype = "dashed"
   #     ) +
-  ylim(0, 101.1) +
+  ylim(0, 55.0) +
   xlab(expression(theta == 1/N)) +
   ylab(paste("Rate of rejection frequency (optimal/base)",
              #target_nn,
