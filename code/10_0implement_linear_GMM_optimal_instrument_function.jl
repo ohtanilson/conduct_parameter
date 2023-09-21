@@ -49,8 +49,8 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     """
 
     # first stage
-    QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* X_d[:,2])
-    Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  X_d[:,2]
+    QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* (-X_d[:,2]))
+    Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  (-X_d[:,2])
     # second stage
     X_dd = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end])
 
@@ -59,6 +59,7 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     L_s = size(Z_s,2)
     K_s = size(X_s,2) - 1
     K_d = size(X_d,2)
+    
     if tol_level == :tight
         tol = 1e-15
         acceptable_tol = 1e-12
@@ -86,7 +87,7 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     #set_silent(model)
     @variable(model, γ[k = 1:K_s], start = start_γ[k])
-    @variable(model, 0 <= θ <= 1, start = start_θ)
+    @variable(model, θ , start = start_θ)
 
     r = Any[];
     for t =1:T
@@ -153,8 +154,8 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     #set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s-1])
-    @variable(model, 0 <= θ <= 1)
+    @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
+    @variable(model, θ, start = start_θ)
 
 
     r = Any[];
