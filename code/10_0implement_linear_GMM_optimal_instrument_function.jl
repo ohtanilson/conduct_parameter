@@ -106,9 +106,9 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     θ_hat = JuMP.value.(θ)
 
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s-1) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    X_s = hcat(X_s, X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
+    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     variance_demand = (X_d' * X_d)^(-1) * (sum(ε_d[t].^2 * X_d[t,:] * X_d[t,:]' for t = 1:T)) * (X_d' * X_d)^(-1)
     variacne_supply = (X_s' * X_s)^(-1) * (sum(ε_s[t].^2 * X_s[t,:] * X_s[t,:]' for t = 1:T)) * (X_s' * X_s)^(-1)
@@ -161,7 +161,7 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     r = Any[];
     for t =1:T
         push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
-        push!(r, @NLexpression(model, P[t] - θ * (β[2] + β[3] * X[2*t, end]) * X[2*t, K_d+2] - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1)))
+        push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1) - θ * (β[2] + β[3] * X[2*t, end]) * X[2*t, K_d+2] ))
     end
 
     g = Any[];
@@ -178,9 +178,9 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
 
     
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s-1) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    X_s = hcat(X_s, X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
+    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     variance_demand = (X_d' * X_d)^(-1) * sum(ε_d[t].^2 * X_d[t,:] * X_d[t,:]' for t = 1:T) * (X_d' * X_d)^(-1)
     variacne_supply = (X_s' * X_s)^(-1) * sum(ε_s[t].^2 * X_s[t,:] * X_s[t,:]' for t = 1:T) * (X_s' * X_s)^(-1)
@@ -413,15 +413,15 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
     γ_2 = γ_est[:,3],
     γ_3 = γ_est[:,4],
     θ = θ_est,
-    sd_α_0 = se_demand[:,1],
-    sd_α_1 = se_demand[:,2],
-    sd_α_2 = se_demand[:,3],
-    sd_α_3 = se_demand[:,4],
-    sd_γ_0 = se_supply[:,1],
-    sd_γ_1 = se_supply[:,2],
-    sd_γ_2 = se_supply[:,3],
-    sd_γ_3 = se_supply[:,4],
-    sd_θ = se_supply[:,5],
+    se_α_0 = se_demand[:,1],
+    se_α_1 = se_demand[:,2],
+    se_α_2 = se_demand[:,3],
+    se_α_3 = se_demand[:,4],
+    se_γ_0 = se_supply[:,1],
+    se_γ_1 = se_supply[:,2],
+    se_γ_2 = se_supply[:,3],
+    se_γ_3 = se_supply[:,4],
+    se_θ = se_supply[:,5],
     status = status,
     status_indicator = status_indicator)
 
