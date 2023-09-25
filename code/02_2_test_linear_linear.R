@@ -422,3 +422,87 @@ modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table
 )
+
+
+# check standard error difference between julia and R ----
+nn = 1
+ss = 1
+aa = 1
+tt = 1
+temp_nn <-
+  n_observation_list[nn]
+temp_sigma <-
+  sigma_list[ss]
+temp_theta <-
+  theta_list[tt]
+temp_alpha2 <-
+  alpha2_list[aa]
+filename <-
+  paste(
+    "data_linear_linear_",
+    "n_",
+    temp_nn,
+    "_theta_",
+    temp_theta,
+    "_alpha2_",
+    temp_alpha2,
+    "_sigma_",
+    temp_sigma,
+    sep = ""
+  )
+cat(filename,"\n")
+# load 
+target_data <-
+  readRDS(
+    file = 
+      here::here(
+        paste(
+          "output/testing_project/",
+          filename,
+          ".rds",
+          sep = ""
+        )
+      )
+  )
+# assign(filename,
+#        temp_data)
+# estimate 
+linear_demand_formula <-
+  "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
+linear_demand_linear_supply_formula <-
+  paste("P ~ composite_z:Q + Q + w + r|",
+        "composite_z + w + r + y")
+## demand ----
+data_with_demand_hat <-
+  estimate_demand(
+    target_data = 
+      target_data,
+    target_demand_formula = 
+      linear_demand_formula,
+    demand_shifter_dummy = 
+      TRUE)
+## supply ----
+# data_with_demand_hat_and_supply_hat <-
+#   estimate_supply(
+#     target_data_with_demand_hat =
+#       data_with_demand_hat,
+#     target_supply_formula =
+#       linear_demand_linear_supply_formula
+#     )
+res_supply <-
+  data_with_demand_hat %>% 
+  split(
+    .$group_id_k
+  ) %>% 
+  purrr::map(
+    ~ AER::ivreg(
+      formula = linear_demand_linear_supply_formula,
+      data = .x)
+  ) 
+cat(filename,"\n")
+summary(res_supply[[1]])
+lmtest::coeftest(
+  res_supply[[1]],
+  vcov = sandwich::NeweyWest(res_supply[[1]], lag=0, prewhite=FALSE, adjust=TRUE, verbose=TRUE)
+)
+
