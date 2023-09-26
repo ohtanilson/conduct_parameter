@@ -110,8 +110,8 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
 
     X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
-    variance_demand = (X_d' * X_d)^(-1) * (sum(ε_d[t].^2 * X_d[t,:] * X_d[t,:]' for t = 1:T)) * (X_d' * X_d)^(-1)
-    variacne_supply = (X_s' * X_s)^(-1) * (sum(ε_s[t].^2 * X_s[t,:] * X_s[t,:]' for t = 1:T)) * (X_s' * X_s)^(-1)
+    variance_demand = sum(ε_d[t].^2 for t = 1:T)/T * (X_d' * X_d)^(-1)
+    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/T * (X_s' * X_s)^(-1)
 
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
@@ -128,7 +128,7 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     """
 
     L = size(Z, 2)
-    K_s = size(X_s, 2)
+    K_s = size(X_s, 2)-1
     K_d = size(X_d, 2)
 
 
@@ -154,14 +154,14 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     #set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s-1], start = start_β[k])
+    @variable(model, β[k = 1:K_d+K_s], start = start_β[k])
     @variable(model, θ, start = start_θ)
 
 
     r = Any[];
     for t =1:T
         push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
-        push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s-1) - θ * (β[2] + β[3] * X[2*t, end]) * X[2*t, K_d+2] ))
+        push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s) - θ * (β[2] + β[3] * X[2*t, end]) * X[2*t, K_d+2] ))
     end
 
     g = Any[];
@@ -182,8 +182,8 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
 
     X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
-    variance_demand = (X_d' * X_d)^(-1) * sum(ε_d[t].^2 * X_d[t,:] * X_d[t,:]' for t = 1:T) * (X_d' * X_d)^(-1)
-    variacne_supply = (X_s' * X_s)^(-1) * sum(ε_s[t].^2 * X_s[t,:] * X_s[t,:]' for t = 1:T) * (X_s' * X_s)^(-1)
+    variance_demand = sum(ε_d[t].^2 for t = 1:T) * (X_d' * X_d)^(-1)
+    variacne_supply = sum(ε_s[t].^2 for t = 1:T) * (X_s' * X_s)^(-1)
 
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
@@ -200,6 +200,7 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
     K_d = size(X_d, 2)
     K_s = size(X_s, 2) - 1
 
+    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
     ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
@@ -220,7 +221,8 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
 
         #Ω_t = inv(ε[t,:] * ε[t,:]') + diagm(ones(2) * 10e-8)
 
-        D_z = [-1 Q_bar[t] Q_bar_Z[t] (-X_d[t,4]) 0 0 0 0 0; 0 (- θ_hat * Q_bar[t]) (θ_hat*Q_bar_Z[t]) 0 (-1)  (-Q_bar[t]) (-X_s[t,3]) (- X_s[t,4]) (-Q_bar_α_Z[t])]
+        D_z = [-1 Q_bar[t] Q_bar_Z[t] (-X_d[t,4]) 0 0 0 0 0; 
+        0 (- θ_hat * Q_bar[t]) (θ_hat*Q_bar_Z[t]) 0 (-1)  (-Q_bar[t]) (-X_s[t,3]) (- X_s[t,4]) (-Q_bar_α_Z[t])]
 
         Z_t_optimal = Ω_estimate * D_z
 

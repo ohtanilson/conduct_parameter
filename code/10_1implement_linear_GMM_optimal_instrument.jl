@@ -41,6 +41,7 @@ tol_level = :loose
 
         filename_begin = "../conduct_parameter/output/testing_project/estimation_result/parameter_hat_table_linear_linear_n_"
         filename_end   = ".csv"
+        
         file_name = filename_begin*string(t)*"_theta_"*string(theta)*"_alpha2_"*string(alpha2)*"_sigma_"*string(sigma)*"_"*String(estimation_method)*filename_end
         print("Simulate : $file_name \n")
 
