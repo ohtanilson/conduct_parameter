@@ -58,7 +58,7 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
 
     L_s = size(Z_s,2)
     K_s = size(X_s,2) - 1
-    K_d = size(X_d,2)
+    K_d = size(X_dd,2)
     
     if tol_level == :tight
         tol = 1e-15
@@ -108,11 +108,11 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     ε_d = P .- sum(α_hat[k] * X_dd[:, k] for k = 1:K_d)                                                    # T × 1 vector
     ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
+    #X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* X_s[:,end]))
+    X_s = hcat(X_s[:,1], Qhat, X_s[:,3], X_s[:,K_s], Qhat .* (α_hat[2] .+ α_hat[3] .* X_s[:,end]))
 
     variance_demand = sum(ε_d[t].^2 for t = 1:T)/(T - K_d) * (X_dd' * X_dd)^(-1)
-    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - K_s) * (X_s' * X_s)^(-1)
-
+    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - (K_s+1) ) * (X_s' * X_s)^(-1)
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
     se_supply = sqrt.(diag(variacne_supply))
@@ -182,8 +182,8 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
 
     X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
-    variance_demand = sum(ε_d[t].^2 for t = 1:T) * (X_d' * X_d)^(-1)
-    variacne_supply = sum(ε_s[t].^2 for t = 1:T) * (X_s' * X_s)^(-1)
+    variance_demand = sum(ε_d[t].^2 for t = 1:T)/(T - K_d) * (X_d' * X_d)^(-1)
+    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - (K_s+1) ) * (X_s' * X_s)^(-1)
 
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
