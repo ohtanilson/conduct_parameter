@@ -105,13 +105,13 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     γ_hat = JuMP.value.(γ)
     θ_hat = JuMP.value.(θ)
 
-    ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
+    ε_d = P .- sum(α_hat[k] * X_dd[:, k] for k = 1:K_d)                                                    # T × 1 vector
     ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
     X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
-    variance_demand = sum(ε_d[t].^2 for t = 1:T)/T * (X_d' * X_d)^(-1)
-    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/T * (X_s' * X_s)^(-1)
+    variance_demand = sum(ε_d[t].^2 for t = 1:T)/(T - K_d) * (X_dd' * X_dd)^(-1)
+    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - K_s) * (X_s' * X_s)^(-1)
 
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
