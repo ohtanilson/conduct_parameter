@@ -108,11 +108,15 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     ε_d = P .- sum(α_hat[k] * X_dd[:, k] for k = 1:K_d)                                                    # T × 1 vector
     ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* X_s[:,end]))
-    #X_s = hcat(X_s[:,1], Qhat, X_s[:,3], X_s[:,K_s], Qhat .* (α_hat[2] .+ α_hat[3] .* X_s[:,end]))
+    XX_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, Q[t], w[t], r[t], Q[t](α_hat[2] .+ α_hat[3] .* z[t]) # 2nd stage X
+    ZZ_s = hcat(X_s[:,1], X_s[:,3:K_s], Z_d[:,5], (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, w[t], r[t], y[t], (α_hat[2] .+ α_hat[3] .* z[t]) # 1st stage IV
 
     variance_demand = sum(ε_d[t].^2 for t = 1:T)/(T - K_d) * (X_dd' * X_dd)^(-1)
-    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - (K_s+1) ) * (X_s' * X_s)^(-1)
+    # xhat
+    Xhat = ZZ_s * inv(ZZ_s' * ZZ_s) * ZZ_s' * XX_s
+    # vcov
+    variacne_supply = inv(Xhat' * Xhat) * (sum(ε_s[t].^2 for t = 1:T)/(T - (K_s + 1)))
+    #@show variacne_supply = inv(ZZ_s' * X_s) * ZZ_s' * (sum(ε_s[t].^2 for t = 1:T)/(T - (K_s + 1))) * ZZ_s * inv(ZZ_s' * X_s)
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
     se_supply = sqrt.(diag(variacne_supply))
@@ -200,7 +204,7 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
     K_d = size(X_d, 2)
     K_s = size(X_s, 2) - 1
 
-    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
+    #X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
     ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
