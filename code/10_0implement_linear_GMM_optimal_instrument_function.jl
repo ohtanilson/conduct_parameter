@@ -52,13 +52,13 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* (-X_d[:,2]))
     Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  (-X_d[:,2])
     # second stage
-    X_dd = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end])
+    X_d_hat = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end]) 
 
-    α_hat = inv(X_dd' * X_dd) * (X_dd' * P)
+    α_hat = inv(X_d_hat' * X_d_hat) * (X_d_hat' * P)
 
     L_s = size(Z_s,2)
-    K_s = size(X_s,2) - 1
-    K_d = size(X_dd,2)
+    K_s = size(X_s,2) 
+    K_d = size(X_d_hat,2)
     
     if tol_level == :tight
         tol = 1e-15
@@ -86,12 +86,12 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     #set_silent(model)
-    @variable(model, γ[k = 1:K_s], start = start_γ[k])
+    @variable(model, γ[k = 1:(K_s - 1)], start = start_γ[k])
     @variable(model, θ , start = start_θ)
 
     r = Any[];
     for t =1:T
-        push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s) - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) * X_s[t, 2] )      )
+        push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:(K_s - 1)) - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) * X_s[t, 2] )      )
     end
 
     g = Any[];
@@ -105,18 +105,21 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     γ_hat = JuMP.value.(γ)
     θ_hat = JuMP.value.(θ)
 
-    ε_d = P .- sum(α_hat[k] * X_dd[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:(K_s - 1)) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    XX_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, Q[t], w[t], r[t], Q[t](α_hat[2] .+ α_hat[3] .* z[t]) # 2nd stage X
-    ZZ_s = hcat(X_s[:,1], X_s[:,3:K_s], Z_d[:,5], (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, w[t], r[t], y[t], (α_hat[2] .+ α_hat[3] .* z[t]) # 1st stage IV
-
-    variance_demand = sum(ε_d[t].^2 for t = 1:T)/(T - K_d) * (X_dd' * X_dd)^(-1)
-    # xhat
-    Xhat = ZZ_s * inv(ZZ_s' * ZZ_s) * ZZ_s' * XX_s
+    X_s_with_composite_Qz = hcat(X_s[:,1:(K_s - 1)], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, Q[t], w[t], r[t], Q[t](α_hat[2] .+ α_hat[3] .* z[t]) # 2nd stage X
+    Z_s_with_composite_z = hcat(X_s[:,1], X_s[:,3:(K_s - 1)], Z_d[:,5], (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, w[t], r[t], y[t], (α_hat[2] .+ α_hat[3] .* z[t]) # 1st stage IV
+    # X_s_hat
+    X_s_hat = Z_s_with_composite_z * inv(Z_s_with_composite_z' * Z_s_with_composite_z) * Z_s_with_composite_z' * X_s_with_composite_Qz
     # vcov
-    variacne_supply = inv(Xhat' * Xhat) * (sum(ε_s[t].^2 for t = 1:T)/(T - (K_s + 1)))
-    #@show variacne_supply = inv(ZZ_s' * X_s) * ZZ_s' * (sum(ε_s[t].^2 for t = 1:T)/(T - (K_s + 1))) * ZZ_s * inv(ZZ_s' * X_s)
+    @show ε_d
+    @show X_d_hat
+    @show α_hat
+    @show sum(ε_d[t].^2 for t = 1:T)/(T - K_d)
+    @show variance_demand = inv(X_d_hat' * X_d_hat) * sum(ε_d[t].^2 for t = 1:T)/(T - K_d)
+    variacne_supply = inv(X_s_hat' * X_s_hat) * (sum(ε_s[t].^2 for t = 1:T)/(T - K_s))
+    #@show variacne_supply = inv(Z_s_with_composite_z' * X_s) * Z_s_with_composite_z' * (sum(ε_s[t].^2 for t = 1:T)/(T - K_s)) * Z_s_with_composite_z * inv(Z_s_with_composite_z' * X_s)
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
     se_supply = sqrt.(diag(variacne_supply))
@@ -132,7 +135,7 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     """
 
     L = size(Z, 2)
-    K_s = size(X_s, 2)-1
+    K_s = size(X_s, 2)
     K_d = size(X_d, 2)
 
 
@@ -158,14 +161,14 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
     #set_silent(model)
-    @variable(model, β[k = 1:K_d+K_s], start = start_β[k])
+    @variable(model, β[k = 1:K_d+(K_s - 1)], start = start_β[k])
     @variable(model, θ, start = start_θ)
 
 
     r = Any[];
     for t =1:T
         push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t-1,k] for k = 1:K_d) ))
-        push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+K_s) - θ * (β[2] + β[3] * X[2*t, end]) * X[2*t, K_d+2] ))
+        push!(r, @NLexpression(model, P[t] - sum(β[k] * X[2*t,k] for k = K_d+1:K_d+(K_s - 1)) - θ * (β[2] + β[3] * X[2*t, end]) * X[2*t, K_d+2] ))
     end
 
     g = Any[];
@@ -182,12 +185,12 @@ function GMM_estimation_linear_simultaneous(T, P, Z, X, X_s, X_d, Ω, α_0, α_1
 
     
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:(K_s - 1)) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
+    X_s = hcat(X_s[:,1:(K_s - 1)], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     variance_demand = sum(ε_d[t].^2 for t = 1:T)/(T - K_d) * (X_d' * X_d)^(-1)
-    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - (K_s+1) ) * (X_s' * X_s)^(-1)
+    variacne_supply = sum(ε_s[t].^2 for t = 1:T)/(T - K_s ) * (X_s' * X_s)^(-1)
 
     #extract dianogal elements
     se_demand = sqrt.(diag(variance_demand))
@@ -202,12 +205,12 @@ end
 function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
 
     K_d = size(X_d, 2)
-    K_s = size(X_s, 2) - 1
+    K_s = size(X_s, 2) 
 
     #X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:(K_s - 1)) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
     ε = hcat(ε_d, ε_s)  # T × 2 mateix 
 
