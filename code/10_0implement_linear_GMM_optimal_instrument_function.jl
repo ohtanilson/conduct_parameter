@@ -48,50 +48,45 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     The supply parameters and the conduct parameter are estimated by the GMM.
     """
 
-    # first stage
-    QZ_hat = Z_d * inv(Z_d' * Z_d) * Z_d' * (Z_d[:,2] .* (-X_d[:,2]))
-    Q_hat = Z_d * inv(Z_d' * Z_d) * Z_d' *  (-X_d[:,2])
-    # second stage
-    X_d_hat = hcat(ones(T), -Q_hat, -QZ_hat, X_d[:,end]) 
 
-    α_hat = inv(X_d_hat' * X_d_hat) * (X_d_hat' * P)
+    # Demand parameter estimation by 2SLS
+    projection_Z_d = Z_d * inv(Z_d' * Z_d) * Z_d'
+    α_hat = inv(X_d' * projection_Z_d * projection_Z_d * X_d) * X_d' * projection_Z_d * P
 
     L_s = size(Z_s,2)
+    K_d = size(X_d,2)
     K_s = size(X_s,2) 
-    K_d = size(X_d_hat,2)
-    
+
     if tol_level == :tight
-        tol = 1e-15
+        tol            = 1e-15
         acceptable_tol = 1e-12
     elseif tol_level == :loose
-        tol = 1e-6
+        tol            = 1e-6
         acceptable_tol = 1e-5
     end
 
-
     start_γ = zeros(4)
     start_θ = 0
+
     if starting_value == :true_value
         start_θ = θ_0
         start_γ = [γ_0, γ_1, γ_2, γ_3]
-
     elseif starting_value == :random
-        start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), 4)
+        start_γ = [γ_0, γ_1, γ_2, γ_3] .+ rand(Uniform(-10, 10), K_s)
         start_θ = θ_0 + rand(Uniform(-10, 10))
-
     end
     
     model = Model(Ipopt.Optimizer)
     set_optimizer_attribute(model, "tol", tol)
     set_optimizer_attribute(model, "max_iter", 1000)
     set_optimizer_attribute(model, "acceptable_tol", acceptable_tol)
-    #set_silent(model)
-    @variable(model, γ[k = 1:(K_s - 1)], start = start_γ[k])
+    set_silent(model)
+    @variable(model, γ[k = 1:K_s], start = start_γ[k])
     @variable(model, θ , start = start_θ)
 
     r = Any[];
     for t =1:T
-        push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:(K_s - 1)) - θ *(α_hat[2] + α_hat[3] * X_s[t, end]) * X_s[t, 2] )      )
+        push!(r, JuMP.@NLexpression(model, P[t]- sum(γ[k] * X_s[t,k] for k = 1:K_s) - θ *(α_hat[2] + α_hat[3] * Z_s[t, end]) * X_s[t, 2] )      )
     end
 
     g = Any[];
@@ -105,24 +100,22 @@ function GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω, γ_0, γ_1
     γ_hat = JuMP.value.(γ)
     θ_hat = JuMP.value.(θ)
 
-    ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:(K_s - 1)) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
 
-    X_s_with_composite_Qz = hcat(X_s[:,1:(K_s - 1)], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, Q[t], w[t], r[t], Q[t](α_hat[2] .+ α_hat[3] .* z[t]) # 2nd stage X
-    Z_s_with_composite_z = hcat(X_s[:,1], X_s[:,3:(K_s - 1)], Z_d[:,5], (α_hat[2] .+ α_hat[3] .* X_s[:,end])) #1, w[t], r[t], y[t], (α_hat[2] .+ α_hat[3] .* z[t]) # 1st stage IV
-    # X_s_hat
-    X_s_hat = Z_s_with_composite_z * inv(Z_s_with_composite_z' * Z_s_with_composite_z) * Z_s_with_composite_z' * X_s_with_composite_Qz
-    # vcov
-    @show ε_d
-    @show X_d_hat
-    @show α_hat
-    @show sum(ε_d[t].^2 for t = 1:T)/(T - K_d)
-    @show variance_demand = inv(X_d_hat' * X_d_hat) * sum(ε_d[t].^2 for t = 1:T)/(T - K_d)
-    variacne_supply = inv(X_s_hat' * X_s_hat) * (sum(ε_s[t].^2 for t = 1:T)/(T - K_s))
-    #@show variacne_supply = inv(Z_s_with_composite_z' * X_s) * Z_s_with_composite_z' * (sum(ε_s[t].^2 for t = 1:T)/(T - K_s)) * Z_s_with_composite_z * inv(Z_s_with_composite_z' * X_s)
-    #extract dianogal elements
-    se_demand = sqrt.(diag(variance_demand))
-    se_supply = sqrt.(diag(variacne_supply))
+    X_s_with_composite_Qz = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .* Z_s[:,end])) #1, Q[t], w[t], r[t], Q[t](α_hat[2] .+ α_hat[3] .* z[t])
+    Z_s_with_composite_z  = hcat(Z_s[:,1:end-1], (α_hat[2] .+ α_hat[3] .*Z_s[:,end])) #1, w[t], r[t], y[t], (α_hat[2] .+ α_hat[3] .* z[t])
+
+    projection_Z_s = Z_s_with_composite_z * inv(Z_s_with_composite_z' * Z_s_with_composite_z) * Z_s_with_composite_z'
+
+    X_d_projection_Z_d = projection_Z_d * X_d
+    X_s_projection_Z_s = projection_Z_s * X_s_with_composite_Qz
+
+    variance_demand = inv(X_d_projection_Z_d' * X_d_projection_Z_d) * sum(ε_d[t].^2 for t = 1:T)/(T - K_d)
+    variance_supply = inv(X_s_projection_Z_s' * X_s_projection_Z_s) * sum(ε_s[t].^2 for t = 1:T)/(T - (K_s+1))
+    
+    @show se_demand = sqrt.(diag(variance_demand))
+    @show se_supply = sqrt.(diag(variance_supply))
 
     return α_hat, γ_hat, θ_hat, se_demand, se_supply, termination_status_code(JuMP.termination_status(model))
 end
@@ -210,17 +203,15 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
     #X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
-    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:(K_s - 1)) .- θ_hat * (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* X_s[:, 2]
+    ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* Z_s[:,end]) .* X_s[:, 2]
 
     ε = hcat(ε_d, ε_s)  # T × 2 mateix 
 
-
     Ω_estimate = inv(ε' * ε)/T
 
-
-    Q_bar = Q_fitted_on_Z
-    Q_bar_Z = X_s[:,end] .* Q_bar
-    Q_bar_α_Z = (α_hat[2] .+ α_hat[3] .* X_s[:,end]) .* Q_bar
+    Q_bar     = Q_fitted_on_Z
+    Q_bar_Z   = X_s[:,end] .* Q_bar
+    Q_bar_α_Z = (α_hat[2] .+ α_hat[3] .* Z_s[:,end]) .* Q_bar
 
     Z_optimal = []
 
@@ -266,17 +257,19 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
     γ_2 = simulation_setting.γ_2
     γ_3 = simulation_setting.γ_3
     θ_0 = simulation_setting.θ_0
+    
     start_θ = simulation_setting.start_θ
     start_γ = simulation_setting.start_γ
-    T = simulation_setting.T
+    
+    T    = simulation_setting.T
     data = simulation_setting.data
+
     estimation_method = simulation_setting.estimation_method
-    starting_value = simulation_setting.starting_value
-    tol_level = simulation_setting.tol_level
+    starting_value    = simulation_setting.starting_value
+    tol_level         = simulation_setting.tol_level
     simulation_index  = simulation_setting.simulation_index
 
     data_s = data[(simulation_index-1)*T+1:simulation_index*T,:]
-
 
     Q  = data_s.Q
     w  = data_s.w
@@ -284,14 +277,12 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
     p  = data_s.P
     y  = data_s.y
 
-    z  = data_s.z
+    z    = data_s.z
     iv_w = data_s.iv_w
     iv_r = data_s.iv_r
 
     q_fitted_on_Z = data_s.fitted_values_of_quantity_on_z
     
-    iv = hcat(iv_w, iv_r)
-
     X_d = []
     X_s = []
     X   = []
@@ -303,13 +294,13 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
 
     for t = 1:T
 
-        Z_dt = vcat(1, z[t], iv[t,:], y[t])
-        Z_st = vcat(1, z[t], w[t], r[t], y[t])
-        Z_t = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
-
-        X_dt = vcat(1, -Q[t], -z[t].*Q[t], y[t])
-        X_st = vcat(1, Q[t], w[t], r[t], z[t])
+        X_dt = vcat(1, -Q[t], y[t],-z[t].*Q[t])
+        X_st = vcat(1, Q[t], w[t], r[t])
         X_t  = [X_dt zeros(length(X_dt));  zeros(length(X_st)) X_st]'
+
+        Z_dt = vcat(1, iv_w[t], iv_r[t], y[t], z[t])
+        Z_st = vcat(1, w[t], r[t], y[t], z[t])
+        Z_t  = [Z_dt zeros(length(Z_dt));  zeros(length(Z_st)) Z_st]'
 
         push!(P, p[t])
         push!(X_d, X_dt')
@@ -336,8 +327,8 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
 
         α_hat, γ_hat, θ_hat, se_demand, se_supply, status= GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω_initial, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
 
-        Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
-        Ω_optimal = inv(Z_optimal' * Z_optimal)/T
+        #Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
+        #Ω_optimal = inv(Z_optimal' * Z_optimal)/T
     
         #α_optimal, γ_optimal, θ_optimal, se_demand, se_supply, status= GMM_estimation_linear_separate(T, P, X_s, X_d, Z_d, Z_s, Ω_optimal, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
 
@@ -369,12 +360,12 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
 
     @unpack α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, T, S, σ = parameter
 
-    α_est  = Vector{Float64}[]
-    γ_est  = Vector{Union{Missing, Float64}}[]
-    θ_est  = Union{Missing, Float64}[]
+    α_est     = Vector{Float64}[]
+    γ_est     = Vector{Union{Missing, Float64}}[]
+    θ_est     = Union{Missing, Float64}[]
     se_demand = Vector{Union{Missing, Float64}}[]
     se_supply = Vector{Union{Missing, Float64}}[]
-    status = Union{Missing, Int64}[]
+    status    = Union{Missing, Int64}[]
 
     simulation_setting = [SIMULATION_SETTING(α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, T, σ, data, estimation_method, starting_value, tol_level,simulation_index) for simulation_index = 1:S]
 
@@ -389,12 +380,12 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
         push!(status,simulation_mpec_result[s][6])
     end 
 
-    α_est = reduce(vcat, α_est')
-    γ_est = reduce(vcat, γ_est')
-    θ_est = reduce(vcat, θ_est')
+    α_est     = reduce(vcat, α_est')
+    γ_est     = reduce(vcat, γ_est')
+    θ_est     = reduce(vcat, θ_est')
     se_demand = reduce(vcat, se_demand')
     se_supply = reduce(vcat, se_supply')
-    status = reduce(vcat, status)
+    status    = reduce(vcat, status)
 
     status_indicator = []
 
@@ -411,17 +402,18 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
     end
 
     estimation_result = DataFrame(
-    T = T,
-    σ = σ,
-    α_0 = α_est[:,1],
-    α_1 = α_est[:,2],
-    α_2 = α_est[:,3],
-    α_3 = α_est[:,4],
-    γ_0 = γ_est[:,1],
-    γ_1 = γ_est[:,2],
-    γ_2 = γ_est[:,3],
-    γ_3 = γ_est[:,4],
-    θ = θ_est,
+    T    = T,
+    σ    = σ,
+    α_0  = α_est[:,1],
+    α_1  = α_est[:,2],
+    α_2  = α_est[:,3],
+    α_3  = α_est[:,4],
+    γ_0  = γ_est[:,1],
+    γ_1  = γ_est[:,2],
+    γ_2  = γ_est[:,3],
+    γ_3  = γ_est[:,4],
+    θ    = θ_est,
+    
     se_α_0 = se_demand[:,1],
     se_α_1 = se_demand[:,2],
     se_α_2 = se_demand[:,3],
@@ -430,8 +422,9 @@ function simulation_GMM_optimal_instrument(parameter, data, estimation_method::S
     se_γ_1 = se_supply[:,2],
     se_γ_2 = se_supply[:,3],
     se_γ_3 = se_supply[:,4],
-    se_θ = se_supply[:,5],
-    status = status,
+    se_θ   = se_supply[:,5],
+    
+    status           = status,
     status_indicator = status_indicator)
 
     return estimation_result

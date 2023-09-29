@@ -12,7 +12,7 @@ Distributed.@everywhere include("../code/10_0implement_linear_GMM_optimal_instru
 estimation_methods = [
     #(:linear,:theta_constraint, :slope_constraint, :equilibrium_constraint), 
     :linear_optimal_separate,
-    :linear_optimal_simultaneous
+    #:linear_optimal_simultaneous
     ]
 starting_value = :true_value
 tol_level = :loose
@@ -20,6 +20,7 @@ tol_level = :loose
 ## Estimate the parameters for each number of markets and the value of the standard deviation of the error terms
 @time for estimation_method = estimation_methods
     for t = [50, 100, 200, 1000, 2000, 5000, 10000], sigma =  [1], theta = Union{Float64, Int64}[0.05, 0.1, 0.2, 0.33, 0.5, 1], alpha2 = Union{Float64, Int64}[0.1, 0.5, 1, 5, 20]
+    #for t = [50], sigma =  [1], theta = Union{Float64, Int64}[0.05], alpha2 = Union{Float64, Int64}[0.1]
         # Load the simulation data from the rds files
         filename_begin = "../conduct_parameter/output/testing_project/data_linear_linear_n_"
         filename_end   = ".rds"
