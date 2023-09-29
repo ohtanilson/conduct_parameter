@@ -97,7 +97,7 @@ for(nn in 1:length(n_observation_list)){
           )
         reject_probability <-
           #sum((temp_theta/(temp_data$sd_θ/sqrt(temp_nn))) > 1.96)/100
-          sum((temp_theta/temp_data$sd_θ) > 1.96)/100
+          sum((temp_theta/temp_data$se_θ) > 1.96)/100
         if(nn == 1 & ss == 1 & aa == 1 &tt == 1){
           data_for_plot_iv_optimal <-
             cbind(

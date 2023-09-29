@@ -93,7 +93,8 @@ estimate_demand <-
       dplyr::mutate(
         composite_z =
           (alpha1_hat + 
-               alpha2_hat * z)
+               alpha2_hat * z),
+        one = 1
       )
     return(data_with_demand_hat)
   }
@@ -103,7 +104,9 @@ estimate_demand <-
 estimate_supply <-
   function(
     target_data_with_demand_hat,
-    target_supply_formula){
+    target_supply_formula,
+    optimal_iv_indicator
+    ){
     data <-
       target_data_with_demand_hat
     res_supply <-
@@ -119,6 +122,18 @@ estimate_supply <-
     R2_supply <-
       res_supply %>% 
       purrr::map_dbl(~summary(.)$r.squared)
+    sigmahat_supply <-
+      res_supply %>% 
+      purrr::map_dbl(~summary(.)$sigma)
+    group_id_k <-
+      c(1:length(unique(data$group_id_k)))
+    sigmahat_supply <-
+      cbind(
+      group_id_k,
+      sigmahat_supply
+          ) %>% 
+      tibble::as_tibble()
+    
     res_supply <-
       res_supply %>% 
       purrr::map(summary)
@@ -140,6 +155,58 @@ estimate_supply <-
     theta_hat_t_stats <-
       res_supply %>% 
       purrr::map_dbl(~coef(.)[5,"t value"]) 
+    # second step
+    if(optimal_iv_indicator == TRUE){
+      # recompute using optimal iv
+      data_with_sigmahat <-
+        data %>% 
+        dplyr::left_join(
+          sigmahat_supply,
+          by = c("group_id_k" = "group_id_k")
+        ) %>% 
+        # construct optimal iv
+        dplyr::mutate(
+          one = one/(sigmahat_supply)^2,
+          Q = Q/(sigmahat_supply)^2,
+          w = w/(sigmahat_supply)^2,
+          r = r/(sigmahat_supply)^2,
+          y = y/(sigmahat_supply)^2
+        )
+      res_supply <-
+        data_with_sigmahat %>% 
+        split(
+          .$group_id_k
+        ) %>% 
+        purrr::map(
+          ~ AER::ivreg(
+            formula = target_supply_formula,
+            data = .x)
+        ) 
+      R2_supply <-
+        res_supply %>% 
+        purrr::map_dbl(~summary(.)$r.squared)
+      res_supply <-
+        res_supply %>% 
+        purrr::map(summary)
+      # gamma0_hat <-
+      #   res_supply %>% 
+      #   purrr::map_dbl(~coef(.)[1]) 
+      # gamma1_hat <-
+      #   res_supply %>% 
+      #   purrr::map_dbl(~coef(.)[2]) 
+      # gamma2_hat <-
+      #   res_supply %>% 
+      #   purrr::map_dbl(~coef(.)[3]) 
+      # gamma3_hat <-
+      #   res_supply %>% 
+      #   purrr::map_dbl(~coef(.)[4]) 
+      # theta_hat <-
+      #   res_supply %>% 
+      #   purrr::map_dbl(~coef(.)[5]) 
+      theta_hat_t_stats <-
+        res_supply %>% 
+        purrr::map_dbl(~coef(.)[5,"t value"]) 
+    }
     supply_hat <-
       cbind(
         gamma0_hat,
@@ -170,7 +237,8 @@ estimate_demand_and_supply <-
     target_data,
     target_demand_formula,
     target_supply_formula,
-    demand_shifter_dummy){
+    demand_shifter_dummy,
+    optimal_iv_indicator){
     ## demand ----
     data_with_demand_hat <-
       estimate_demand(
@@ -186,7 +254,9 @@ estimate_demand_and_supply <-
         target_data_with_demand_hat =
           data_with_demand_hat,
         target_supply_formula =
-          target_supply_formula)
+          target_supply_formula,
+        optimal_iv_indicator = 
+          optimal_iv_indicator)
     ## pick up estimated parameters ----
     if(demand_shifter_dummy == T){
       parameter_hat_table <-
@@ -305,7 +375,7 @@ for(nn in 1:length(n_observation_list)){
         linear_demand_formula <-
           "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
         linear_demand_linear_supply_formula <-
-          paste("P ~ composite_z:Q + Q + w + r|",
+          paste("P ~ -1 + one + composite_z:Q + Q + w + r|",
                 "composite_z + w + r + y")
         parameter_hat_table <-
           estimate_demand_and_supply(
@@ -315,7 +385,8 @@ for(nn in 1:length(n_observation_list)){
               linear_demand_formula,
             target_supply_formula =
               linear_demand_linear_supply_formula,
-            demand_shifter_dummy = TRUE
+            demand_shifter_dummy = TRUE,
+            optimal_iv_indicator = FALSE
             )
         # save 
         saveRDS(
@@ -384,7 +455,7 @@ for(nn in 1:length(n_observation_list)){
         linear_demand_formula <-
           "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
         linear_demand_linear_supply_formula <-
-          paste("P ~ composite_z:Q + Q + w + r|",
+          paste("P ~ -1 + one + composite_z:Q + Q + w + r|",
                 # iv benchmark
                 "composite_z + w + r + y",
                 # iv polynomial 
@@ -400,7 +471,8 @@ for(nn in 1:length(n_observation_list)){
               linear_demand_formula,
             target_supply_formula =
               linear_demand_linear_supply_formula,
-            demand_shifter_dummy = TRUE
+            demand_shifter_dummy = TRUE,
+            optimal_iv_indicator = FALSE
           )
         # save 
         saveRDS(
@@ -422,6 +494,87 @@ modelsummary::datasummary_skim(
   fmt = 3,
   parameter_hat_table
 )
+
+#### optimal instrument (= feasible )----
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    for(aa in 1:length(alpha2_list)){
+      for(tt in 1:length(theta_list)){
+        temp_nn <-
+          n_observation_list[nn]
+        temp_sigma <-
+          sigma_list[ss]
+        temp_theta <-
+          theta_list[tt]
+        temp_alpha2 <-
+          alpha2_list[aa]
+        filename <-
+          paste(
+            "data_linear_linear_",
+            "n_",
+            temp_nn,
+            "_theta_",
+            temp_theta,
+            "_alpha2_",
+            temp_alpha2,
+            "_sigma_",
+            temp_sigma,
+            sep = ""
+          )
+        cat(filename,"\n")
+        # load 
+        target_data <-
+          readRDS(
+            file = 
+              here::here(
+                paste(
+                  "output/testing_project/",
+                  filename,
+                  ".rds",
+                  sep = ""
+                )
+              )
+          )
+        # assign(filename,
+        #        temp_data)
+        # estimate 
+        linear_demand_formula <-
+          "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
+        linear_demand_linear_supply_formula <-
+          paste("P ~ -1 + one + composite_z:Q + Q + w + r|",
+                "composite_z + w + r + y")
+        parameter_hat_table <-
+          estimate_demand_and_supply(
+            target_data =
+              target_data,
+            target_demand_formula = 
+              linear_demand_formula,
+            target_supply_formula =
+              linear_demand_linear_supply_formula,
+            demand_shifter_dummy = TRUE,
+            optimal_iv_indicator = TRUE
+          )
+        # save 
+        saveRDS(
+          parameter_hat_table,
+          file = 
+            paste(
+              "output/testing_project/",
+              "parameter_hat_table_iv_optimal_",
+              filename,
+              ".rds",
+              sep = ""
+            )
+        )
+      }
+    }
+  }
+}
+modelsummary::datasummary_skim(
+  fmt = 3,
+  parameter_hat_table
+)
+
 
 
 # check standard error difference between julia and R ----
@@ -493,7 +646,67 @@ res_demand <-
   ) 
 summary(res_demand[[100]])
 vcov(res_demand[[100]])
-
+sum(res_demand[[100]]$residuals^2)/(50-4)
+Xd <-
+  as.matrix(
+    cbind(rep(1, 50),
+          data_with_demand_hat %>% 
+            dplyr::filter(group_id_k == 100) %>%
+            dplyr::mutate(Qz = z*Q) %>% 
+            dplyr::select(Q,Qz,y)
+    )
+  )
+P <-
+  as.matrix(
+    data_with_demand_hat %>% 
+      dplyr::filter(group_id_k == 100) %>%
+      dplyr::select(P)
+  )
+Q <-
+  as.matrix(
+    data_with_demand_hat %>% 
+      dplyr::filter(group_id_k == 100) %>%
+      dplyr::select(Q)
+  )
+Qz <-
+  as.matrix(
+    data_with_demand_hat %>% 
+      dplyr::filter(group_id_k == 100) %>%
+      dplyr::mutate(Qz = z*Q) %>% 
+      dplyr::select(Qz)
+  )
+Zd <-
+  as.matrix(
+    cbind(rep(1, 50),
+          data_with_demand_hat %>% 
+            dplyr::filter(group_id_k == 100) %>%
+            dplyr::select(y, z, iv_w, iv_r)
+    )
+  )
+Qhat <-
+  Zd %*% 
+  solve(crossprod(Zd, Zd)) %*%
+  crossprod(Zd, Q)
+Qzhat <-
+  Zd %*% 
+  solve(crossprod(Zd, Zd)) %*%
+  crossprod(Zd, Qz)
+Xdhat <-
+  as.matrix(
+    cbind(rep(1, 50),
+          Qhat,
+          Qzhat,
+          data_with_demand_hat %>% 
+            dplyr::filter(group_id_k == 100) %>%
+            dplyr::select(y)
+    )
+  )
+alphahat <-
+  solve(t(Xdhat) %*% Xdhat) %*% (t(Xdhat) %*% P)
+residual_d <-
+   P - Xdhat %*% alphahat
+P - Xd %*% alphahat ==
+  res_demand[[100]]$residuals
 ## supply ----
 # data_with_demand_hat_and_supply_hat <-
 #   estimate_supply(
