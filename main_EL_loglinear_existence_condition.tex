@@ -49,8 +49,8 @@
 
 \maketitle
 \begin{abstract}
-    We propose a constrained generalized method of moments estimator (GMM) incorporating theoretical conditions for the unique existence of equilibrium prices for estimating conduct parameters in a log-linear model in homogeneous goods markets. 
-    First, we derive the conditions.
+    We propose a constrained generalized method of moments estimator (GMM) incorporating theoretical conditions for the unique existence of equilibrium prices for estimating conduct parameters in a log-linear model with homogeneous goods markets. 
+    First, we derive such conditions.
     Second, Monte Carlo simulations confirm that in a log-linear model, incorporating the conditions resolves the problems of implausibly low or negative values of conduct parameters.
 \end{abstract}
 
@@ -208,8 +208,8 @@ First, as reported in the literature \citep{merel2009measuring,okazaki2022excess
 This is because the algorithm searches the area in which no equilibrium price and quantity exist and then finds unreasonable local optima that might have a lower objective function than at the true values.
 Second, N2SLS with constraints converges to the reasonable values. 
 As the sample size increases, the bias and root-mean-square error (RMSE) decrease to levels comparable to linear models.
-Ad hoc improvement is possible by just defining \eqref{eq:log_linear_marginal_cost} and \eqref{eq:log_linear_supply_equation_direct} as constraints. 
-The bias and RMSE of conduct parameter $\theta$ are reduced to 0.014 and 0.217, although the results do not dominate the results without the improvement for all parameters.
+Third, we find an ad hoc method that uses Equation \eqref{eq:log_linear_marginal_cost} to compute the residual in the supply estimation, $\varepsilon_{t}^c$, and Equation \eqref{eq:log_linear_supply_equation_direct} as an equality constraint with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}. 
+Then, the bias and RMSE of conduct parameter $\theta$ are reduced to 0.014 and 0.217 in Panel (c), although the results do not dominate the results in Panel (b) for all parameters.
 Therefore, incorporating equilibrium existence and uniqueness conditions simply is helpful for conduct parameter estimation in nonlinear models such as a log-linear model.
 See online appendix \ref{sec:additional_experiments} for additional experiments under different variances of errors and the results of a linear model. 
 
@@ -219,7 +219,7 @@ See online appendix \ref{sec:additional_experiments} for additional experiments 
       \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
       \subfloat[N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
     \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}, defining \eqref{eq:log_linear_marginal_cost} and \eqref{eq:log_linear_supply_equation_direct} as constraints]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}
+    \subfloat[Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}
   \end{center}
   \footnotesize
   Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
@@ -544,7 +544,8 @@ As a summary, the main findings in the main text are robust.
 In Tables \ref{tb:linear_linear_sigma_1} and  \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}, we illustrate that N2SLS with Constraints \eqref{eq:conduct_constraint} works for the linear model as in \cite{matsumura2023resolving}. 
 This means that incorporating the conditions is innocuous for the linear model.
 
-Additional ad hoc improvement is possible by just defining \eqref{eq:log_linear_marginal_cost} and \eqref{eq:log_linear_supply_equation_direct} as constraints. Table \ref{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} shows that the estimation of the conduct parameter $\theta$ improves, that is, the bias is 0.014 and RMSE is 0.217. 
+Additional ad hoc improvement is possible by using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}. 
+Table \ref{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} shows that the estimation of the conduct parameter $\theta$ improves, that is, the bias is 0.014 and RMSE is 0.217. 
 However, the results with ad hoc improvement do not dominate the results without the improvement for all parameters.
 
 \begin{landscape}{
@@ -578,7 +579,7 @@ However, the results with ad hoc improvement do not dominate the results without
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Additional improvement}
+      \caption{Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}}
       \label{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} 
       \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
       \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
