@@ -163,15 +163,21 @@ estimate_supply <-
         dplyr::left_join(
           sigmahat_supply,
           by = c("group_id_k" = "group_id_k")
-        ) %>% 
+        ) #%>% 
         # construct optimal iv
-        dplyr::mutate(
-          one = one/(sigmahat_supply)^2,
-          Q = Q/(sigmahat_supply)^2,
-          w = w/(sigmahat_supply)^2,
-          r = r/(sigmahat_supply)^2,
-          y = y/(sigmahat_supply)^2
-        )
+        # dplyr::mutate(
+        #   one = one,
+        #   Q_optimal = Q/(sigmahat_supply)^2,
+        #   w_optimal = w/(sigmahat_supply)^2,
+        #   r_optimal = r/(sigmahat_supply)^2,
+        #   y_optimal = y/(sigmahat_supply)^2
+        # )
+      target_supply_formula_optimal <-
+        paste(
+          "P ~ -1 + one + composite_z:Q + Q + w + r|",
+          "composite_z + fitted_values_of_quantity_on_z + w + r + y"
+          )
+      
       res_supply <-
         data_with_sigmahat %>% 
         split(
@@ -179,7 +185,7 @@ estimate_supply <-
         ) %>% 
         purrr::map(
           ~ AER::ivreg(
-            formula = target_supply_formula,
+            formula = target_supply_formula_optimal,
             data = .x)
         ) 
       R2_supply <-
@@ -188,21 +194,21 @@ estimate_supply <-
       res_supply <-
         res_supply %>% 
         purrr::map(summary)
-      # gamma0_hat <-
-      #   res_supply %>% 
-      #   purrr::map_dbl(~coef(.)[1]) 
-      # gamma1_hat <-
-      #   res_supply %>% 
-      #   purrr::map_dbl(~coef(.)[2]) 
-      # gamma2_hat <-
-      #   res_supply %>% 
-      #   purrr::map_dbl(~coef(.)[3]) 
-      # gamma3_hat <-
-      #   res_supply %>% 
-      #   purrr::map_dbl(~coef(.)[4]) 
-      # theta_hat <-
-      #   res_supply %>% 
-      #   purrr::map_dbl(~coef(.)[5]) 
+      gamma0_hat <-
+        res_supply %>%
+        purrr::map_dbl(~coef(.)[1])
+      gamma1_hat <-
+        res_supply %>%
+        purrr::map_dbl(~coef(.)[2])
+      gamma2_hat <-
+        res_supply %>%
+        purrr::map_dbl(~coef(.)[3])
+      gamma3_hat <-
+        res_supply %>%
+        purrr::map_dbl(~coef(.)[4])
+      theta_hat <-
+        res_supply %>%
+        purrr::map_dbl(~coef(.)[5])
       theta_hat_t_stats <-
         res_supply %>% 
         purrr::map_dbl(~coef(.)[5,"t value"]) 
@@ -623,7 +629,7 @@ target_data <-
 linear_demand_formula <-
   "P ~ Q + Q:z + y|y + z + iv_w + iv_r"
 linear_demand_linear_supply_formula <-
-  paste("P ~ composite_z:Q + Q + w + r|",
+  paste("P ~ -1 + one + composite_z:Q + Q + w + r|",
         "composite_z + w + r + y")
 ## demand ----
 data_with_demand_hat <-
@@ -725,8 +731,69 @@ res_supply <-
       formula = linear_demand_linear_supply_formula,
       data = .x)
   ) 
-cat(filename,"\n")
-summary(res_supply[[100]])
+sigmahat_supply <-
+  res_supply %>% 
+  purrr::map_dbl(~summary(.)$sigma)
+group_id_k <-
+  c(1:length(unique(data_with_demand_hat$group_id_k)))
+sigmahat_supply <-
+  cbind(
+    group_id_k,
+    sigmahat_supply
+  ) %>% 
+  tibble::as_tibble()
+# recompute using optimal iv
+linear_demand_linear_supply_formula_optimal <-
+  paste("P ~ -1 + one + composite_z:fitted_values_of_quantity_on_z + fitted_values_of_quantity_on_z + w + r|",
+        "composite_z:fitted_values_of_quantity_on_z + fitted_values_of_quantity_on_z + w + r + y")
+data_with_sigmahat <-
+  data_with_demand_hat %>% 
+  dplyr::left_join(
+    sigmahat_supply,
+    by = c("group_id_k" = "group_id_k")
+  ) %>% 
+  # construct optimal iv
+  dplyr::mutate(
+    one = one,
+    Q_optimal = Q/(sigmahat_supply)^2,
+    w_optimal = w/(sigmahat_supply)^2,
+    r_optimal = r/(sigmahat_supply)^2,
+    y_optimal = y/(sigmahat_supply)^2
+  )
+res_supply_optimal <-
+  data_with_sigmahat %>% 
+  split(
+    .$group_id_k
+  ) %>% 
+  purrr::map(
+    ~ AER::ivreg(
+      formula = linear_demand_linear_supply_formula_optimal,
+      data = .x)
+  ) 
+
+# res_supply <-
+#   res_supply %>% 
+#   purrr::map(summary)
+# gamma0_hat <-
+#   res_supply %>% 
+#   purrr::map_dbl(~coef(.)[1]) 
+# gamma1_hat <-
+#   res_supply %>% 
+#   purrr::map_dbl(~coef(.)[2]) 
+# gamma2_hat <-
+#   res_supply %>% 
+#   purrr::map_dbl(~coef(.)[3]) 
+# gamma3_hat <-
+#   res_supply %>% 
+#   purrr::map_dbl(~coef(.)[4]) 
+# theta_hat <-
+#   res_supply %>% 
+#   purrr::map_dbl(~coef(.)[5]) 
+# theta_hat_t_stats <-
+#   res_supply_optimal %>% 
+#   purrr::map_dbl(~coef(.)[5,"t value"]) 
+summary(res_supply_optimal[[99]])
+summary(res_supply[[99]])
 ## bread ----
 Xs <-
   as.matrix(
