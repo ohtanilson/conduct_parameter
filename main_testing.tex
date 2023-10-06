@@ -46,7 +46,7 @@
 
 \maketitle
 \begin{abstract}
-    We examine the finite sample performance of the conduct parameter test in homogeneous goods markets. The statistical power increases with (1) more markets, (2) a larger conduct parameter, and (3) a stronger demand rotation instrument. However, rejecting the null hypothesis of perfect competition remains challenging even with a moderate number of markets (e.g., 1000) and five firms, regardless of the instrument's strength. We find that empirical findings failing to reject perfect competition are caused by the small number of markets, not by methodological flaws.
+    We examine the finite sample performance of the conduct parameter test in homogeneous goods markets. The statistical power increases with (1) more markets, (2) a larger conduct parameter, and (3) a stronger demand rotation instrument. However, rejecting the null hypothesis of perfect competition remains challenging even with a moderate number of markets (e.g., 1000) and five firms, regardless of the instrument's strength and use of optimal instruments. We find that empirical findings failing to reject perfect competition are caused by the small number of markets, not by methodological flaws.
 \vspace{0.1in}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Monte Carlo simulation, Statistical power analysis
@@ -76,55 +76,52 @@ Their results raise doubts about the methodology in itself \citep{shafferMarketP
 
 
 While popular, there is a lack of formal Monte Carlo simulations for conduct parameter estimation and testing. 
-To address this, we investigate the finite sample performance in homogeneous goods markets. 
+To address this, we investigate the finite sample performance of conduct parameter test in homogeneous goods markets. 
 We analyze statistical power by varying the number of markets, firms, and the strength of demand rotation instruments, under the null hypothesis of perfect competition.
 
 Our findings reveal that statistical power increases with larger sample size (more markets), a larger conduct parameter, and stronger demand rotation instruments. 
-Notably, even with a moderate number of markets (e.g., 1000) and five firms, we cannot achieve a rejection frequency of 80\% ($1-\beta=0.8$, where $\beta$ is the probability of a Type II error), regardless of instrument strength. 
+Notably, even with a moderate number of markets (e.g., 1000) and five firms, we cannot achieve a rejection frequency of 80\% ($1-\beta=0.8$, where $\beta$ is the probability of a Type II error), regardless of instrument strength and use of optimal instruments. 
+Although optimal instruments increase rejection probability in large samples, the achieved efficiency gain does not change the main results.
 This underscores the challenge of testing perfect competition, as noted by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, because of the limited number of markets, rather than due to methodological flaws.
 
 Our results and code provide a valuable reference for applied researchers examining assumptions about firm conduct in homogeneous goods markets, whether it's perfect competition, Cournot competition, or perfect collusion.
 
 \section{Model}
-Consider data with $M$ markets with homogeneous products.
+Consider data with $T$ markets with homogeneous products.
 Assume that there are $N$ firms in each market.
-Let $m = 1,\ldots, M$ be the index for markets.
+Let $t = 1,\ldots, T$ be the index for markets.
 Then, we obtain a supply equation as follows:
 \begin{align}
-     P_m = -\theta\frac{\partial P_m(Q_{m})}{\partial Q_{m}}Q_{m} + MC_m(Q_{m}),\label{eq:supply_equation}
+     P_{t} = -\theta\frac{\partial P_{t}(Q_{t})}{\partial Q_{t}}Q_{t} + MC_{t}(Q_{t}),\label{eq:supply_equation}
 \end{align}
-where $Q_{m}$ is the aggregate quantity, $P_m(Q_{m})$ is the demand function, $MC_{m}(Q_{m})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
+where $Q_{t}$ is the aggregate quantity, $P_{t}(Q_{t})$ is the demand function, $TC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
 The equation nests perfect competition ($\theta=0$), Cournot competition ($\theta=1/N$), and perfect collusion ($\theta=1$). See \cite{bresnahan1982oligopoly}. 
 
 Consider an econometric model that integrates the above model.
 Assume that the demand and marginal cost functions are written as follows: 
 \begin{align}
-    P_m = f(Q_{m}, Y_m, \varepsilon^{d}_{m}, \alpha), \label{eq:demand}\\
-    MC_m = g(Q_{m}, W_{m}, \varepsilon^{c}_{m}, \gamma),\label{eq:marginal_cost}
+    P_{t} = f(Q_{t}, Y_{t}, \varepsilon^{d}_{t}, \alpha), \label{eq:demand}\\
+    MC_{t} = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma),\label{eq:marginal_cost}
 \end{align}
-where $Y_m$ and $W_{m}$ are vectors of exogenous variables, $\varepsilon^{d}_{m}$ and $\varepsilon^{c}_{m}$ are error terms, and $\alpha$ and $\gamma$ are vectors of parameters.
-Additionally, we have demand- and supply-side instruments, $Z^{d}_{m}$ and $Z^{c}_{m}$, and assume that the error terms satisfy the mean independence conditions, $E[\varepsilon^{d}_{m}\mid Y_m, Z^{d}_{m}] = E[\varepsilon^{c}_{m} \mid W_{m}, Z^{c}_{m}] =0$.
+where $Y_{t}$ and $W_{t}$ are vectors of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are error terms, and $\alpha$ and $\gamma$ are vectors of parameters.
+Additionally, we have demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence conditions, $E[\varepsilon^{d}_{t}\mid Y_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
 
 \subsection{Linear demand and cost}
 Assume that linear demand and marginal cost functions are specified as follows:
 \begin{align}
-    P_m &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{m})Q_{m} + \alpha_3 Y_m + \varepsilon^{d}_{m},\label{eq:linear_demand}\\
-    MC_m &= \gamma_0  + \gamma_1 Q_{m} + \gamma_2 W_{m} + \gamma_3 R_{m} + \varepsilon^{c}_{m},\label{eq:linear_marginal_cost}
+    P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_{t} + \alpha_3 Y_{t} + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
+    MC_{t} &= \gamma_0  + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t},\label{eq:linear_{t}arginal_cost}
 \end{align}
-where $W_{m}$ and $R_{m}$ are excluded cost shifters and $Z^{R}_{m}$ is Bresnahan's demand rotation instrument. 
+where $W_{t}$ and $R_{t}$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
 The supply equation is written as follows:
 \begin{align}
-    P_m 
-    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{m})+ \gamma_1] Q_{m}   + \gamma_2 W_{m} + \gamma_3 R_{m} + \varepsilon^{c}_{m}\nonumber\\ 
-    &= \gamma_0 + \theta (\alpha_1 + \alpha_2 Z^{R}_m)Q_{m} + \gamma_1 Q_{m} + \gamma_2 W_m + \gamma_3 R_{m} +\varepsilon^c_m.\label{eq:linear_supply_equation}\end{align}
-By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_m$, we obtain the aggregate quantity $Q_{m}$ based on the parameters and exogenous variables as follows:
+    P_{t} 
+    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
+    &= \gamma_0 + \theta (\alpha_1 + \alpha_2 Z^{R}_{t})Q_{t} + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} +\varepsilon^c_{t}.\label{eq:linear_supply_equation}\end{align}
+By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_{t}$, we obtain the aggregate quantity $Q_{t}$ based on the parameters and exogenous variables as follows:
 \begin{align}
-    Q_{m} =  \frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}.\label{eq:quantity_linear}
+    Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
 \end{align}
-
-\subsection{Optimal instruments}
-
-To gain efficiency, we construct optimal instruments of \cite{chamberlain1987asymptotic}, which is used in demand estimation \citep{reynaert2014improving}.
 
 
 \section{Simulation results}\label{sec:results}
@@ -134,8 +131,11 @@ To gain efficiency, we construct optimal instruments of \cite{chamberlain1987asy
 We set true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
 We vary the true value of $\theta$ from 0.05 (20-firms symmetric Cournot) to 1 (perfect collusion) and the strength of demand rotation instrument, $\alpha_2$, from 0.1 (weak) to 20.0 (extremely strong) which is unrealistically larger than the price coefficient level, $\alpha_1=1.0$.
 For simulation, we generate 100 data sets.
-We separately estimate the demand and supply equation by using two-stage least squares (2SLS) estimation.
-The instrumental variables for demand estimation are $Z^{d}_{m} = (1, Z^{R}_{m}, Y_m, H_{m}, K_{m})$ and the instrumental variables for supply estimation are $Z^{c}_{m} = (1, Z^{R}_{m}, W_{m}, R_{m}, Y_m)$. 
+We separately estimate the demand and supply equations by using two-stage least squares (2SLS) estimation.
+The instrumental variables for demand estimation are $Z^{d}_{t} = (1, Z^{R}_{t}, Y_{t}, H_{t}, K_{t})$ and the instrumental variables for supply estimation are $Z^{c}_{t} = (1, Z^{R}_{t}, W_{t}, R_{t}, Y_{t})$ for a benchmark model. 
+To achieve theoretical efficiency bounds, we add optimal instruments of \cite{chamberlain1987asymptotic}, which is used in demand estimation \citep{reynaert2014improving}. 
+Optimal instruments give rise to asymptotically efficient estimators, in the sense that their asymptotic variance cannot be reduced by using additional orthogonality conditions.
+See Appendix \ref{sec:optimal_instruments} for construction details.
 The null hypothesis is that markets are under perfect competition, that is, $\theta=0$.
 We compute the rejection
 frequency as the power by using t-statistics at a significance level of 0.05 over 100 datasets.
@@ -163,17 +163,17 @@ frequency as the power by using t-statistics at a significance level of 0.05 ove
     \begin{tabular}{crr}
             \hline
             Demand shifter&  \\
-            $Y_m$ & $N(0,1)$  \\
+            $Y_{t}$ & $N(0,1)$  \\
             Demand rotation instrument&   \\
-            $Z^{R}_{m}$ & $N(10,1)$ \\
+            $Z^{R}_{t}$ & $N(10,1)$ \\
             Cost shifter&    \\
-            $W_{m}$ & $N(3,1)$  \\
-            $R_{m}$ & $N(0,1)$   \\
-            $H_{m}$ & $W_{m}+N(0,1)$  \\
-            $K_{m}$ & $R_{m}+N(0,1)$   \\
+            $W_{t}$ & $N(3,1)$  \\
+            $R_{t}$ & $N(0,1)$   \\
+            $H_{t}$ & $W_{t}+N(0,1)$  \\
+            $K_{t}$ & $R_{t}+N(0,1)$   \\
             Error&  &  \\
-            $\varepsilon^{d}_{m}$ & $N(0,\sigma)$  \\
-            $\varepsilon^{c}_{m}$ & $N(0,\sigma)$ \\
+            $\varepsilon^{d}_{t}$ & $N(0,\sigma)$  \\
+            $\varepsilon^{c}_{t}$ & $N(0,\sigma)$ \\
             \hline
         \end{tabular}
     }
@@ -184,28 +184,32 @@ frequency as the power by using t-statistics at a significance level of 0.05 ove
 
 Figure \ref{fg:theta_hat_power} presents the results of finite sample performance for the power of conduct parameter $\theta$.\footnote{See online appendix for simulation details and additional results of all other parameters.}
 The rejection frequency increases when: (1) the sample size (number of markets) is large, (2) $\theta$ is large (number of firms is smaller), and (3) $\alpha_2$ is large (demand rotation instrument is stronger).
-Panel (f) shows that with twenty firms ($\theta=0.05$) and a sufficiently large number of markets, we achieve approximately 70\% power to reject the null hypothesis of markets being under perfect competition.
+Panel (f) shows that with symmetric twenty firms ($\theta=0.05$) and a sufficiently large number of markets, we achieve approximately 70\% power to reject the null hypothesis of markets being under perfect competition.
 However, we cannot reject the null hypothesis with acceptable sample size and power when markets are under twenty-firm symmetric Cournot competition.
 
 A remarkable finding is that even with a moderate number of markets (e.g., 1000 in Panel (c)) and five firms, the rejection frequency cannot achieve 80\% (that is, $1-\beta=0.8$ where $\beta$ is the probability of making a Type II error), regardless of the strength of instruments.
 This implies that \cite{genesove1998testing} using 97 markets, \cite{shaffer1993test} using 25 markets, and \cite{steen1999testing} using 48 markets, fail in rejecting perfect competition due to the small sample problem.
+
+Figure \ref{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000} reports the efficiency gain of optimal instruments relative to the above benchmark model. 
+We find that if the number of markets is more than 1,000, optimal instruments increase the rejection probability. 
+However, the gain does not change our benchmark results.
 
 
 \begin{figure}[!ht]
   \begin{center}
   % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
   % {figuretable/theta_hat_power_50.png}}
-  \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$T=100$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_power_100.png}}
-  \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$T=200$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_power_200.png}}
-  \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$T=1000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_power_1000.png}}\\
-  \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$T=2000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_power_2000.png}}
-  \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$T=5000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_power_5000.png}}
-  \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
+  \subfloat[$T=10000$]{\includegraphics[width = 0.32\textwidth]
   {figuretable/theta_hat_power_10000.png}}
   \caption{Statistical power of conduct parameter $\theta$}
   \label{fg:theta_hat_power}
@@ -215,12 +219,34 @@ This implies that \cite{genesove1998testing} using 97 markets, \cite{shaffer1993
 \end{figure} 
 
 
+\begin{figure}[!ht]
+  \begin{center}
+  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
+  % {figuretable/theta_hat_power_50.png}}
+  \subfloat[$T=100$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_100.png}}
+  \subfloat[$T=200$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_200.png}}
+  \subfloat[$T=1000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_1000.png}}\\
+  \subfloat[$T=2000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_2000.png}}
+  \subfloat[$T=5000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_5000.png}}
+  \subfloat[$T=10000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_optimal_relative_to_benchmark_10000.png}}
+  \caption{Relative efficiency gain of optimal instruments}
+  \label{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000}
+  \end{center}
+\end{figure} 
+
+
 
 \section{Conclusion}
 
 We perform a statistical power analysis for conduct parameter estimation. 
 The power increases with: (1) a large sample size (i.e., a large number of markets), (2) a large conduct parameter, and (3) a strong demand rotation instrument. 
-However, rejecting the null hypothesis of markets being under perfect competition remains difficult, even with a moderate number of markets (e.g., 1000) and five firms, regardless of the instrument's strength. This confirms the challenge of testing perfect competition, as observed by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, is caused by the small number of markets.
+However, rejecting the null hypothesis of markets being under perfect competition remains difficult, even with a moderate number of markets (e.g., 1000) and five firms, regardless of the instrument's strength and use of optimal instruments. This confirms the challenge of testing perfect competition, as observed by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, is caused by the small number of markets, not by methodological flaws.
 
 
 \paragraph{Acknowledgments}
@@ -243,183 +269,192 @@ We thank Jeremy Fox, Isabelle Perrigne, and Yuya Shimizu for their valuable advi
 
 \subsection{Details for our simulation settings}
 
-To generate the simulation data, for each model, we first generate the exogenous variables $Y_m, Z^{R}_{m}, W_m, R_{m}, H_m$, and $K_m$ and the error terms $\varepsilon_{m}^c$ and $\varepsilon_{m}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
-We compute the equilibrium quantity $Q_{m}$ for the linear model by \eqref{eq:quantity_linear}.
-We then compute the equilibrium price $P_m$ by substituting $Q_{m}$ and other variables into the demand function \eqref{eq:linear_demand}.
+To generate the simulation data, for each model, we first generate the exogenous variables $Y_{t}, Z^{R}_{t}, W_{t}, R_{t}, H_{t}$, and $K_{t}$ and the error terms $\varepsilon_{t}^c$ and $\varepsilon_{t}^d$ based on the data generation process in Table \ref{tb:parameter_setting}.
+We compute the equilibrium quantity $Q_{t}$ for the linear model by \eqref{eq:quantity_linear}.
+We then compute the equilibrium price $P_{t}$ by substituting $Q_{t}$ and other variables into the demand function \eqref{eq:linear_demand}.
 
 We estimate the equations using the \texttt{ivreg} package in \texttt{R}.
-An important feature of the model is that we have an interaction term of the endogenous variable $Q_{m}$ and the instrumental variable $Z^{R}_{m}$.
-The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_{m}$ and the interaction term $Z^{R}_{m}Q_{m}$, running the first stage regression for each endogenous variable with the same instruments. To confirm this, we manually write R code to implement the 2SLS model. 
-When the first stage includes only the regression of $Q_{m}$, estimation results from our code differ from the results from \texttt{ivreg}. 
-However, when we modify the code to regress $Z^{R}_{m}Q_{m}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{m}$ and $Z^{R}_{m}Q_{m}$, the result from our code and the result from \texttt{ivreg} coincide.
+An important feature of the model is that we have an interaction term of the endogenous variable $Q_{t}$ and the instrumental variable $Z^{R}_{t}$.
+The \texttt{ivreg} package automatically detects that the endogenous variables are $Q_{t}$ and the interaction term $Z^{R}_{t}Q_{t}$, running the first stage regression for each endogenous variable with the same instruments. To confirm this, we manually write R code to implement the 2SLS model. 
+When the first stage includes only the regression of $Q_{t}$, estimation results from our code differ from the results from \texttt{ivreg}. 
+However, when we modify the code to regress $Z^{R}_{t}Q_{t}$ on the instrument variables and estimate the second stage by using the predicted values of $Q_{t}$ and $Z^{R}_{t}Q_{t}$, the result from our code and the result from \texttt{ivreg} coincide.
 
-\subsubsection{GMM}
-
-
-In the first step, solve the minimization problem with a weight matrix $\Omega = (Z^\top Z)^{-1}/T$.
-Then compute the optimal instrument based on the estimation result in the first step.
-In the second step, replace the instrument variables with the optimal instrument and solve the minimization problem.
+% \subsubsection{GMM}
 
 
+% In the first step, solve the minimization problem with a weight matrix $\Omega = (Z^\top Z)^{-1}/T$.
+% Then compute the optimal instrument based on the estimation result in the first step.
+% In the second step, replace the instrument variables with the optimal instrument and solve the minimization problem.
+
+
+\subsection{Optimal instruments}\label{sec:optimal_instruments}
+We first introduce optimal instruments of a simultaneous equation model. 
+Then, we move to the supply-side estimation because the simultaneous equation model does not provide any additional efficiency gain if error terms in demand and supply equations are not correlated.
+
+We define demand and supply residuals as follows.
+\begin{align*}
+    \varepsilon^{d}_{t}(\xi) &= P_{t} - \alpha_0 + (\alpha_1 + \alpha_2Z^{R}_{t})Q_{t} - \alpha_3 Y_{t},\\
+    \varepsilon^c_{t}(\xi) &= P_{t} - \gamma_0 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})Q_{t} - \gamma_1 Q_{t} - \gamma_2 W_{t} - \gamma_3 R_{t},
+\end{align*}
+where $\xi=\left(\alpha_0, \alpha_1, \alpha_2, \alpha_3, \gamma_0, \gamma_1, \gamma_2, \gamma_3, \theta\right)$ is the $9\times 1$ parameter vector. 
+Let $Z_{t}=(Z_{t}^{d},Z_{t}^{s})$ and $\varepsilon_{t}(\xi)=(\varepsilon_{t}^{d}(\xi),\varepsilon_{t}^{s}(\xi))'$.
+We make the assumption that $\Omega=E[\varepsilon_{t}\varepsilon_{t}'|Z_{t}]$ is a constant $2\times 2$ matrix, defining the covariance structure of the demand and supply residuals.
+The optimal instrument matrix of \cite{chamberlain1987asymptotic} is the $9\times 2$ matrix $g_{t}(Z_{t})=D_{t}(Z_{t})'\Omega^{-1}$
+where the $2\times 9$ matrix $D_{t}(Z_{t})=E\left[\frac{\partial \varepsilon_{t}}{\partial \xi}| Z_{t}\right]$ is the conditional expectation of the derivative of the conditional moment restrictions with respect to parameters $\xi$. 
+
+The conditional expectation $D_{t}(Z_{t})$ is difficult to compute, so most applications have considered approximations. As in \cite{reynaert2014improving}, we consider two types of approximation. 
+The first approximation for $D_{t}(Z_{t})$ takes a second-order polynomial of $Z_{t}$ for the demand side instruments (first row of $D_{t}(Z_{t})$), i.e. cost shifters $W_{t}$ and $R_{t}$, and their squares and interactions, and $W_{t}$ and $R_{t}$ for the supply side instruments (second row of $D_{t}(Z_{t})$).
+The second approximation for $D_{t}(Z_{t})$ implements the conditional expectation written as 
+\begin{align*}
+    &D_{t}(Z_{t})\\
+    &=E\left[\frac{\partial \varepsilon_{t}}{\partial \xi}| Z_{t}\right]\\
+    &=
+    \begin{pmatrix}
+    & E\left[\frac{\partial \varepsilon_{t}^{d}(\xi)}{\partial \alpha^{\prime}} \mid Z_{t}\right] & 
+    E\left[\frac{\partial \varepsilon_{t}^{d}(\xi)}{\partial \gamma^{\prime}} \mid Z_{t}\right] & 
+    E\left[\frac{\partial \varepsilon_{t}^{d}(\xi)}{\partial \theta} \mid Z_{t}\right]\\
+    & E\left[\frac{\partial \varepsilon_{t}^{c}(\xi)}{\partial \alpha^{\prime}} \mid Z_{t}\right] & 
+    E\left[\frac{\partial \varepsilon_{t}^{c}(\xi)}{\partial \gamma^{\prime}} \mid Z_{t}\right] & 
+    E\left[\frac{\partial \varepsilon_{t}^{c}(\xi)}{\partial \theta} \mid Z_{t}\right]
+    \end{pmatrix} \\
+    &=\begin{pmatrix}
+    -1 & 
+    \overline{Q}_{t} & 
+    Z^{R} \overline{Q}_{t} & 
+    - Y_{t} &
+    0 & 0 & 0 & 0 & 0 \\
+    0 &- \theta \overline{Q}_{t} & -\theta Z^{R}_{t}\overline{Q}_{t} & 0 & 
+    -1 &
+    - \overline{Q}_{t} &
+    -W_{t} &
+    -R_{t} &
+    -(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}
+    \end{pmatrix},
+\end{align*}
+where $ \overline{Q}_{t} \equiv E[Q_{t}\mid Z_{t}]$. Following the literature, we replace $ \overline{Q}_{t}$ with the fitted values of regressions of $Q_{t}$ on the second order polynomials of $(Y_{t}, Z_{t}^{R}, W_{t}, R_{t}, H_{t}, K_{t})$ and the interactions.
+
+% \textcolor{blue}{
+% In our model, $E[Q_{t}\mid Z_{t}]$ can be explicitly obtained because $E[\varepsilon_{t}^{d}\mid Z_{t}^{R}] = E[\varepsilon_{t}^{c}\mid Z_{t}^{R}] = 0 $:
+% \begin{align*}
+%     E[Q_{t}\mid Z_{t}] &=E\left[\left.\frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}\right| Z_{t}\right] \\
+%     & = \frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1},\\
+%     E[Z^{R}_{t}Q_{t}\mid Z_{t}] &=E\left[\left. Z^{R}_{t}\frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}\right | Z_{t}\right]\\
+%     & = Z^{R}_{t}\frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1},\\
+%     E[(\alpha_1 + \alpha_2 Z^{R}_{t})Q_{t}\mid Z_{t}] &=E\left[\left. (\alpha_1 + \alpha_2 Z^{R}_{t})\frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}\right | Z_{t}\right]\\
+%     &= (\alpha_1 + \alpha_2 Z^{R}_{t})\frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.
+% \end{align*}
+% }
+When only the supply side is estimated given fixed demand parameters as in our main results, the earlier optimal instrument matrix is modified into the $5\times 1$ matrix $g_{t}(Z_{t})=D_{t}(Z_{t})'$ where 
+\begin{align*}
+    D_{t}(Z_{t}) &= \begin{pmatrix}
+     & 
+    E\left[\frac{\partial \varepsilon_{t}^{c}(\xi)}{\partial \gamma^{\prime}} \mid Z_{t}\right] & 
+    E\left[\frac{\partial \varepsilon_{t}^{c}(\xi)}{\partial \theta} \mid Z_{t}\right]
+    \end{pmatrix} \\
+    &=\begin{pmatrix}
+    -1 &
+    -\overline{Q}_{t} &
+    -W_{t} &
+    -R_{t} &
+    -(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}
+    \end{pmatrix}.
+\end{align*}
+This suggests that we add $\overline{Q}_{t}$ and $(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}$ to the benchmark instruments. To avoid duplication, we add $\overline{Q}_{t}$ to the benchmark model. We confirm that including $(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}$ reduces a statistical power.
+
+
+
+% Given this optimal instrument matrix, we estimate GMM estimator $\xi^{*}$ based on the following minimization
+% problem
+% \begin{align*}
+%     \min \varepsilon'(\xi)g(\xi)\Omega g(\xi)'\varepsilon . 
+% \end{align*}
+% In this case, $\Omega$ is replaced by the identity matrix.
+
+
+Figure \ref{fg:theta_hat_power_iv_polynomial_relative_to_benchmark} reports the relative efficiency gain of the first approximation approach. 
+The efficiency gain is ignorable.
+Figure \ref{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000} in the main text reports the relative efficiency gain of the optimal instruments. 
+The efficiency gain is significant when the number of markets is more than 1,000. 
+However, this does not change our benchmark results.
+
+
+\begin{figure}[!ht]
+  \begin{center}
+  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
+  % {figuretable/theta_hat_power_50.png}}
+  \subfloat[$T=100$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_100.png}}
+  \subfloat[$T=200$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_200.png}}
+  \subfloat[$T=1000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_1000.png}}\\
+  \subfloat[$T=2000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_2000.png}}
+  \subfloat[$T=5000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_5000.png}}
+  \subfloat[$T=10000$]{\includegraphics[width = 0.32\textwidth]
+  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_10000.png}}
+  \caption{Relative efficiency gain of the first approximation approach}
+  \label{fg:theta_hat_power_iv_polynomial_relative_to_benchmark}
+  \end{center}
+  % \footnotesize
+  % Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
+\end{figure} 
+
+
+% \subsection{Optimal IV separate}
+
+% \begin{figure}[!ht]
+%   \begin{center}
+%   % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
+%   % {figuretable/theta_hat_power_50.png}}
+%   \subfloat[$T=100$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_100.png}}
+%   \subfloat[$T=200$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_200.png}}
+%   \subfloat[$T=1000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_1000.png}}\\
+%   \subfloat[$T=2000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_2000.png}}
+%   \subfloat[$T=5000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_5000.png}}
+%   \subfloat[$T=10000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_10000.png}}
+%   \caption{Rate of statistical power of conduct parameter $\theta$: Separate}
+%   \label{fg:theta_hat_power_iv_polynomial_relative_to_benchmark}
+%   \end{center}
+%   % \footnotesize
+%   % Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
+% \end{figure} 
+
+
+% \begin{figure}[!ht]
+%   \begin{center}
+%   % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
+%   % {figuretable/theta_hat_power_50.png}}
+%   \subfloat[$T=100$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_separate_100.png}}
+%   \subfloat[$T=200$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_separate_200.png}}
+%   \subfloat[$T=1000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_separate_1000.png}}\\
+%   \subfloat[$T=2000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_separate_2000.png}}
+%   \subfloat[$T=5000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_separate_5000.png}}
+%   \subfloat[$T=10000$]{\includegraphics[width = 0.32\textwidth]
+%   {figuretable/theta_hat_power_separate_10000.png}}
+%   \caption{Statistical power of conduct parameter $\theta$: Separate}
+%   \label{fg:theta_hat_power}
+%   \end{center}
+%   \footnotesize
+%   Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
+% \end{figure} 
 
 
 \subsection{Additional results}
 Estimation results of all parameters except conduct parameter $\theta$ are shown on the author's github.
 
-\subsection{Optimal instruments}
-We define demand and supply residuals as follows.
-\begin{align*}
-    \varepsilon^{d}_{m}(\xi) &= P_m - \alpha_0 + (\alpha_1 + \alpha_2Z^{R}_{m})Q_{m} - \alpha_3 Y_m,\\
-    \varepsilon^c_m(\xi) &= P_{m} - \gamma_0 - \theta (\alpha_1 + \alpha_2 Z^{R}_m)Q_{m} - \gamma_1 Q_{m} - \gamma_2 W_m - \gamma_3 R_{m}
-\end{align*}
-where $\xi=\left(\alpha_0, \alpha_1, \alpha_2, \alpha_3, \gamma_0, \gamma_1, \gamma_2, \gamma_3, \theta\right)$ is the $9\times 1$ parameter vector. 
-Let $Z_{m}=(Z_{m}^{d},Z_{m}^{s})$ and $\varepsilon_{m}(\xi)=(\varepsilon_{m}^{d}(\xi),\varepsilon_{m}^{s}(\xi))'$.
-We make the assumption that $\Omega=E[\varepsilon_{m}\varepsilon_{m}'|Z_{m}]$ is a constant $2\times 2$ matrix, defining the covariance structure of the demand and supply residuals.
- 
-The optimal instrument matrix of \cite{chamberlain1987asymptotic} is the $9\times 2$ matrix $g_{m}(Z_{m})=D_{m}(Z_{m})'\Omega^{-1}$
-where the $2\times 9$ matrix $D_{m}(Z_{m})=E\left[\frac{\partial \varepsilon_{m}}{\partial \xi}| Z_{m}\right]$ is the conditional expectation of the derivative of the conditional moment restrictions with respect to parameters $\xi$. 
-
-The conditional expectation $D_{m}(Z_{m})$ is difficult to compute, so most applications have considered approximations. As in \cite{reynaert2014improving}, we consider two types of approximation. 
-The first approximation for $D_{m}(Z_{m})$ takes a second-order polynomial of $Z_{m}$ for the demand side instruments (first row of $D_{m}(Z_{m})$), i.e. cost shifters $W_{m}$ and $R_{m}$, and their squares and interactions, and $W_{m}$ and $R_{m}$ for the supply side instruments (second row of $D_{m}(Z_{m})$).
-The second approximation for $D_{m}(Z_{m})$ implements the conditional expectation written as 
-\begin{align*}
-    &D_{m}(Z_{m})\\
-    &=E\left[\frac{\partial \varepsilon_{m}}{\partial \xi}| Z_{m}\right]\\
-    &=
-    \begin{pmatrix}
-    & E\left[\frac{\partial \varepsilon_{m}^{d}(\xi)}{\partial \alpha^{\prime}} \mid Z_{m}\right] & 
-    E\left[\frac{\partial \varepsilon_{m}^{d}(\xi)}{\partial \gamma^{\prime}} \mid Z_{m}\right] & 
-    E\left[\frac{\partial \varepsilon_{m}^{d}(\xi)}{\partial \theta} \mid Z_{m}\right]\\
-    & E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \alpha^{\prime}} \mid Z_{m}\right] & 
-    E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \gamma^{\prime}} \mid Z_{m}\right] & 
-    E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \theta} \mid Z_{m}\right]
-    \end{pmatrix} \\
-    &=\begin{pmatrix}
-    -1 & 
-    \overline{Q}_{m} & 
-    Z^{R} \overline{Q}_{m} & 
-    - Y_{m} &
-    0 & 0 & 0 & 0 & 0 \\
-    0 &- \theta \overline{Q}_{m} & -\theta Z^{R}_{m}\overline{Q}_{m} & 0 & 
-    -1 &
-    - \overline{Q}_{m} &
-    -W_{m} &
-    -R_{m} &
-    -(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{m}
-    \end{pmatrix}
-\end{align*}
-where $ \overline{Q}_{m} \equiv E[Q_{m}\mid Z_{m}]$. Following the literature, we replace $ \overline{Q}_{m}$ with the fitted values of regressions of $Q_{m}$ on the second order polynomials of $(Y_m, Z_{m}^{R}, W_m, R_m, H_m, K_m)$ and the interactions.
-
-\textcolor{blue}{
-In our model, $E[Q_{m}\mid Z_{m}]$ can be explicitly obtained because $E[\varepsilon_{t}^{d}\mid Z_{t}^{R}] = E[\varepsilon_{t}^{c}\mid Z_{t}^{R}] = 0 $:
-\begin{align*}
-    E[Q_{m}\mid Z_{m}] &=E\left[\left.\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\right| Z_{m}\right] \\
-    & = \frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1},\\
-    E[Z^{R}_{m}Q_{m}\mid Z_{m}] &=E\left[\left. Z^{R}_{m}\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m} + \varepsilon^{d}_{m} - \varepsilon^{c}_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\right | Z_{m}\right]\\
-    & = Z^{R}_{m}\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1},\\
-    E[(\alpha_1 + \alpha_2 Z^{R}_m)Q_{m}\mid Z_{m}] &=E\left[\left. (\alpha_1 + \alpha_2 Z^{R}_m)\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}\right | Z_{m}\right]\\
-    &= (\alpha_1 + \alpha_2 Z^{R}_m)\frac{\alpha_0 + \alpha_3 Y_m - \gamma_0 - \gamma_2 W_{m} - \gamma_3 R_{m}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{m}) + \gamma_1}.
-\end{align*}
-}
-When only the supply side is estimated, the earlier optimal instrument matrix is modified into the $9\times 1$ matrix $g_{m}(Z_{m})=D_{m}(Z_{m})'$ where 
-\begin{align*}
-    D_{m}(Z_{m}) &= \begin{pmatrix}
-    & E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \alpha^{\prime}} \mid Z_{m}\right] & 
-    E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \gamma^{\prime}} \mid Z_{m}\right] & 
-    E\left[\frac{\partial \varepsilon_{m}^{c}(\xi)}{\partial \theta} \mid Z_{m}\right]
-    \end{pmatrix} \\
-    &=\begin{pmatrix}
-    0 &- \theta \overline{Q}_{m} & -\theta Z^{R}_{m}\overline{Q}_{m} & 0 & 
-    -1 &
-    \overline{Q}_{m} &
-    -W_{m} &
-    -R_{m} &
-    -(\alpha_1 + \alpha_2 Z^{R}_m)\overline{Q}_{m}
-    \end{pmatrix}
-\end{align*}
-
-Given this optimal instrument matrix, we estimate GMM estimator $\xi^{*}$ based on the following minimization
-problem
-\begin{align*}
-    \min \varepsilon'(\xi)g(\xi)\Omega g(\xi)'\varepsilon . 
-\end{align*}
-In this case, $\Omega$ is replaced by the identity matrix.
-
-
-\subsection{First approximation results}
-
-\begin{figure}[!ht]
-  \begin{center}
-  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
-  % {figuretable/theta_hat_power_50.png}}
-  \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_100.png}}
-  \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_200.png}}
-  \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_1000.png}}\\
-  \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_2000.png}}
-  \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_5000.png}}
-  \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_polynomial_relative_to_benchmark_10000.png}}
-  \caption{Rate of statistical power of conduct parameter $\theta$}
-  \label{fg:theta_hat_power_iv_polynomial_relative_to_benchmark}
-  \end{center}
-  % \footnotesize
-  % Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
-\end{figure} 
-
-
-\subsection{Optimal IV separate}
-
-\begin{figure}[!ht]
-  \begin{center}
-  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
-  % {figuretable/theta_hat_power_50.png}}
-  \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_100.png}}
-  \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_200.png}}
-  \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_1000.png}}\\
-  \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_2000.png}}
-  \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_5000.png}}
-  \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_iv_optimal_separate_relative_to_benchmark_10000.png}}
-  \caption{Rate of statistical power of conduct parameter $\theta$: Separate}
-  \label{fg:theta_hat_power_iv_polynomial_relative_to_benchmark}
-  \end{center}
-  % \footnotesize
-  % Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
-\end{figure} 
-
-
-\begin{figure}[!ht]
-  \begin{center}
-  % \subfloat[M=50]{\includegraphics[width = 0.32\textwidth]
-  % {figuretable/theta_hat_power_50.png}}
-  \subfloat[$M=100$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_separate_100.png}}
-  \subfloat[$M=200$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_separate_200.png}}
-  \subfloat[$M=1000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_separate_1000.png}}\\
-  \subfloat[$M=2000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_separate_2000.png}}
-  \subfloat[$M=5000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_separate_5000.png}}
-  \subfloat[$M=10000$]{\includegraphics[width = 0.32\textwidth]
-  {figuretable/theta_hat_power_separate_10000.png}}
-  \caption{Statistical power of conduct parameter $\theta$: Separate}
-  \label{fg:theta_hat_power}
-  \end{center}
-  \footnotesize
-  Note: Dotted lines are 80\% and 100\% rejection frequencies out of 100 simulation data.
-\end{figure} 
 
 
 \end{document}
