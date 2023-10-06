@@ -534,6 +534,18 @@ We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl
     Note: $\sigma=\{0.5, 1.0, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
 \end{table}
 
+\subsection{Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}
+
+We should interpret reasons why the estimation without equilibrium conditions converges to the negative conduct parameters, as shown in Panel (a) in Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}, although the obtained parameters cannot be interpreted as the exogenous elements determining equilibrium outcomes. 
+First, we rewrite the terms in Equation \eqref{eq:residual_supply_2sls} into $$\log(1 - \theta C_{t})-\gamma_{0}$$
+where $C_{t}=\alpha_1 + \alpha_2 Z^{R}_{t}$ is given in the demand estimation.
+If the model allows $\theta<0$, then $1 - \theta C_{t}$ can take an arbitrarily large value through log-transformation relative to $\gamma_0$. 
+For example, if $1 - \theta C_{t}=1,000,000$, then $\log(1 - \theta C_{t})=13.8$, which has a small contribution relative to $\gamma_0$ for evaluating the moment conditions.
+
+% \footnote{The expansion of $\log(1+x)$ around $x=0$ is given by: $\log(1+x) = x - (x^2)/2 + (x^3)/3 - (x^4)/4 + \cdots$. This is known as the Taylor series expansion of the natural logarithm function around $x=0$.} The second order Taylor expansion around $\theta=0$ is 
+% $$\log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t}))-\gamma_{0}\approx -\theta(\alpha_1 + \alpha_2 Z^{R}_{t}) - \frac{(-\theta(\alpha_1 + \alpha_2 Z^{R}_{t}))^2}{2}-\gamma_{0}$$
+
+
 
 
 \subsection{Additional experiments}\label{sec:additional_experiments}
