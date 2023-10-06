@@ -1537,7 +1537,7 @@ for(nn in 1:length(n_observation_list)){
   #     ) +
   ylim(0, 2.1) +
   xlab(expression(theta == 1/N)) +
-  ylab(paste("Rate of rejection frequency (approx/base)",
+  ylab(paste("Rate of rejection frequency (optimal/base)",
              #target_nn,
              sep="")) +
   guides(fill = guide_legend(title = expression(alpha[2]))) +
