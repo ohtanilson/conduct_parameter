@@ -37,7 +37,7 @@
 \DeclareMathOperator{\rank}{rank}
 
 
-\title{Finite Sample Performance of Conduct Parameter Test in Homogenous Goods Markets}
+\title{Finite Sample Performance of a Conduct Parameter Test in Homogenous Goods Markets}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
 %Declarations of interest: none %this is for Economics Letters
 }}
@@ -46,7 +46,7 @@
 
 \maketitle
 \begin{abstract}
-    We examine the finite sample performance of the conduct parameter test in homogeneous goods markets. The statistical power increases with (1) more markets, (2) a larger conduct parameter, and (3) a stronger demand rotation instrument. However, rejecting the null hypothesis of perfect competition remains challenging even with a moderate number of markets (e.g., 1000) and five firms, regardless of the instrument's strength and use of optimal instruments. We find that empirical findings failing to reject perfect competition are caused by the small number of markets, not by methodological flaws.
+    We assess the finite sample performance of the conduct parameter test in homogeneous goods markets. Statistical power rises with an increase in the number of markets, a larger conduct parameter, and a stronger demand rotation instrument. However, even with a moderate number of markets and five firms, regardless of instrument strength and the utilization of optimal instruments, rejecting the null hypothesis of perfect competition remains challenging. Our findings indicate that empirical results that fail to reject perfect competition are a consequence of the limited number of markets rather than methodological deficiencies.
 \vspace{0.1in}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Monte Carlo simulation, Statistical power analysis
@@ -59,46 +59,45 @@
 
 
 \section{Introduction}
-Measuring competitiveness is an important task in the empirical industrial organization literature.
+Measuring competitiveness is important in the empirical industrial organization literature.
 A conduct parameter is considered to be a useful measure of competitiveness. 
 However, the parameter cannot be directly measured from data because data generally lack information about marginal costs.
 Therefore, researchers endeavor to learn conduct parameters.
 
 Researchers estimate and test structural models to understand firm conduct in both homogeneous and differentiated good markets \citep{nevoIdentificationOligopolySolution1998, magnolfi2022comparison, duarte2023testing}. 
 We focus on homogenous good markets. 
-The conduct parameters are identified for the linear model by \citet{bresnahan1982oligopoly}, and \cite{matsumura2023resolving} resolve conflicts between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity} on identification problems. 
-Estimation accuracy might improve by adding equilibrium existence conditions in the log-linear model \citep{matsumura2023mpec}. 
-Conduct parameter testing is done by \cite{genesove1998testing}, who compare estimates from the sugar industry with direct measures of market power.\footnote{\cite{genesove1998testing} made mistakes on how to get predicted interaction terms of rotation demand instruments and endogenous quantity in the first stage regression. See Section A.3, \cite{matsumura2023resolving}.} 
+The conduct parameters for the linear model are identified by \citet{bresnahan1982oligopoly}, and \cite{matsumura2023resolving} resolve conflicts between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity} vis-a-vis identification problems. 
+Estimation accuracy may be improved by adding equilibrium existence conditions in the log-linear model \citep{matsumura2023mpec}. 
+Conduct parameter testing is undertaken by \cite{genesove1998testing}, who compare estimates from the sugar industry with direct measures of market power.\footnote{\cite{genesove1998testing} made mistakes on how to get predicted interaction terms of rotation demand instruments and endogenous quantity in the first stage regression. See Section A.3, \cite{matsumura2023resolving}.} 
 When market power is around 0.1 and the number of markets is less than 100, perfect competition cannot be rejected. 
-Also, \cite{steen1999testing} study 48 markets in the French salmon industry and \cite{shaffer1993test} study 25 markets in the Canadian banking industry. 
-They cannot reject the null hypothesis that markets are perfectly competitive as well. 
+\cite{steen1999testing} study 48 markets in the French salmon industry and \cite{shaffer1993test} studies 25 markets in the Canadian banking industry. 
+They also cannot reject the null hypothesis that markets are perfectly competitive. 
 Their results raise doubts about the methodology in itself \citep{shafferMarketPowerCompetition2017}.
 
 
-While popular, there is a lack of formal Monte Carlo simulations for conduct parameter estimation and testing. 
-To address this, we investigate the finite sample performance of conduct parameter test in homogeneous goods markets. 
-We analyze statistical power by varying the number of markets, firms, and the strength of demand rotation instruments, under the null hypothesis of perfect competition.
+While popular, there is a lack of formal Monte Carlo simulations for a conduct parameter test. 
+Accordingly, we investigate the finite sample performance of the conduct parameter test in homogeneous goods markets. 
+We analyze statistical power by varying the number of markets, firms, and strength of demand rotation instruments under the null hypothesis of perfect competition.
 
-Our findings reveal that statistical power increases with larger sample size (more markets), a larger conduct parameter, and stronger demand rotation instruments. 
-Notably, even with a moderate number of markets (e.g., 1000) and five firms, we cannot achieve a rejection frequency of 80\% ($1-\beta=0.8$, where $\beta$ is the probability of a Type II error), regardless of instrument strength and use of optimal instruments. 
-Although optimal instruments increase rejection probability in large samples, the achieved efficiency gain does not change the main results.
-This underscores the challenge of testing perfect competition, as noted by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, because of the limited number of markets, rather than due to methodological flaws.
+Our findings indicate that statistical power increases with more markets, a larger conduct parameter, and stronger demand rotation instruments. 
+However, even with a moderate number of markets (e.g., 1000) and five firms, we cannot achieve an 80\% rejection frequency ($1-\beta=0.8$, where $\beta$ represents the probability of a Type II error), irrespective of instrument strength and the use of optimal instruments. While optimal instruments enhance rejection probability in large samples, they do not alter the core findings. 
+This highlights the challenge of testing perfect competition, as recognized by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, primarily stemming from the limited number of markets rather than methodological flaws.
 
-Our results and code provide a valuable reference for applied researchers examining assumptions about firm conduct in homogeneous goods markets, whether it's perfect competition, Cournot competition, or perfect collusion.
+Our results and code provide a valuable reference for applied researchers examining assumptions about firm conduct in homogeneous goods markets, i.e., whether it is perfect competition, Cournot competition, or perfect collusion.
 
 \section{Model}
 Consider data with $T$ markets with homogeneous products.
 Assume that there are $N$ firms in each market.
 Let $t = 1,\ldots, T$ be the index for markets.
-Then, we obtain a supply equation as follows:
+Then, we obtain a supply equation:
 \begin{align}
      P_{t} = -\theta\frac{\partial P_{t}(Q_{t})}{\partial Q_{t}}Q_{t} + MC_{t}(Q_{t}),\label{eq:supply_equation}
 \end{align}
 where $Q_{t}$ is the aggregate quantity, $P_{t}(Q_{t})$ is the demand function, $TC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
-The equation nests perfect competition ($\theta=0$), Cournot competition ($\theta=1/N$), and perfect collusion ($\theta=1$). See \cite{bresnahan1982oligopoly}. 
+The equation nests perfect competition ($\theta=0$), Cournot competition ($\theta=1/N$), and perfect collusion ($\theta=1$) (See \cite{bresnahan1982oligopoly}). 
 
-Consider an econometric model that integrates the above model.
-Assume that the demand and marginal cost functions are written as follows: 
+Consider an econometric model that integrates the above.
+Assume that the demand and marginal cost functions are written as: 
 \begin{align}
     P_{t} = f(Q_{t}, Y_{t}, \varepsilon^{d}_{t}, \alpha), \label{eq:demand}\\
     MC_{t} = g(Q_{t}, W_{t}, \varepsilon^{c}_{t}, \gamma),\label{eq:marginal_cost}
@@ -107,13 +106,13 @@ where $Y_{t}$ and $W_{t}$ are vectors of exogenous variables, $\varepsilon^{d}_{
 Additionally, we have demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence conditions, $E[\varepsilon^{d}_{t}\mid Y_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid W_{t}, Z^{c}_{t}] =0$.
 
 \subsection{Linear demand and cost}
-Assume that linear demand and marginal cost functions are specified as follows:
+Assume that linear demand and marginal cost functions are specified as:
 \begin{align}
     P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2Z^{R}_{t})Q_{t} + \alpha_3 Y_{t} + \varepsilon^{d}_{t},\label{eq:linear_demand}\\
     MC_{t} &= \gamma_0  + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t},\label{eq:linear_{t}arginal_cost}
 \end{align}
-where $W_{t}$ and $R_{t}$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
-The supply equation is written as follows:
+where $W_{t}$ and $R_{t}$ are exogenous cost shifters and $Z^{R}_{t}$ is Bresnahan's demand rotation instrument. 
+The supply equation is written as:
 \begin{align}
     P_{t} 
     %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
@@ -129,12 +128,12 @@ By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear
 \subsection{Simulation and estimation procedure}
 
 We set true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
-We vary the true value of $\theta$ from 0.05 (20-firms symmetric Cournot) to 1 (perfect collusion) and the strength of demand rotation instrument, $\alpha_2$, from 0.1 (weak) to 20.0 (extremely strong) which is unrealistically larger than the price coefficient level, $\alpha_1=1.0$.
-For simulation, we generate 100 data sets.
-We separately estimate the demand and supply equations by using two-stage least squares (2SLS) estimation.
-The instrumental variables for demand estimation are $Z^{d}_{t} = (1, Z^{R}_{t}, Y_{t}, H_{t}, K_{t})$ and the instrumental variables for supply estimation are $Z^{c}_{t} = (1, Z^{R}_{t}, W_{t}, R_{t}, Y_{t})$ for a benchmark model. 
-To achieve theoretical efficiency bounds, we add optimal instruments of \cite{chamberlain1987asymptotic}, which is used in demand estimation \citep{reynaert2014improving}. 
-Optimal instruments give rise to asymptotically efficient estimators, in the sense that their asymptotic variance cannot be reduced by using additional orthogonality conditions.
+We vary the true value of $\theta$ from 0.05 (20-firm symmetric Cournot) to 1 (perfect collusion) and the strength of demand rotation instrument, $\alpha_2$, from 0.1 (weak) to 20.0 (extremely strong) which is unrealistically larger than the price coefficient level, $\alpha_1=1.0$.
+For simulation, we generate 100 datasets.
+We separately estimate the demand and supply equations via two-stage least squares (2SLS) estimation.
+The instrumental variables for demand estimation are $Z^{d}_{t} = (1, Z^{R}_{t}, Y_{t}, H_{t}, K_{t})$ and for supply estimation are $Z^{c}_{t} = (1, Z^{R}_{t}, W_{t}, R_{t}, Y_{t})$ for a benchmark model. 
+To achieve theoretical efficiency bounds, we add optimal instruments of \cite{chamberlain1987asymptotic}, used in demand estimation \citep{reynaert2014improving}. 
+Optimal instruments lead to asymptotically efficient estimators, as their asymptotic variance cannot be reduced via additional orthogonality conditions.
 See Appendix \ref{sec:optimal_instruments} for construction details.
 The null hypothesis is that markets are under perfect competition, that is, $\theta=0$.
 We compute the rejection
@@ -182,18 +181,24 @@ frequency as the power by using t-statistics at a significance level of 0.05 ove
     Note: $\sigma=1.0$. $N:$ Normal distribution. $U:$ Uniform distribution.
 \end{table}
 
-Figure \ref{fg:theta_hat_power} presents the results of finite sample performance for the power of conduct parameter $\theta$.\footnote{See online appendix for simulation details and additional results of all other parameters.}
-The rejection frequency increases when: (1) the sample size (number of markets) is large, (2) $\theta$ is large (number of firms is smaller), and (3) $\alpha_2$ is large (demand rotation instrument is stronger).
-Panel (f) shows that with symmetric twenty firms ($\theta=0.05$) and a sufficiently large number of markets, we achieve approximately 70\% power to reject the null hypothesis of markets being under perfect competition.
-However, we cannot reject the null hypothesis with acceptable sample size and power when markets are under twenty-firm symmetric Cournot competition.
+Figure \ref{fg:theta_hat_power} displays the finite sample performance results for the conduct parameter $\theta$.\footnote{Simulation details and additional results for all other parameters are available in the online appendix.} 
+Rejection frequency increases under the following conditions: a large sample size (number of markets), a larger $\theta$ (fewer firms), and a larger $\alpha_2$ (stronger demand rotation instrument).
+Panel (f) indicates that with 20 symmetric firms ($\theta=0.05$) and a sufficiently large number of markets, we achieve an approximately 70\% power to reject the null hypothesis of markets operating under perfect competition. 
+However, we cannot reject the null hypothesis with an acceptable sample size and power when markets follow 20-firm symmetric Cournot competition.
 
-A remarkable finding is that even with a moderate number of markets (e.g., 1000 in Panel (c)) and five firms, the rejection frequency cannot achieve 80\% (that is, $1-\beta=0.8$ where $\beta$ is the probability of making a Type II error), regardless of the strength of instruments.
-This implies that \cite{genesove1998testing} using 97 markets, \cite{shaffer1993test} using 25 markets, and \cite{steen1999testing} using 48 markets, fail in rejecting perfect competition due to the small sample problem.
+A remarkable finding is that even with a moderate number of markets (e.g., 1000 in Panel (c)) and five firms, the rejection frequency cannot achieve 80\% (i.e., $1-\beta=0.8$, where $\beta$ is the probability of making a Type II error), regardless of instrument strength.
+This implies that \cite{genesove1998testing}, using 97 markets, \cite{shaffer1993test}, using 25 markets, and \cite{steen1999testing}, using 48 markets, fail in rejecting perfect competition due to the small sample problem.
 
-Figure \ref{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000} reports the efficiency gain of optimal instruments relative to the above benchmark model. 
-We find that if the number of markets is more than 1,000, optimal instruments increase the rejection probability. 
+Figure \ref{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000} shows the efficiency gain of optimal instruments relative to the aforementioned benchmark model. 
+We find that if the number of markets exceeds 1,000, optimal instruments increase the rejection probability. 
 However, the gain does not change our benchmark results.
 
+
+Why is it statistically challenging to differentiate between perfect and Cournot competition?
+In differential product markets, as demonstrated by \citet{berry2014identification}, the variation in instrumental variables can aid in discerning firm behavior. 
+Various factors such as changes in the number of products, prices in other markets, and alterations in product characteristics, can be utilized without requiring a specific functional form.
+In contrast, homogeneous product markets exhibit limited variation only on demand rotation instruments. 
+Therefore, even when the number of firms is substantial, firm conduct tests may lack the necessary power to differentiate between perfect and Cournot competition.
 
 \begin{figure}[!ht]
   \begin{center}
@@ -244,10 +249,9 @@ However, the gain does not change our benchmark results.
 
 \section{Conclusion}
 
-We perform a statistical power analysis for conduct parameter estimation. 
-The power increases with: (1) a large sample size (i.e., a large number of markets), (2) a large conduct parameter, and (3) a strong demand rotation instrument. 
-However, rejecting the null hypothesis of markets being under perfect competition remains difficult, even with a moderate number of markets (e.g., 1000) and five firms, regardless of the instrument's strength and use of optimal instruments. This confirms the challenge of testing perfect competition, as observed by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, is caused by the small number of markets, not by methodological flaws.
-
+We perform a statistical power analysis for conduct parameter estimation. Power rises with an increase in the number of markets, a larger conduct parameter, and a stronger demand rotation instrument. 
+Nevertheless, rejecting the null hypothesis of markets operating under perfect competition remains challenging, even with a moderate number of markets (e.g., 1000) and five firms, regardless of instrument strength and the use of optimal instruments. 
+This reaffirms that the difficulty in testing perfect competition, as observed by \cite{genesove1998testing}, \cite{steen1999testing}, and \cite{shaffer1993test}, is primarily attributed to the limited number of markets, rather than methodological shortcomings.
 
 \paragraph{Acknowledgments}
 We thank Jeremy Fox, Isabelle Perrigne, and Yuya Shimizu for their valuable advice. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
@@ -288,8 +292,7 @@ However, when we modify the code to regress $Z^{R}_{t}Q_{t}$ on the instrument v
 
 
 \subsection{Optimal instruments}\label{sec:optimal_instruments}
-We first introduce optimal instruments of a simultaneous equation model. 
-Then, we move to the supply-side estimation because the simultaneous equation model does not provide any additional efficiency gain if error terms in demand and supply equations are not correlated.
+We begin by introducing optimal instruments for a simultaneous equation model. Subsequently, we move to supply-side estimation, as the simultaneous equation model does not yield any additional efficiency advantage when the error terms in the demand and supply equations are uncorrelated, as in our scenario.
 
 We define demand and supply residuals as follows.
 \begin{align*}
@@ -359,7 +362,9 @@ When only the supply side is estimated given fixed demand parameters as in our m
     -(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}
     \end{pmatrix}.
 \end{align*}
-This suggests that we add $\overline{Q}_{t}$ and $(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}$ to the benchmark instruments. To avoid duplication, we add $\overline{Q}_{t}$ to the benchmark model. We confirm that including $(\alpha_1 + \alpha_2 Z^{R}_{t})\overline{Q}_{t}$ reduces a statistical power.
+This suggests augmenting the benchmark instruments with $\overline{Q}_{t}$ and $(\alpha_1 + \alpha_2 Z^{R}{t})\overline{Q}_{t}$.
+To prevent redundancy, we add $\overline{Q}_{t}$ to the benchmark model.
+We verify that including $(\alpha_1 + \alpha_2 Z^{R}{t})\overline{Q}_{t}$ in addition to $\overline{Q}_{t}$ does not enhance statistical power.
 
 
 
@@ -373,7 +378,7 @@ This suggests that we add $\overline{Q}_{t}$ and $(\alpha_1 + \alpha_2 Z^{R}_{t}
 
 Figure \ref{fg:theta_hat_power_iv_polynomial_relative_to_benchmark} reports the relative efficiency gain of the first approximation approach. 
 The efficiency gain is ignorable.
-Figure \ref{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000} in the main text reports the relative efficiency gain of the optimal instruments. 
+Figure \ref{fg:theta_hat_power_iv_optimal_relative_to_benchmark_10000} in the main text reports the relative efficiency gain of the optimal instruments in the second approach. 
 The efficiency gain is significant when the number of markets is more than 1,000. 
 However, this does not change our benchmark results.
 
@@ -453,7 +458,9 @@ However, this does not change our benchmark results.
 
 
 \subsection{Additional results}
-Estimation results of all parameters except conduct parameter $\theta$ are shown on the author's github.
+Estimation results of all parameters except conduct parameter $\theta$ are shown on the author's github. 
+Totally, we confirm that estimation is accurate with small bias and root-mean-squared error when increasing sample size, as in \cite{matsumura2023resolving}.
+Interested readers can modify the current data-generating process.
 
 
 
