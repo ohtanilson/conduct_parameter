@@ -15,7 +15,7 @@ For replicating results, you need to run the following R and julia scripts in /c
   - 01_2_simulate_data_linear_for_test.R # for (3)
 
   Estimation step
-  - 02estimate_linear_linear.R # for (1) 
+  - 02_1_estimate_linear_linear.R # for (1) 
   - 02_2_test_linear_linear.R # for (3)
   - 03_1_estimate_loglinear_loglinear.jl # for (2)
   - 03_2_estimate_loglinear_loglinear_mpec.jl # for (2)
