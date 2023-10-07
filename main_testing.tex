@@ -38,8 +38,8 @@
 
 
 \title{Finite Sample Performance of a Conduct Parameter Test in Homogenous Goods Markets}
-\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
-%Declarations of interest: none %this is for Economics Letters
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu\\
+Declarations of interest: none %this is for Economics Letters
 }}
 
 \begin{document}
@@ -52,7 +52,7 @@
 \noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Monte Carlo simulation, Statistical power analysis
 \vspace{0in}
 \newline
-\noindent\textbf{JEL Codes:} C5, C13, L1
+\noindent\textbf{JEL Codes:} C5, C12, L1
 
 \bigskip
 \end{abstract}
@@ -96,7 +96,7 @@ Then, we obtain a supply equation:
 where $Q_{t}$ is the aggregate quantity, $P_{t}(Q_{t})$ is the demand function, $TC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
 The equation nests perfect competition ($\theta=0$), Cournot competition ($\theta=1/N$), and perfect collusion ($\theta=1$) (See \cite{bresnahan1982oligopoly}). 
 
-Consider an econometric model that integrates the above.
+Consider an econometric model integrating the above.
 Assume that the demand and marginal cost functions are written as: 
 \begin{align}
     P_{t} = f(Q_{t}, Y_{t}, \varepsilon^{d}_{t}, \alpha), \label{eq:demand}\\
@@ -117,7 +117,7 @@ The supply equation is written as:
     P_{t} 
     %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
     &= \gamma_0 + \theta (\alpha_1 + \alpha_2 Z^{R}_{t})Q_{t} + \gamma_1 Q_{t} + \gamma_2 W_{t} + \gamma_3 R_{t} +\varepsilon^c_{t}.\label{eq:linear_supply_equation}\end{align}
-By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_{t}$, we obtain the aggregate quantity $Q_{t}$ based on the parameters and exogenous variables as follows:
+By substituting \eqref{eq:linear_demand} with \eqref{eq:linear_supply_equation} and solving it for $P_{t}$, we obtain the aggregate quantity $Q_{t}$ based on the parameters and exogenous variables as follows:
 \begin{align}
     Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_{t} - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
 \end{align}
@@ -256,7 +256,6 @@ This reaffirms that the difficulty in testing perfect competition, as observed b
 \paragraph{Acknowledgments}
 We thank Jeremy Fox, Isabelle Perrigne, and Yuya Shimizu for their valuable advice. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
 
-\newpage
 
 
 \bibliographystyle{aer}
