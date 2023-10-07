@@ -11,7 +11,7 @@ This replication package contains the data and code to generate all results repo
 For replicating results, you need to run the following R and julia scripts in /code in order.
 
   Data generation step
-  - 01simulate_data.R # for (1) and (2)
+  - 01_1_simulate_data.R # for (1) and (2)
   - 01_2_simulate_data_linear_for_test.R # for (3)
 
   Estimation step
