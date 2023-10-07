@@ -1,8 +1,11 @@
 # Replication files for conduct parameter papers written by Matsumura and Otani: 
 
 This replication package contains the data and code to generate all results reported in 
+
 (1) Resolving the Conflict on Conduct Parameter Estimation in homogeneous goods Markets between Breshnahan (1982) and Perloff and Shen (2012). Economics Letters (2023): 111193.
+
 (2) Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification. (2023)
+
 (3) Finite Sample Performance of a Conduct Parameter Test in Homogenous Goods Markets (2023)
 
 For replicating results, you need to run the following R and julia scripts in /code in order.
