@@ -200,7 +200,6 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
     K_d = size(X_d, 2)
     K_s = size(X_s, 2) 
 
-    #X_s = hcat(X_s[:,1:K_s], X_s[:,2] .* (α_hat[2] .+ α_hat[3] .*  X_s[:,end]))
 
     ε_d = P .- sum(α_hat[k] * X_d[:, k] for k = 1:K_d)                                                    # T × 1 vector
     ε_s = P .- sum(γ_hat[k] * X_s[:, k] for k = 1:K_s) .- θ_hat * (α_hat[2] .+ α_hat[3] .* Z_s[:,end]) .* X_s[:, 2]
@@ -216,8 +215,6 @@ function compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_f
     Z_optimal = []
 
     for t = 1:T
-
-        #Ω_t = inv(ε[t,:] * ε[t,:]') + diagm(ones(2) * 10e-8)
 
         D_z = [-1 Q_bar[t] Q_bar_Z[t] (-X_d[t,4]) 0 0 0 0 0; 
         0 (- θ_hat * Q_bar[t]) (θ_hat*Q_bar_Z[t]) 0 (-1)  (-Q_bar[t]) (-X_s[t,3]) (- X_s[t,4]) (-Q_bar_α_Z[t])]
@@ -345,10 +342,7 @@ function estimation_linear_GMM_optimal_instrument(simulation_setting::SIMULATION
         Z_optimal = compute_optimal_instruments(T, α_hat, γ_hat, θ_hat, X_d, X_s, P, Q_fitted_on_Z)
         Ω_optimal = inv(Z_optimal' * Z_optimal)/T
     
-        #α_optimal, γ_optimal, θ_optimal, se_demand, se_supply, status= GMM_estimation_linear_simultaneous(T, P, Z_optimal, X, X_s, X_d, Ω_optimal, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, starting_value, tol_level)
-
         return α_hat, γ_hat, θ_hat, se_demand, se_supply, status
-        #return  α_optimal, γ_optimal, θ_optimal, se_demand, se_supply, status
     end
 end
 
