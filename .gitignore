@@ -5,6 +5,8 @@
 *.rds
 *.csv
 *.md
+*.pdf
+*.gdoc
 !README.md
 .vscode/
 past_file/
