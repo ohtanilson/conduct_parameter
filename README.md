@@ -1,4 +1,7 @@
-# Replication files for: Resolving the Conflict on Conduct Parameter Estimation in homogeneous goods Markets between Breshnahan (1982) and Perloff and Shen (2012). 
+# Replication files for: 
+(1) Resolving the Conflict on Conduct Parameter Estimation in homogeneous goods Markets between Breshnahan (1982) and Perloff and Shen (2012). 
+(2) Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification. (2023)
+(3) Finite Sample Performance of a Conduct Parameter Test in Homogenous Goods Markets (2023)
 
 This replication package contains the data and the code to generate the results reported in "Matsumura, Y., & Otani, S. (2023). Resolving the Conflict on Conduct Parameter Estimation in homogeneous goods Markets between Breshnahan (1982) and Perloff and Shen (2012). arXiv preprint arXiv:2301.06665."
 
