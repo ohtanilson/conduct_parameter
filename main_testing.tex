@@ -70,12 +70,21 @@ The conduct parameters for the linear model are identified by \citet{bresnahan19
 Estimation accuracy may be improved by adding equilibrium existence conditions in the log-linear model \citep{matsumura2023mpec}. 
 Conduct parameter testing is undertaken by \cite{genesove1998testing}, who compare estimates from the sugar industry with direct measures of market power.\footnote{\cite{genesove1998testing} made mistakes on how to get predicted interaction terms of rotation demand instruments and endogenous quantity in the first stage regression. See Section A.3, \cite{matsumura2023resolving}.} 
 When market power is around 0.1 and the number of markets is less than 100, perfect competition cannot be rejected. 
+\cite{clay2003further} investigate the robustness of specifications using 38 whiskey markets and find that estimation is sensitive to model specification.
 \cite{steen1999testing} study 48 markets in the French salmon industry and \cite{shaffer1993test} studies 25 markets in the Canadian banking industry. 
 They also cannot reject the null hypothesis that markets are perfectly competitive. 
 Their results raise doubts about the methodology in itself \citep{shafferMarketPowerCompetition2017}.
 
+Recent literature on conduct parameter estimation and test in homogenous goods markets like an electricity generation industry follows \cite{genesove1998testing} and proceeds with a comparison of estimated conduct parameters with directly measured ones through price-cost markups recovered from observed prices and marginal costs data. 
+\cite{wolfram1999measuring} studies the British electricity industry using 25,639 samples and finds that the directly measured conduct parameter is about 0.05 and the estimated conduct parameter is 0.01. 
+So, the author cannot reject the null hypothesis of perfect competition.
+\cite{kim2006biases} study California electricity markets using 21,104 samples and find that Bresnahan's technique overstates marginal costs on average and is likely to reject the null hypothesis of perfect competition.
+\cite{puller2007pricing} uses 163 to 573 samples and cannot reject the null hypothesis of Cournot competition for the same industry.
+The robustness of the data and methodology has been extensively tested in previous studies focusing on market power in the California electricity market (for example, \cite{borenstein2002measuring}, \cite{wolak2003measuring}, and \cite{orea2018estimating}).
+
 
 While popular, there is a lack of formal Monte Carlo simulations for a conduct parameter test. 
+The lack prevents us from understanding the above comparison properly.
 Accordingly, we investigate the finite sample performance of the conduct parameter test in homogeneous goods markets. 
 We analyze statistical power by varying the number of markets, firms, and strength of demand rotation instruments under the null hypothesis of perfect competition.
 
@@ -93,7 +102,7 @@ Then, we obtain a supply equation:
 \begin{align}
      P_{t} = -\theta\frac{\partial P_{t}(Q_{t})}{\partial Q_{t}}Q_{t} + MC_{t}(Q_{t}),\label{eq:supply_equation}
 \end{align}
-where $Q_{t}$ is the aggregate quantity, $P_{t}(Q_{t})$ is the demand function, $TC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
+where $Q_{t}$ is the aggregate quantity, $P_{t}(Q_{t})$ is the demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is  the conduct parameter. 
 The equation nests perfect competition ($\theta=0$), Cournot competition ($\theta=1/N$), and perfect collusion ($\theta=1$) (See \cite{bresnahan1982oligopoly}). 
 
 Consider an econometric model integrating the above.
@@ -266,9 +275,6 @@ We thank Jeremy Fox, Isabelle Perrigne, and Yuya Shimizu for their valuable advi
 \setcounter{page}{1}
 \appendix
 \section{Online appendix}\label{sec:appendix}
-
-
-
 
 \subsection{Details for our simulation settings}
 
@@ -461,6 +467,24 @@ Estimation results of all parameters except conduct parameter $\theta$ are shown
 Totally, we confirm that estimation is accurate with small bias and root-mean-squared error when increasing sample size, as in \cite{matsumura2023resolving}.
 Interested readers can modify the current data-generating process.
 
+
+\newpage
+\subsection{Statistical power on $\theta$}
+Following chapters 5, 7, and 9 of \cite{hansen2022econometrics}, we consider null hypothesis $H_{0}:\theta=0$, i.e., markets are under perfect competition, and alternative hypothesis $H_{1}:\theta\neq 0$. 
+Let $T(\theta)$ be the t-statistics of $\theta$, $\hat{\theta}$ be the point estimator.
+To simplify the argument, we assume that the variance of the estimator to $\theta$, $V(\theta)$ is known.
+Then the standard error of $\theta$ is writen as $SE(\theta)=\sqrt{T^{-1}V(\theta)}$.
+Then, at a significance level of 0.05, the power $\pi(\theta)$ is
+\begin{align*}
+    \pi(\theta) &= \Pr(T(\theta)>1.96|\theta\neq 0)\\
+    &=\Pr\left(\frac{\hat{\theta}}{SE(\theta)}>1.96|\theta\neq 0\right)\\
+    &=1 - \Pr\left(\frac{\hat{\theta}}{SE(\theta)}<1.96|\theta\neq 0\right)\\
+    &=1 - \Pr\left(\frac{\sqrt{T}\hat{\theta}}{\sqrt{V(\theta)}}<1.96|\theta\neq 0\right)\\
+    &\approx 1 - \Phi\left(1.96 - \frac{\sqrt{T}\hat{\theta}}{\sqrt{V(\theta)}}\right),
+\end{align*}
+for large $T$ where $\Phi(\cdot)$ is the cumulative distribution function of the normal distribution.
+This typical formula illustrates that the term $\sqrt{T}\hat{\theta}$ determines the power  under $\theta\in[0,1]$. For example, if $\theta=0.1$, the number of markets, $T$, must increase by 100 times compared to the case of $\theta=1.0$ for getting the same power. This is consistent with our findings in Figure \ref{fg:theta_hat_power}. 
+Note that this applies to all regression coefficients.
 
 
 \end{document}
