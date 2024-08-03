@@ -1,0 +1,82 @@
+\ifx\undefined\bysame
+\newcommand{\bysame}{\leavevmode\hbox to\leftmargin{\hrulefill\,\,}}
+\fi
+\begin{thebibliography}{xx}
+
+\harvarditem[Berry and Haile]{Berry and Haile}{2014}{berry2014identification}
+{\bf Berry, Steven~T and Philip~A Haile}, ``Identification in differentiated
+  products markets using market level data,'' {\it Econometrica}, 2014, {\it
+  82} (5), 1749--1797.
+
+\harvarditem[Bresnahan]{Bresnahan}{1982}{bresnahan1982oligopoly}
+{\bf Bresnahan, Timothy~F}, ``The oligopoly solution concept is identified,''
+  {\it Economics Letters}, 1982, {\it 10} (1-2), 87--92.
+
+\harvarditem[Claessens and Laeven]{Claessens and
+  Laeven}{2004}{claessensWhatDrivesBank2004}
+{\bf Claessens, Stijn and Luc Laeven}, ``What {{Drives Bank Competition}}?
+  {{Some International Evidence}},'' {\it Journal of Money, Credit and
+  Banking}, 2004, {\it 36} (3), 563--583.
+
+\harvarditem[Coccorese and Pellecchia]{Coccorese and
+  Pellecchia}{2013}{coccoreseMultimarketContactCompetition2013}
+{\bf Coccorese, Paolo and Alfonso Pellecchia}, ``Multimarket Contact,
+  Competition and Pricing in~Banking,'' {\it Journal of International Money and
+  Finance}, 2013, {\it 37}, 187--214.
+
+\harvarditem[Coccorese et al.]{Coccorese, Girardone and
+  Shaffer}{2021}{coccoreseWhatAffectsBank2021}
+{\bf \bysame{}, Claudia Girardone, and Sherrill Shaffer}, ``What Affects Bank
+  Market Power in the Euro Area? {{A}} Country-Level Structural Model
+  Approach,'' {\it Journal of International Money and Finance}, 2021, {\it
+  117}, 102443.
+
+\harvarditem[Garcia et al.]{Garcia, Kutlu and
+  Sickles}{2020}{garciaMarketStructuresProduction2020}
+{\bf Garcia, Devin, Levent Kutlu, and Robin~C. Sickles}, ``Market
+  {{Structures}} in {{Production Economics}},'' in Subhash~C. Ray, Robert
+  Chambers, and Subal Kumbhakar, eds., {\it Handbook of {{Production
+  Economics}}}, {Springer}, 2020, pp.~1--38.
+
+\harvarditem[Kumbhakar et al.]{Kumbhakar, Baardsen and
+  Lien}{2012}{kumbhakarNewMethodEstimating2012}
+{\bf Kumbhakar, Subal~C., Sjur Baardsen, and Gudbrand Lien}, ``A {{New Method}}
+  for {{Estimating Market Power}} with an {{Application}} to {{Norwegian
+  Sawmilling}},'' {\it Review of Industrial Organization}, 2012, {\it 40} (2),
+  109--129.
+
+\harvarditem[Lau]{Lau}{1982}{lau1982identifying}
+{\bf Lau, Lawrence~J}, ``On identifying the degree of competitiveness from
+  industry price and output data,'' {\it Economics Letters}, 1982, {\it 10}
+  (1-2), 93--99.
+
+\harvarditem[Magnolfi et al.]{Magnolfi, Quint, Sullivan and
+  Waldfogel}{2022}{magnolfi2022falsifying}
+{\bf Magnolfi, Lorenzo, Daniel Quint, Christopher Sullivan, and Sarah
+  Waldfogel}, ``Falsifying Models of Firm Conduct,'' Technical Report, Working
+  paper 2022.
+
+\harvarditem[Nevo]{Nevo}{1998}{nevoIdentificationOligopolySolution1998}
+{\bf Nevo, Aviv}, ``Identification of the Oligopoly Solution Concept in a
+  Differentiated-Products Industry,'' {\it Economics Letters}, June 1998, {\it
+  59} (3), 391--395.
+
+\harvarditem[Perekhozhuk et al.]{Perekhozhuk, Glauben, Teuber and
+  Grings}{2015}{perekhozhukRegionalLevelAnalysisOligopsony2015}
+{\bf Perekhozhuk, Oleksandr, Thomas Glauben, Ramona Teuber, and Michael
+  Grings}, ``Regional-Level Analysis of Oligopsony Power in the Ukrainian Dairy
+  Industry,'' {\it Canadian Journal of Agricultural Economics/Revue canadienne
+  d'agroeconomie}, 2015, {\it 63} (1), 43--76.
+
+\harvarditem[Perloff and Shen]{Perloff and Shen}{2012}{perloff2012collinearity}
+{\bf Perloff, Jeffrey~M and Edward~Z Shen}, ``Collinearity in linear structural
+  models of market power,'' {\it Review of Industrial Organization}, 2012, {\it
+  40} (2), 131--138.
+
+\harvarditem[Shaffer and Spierdijk]{Shaffer and
+  Spierdijk}{2017}{shafferMarketPowerCompetition2017}
+{\bf Shaffer, Sherrill and Laura Spierdijk}, ``Market Power: Competition among
+  Measures,'' {\it Handbook of Competition in Banking and Finance}, 2017,
+  pp.~11--26.
+
+\end{thebibliography}
