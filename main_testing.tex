@@ -37,8 +37,8 @@
 \DeclareMathOperator{\rank}{rank}
 
 
-\title{Finite Sample Performance of a Conduct Parameter Test in Homogenous Goods Markets}
-\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu\\
+\title{Finite Sample Performance of a Conduct Parameter Test in homogeneous Goods Markets}
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo\\
 Declarations of interest: none %this is for Economics Letters
 }}
 
@@ -49,7 +49,7 @@ Declarations of interest: none %this is for Economics Letters
     We assess the finite sample performance of the conduct parameter test in homogeneous goods markets. Statistical power rises with an increase in the number of markets, a larger conduct parameter, and a stronger demand rotation instrument. However, even with a moderate number of markets and five firms, regardless of instrument strength and the utilization of optimal instruments, rejecting the null hypothesis of perfect competition remains challenging. Our findings indicate that empirical results that fail to reject perfect competition are a consequence of the limited number of markets rather than methodological deficiencies.
 \vspace{0.1in}
 
-\noindent\textbf{Keywords:} Conduct parameters, Homogenous goods market, Monte Carlo simulation, Statistical power analysis
+\noindent\textbf{Keywords:} Conduct parameters, Homogeneous goods market, Monte Carlo simulation, Statistical power analysis
 \vspace{0in}
 \newline
 \noindent\textbf{JEL Codes:} C5, C12, L1
@@ -65,7 +65,7 @@ However, the parameter cannot be directly measured from data because data genera
 Therefore, researchers endeavor to learn conduct parameters.
 
 Researchers estimate and test structural models to understand firm conduct in both homogeneous and differentiated good markets \citep{nevoIdentificationOligopolySolution1998, magnolfi2022comparison, duarte2023testing}. 
-We focus on homogenous good markets. 
+We focus on homogeneous good markets. 
 The conduct parameters for the linear model are identified by \citet{bresnahan1982oligopoly}, and \cite{matsumura2023resolving} resolve conflicts between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity} vis-a-vis identification problems. 
 Estimation accuracy may be improved by adding equilibrium existence conditions in the log-linear model \citep{matsumura2023mpec}. 
 Conduct parameter testing is undertaken by \cite{genesove1998testing}, who compare estimates from the sugar industry with direct measures of market power.\footnote{\cite{genesove1998testing} made mistakes on how to get predicted interaction terms of rotation demand instruments and endogenous quantity in the first stage regression. See Section A.3, \cite{matsumura2023resolving}.} 
@@ -75,7 +75,7 @@ When market power is around 0.1 and the number of markets is less than 100, perf
 They also cannot reject the null hypothesis that markets are perfectly competitive. 
 Their results raise doubts about the methodology in itself \citep{shafferMarketPowerCompetition2017}.
 
-Recent literature on conduct parameter estimation and test in homogenous goods markets like an electricity generation industry follows \cite{genesove1998testing} and proceeds with a comparison of estimated conduct parameters with directly measured ones through price-cost markups recovered from observed prices and marginal costs data. 
+Recent literature on conduct parameter estimation and testing in homogeneous goods markets like an electricity generation industry follows \cite{genesove1998testing} and proceeds with a comparison of estimated conduct parameters with directly measured ones through price-cost markups recovered from observed prices and marginal costs data. 
 \cite{wolfram1999measuring} studies the British electricity industry using 25,639 samples and finds that the directly measured conduct parameter is about 0.05 and the estimated conduct parameter is 0.01. 
 So, the author cannot reject the null hypothesis of perfect competition.
 \cite{kim2006biases} study California electricity markets using 21,104 samples and find that Bresnahan's technique overstates marginal costs on average and is likely to reject the null hypothesis of perfect competition.
@@ -84,7 +84,7 @@ The robustness of the data and methodology has been extensively tested in previo
 
 
 While popular, there is a lack of formal Monte Carlo simulations for a conduct parameter test. 
-The lack prevents us from understanding the above comparison properly.
+The lack of information prevents us from understanding the above comparison properly.
 Accordingly, we investigate the finite sample performance of the conduct parameter test in homogeneous goods markets. 
 We analyze statistical power by varying the number of markets, firms, and strength of demand rotation instruments under the null hypothesis of perfect competition.
 
@@ -469,11 +469,11 @@ Interested readers can modify the current data-generating process.
 
 
 \newpage
-\subsection{Statistical power on $\theta$}
+\subsection{Statistical power on the conduct parameter}
 Following chapters 5, 7, and 9 of \cite{hansen2022econometrics}, we consider null hypothesis $H_{0}:\theta=0$, i.e., markets are under perfect competition, and alternative hypothesis $H_{1}:\theta\neq 0$. 
 Let $T(\theta)$ be the t-statistics of $\theta$, $\hat{\theta}$ be the point estimator.
 To simplify the argument, we assume that the variance of the estimator to $\theta$, $V(\theta)$ is known.
-Then the standard error of $\theta$ is writen as $SE(\theta)=\sqrt{T^{-1}V(\theta)}$.
+Then the standard error of $\theta$ is written as $SE(\theta)=\sqrt{T^{-1}V(\theta)}$.
 Then, at a significance level of 0.05, the power $\pi(\theta)$ is
 \begin{align*}
     \pi(\theta) &= \Pr(T(\theta)>1.96|\theta\neq 0)\\

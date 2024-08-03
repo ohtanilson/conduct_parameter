@@ -1,0 +1,274 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.4}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\DeclareMathOperator{\rank}{rank}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+
+\title{Note on Lau (1982)}
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo
+\\Declarations of interest: none %this is for Economics Letters
+}}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+    TBA
+\end{abstract}
+
+\noindent\textbf{Keywords:} Conduct parameters, Homogenous Goods Market, Mathematical Programming with Equilibrium Constraints, Monte Carlo simulation
+\vspace{0in}
+\newline
+\noindent\textbf{JEL Codes:} C5, C13, L1
+
+\bigskip
+
+\section{Introduction}
+TBA
+\section{Model}
+Consider a homogeneous product market.
+The aggregate demand and aggregate marginal cost function is given as
+\begin{align}
+    P = f(Q, X^{d}), \label{eq:demand}
+    \\
+    MC = g(Q, X^{c}),\label{eq:marginal_cost}
+\end{align}
+where $Q$ is the aggregate quantity, $X^{d}$ and $X^{c}$ are the vector of exogenous variables.
+Assume that $X^{d}$ and $X^{s}$ are exclusive, that is, there is no common variable in $X^{d}$ and $X^{s}$.
+Then, we obtain the supply equation:
+\begin{align}
+     P + \theta\frac{\partial P(Q)}{\partial Q}Q = MC,\label{eq:supply_equation}
+\end{align}
+where $\theta\in[0,1]$, which is the conduct parameter.
+
+\citet{lau1982identifying} state the definition of non-identification in this model:
+\begin{definition}
+    To show necessity we observe that non-identification implies
+    \begin{align}
+    f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g(Q, X^{s}),\label{eq:foc_alpha}\\
+    f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g'(Q, X^{s}), \label{eq:foc_beta}
+    \end{align}
+    where $\theta \neq \theta'$ and the reduced form functions $Q = h_2(X^{d}, X^{s})$ and $Q = h_2'(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
+\end{definition}
+
+\citet{lau1982identifying} provide the condition where the conduct parameter cannot be identified:
+\begin{theorem}\label{theorem_lau}
+    Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, 
+    \begin{align}
+        P = f(Q, r(X^{d})), \label{eq:demand_separable}
+    \end{align}
+    for some function $r(\cdot)$, but does not take the form
+    \begin{align}
+        P = Q^{-1/\theta}r(X^{d}) + s(Q). \label{eq:identification_separable}
+    \end{align}
+\end{theorem}
+This theorem implies that at least when the demand function is not separable, the conduct parameter is identified.
+Even when the demand function is separable, the conduct parameter is identified if it satisfies \eqref{eq:identification_separable}.
+
+\begin{remark}
+    The model of \citet{bresnahan1982oligopoly} is not a special case of \citet{lau1982identifying} because the twice continuous differentiability does not hold.
+    \citet{bresnahan1982oligopoly} consider a non-separable demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 X^0) Q + \alpha_3 X^1 + \varepsilon$ where $X^{d} = (X^0, X^1)$ and $X^0$ is called a demand rotation parameter.
+\end{remark}
+
+
+\section{Summary of Goldman and Uzawa (1964)}
+Before investigating the proof in \citet{lau1982identifying}, we provide results from \citet{goldmanNote1964}.
+They play an important role in Lau's proof.
+
+\citet{goldmanNote1964} investigate separability concepts in demand analysis.
+Let $N$ be a set of product, $N = \{1,\ldots, n\}$.
+Consider a partition of $N$ into $S$ parts, $\{N^1, \ldots, N^S\}$ such that $N = \bigcup_{s=1}^S N^s$ and $N^s \cap N^t = \emptyset$.
+
+A utility function is weakly separable with respect to a partition if 
+\begin{align}
+    \frac{\partial u_i(x)/ u_j(x)}{\partial x_k} = 0, \quad i,j\in N^s, k \notin N^s.
+\end{align}
+This implies that the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $N^s$.
+
+To show Theorem 2, \citet{goldmanNote1964} prove the following lemma:
+\begin{lemma}\label{lemma_1_GU}
+    Let $f(x)$ and $g(x)$ be two continuously twice-differentiable functions of $n$ variables $x=(x_1, \dots, x_n)$. If each indifference surface is connected, and if there exists a function $\lambda(x)$ such that
+    \begin{align}
+    f_i(x) &= \lambda(x)g_i(x), \quad i=1, \dots, n, \quad \text{for all } x,
+    \end{align}
+    then $f(x)$ is a transformation of $g(x)$; namely, there exists a function $F(t)$ of one variable such that
+    \begin{align}
+    f(x) &= F(g(x)), \quad \text{for all } x.
+    \end{align}
+    Hence, in particular, the function $\lambda(x)$ satisfying (4) must be of the form:
+    \begin{align}
+        \lambda(x) &= \Lambda(g(x)), \quad \text{for all } x,
+    \end{align}
+    with some function $\Lambda(t)$ of one variable.
+\end{lemma}
+
+Theorem 2 of \citet{goldmanNote1964} shows the utility function that satisfies the weak separability:
+\begin{theorem}[Theorem 2 in \citet{goldmanNote1964}]\label{thorem_2_GU}
+    A utility function $u(x)$ is weakly separable with respect to a partition $\{N^1, .. ., N^s\}$ if, and only if, $u(x)$ is of the form: 
+    \begin{align}
+        u(X) = \Phi(u^1(x^{(1)}),\ldots, u^s(x^{(s)})   )
+    \end{align} where $\Phi(u^1,\ldots, u^s)$ is a function of $S$ variables and, for each $s$, $u^s(x^{(s)})$ is a function subvector $x^{(s)}$ alone.
+\end{theorem}
+
+To see the relationship to the model in \citet{lau1982identifying}, let $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$ be the set of dependent variables and divide the variables into two groups $(Q, X^{d})$.
+In this case, the separable definition \ref{eq:demand_separable} in Theorem \ref{theorem_lau} satisfies the weak-separability.
+
+For example, the linear demand function in \citet{bresnahan1982oligopoly} is not separable.
+\begin{align}
+    \frac{f_Q}{f_Y} = \frac{(\alpha_1 + \alpha_2 Z)}{\alpha_3} \Longrightarrow \frac{\partial f_Q/f_Y}{\partial Z} = \frac{\alpha_2}{\alpha_3} \ne 0.
+\end{align}
+$\alpha_2/\alpha_3 \ne 0$ comes from the sufficient condition in \citet{matsumura2023resolving}.
+Thus the conduct parameter can be identified.
+
+
+
+\section{Proof in Lau(1982)}
+Now, let's investigate the proof of \citet{lau1982identifying}.
+Taking derivatives with $X^{d}$ and $X^{s}$ for both \eqref{eq:foc_alpha}
+and \eqref{eq:foc_beta}.
+From \eqref{eq:foc_alpha},
+\begin{align}
+    & \frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{d}} + \frac{\partial f}{\partial X^{d}} + \theta\left(\frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{d}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial h_2}{\partial X^{d}} + \frac{\partial^2 f}{\partial X^{d}\partial Q}Q \right) = \frac{\partial g}{\partial Q}\frac{\partial h_2}{\partial X^{d}}\label{eq:foc_derivative_demand}\\
+    & \frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{s}} + \theta \left(\frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{s}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial h_2}{\partial X^{s}} \right) =  \frac{\partial g}{\partial Q}\frac{\partial h_2}{\partial X^{s}} + \frac{\partial g}{\partial X^{s}}\label{eq:foc_derivative_supply}.
+\end{align}
+\eqref{eq:foc_derivative_demand} and \eqref{eq:foc_derivative_supply} also hold for \eqref{eq:foc_beta}.
+As the non-identification implies that $h_2(X^{d}, X^{s}) = h_2'(X^{d}, X^{s})$ for all $X^{d}$ and $X^{s}$,
+\begin{align}
+    \frac{\partial h_2}{\partial X^{d}} & = - \frac{\frac{\partial f}{\partial X^{d}} + \theta \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}\\
+    & = - \frac{\frac{\partial f}{\partial X^{d}} + \theta' \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}= \frac{\partial h_2'}{\partial X^{d}},
+\end{align}
+and
+\begin{align}
+    \frac{\partial h_2}{\partial X^{s}} & = -\frac{-\frac{\partial g}{\partial X^{s}}}{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}} \\
+     & = -\frac{-\frac{\partial g'}{\partial X^{s}}}{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}} = \frac{\partial h_2'}{\partial X^{s}}.
+\end{align}
+Let
+\begin{align}
+    \mu(Q,X^{s}) \equiv \frac{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}.
+\end{align}
+Then 
+\begin{align}
+    \frac{\partial g}{\partial X^{s}} = \lambda(Q, X^{s}) \frac{\partial g'}{\partial X^{s}}. \label{eq:transformation_g}
+\end{align}
+By Lemmna \ref{lemma_1_GU}, there is a function $F$ such that
+\begin{align}
+    g(Q,X^{s}) = F(g'(Q,X^{s}), Q).
+\end{align}
+By substituting \eqref{eq:foc_alpha} and \eqref{eq:foc_beta},
+\begin{align}
+    f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q  = F\left(f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q, Q \right) \label{eq:transform_theta}
+\end{align}
+Differentiate \eqref{eq:transform_theta} with respect to $X^{d}$, obtaining
+\begin{align}
+\frac{\partial f}{\partial X^{d}}(Q, X^{d}) + \theta' \frac{\partial^2 f}{\partial X^{d} \partial Q}(Q, X^{d})Q &= F_{1} \cdot \left[\frac{\partial f}{\partial X^{d}}(Q, X^{d}) + \theta \frac{\partial^2 f}{\partial X^{d} \partial Q}(Q, X^{d})Q\right]\label{eq:transform_theta_derivative_first}\\
+(1 - F_{1}) \frac{\partial f}{\partial X^{d}}(Q, X^{d}) & = (F_{1} \theta - \theta')\frac{\partial^2 f}{\partial X^{d} \partial Q}(Q, X^{d})Q,\label{eq:transform_theta_derivative_second}
+\end{align}
+where $F_1$ is the derivative of $F$ with respect to the first element. 
+
+Pick $i$ and $j$th elements in \eqref{eq:transform_theta_derivative_second} and take a ratio of them implies
+\begin{align}
+\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})} & = \frac{(\partial f/\partial X^{d}_{i} \partial Q)}{(\partial f/\partial X^{d}_{j} \partial Q)},\label{eq:ratio_foc}
+\end{align}
+which turn implies
+\begin{align}
+    \frac{d}{dQ}\left(\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})}\right) =0.\label{eq:derivative_separable}
+\end{align}
+Thus $f$ must be a separable function due to Theorem \ref{thorem_2_GU}.
+
+\subsection{Questions to the proof}
+First, note that the left-hand side of \eqref{eq:foc_derivative_demand} and \eqref{eq:transform_theta_derivative_first} are both the derived of the left-hand side of \eqref{eq:foc_alpha} with respect to $X^{d}$.
+However, the former allows the differentiation of $Q = h_2(X^{d}, X^{s})$ with respect to $X^{d}$, the latter does not.
+In other words, the former views $f(Q, X^{d})$ as $f(h_2(X^{d}, X^{s}), X^{d})$ but the latter assumes that $Q$ does not depend on $X^{d}$.
+The independence between $Q$ and $X^{d}$ is the key to show the separability of $f$.
+In fact, separability in this model does not hold because $Q$ is an equilibrium object and thus always depends on $X^{d}$. 
+Thus $f(Q, r(X^{d}))$ is always written as $f(h_2(X^{d}, X^{s}), r(X^{d}))$, which contradict to the separability assumption.
+
+When we allow the differentiation of $Q$ with respect to $X^{d}$, \eqref{eq:ratio_foc} becomes
+\begin{align}
+    \frac{\frac{\partial f}{\partial X^{d}_{i}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{i}}}{\frac{\partial f}{\partial X^{d}_{j}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{j}}} = \frac{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{i}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{i}} + \frac{\partial^2 f}{\partial X^{d}_{i}\partial Q}Q }{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{j}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{j}} + \frac{\partial^2 f}{\partial X^{d}_{j}\partial Q}Q }.
+\end{align}
+
+Additionally, \eqref{eq:derivative_separable} shows weak-separability, but why this holds from \eqref{eq:ratio_foc}?
+
+\subsection{A counterexample}
+
+I show that the conduct parameter is identified when the inverse demand function is separable. 
+
+Consider the following inverse demand function and marginal cost function:
+\begin{align}
+    P & = \exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}\\
+    MC & = \exp(\varepsilon_{s})Q^{\beta_0} X_{s1}^{\beta_1}.
+\end{align}
+The inverse demand function is separable because
+\begin{align}
+    \frac{d}{dQ} \left(\frac{\partial P/\partial X_{d1}}{\partial P/\partial X_{d2}} \right) = \frac{d}{dQ} \left(\frac{\alpha_{1}\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1-1}X_{d2}^{\alpha_2}}{\alpha_2\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2-1}} \right) =  \frac{d}{dQ}\left(\frac{\alpha_1}{\alpha_2} \frac{X_{d2}}{X_{d1}} \right)=0.
+\end{align}
+The first-order condition is
+\begin{align}
+    P + \theta (-\alpha_0 \exp(\varepsilon_{d})Q^{-\alpha_0-1}X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}) Q & = Q^{\beta_0} X_{s1}^{\beta_1}\exp(\varepsilon_{s})\\
+    P - \theta \alpha_0 P & = Q^{\beta_0} X_{s1}^{\beta_1}\exp(\varepsilon_{s})\\
+    (1-\theta\alpha_0) P & = Q^{\beta_0} X_{s1}^{\beta_1}\exp(\varepsilon_{s}).
+\end{align}
+Note that the demand parameters can be identified when $X^s$ is a vector of exclusive demand instruments.
+Thus we can assume that $\alpha_0, \alpha_1$, and $\alpha_2$ is known.  
+By taking a logarithm, we obtain a linear equation,
+\begin{align}
+    \log P = - \log(1 - \theta\alpha_0) + \beta_0 Q + \beta_1 X_{s1} + \varepsilon_{s}.
+\end{align}
+Then it is easy to see that $- \log(1 - \theta\alpha_0), \beta_0$, and $\beta_1$ are identified with a vector of exclusive supply instrument $X^d$.
+Because $\alpha_0$ is identified, the parameter $\theta$ is also identified, which contradicts Theorem \ref{theorem_lau}.
+
+\begin{remark}
+    The above inverse demand function has a constant-elasticity property. 
+    Note that $\alpha_0 \ne \frac{1}{\theta}$ holds.
+    Thus it is not the separable function that allows identification in Theorem \ref{theorem_lau}.
+    However, \citet{lau1982identifying} states that under this functional form, the conduct parameter cannot be identified in his comment (2) in p 98.
+\end{remark}
+
+
+
+
+\newpage
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
+\end{document}

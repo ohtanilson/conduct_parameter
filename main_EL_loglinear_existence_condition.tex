@@ -37,9 +37,12 @@
 \newtheorem{example}{Example}
 \DeclareMathOperator{\rank}{rank}
 
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
 
 \title{Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification}
-\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo
 \\Declarations of interest: none %this is for Economics Letters
 }}
 
@@ -67,7 +70,7 @@ Conduct parameter is considered a useful measure of competitiveness.
 However, it cannot be directly measured from data because data usually lack information about marginal cost.
 Therefore, researchers aim to identify and estimate the conduct parameter.
 
-As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of conduct parameters for the linear model. \cite{matsumura2023resolving} resolves the conflict on some identification problems between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. 
+As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of conduct parameters for the linear model. \cite{matsumura2023resolving,matsumura2023test} resolves the conflict on some identification problems between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. 
 However, researchers often implement alternative specifications, such as the log-linear model \citep{okazaki2022excess,merel2009measuring}. 
 In the context of the log-linear model, these papers identify estimation issues, with some estimated conduct parameters being unrealistically low or even negative.
 This raises doubts about the methodology, despite the identification strategy outlined by \citet{lau1982identifying}.
@@ -78,7 +81,6 @@ First, we prove that a unique equilibrium exists under certain theoretical condi
 As far as we know, this is a new result.
 Second, we show that incorporating equilibrium existence and uniqueness conditions resolves the above estimation problems and makes the model work in estimating conduct parameters even in the log-linear model. 
 Hence, our results support those of \cite{lau1982identifying} numerically.
-
 
 \section{Model}
 Consider data with $T$ markets with homogeneous products.
@@ -99,7 +101,24 @@ Assume that the demand and the marginal cost functions are written as follows:
     MC_t = g(Q_{t}, X^{c}_{t}, \varepsilon^{c}_{t}, \gamma),%\label{eq:marginal_cost}
 \end{align*}
 where $X^{d}_{t}$ and $X^{c}_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
+We allow $X^{d}_{t}$ and $X^{c}_{t}$ to have common variables but assume that there are one demand variable and one cost variable that are mutually excluded.
+In other words, one demand variable affects only the demand but not the cost, and vice versa.
 We also have the demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid X^{d}_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid X^{c}_{t}, Z^{c}_{t}] =0$. 
+
+\citet{lau1982identifying} provide the condition where the conduct parameter cannot be identified:
+\begin{theorem}
+    Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, but does not take the form $P = Q^{-1/\theta}r(X^{d}) + s(Q)$.
+\end{theorem}
+The proof is based on \citet{goldmanNote1964}.
+A function is separable if $f(x,y) = f(x, r(y))$ for $r(t)$, which is called weak separability in \citet{goldmanNote1964}.
+This theorem implies the conduct parameter is identified if $X^{d}$ and $Q$ are not separable in the inverse demand function.
+When $X^{d}_{t}$ is a vector, if there is at least one exogenous variable in $X^{d}_{t}$ that is not separable from $Q$, the conduct parameter is identified.
+
+\begin{remark}
+    The model of \citet{bresnahan1982oligopoly} is not a special case of \citet{lau1982identifying} because the twice continuous differentiability does not hold.
+    \citet{bresnahan1982oligopoly} consider a non-separable demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 X^0) Q + \alpha_3 X^1 + \varepsilon$ where $X^{d} = (X^0, X^1)$ and $X^0$ is called a demand rotation parameter.
+\end{remark}
+
 
 \subsection{Log-linear demand and log-linear marginal cost}
 Consider a log-linear model, which is a typical specification.
@@ -244,6 +263,61 @@ We thank Jeremy Fox, Yelda Gungor, and Isabelle Perrigne for valuable comments. 
 \appendix
 
 \section{Online appendix}
+
+
+\subsection{Summary of Goldman and Uzawa (1964)}
+
+\citet{goldmanNote1964} investigate separability concepts in demand analysis.
+Let $N$ be a set of product, $N = \{1,\ldots, n\}$.
+Consider a partition of $N$ into $S$ parts, $\{N^1, \ldots, N^S\}$ such that $N = \bigcup_{s=1}^S N^s$ and $N^s \cap N^t = \emptyset$.
+
+A utility function is weakly separable with respect to a partition if 
+\begin{align}
+    \frac{\partial u_i(x)/ u_j(x)}{\partial x_k} = 0, \quad i,j\in N^s, k \notin N^s.
+\end{align}
+This implies that the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $N^s$.
+
+In theorem 2, \citet{goldmanNote1964} shows the utility function that satisfies the weak separability.
+\begin{theorem}[Theorem 2 in \citet{goldmanNote1964}]
+    A utility function $u(x)$ is weakly separable with respect to a partition $\{N^1, .. ., N^s\}$ if, and only if, $u(x)$ is of the form: 
+    \begin{align}
+        u(X) = \Phi(u^1(x^{(1)}),\ldots, u^s(x^{(s)})   )
+    \end{align} where $\Phi(u^1,\ldots, u^s)$ is a function of $S$ variables and, for each $s$, $u^s(x^{(s)})$ is a function subvector $x^{(s)}$ alone.
+\end{theorem}
+
+Let $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$ be the set of dependent variables and divide the variables into two groups $(Q, X^{d})$.
+\citet{lau1982identifying} defines that a inverse demand function is separable if $P = f(Q, r(X^{d}))$.
+
+The linear demand function in \citet{bresnahan1982oligopoly} and the log-linear demand function in this paper is not separable.
+For the linear case,
+\begin{align}
+    \frac{f_Q}{f_Y} = \frac{(\alpha_1 + \alpha_2 Z)}{\alpha_3} \Longrightarrow \frac{\partial f_Q/f_Y}{\partial Z} = \frac{\alpha_2}{\alpha_3} \ne 0.
+\end{align}
+For the log-linear case, 
+\begin{align}
+    \frac{f_Q}{f_Y} = \frac{Y(\alpha_1 + \alpha_2 Z)}{\alpha_3Q} \Longrightarrow \frac{\partial f_Q/f_Y}{\partial Z} = \frac{\alpha_2Y}{\alpha_3Q} \ne 0.
+\end{align}
+Thus for the log-linear case, it is sufficient to assume either $\alpha_2/\alpha_3$ or $Y/Q$ is nonzero to identify the conduct parameter.
+
+
+\citet{lau1982identifying} use the following lemmna in \citet{goldmanNote1964}.
+\begin{lemma}
+    Let $f(x)$ and $g(x)$ be two continuously twice-differentiable functions of $n$ variables $x=(x_1, \dots, x_n)$. If each indifference surface is connected, and if there exists a function $\lambda(x)$ such that
+    \begin{align}
+    f_i(x) &= \lambda(x)g_i(x), \quad i=1, \dots, n, \quad \text{for all } x,
+    \end{align}
+    then $f(x)$ is a transformation of $g(x)$; namely, there exists a function $F(t)$ of one variable such that
+    \begin{align}
+    f(x) &= F(g(x)), \quad \text{for all } x.
+    \end{align}
+    Hence, in particular, the function $\lambda(x)$ satisfying (4) must be of the form:
+    \begin{align}
+        \lambda(x) &= \Lambda(g(x)), \quad \text{for all } x,
+    \end{align}
+    with some function $\Lambda(t)$ of one variable.
+\end{lemma}
+
+
 \subsection{Existence and uniqueness of equilibrium prices}\label{sec:appendix_proof}
 
 Proposition \ref{prop:equilibrium_existence} proposes the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
