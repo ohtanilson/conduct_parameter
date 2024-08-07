@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex note_on_lau"] 1722687472 "note_on_lau.aux" "note_on_lau.bbl" "note_on_lau" 1722688284
+["bibtex note_on_lau"] 1723006858 "note_on_lau.aux" "note_on_lau.bbl" "note_on_lau" 1723006865
   "/usr/local/texlive/2022/texmf-dist/bibtex/bst/economic/aer.bst" 1389482635 26812 2ae6e48450a8c17a93d98067b7084a7a ""
   "conduct_parameter.bib" 0 -1 0 ""
-  "note_on_lau.aux" 1722688282 4400 69705c26b3f32fd8fa613317308a7d55 "pdflatex"
+  "note_on_lau.aux" 1723006864 4441 476b190ca972104f3ec1c420c934359e "pdflatex"
   (generated)
   "note_on_lau.bbl"
   "note_on_lau.blg"
-["pdflatex"] 1722688275 "/Users/yurimatsumura/GitHub/conduct_parameter/lau1982/note_on_lau.tex" "note_on_lau.pdf" "note_on_lau" 1722688284
-  "/Users/yurimatsumura/GitHub/conduct_parameter/lau1982/note_on_lau.tex" 1722688274 16806 e5ca8e15aedeca680993d2661cccd8e1 ""
+["pdflatex"] 1723006858 "/Users/yurimatsumura/GitHub/conduct_parameter/lau1982/note_on_lau.tex" "note_on_lau.pdf" "note_on_lau" 1723006865
+  "/Users/yurimatsumura/GitHub/conduct_parameter/lau1982/note_on_lau.tex" 1723006842 17174 d38a3fcb9f800b56c1e1373d84aebcdb ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm0600.tfm" 1136768653 1536 12e8c510d3e158fdd0e9a42e75118bd9 ""
@@ -225,10 +225,10 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1660709058 4595804 b9440198e42732e01c7379f76ab491d8 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1660709104 2874271 f8f7d1d6010e6e021a5d660cb52da987 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "note_on_lau.aux" 1722688282 4400 69705c26b3f32fd8fa613317308a7d55 "pdflatex"
+  "note_on_lau.aux" 1723006864 4441 476b190ca972104f3ec1c420c934359e "pdflatex"
   "note_on_lau.bbl" 1722662333 1102 b4deeabd3eec6cedf76658d1a8460662 "bibtex note_on_lau"
-  "note_on_lau.out" 1722688282 871 a578f2fd2753196cb5579965854ae928 "pdflatex"
-  "note_on_lau.tex" 1722688274 16806 e5ca8e15aedeca680993d2661cccd8e1 ""
+  "note_on_lau.out" 1723006864 871 a578f2fd2753196cb5579965854ae928 "pdflatex"
+  "note_on_lau.tex" 1723006842 17174 d38a3fcb9f800b56c1e1373d84aebcdb ""
   (generated)
   "note_on_lau.aux"
   "note_on_lau.log"
