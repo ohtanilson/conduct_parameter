@@ -44,7 +44,7 @@
 
 
 \title{Note on Lau (1982)}
-\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo
+\author{Yuri Matsumura\thanks{\href{mailto:}{yuri.matsumura23@gmail.com}, Department of Economics, Rice University.} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo
 \\Declarations of interest: none %this is for Economics Letters
 }}
 
@@ -63,7 +63,22 @@
 \bigskip
 
 \section{Introduction}
-TBA
+This note provides a counterexample to \citet{lau1982identifying}.
+Measuring market power is a first-order task in the literature on industrial organization.
+The conduct parameter approach is a way of measuring market power and the empirical literature also investigates the identification of the parameter.
+The seminal paper is \citet{bresnahan1982oligopoly} which identifies the parameter in a homogeneous product market with a linear demand function and a linear marginal cost function.
+\citet{lau1982identifying} generalizes the identification in \citet{bresnahan1982oligopoly}.
+\citet{lau1982identifying} investigated the setting where the parameter cannot be identified.
+However, we find a counterexample to his result. 
+
+First, we check the model introduced in \citet{lau1982identifying}.
+While \citet{bresnahan1982oligopoly} considers a linear demand and a linear marginal cost model, \citet{lau1982identifying} considers a more general demand and marginal cost function.
+Because the demand function can be identified, the main problem is the simultaneous identification of the conduct parameter and marginal cost function from the supply function, which is derived from the first-order condition of the firm's maximization problem. 
+
+\citet{lau1982identifying} claimed that when the demand function is separable, the conduct parameter and the marginal cost function cannot be identified.
+
+
+
 \section{Model}
 Consider a homogeneous product market.
 The aggregate demand and aggregate marginal cost function is given as
@@ -80,49 +95,55 @@ Then, we obtain the supply equation:
 \end{align}
 where $\theta\in[0,1]$, which is the conduct parameter.
 
-\citet{lau1982identifying} state the definition of non-identification in this model:
-\begin{definition}
-    To show necessity we observe that non-identification implies
+As the demand function can be identified, \citet{lau1982identifying} tries to simultaneously identify the conduct parameter and the marginal cost function from the supply equation \eqref{eq:supply_equation}.
+
+\citet{lau1982identifying} does not show identification but shows the condition for non-identification.
+\citet{lau1982identifying} states the definition of non-identification in this model is the following:
+\begin{definition}\label{def:non_identification}
+    Non-identification implies
     \begin{align}
     f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g(Q, X^{s}),\label{eq:foc_alpha}\\
     f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g'(Q, X^{s}), \label{eq:foc_beta}
     \end{align}
-    where $\theta \neq \theta'$ and the reduced form functions $Q = h_2(X^{d}, X^{s})$ and $Q = h_2'(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
+    where $\theta \neq \theta'$, $g \ne g'$,\footnote{This condition ins not stated in \citet{lau1982identifying}, but assuming $g =\ne g'$ makes the identification simple. See Appendix.} and the reduced form functions $Q = h_2(X^{d}, X^{s})$ and $Q = h_2'(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
 \end{definition}
+Intuitively, this says that the two models under different conduct parameters and marginal cost functions generate the same equilibrium quantity and price, which implies that the researcher cannot distinguish the two models from the observed data.
 
-\citet{lau1982identifying} provide the condition where the conduct parameter cannot be identified:
+Then, \citet{lau1982identifying} provides the condition on the demand function where the conduct parameter cannot be identified:
 \begin{theorem}\label{theorem_lau}
     Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, 
     \begin{align}
         P = f(Q, r(X^{d})), \label{eq:demand_separable}
     \end{align}
-    for some function $r(\cdot)$, but does not take the form
+    but not take the form, 
     \begin{align}
         P = Q^{-1/\theta}r(X^{d}) + s(Q). \label{eq:identification_separable}
     \end{align}
 \end{theorem}
-This theorem implies that at least when the demand function is not separable, the conduct parameter is identified.
+This theorem implies that the conduct parameter is identified when the demand function is not separable.
 Even when the demand function is separable, the conduct parameter is identified if it satisfies \eqref{eq:identification_separable}.
 
 \begin{remark}
-    The model of \citet{bresnahan1982oligopoly} is not a special case of \citet{lau1982identifying} because the twice continuous differentiability does not hold.
-    \citet{bresnahan1982oligopoly} consider a non-separable demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 X^0) Q + \alpha_3 X^1 + \varepsilon$ where $X^{d} = (X^0, X^1)$ and $X^0$ is called a demand rotation parameter.
+    \citet{bresnahan1982oligopoly} considers a model with linear demand and marginal cost.
+    He considers a demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 Z) Q + \alpha_3 Y + \varepsilon$ where $Z$ is called a demand rotation parameter.
+    Under the demand, the conduct parameter and the marginal cost parameter can be identified.
+    \citet{matsumura2023resolving} provide more detailed conditions for the identification.
+    Note that Theorem \ref{theorem_lau} does not cover Bresnahan's model because the demand function is not twice continuously differentiable.
 \end{remark}
 
-
 \section{Summary of Goldman and Uzawa (1964)}
-Before investigating the proof in \citet{lau1982identifying}, we provide results from \citet{goldmanNote1964}.
-They play an important role in Lau's proof.
 
-\citet{goldmanNote1964} investigate separability concepts in demand analysis.
-Let $N$ be a set of product, $N = \{1,\ldots, n\}$.
-Consider a partition of $N$ into $S$ parts, $\{N^1, \ldots, N^S\}$ such that $N = \bigcup_{s=1}^S N^s$ and $N^s \cap N^t = \emptyset$.
+In section \ref{sec:proof_lau}, we review the proof of \citet{lau1982identifying}.
+As his proof relies on the definitions and results in \citet{goldmanNote1964}, which investigate separability concepts in demand analysis, we review the paper.
 
-A utility function is weakly separable with respect to a partition if 
+Let $n$ be the number of variables and $X = (X_{1},\ldots, X_{n})$ be a vector of $n$ variables.
+Consider a partition of $X$ into $K$ parts, $\{X^1, \ldots, X^K\}$ such that $X = \bigcup_{k=1}^K X^k$ and $X^k \cap X^k = \emptyset$.
+
+A function is weakly separable with respect to a partition if 
 \begin{align}
-    \frac{\partial u_i(x)/ u_j(x)}{\partial x_k} = 0, \quad i,j\in N^s, k \notin N^s.
+    \frac{\partial f_i(x)/ f_j(x)}{\partial x_l} = 0, \quad i,j\in X^k, l \notin X^k.
 \end{align}
-This implies that the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $N^s$.
+This implies that the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $X^k$.
 
 To show Theorem 2, \citet{goldmanNote1964} prove the following lemma:
 \begin{lemma}\label{lemma_1_GU}
@@ -143,25 +164,27 @@ To show Theorem 2, \citet{goldmanNote1964} prove the following lemma:
 
 Theorem 2 of \citet{goldmanNote1964} shows the utility function that satisfies the weak separability:
 \begin{theorem}[Theorem 2 in \citet{goldmanNote1964}]\label{thorem_2_GU}
-    A utility function $u(x)$ is weakly separable with respect to a partition $\{N^1, .. ., N^s\}$ if, and only if, $u(x)$ is of the form: 
+    A function $f(x)$ is weakly separable with respect to a partition $\{X^1, .. ., X^k\}$ if, and only if, $u(x)$ is of the form: 
     \begin{align}
-        u(X) = \Phi(u^1(x^{(1)}),\ldots, u^s(x^{(s)})   )
-    \end{align} where $\Phi(u^1,\ldots, u^s)$ is a function of $S$ variables and, for each $s$, $u^s(x^{(s)})$ is a function subvector $x^{(s)}$ alone.
+        f(X) = \Phi(f^1(x^{(1)}),\ldots, f^K(x^{(K)})   )
+    \end{align} where $\Phi(f^1,\ldots, f^K)$ is a function of $K$ variables and, for each $k$, $f^k(x^{(k)})$ is a function subvector $x^{(k)}$ alone.
 \end{theorem}
 
 To see the relationship to the model in \citet{lau1982identifying}, let $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$ be the set of dependent variables and divide the variables into two groups $(Q, X^{d})$.
-In this case, the separable definition \ref{eq:demand_separable} in Theorem \ref{theorem_lau} satisfies the weak-separability.
+Then, the separable definition of \eqref{eq:demand_separable} satisfies the weak-separability because $f^1(Q) = Q$ and $f^2(X^d) = r(X^d)$.
 
-For example, the linear demand function in \citet{bresnahan1982oligopoly} is not separable.
-\begin{align}
-    \frac{f_Q}{f_Y} = \frac{(\alpha_1 + \alpha_2 Z)}{\alpha_3} \Longrightarrow \frac{\partial f_Q/f_Y}{\partial Z} = \frac{\alpha_2}{\alpha_3} \ne 0.
-\end{align}
-$\alpha_2/\alpha_3 \ne 0$ comes from the sufficient condition in \citet{matsumura2023resolving}.
-Thus the conduct parameter can be identified.
+\begin{remark}
+    The linear demand function in \citet{bresnahan1982oligopoly} is not separable:
+    \begin{align}
+        \frac{f_Z}{f_Y} = \frac{\alpha_2 Q}{\alpha_3} \Longrightarrow \frac{\partial f_Z/f_Y}{\partial Q} = \frac{\alpha_2}{\alpha_3} \ne 0,
+    \end{align}
+    where $\alpha_2/\alpha_3 \ne 0$ comes from the sufficient condition for the identification in \citet{matsumura2023resolving}.
+    Thus the conduct parameter can be identified.
+\end{remark}
 
 
 
-\section{Proof in Lau(1982)}
+\section{Proof in Lau(1982)}\label{sec:proof_lau}
 Now, let's investigate the proof of \citet{lau1982identifying}.
 Taking derivatives with $X^{d}$ and $X^{s}$ for both \eqref{eq:foc_alpha}
 and \eqref{eq:foc_beta}.
@@ -206,56 +229,67 @@ where $F_1$ is the derivative of $F$ with respect to the first element.
 
 Pick $i$ and $j$th elements in \eqref{eq:transform_theta_derivative_second} and take a ratio of them implies
 \begin{align}
-\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})} & = \frac{(\partial f/\partial X^{d}_{i} \partial Q)}{(\partial f/\partial X^{d}_{j} \partial Q)},\label{eq:ratio_foc}
+\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})} & = \frac{(\partial^2 f/\partial X^{d}_{i} \partial Q)}{(\partial^2 f/\partial X^{d}_{j} \partial Q)},\label{eq:ratio_foc}
 \end{align}
 which turn implies
 \begin{align}
-    \frac{d}{dQ}\left(\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})}\right) =0.\label{eq:derivative_separable}
+    \frac{\partial}{\partial Q}\left(\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})}\right) =0.\label{eq:derivative_separable}
 \end{align}
 Thus $f$ must be a separable function due to Theorem \ref{thorem_2_GU}.
 
 \subsection{Questions to the proof}
-First, note that the left-hand side of \eqref{eq:foc_derivative_demand} and \eqref{eq:transform_theta_derivative_first} are both the derived of the left-hand side of \eqref{eq:foc_alpha} with respect to $X^{d}$.
-However, the former allows the differentiation of $Q = h_2(X^{d}, X^{s})$ with respect to $X^{d}$, the latter does not.
-In other words, the former views $f(Q, X^{d})$ as $f(h_2(X^{d}, X^{s}), X^{d})$ but the latter assumes that $Q$ does not depend on $X^{d}$.
-The independence between $Q$ and $X^{d}$ is the key to show the separability of $f$.
-In fact, separability in this model does not hold because $Q$ is an equilibrium object and thus always depends on $X^{d}$. 
-Thus $f(Q, r(X^{d}))$ is always written as $f(h_2(X^{d}, X^{s}), r(X^{d}))$, which contradict to the separability assumption.
 
-When we allow the differentiation of $Q$ with respect to $X^{d}$, \eqref{eq:ratio_foc} becomes
-\begin{align}
-    \frac{\frac{\partial f}{\partial X^{d}_{i}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{i}}}{\frac{\partial f}{\partial X^{d}_{j}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{j}}} = \frac{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{i}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{i}} + \frac{\partial^2 f}{\partial X^{d}_{i}\partial Q}Q }{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{j}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{j}} + \frac{\partial^2 f}{\partial X^{d}_{j}\partial Q}Q }.
-\end{align}
+\begin{itemize}
+    \item First, note that the left-hand side of \eqref{eq:foc_derivative_demand} and \eqref{eq:transform_theta_derivative_first} are both the derived of the left-hand side of \eqref{eq:foc_alpha} with respect to $X^{d}$.
+    However, the former allows the differentiation of $Q = h_2(X^{d}, X^{s})$ with respect to $X^{d}$, the latter does not.
+    In other words, the former views $f(Q, X^{d})$ as $f(h_2(X^{d}, X^{s}), X^{d})$ but the latter assumes that $Q$ does not depend on $X^{d}$.
+    The independence between $Q$ and $X^{d}$ is the key to show the separability of $f$.
+    In fact, separability in this model does not hold because $Q$ is an equilibrium object and thus always depends on $X^{d}$. 
+    Thus $f(Q, r(X^{d}))$ is always written as $f(h_2(X^{d}, X^{s}), r(X^{d}))$, which contradict to the separability assumption.
+    \item $F$ is written as a two-variable function, but $F$ is a one-variable function in the Lemma in \citet{goldmanNote1964}. Thus there shouldn't be an argument such as $F_1$, which is the derivative of $F$ in the first element, but there is no second element of $F$ in \citet{goldmanNote1964}!
+    \item 
+    When we allow the differentiation of $Q$ with respect to $X^{d}$, \eqref{eq:ratio_foc} becomes
+    \begin{align}
+        \frac{\frac{\partial f}{\partial X^{d}_{i}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{i}}}{\frac{\partial f}{\partial X^{d}_{j}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{j}}} = \frac{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{i}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{i}} + \frac{\partial^2 f}{\partial X^{d}_{i}\partial Q}Q }{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{j}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{j}} + \frac{\partial^2 f}{\partial X^{d}_{j}\partial Q}Q }.
+    \end{align}
+    \item 
+    Additionally, \eqref{eq:derivative_separable} shows weak-separability, but why this holds from \eqref{eq:ratio_foc}?
+    \begin{align}
+        & \frac{\partial }{\partial Q} \left(\frac{(\partial^2 f/\partial X^{d}_{i} \partial Q)}{(\partial^2 f/\partial X^{d}_{j} \partial Q)}  \right)\\
+        = &   \frac{(\partial^3 f/\partial Q\partial X^{d}_{i} \partial Q)(\partial f^2/\partial X^{d}_{j} \partial Q) - (\partial f^2/\partial X^{d}_{i} \partial Q)(\partial f^3/\partial Q\partial X^{d}_{j} \partial Q)}{(\partial f^2/\partial X^{d}_{j} \partial Q)^2}\\
+        =& 0\ (?).
+    \end{align}
+    The sufficient condition is $\frac{(\partial^2 f/\partial X^{d}_{i} \partial Q)}{(\partial^2 f/\partial X^{d}_{j} \partial Q)} = 1$.
+    But this is not assumed in the proof.
+\end{itemize}
 
-Additionally, \eqref{eq:derivative_separable} shows weak-separability, but why this holds from \eqref{eq:ratio_foc}?
+\section{A counterexample}
 
-\subsection{A counterexample}
-
-I show that the conduct parameter is identified when the inverse demand function is separable. 
-
+We show that the conduct parameter is identified when the inverse demand function is separable. 
 Consider the following inverse demand function and marginal cost function:
 \begin{align}
     P & = \exp(\varepsilon_{d}) Q^{\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}\label{eq:counter_demand}\\
     MC & = \exp(\varepsilon_{s})Q^{\beta_0} X_{s1}^{\beta_1} X_{s2}^{\beta_2}.\label{eq:counter_mc}
 \end{align}
 Assume that $\alpha_0 <0$.
+The above model does not have an intercept in both the demand function and the marginal cost function. 
+
 The inverse demand function is separable because
 \begin{align}
-    \frac{d}{dQ} \left(\frac{\partial P/\partial X_{d1}}{\partial P/\partial X_{d2}} \right) = \frac{d}{dQ} \left(\frac{\alpha_{1}\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1-1}X_{d2}^{\alpha_2}}{\alpha_2\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2-1}} \right) =  \frac{d}{dQ}\left(\frac{\alpha_1}{\alpha_2} \frac{X_{d2}}{X_{d1}} \right)=0.
+    \frac{\partial }{\partial Q} \left(\frac{\partial P/\partial X_{d1}}{\partial P/\partial X_{d2}} \right) = \frac{\partial }{\partial Q} \left(\frac{\alpha_{1}\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1-1}X_{d2}^{\alpha_2}}{\alpha_2\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2-1}} \right) =  \frac{\partial }{\partial Q}\left(\frac{\alpha_1}{\alpha_2} \frac{X_{d2}}{X_{d1}} \right)=0.
 \end{align}
-By taking logarithm to \eqref{eq:counter_demand}, we have a demand equation such that 
+Thus Theorem \ref{theorem_lau} implies that the conduct parameter cannot be identified.
+By taking logarithm to \eqref{eq:counter_demand}, we have a log-linear demand equation such that 
 \begin{align}
     \log P = \alpha_0 \log Q + \alpha_1 \log X_{d1}  + \alpha_2 \log X_{d2} + \varepsilon_{d}.\label{eq:counter_demand_equation}
 \end{align}
-
-
 From the first-order condition, 
 \begin{align}
-    P + \theta (\alpha_0 \exp(\varepsilon_{d})Q^{\alpha_0-1}X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}) Q & = Q^{\beta_0} X_{s1}^{\beta_1}X_{s2}^{\beta_2}\exp(\varepsilon_{s})\\
-    P + \theta \alpha_0 P & = Q^{\beta_0} X_{s1}^{\beta_1}X_{s2}^{\beta_2}\exp(\varepsilon_{s})\\
-    (1 + \theta\alpha_0) P & = Q^{\beta_0} X_{s1}^{\beta_1}X_{s2}^{\beta_2}\exp(\varepsilon_{s}).
+    MC = Q^{\beta_0} X_{s1}^{\beta_1}X_{s2}^{\beta_2}\exp(\varepsilon_{s}) & = P + \theta (\alpha_0 \exp(\varepsilon_{d})Q^{\alpha_0-1}X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}) Q\\
+    & = P + \theta \alpha_0 P\\
+    &= (1 + \theta\alpha_0) P.
 \end{align}
-By taking a logarithm, we obtain a supply equation,
+By taking a logarithm, we obtain a log-linear supply equation,
 \begin{align}
     \log P = - \log(1 + \theta\alpha_0) + \beta_0 \log Q + \beta_1 \log X_{s1}+\beta_2 \log X_{s2} + \varepsilon_{s}.\label{eq:counter_supply_equation}
 \end{align}
@@ -282,8 +316,57 @@ Because $\alpha_0$ is identified, the parameter $\theta$ is also identified, whi
     When the demand equation and the marginal cost equation have an intercept, the identification is impossible because the constant term in \eqref{eq:counter_supply_equation} becomes $-\log(1+\theta \alpha_0) + \beta$ and $\beta$ and $\theta$ cannot be separately identified without additional variables such as demand rotation parameter.
 \end{remark}
 
+\section{Alternative identification result}
+
+Suppose that there are $\theta$,$\theta'$, $g$, and $g'$ that satisfy Definition \ref{def:non_identification}.
+From \eqref{eq:foc_alpha} and \eqref{eq:foc_beta},
+\begin{align}
+    0 = (\theta - \theta')\frac{\partial f}{\partial Q}(Q,X^{d})Q + g'(Q,X^{s}) - g(Q,X^{s}). 
+\end{align}
+%線形の場合に，この式をダイレクトに使って，線型独立を証明しているのがMO2023
+%この式自体，g' = (\theta - \theta') \partial f/\partial Q + gと変換した場合，
+% g'はgのtransformationになっていることを示していそう．つまり，g' = F(g)となるようなFが存在する． 
+%やっぱこれは無理そう．あるものの変換であるとは，g(a) = (b) となるa,bに対して，g'(a) = g'(b)であることを要求するが，\partial f/\partial Q (Q, a) = \partial f/\partial Q (Q, b)が成立するとは限らない． 
 
 
+Differentiating this with $Q$,
+\begin{align}
+    0 = (\theta - \theta')\left[ \frac{\partial^2 f(Q,X^{d})}{\partial^2 Q}Q + \frac{\partial f(Q,X^{d})}{\partial Q} \right] + \frac{\partial g'(Q,X^{s})}{\partial Q} - \frac{\partial g(Q,X^{s})}{\partial Q}.\label{eq:foc_with_Q}
+\end{align}
+Derivative with $X^{d}$,
+\begin{align}
+    0 & =  (\theta - \theta')\left[ \frac{\partial^2 f(Q,X^{d})}{\partial^2 Q}\frac{\partial Q}{\partial X^{d}} Q  + \frac{\partial^2 f(Q,X^{d})}{\partial X^{d}\partial Q}Q + \frac{\partial f(Q,X^{d})}{\partial Q} \frac{\partial Q}{\partial X^{d}}\right]\\
+    &\quad + \frac{\partial g'(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{d}} - \frac{\partial g(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{d}}\\
+    & = \left[(\theta - \theta')\left[ \frac{\partial^2 f(Q,X^{d})}{\partial^2 Q}Q + \frac{\partial f(Q,X^{d})}{\partial Q} \right] + \frac{\partial g'(Q,X^{s})}{\partial Q} - \frac{\partial g(Q,X^{s})}{\partial Q}\right] \frac{\partial Q}{\partial X^{d}}\\
+    &\quad + (\theta - \theta')\frac{\partial^2 f(Q,X^{d})}{\partial X^{d}\partial Q}Q \\
+    & = (\theta - \theta')\frac{\partial^2 f(Q,X^{d})}{\partial X^{d}\partial Q}Q.\label{eq:foc_with_X_d}
+\end{align}
+Derivative with $X^{s}$,
+\begin{align}
+    0 = & (\theta - \theta')\left[ \frac{\partial^2 f(Q,X^{d})}{\partial^2 Q}\frac{\partial Q}{\partial X^{s}} Q  + \frac{\partial f(Q,X^{d})}{\partial Q} \frac{\partial Q}{\partial X^{s}}\right]\\
+    &\quad + \frac{\partial g'(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{s}} + \frac{\partial g'(Q,X^{s})}{\partial X^{s}} - \frac{\partial g(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{s}} - \frac{\partial g(Q,X^{s})}{\partial X^{s}}\\
+    & = \left[(\theta - \theta')\left[ \frac{\partial^2 f(Q,X^{d})}{\partial^2 Q}Q + \frac{\partial f(Q,X^{d})}{\partial Q} \right] + \frac{\partial g'(Q,X^{s})}{\partial Q} - \frac{\partial g(Q,X^{s})}{\partial Q}\right] \frac{\partial Q}{\partial X^{s}}\\
+    & \quad +  \frac{\partial g'(Q,X^{s})}{\partial X^{s}} -  \frac{\partial g(Q,X^{s})}{\partial X^{s}}\\
+    & = \frac{\partial g'(Q,X^{s})}{\partial X^{s}} -  \frac{\partial g(Q,X^{s})}{\partial X^{s}}.\label{eq:foc_with_X_s}
+\end{align}
+
+Because $\theta \ne \theta'$, \eqref{eq:foc_with_X_d} implies that 
+\begin{align}
+    \frac{\partial^2 f(Q,X^{d})}{\partial X^{d}\partial Q}Q = 0.
+\end{align}
+When $Q\ne 0$, this implies that $f(Q, X^{d}) = h(Q) + k(X^{d})$ for some $h$ and $k$. 
+As this is the necessary condition for non-identification, we can identify the conduct parameter when this does not hold.
+For example, a linear demand function $P = \alpha_0 + \alpha_1 Q + \alpha_2 X$ satisfies the functional form and we cannot identify $\theta$.
+In contrast, $P = \alpha_0 + (\alpha_1 +\alpha_z Z) Q + \alpha_2 Y$ with $X = (Z,Y)$ and $P = \exp(\alpha_0)Q^{\alpha_1}X^{\alpha2}$ do not satisfy the functional form.
+\citet{bresnahan1982oligopoly} and the above counterexample show that the conduct parameter can be identified under the two demand functions.
+
+\eqref{eq:foc_with_X_s} implies $g$ and $g'$ have same slope with respect to $X^{s}$.
+\textcolor{red}{I don't know what \eqref{eq:foc_with_Q} means.}
+%少なくとも，gとg'がX^sに関して並行である場合には識別できないことになる．
+%線形の場合には切片があって，切片が異なるgとg'のX^sの微分系数が同じだと，識別できていないことになる．
+
+% そもそも均衡アウトカムのQに関する微分ってとれるのか？線形の時は弾力性を出すのにQに関しての微分を取っているが...外生変数の変化なしに，内生変数の変化を考慮するのはOK？
+%gのQに関する微分については第1項の分だけシフトしていることになる．ただ，Lau自体もQに関する微分をそのまま識別の条件として使っているわけではないし，Qが均衡アウトカムであることを考えると，Qの変化もdemand shifter やcost shifterによって起きるものなので，X^dとX^sの微分だけを考えればよいのか？
 \newpage
 \bibliographystyle{aer}
 \bibliography{conduct_parameter}
