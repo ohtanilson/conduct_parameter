@@ -105,7 +105,7 @@ As the demand function can be identified, \citet{lau1982identifying} tries to si
     f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g(Q, X^{s}),\label{eq:foc_alpha}\\
     f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g'(Q, X^{s}), \label{eq:foc_beta}
     \end{align}
-    where $\theta \neq \theta'$, $g \ne g'$,\footnote{This condition ins not stated in \citet{lau1982identifying}, but assuming $g =\ne g'$ makes the identification simple. See Appendix.} and the reduced form functions $Q = h_2(X^{d}, X^{s})$ and $Q = h_2'(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
+    where $\theta \neq \theta'$, $g \ne g'$,\footnote{This condition ins not stated in \citet{lau1982identifying}, but assuming $g =\ne g'$ makes the identification simple. See Appendix.} and the reduced form functions $Q = h(X^{d}, X^{s})$ and $Q = h'(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
 \end{definition}
 Intuitively, this says that the two models under different conduct parameters and marginal cost functions generate the same equilibrium quantity and price, which implies that the researcher cannot distinguish the two models from the observed data.
 
@@ -125,10 +125,9 @@ Even when the demand function is separable, the conduct parameter is identified 
 
 \begin{remark}
     \citet{bresnahan1982oligopoly} considers a model with linear demand and marginal cost.
-    He considers a demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 Z) Q + \alpha_3 Y + \varepsilon$ where $Z$ is called a demand rotation parameter.
+    He considers a demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 Z) Q + \alpha_3 Y + \varepsilon$ where $Z$ is called a demand rotation IV.
     Under the demand, the conduct parameter and the marginal cost parameter can be identified.
     \citet{matsumura2023resolving} provide more detailed conditions for the identification.
-    Note that Theorem \ref{theorem_lau} does not cover Bresnahan's model because the demand function is not twice continuously differentiable.
 \end{remark}
 
 \section{Summary of Goldman and Uzawa (1964)}
@@ -136,42 +135,42 @@ Even when the demand function is separable, the conduct parameter is identified 
 In section \ref{sec:proof_lau}, we review the proof of \citet{lau1982identifying}.
 As his proof relies on the definitions and results in \citet{goldmanNote1964}, which investigate separability concepts in demand analysis, we review the paper.
 
-Let $n$ be the number of variables and $X = (X_{1},\ldots, X_{n})$ be a vector of $n$ variables.
-Consider a partition of $X$ into $K$ parts, $\{X^1, \ldots, X^K\}$ such that $X = \bigcup_{k=1}^K X^k$ and $X^k \cap X^k = \emptyset$.
+Let $n$ be the number of variables and $x = (x_{1},\ldots, x_{n})$ be a vector of $n$ variables.
+Consider a partition of $X$ into $K$ parts, $\{x^1, \ldots, x^K\}$ such that $X = \bigcup_{k=1}^K x^k$ and $x^k \cap x^l = \emptyset$ for $k\ne l$.
 
 A function is weakly separable with respect to a partition if 
 \begin{align}
-    \frac{\partial f_i(x)/ f_j(x)}{\partial x_l} = 0, \quad i,j\in X^k, l \notin X^k.
+    \frac{\partial f_i(x)/ f_j(x)}{\partial x_l} = 0, \quad i,j\in x^k, l \notin x^k.
 \end{align}
-This implies that the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $X^k$.
+When $f$ is a utility function, this implies that the marginal rate of substitution between commodity $i$ and $j$ in the same partition is independent of the quantities of commodities outside $x^k$.
 
 To show Theorem 2, \citet{goldmanNote1964} prove the following lemma:
 \begin{lemma}\label{lemma_1_GU}
     Let $f(x)$ and $g(x)$ be two continuously twice-differentiable functions of $n$ variables $x=(x_1, \dots, x_n)$. If each indifference surface is connected, and if there exists a function $\lambda(x)$ such that
     \begin{align}
-    f_i(x) &= \lambda(x)g_i(x), \quad i=1, \dots, n, \quad \text{for all } x,
+    f_i(x) &= \lambda(x)g_i(x), \quad i=1, \dots, n, \quad \text{for all } x, \label{eq:transform_f}
     \end{align}
-    then $f(x)$ is a transformation of $g(x)$; namely, there exists a function $F(t)$ of one variable such that
+    then $f(x)$ is a transformation of $g(x)$; namely, there exists a function $F(\cdot)$ of one variable such that
     \begin{align}
     f(x) &= F(g(x)), \quad \text{for all } x.
     \end{align}
-    Hence, in particular, the function $\lambda(x)$ satisfying (4) must be of the form:
+    Hence, in particular, the function $\lambda(x)$ satisfying \eqref{eq:transform_f} must be of the form:
     \begin{align}
         \lambda(x) &= \Lambda(g(x)), \quad \text{for all } x,
     \end{align}
-    with some function $\Lambda(t)$ of one variable.
+    with some function $\Lambda(\cdot)$ of one variable.
 \end{lemma}
 
 Theorem 2 of \citet{goldmanNote1964} shows the utility function that satisfies the weak separability:
 \begin{theorem}[Theorem 2 in \citet{goldmanNote1964}]\label{thorem_2_GU}
-    A function $f(x)$ is weakly separable with respect to a partition $\{X^1, .. ., X^k\}$ if, and only if, $u(x)$ is of the form: 
+    A function $f(x)$ is weakly separable with respect to a partition $\{x^1, .. ., x^K\}$ if and only if $f(x)$ is of the form: 
     \begin{align}
-        f(X) = \Phi(f^1(x^{(1)}),\ldots, f^K(x^{(K)})   )
-    \end{align} where $\Phi(f^1,\ldots, f^K)$ is a function of $K$ variables and, for each $k$, $f^k(x^{(k)})$ is a function subvector $x^{(k)}$ alone.
+        f(X) = \Phi(r^1(x^{1}),\ldots, r^K(x^{K})   )
+    \end{align} where $\Phi(r^1,\ldots, r^K)$ is a function of $K$ variables and, for each $k$, $r^k(x^{k})$ is a function subvector $x^{k}$ alone.
 \end{theorem}
 
-To see the relationship to the model in \citet{lau1982identifying}, let $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$ be the set of dependent variables and divide the variables into two groups $(Q, X^{d})$.
-Then, the separable definition of \eqref{eq:demand_separable} satisfies the weak-separability because $f^1(Q) = Q$ and $f^2(X^d) = r(X^d)$.
+\citet{lau1982identifying} assumes that the set of variables in the demand function as  $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$  divides the variables into two groups $(Q, X^{d})$.
+Then, the separable definition of \eqref{eq:demand_separable} satisfies the weak-separability because he defines $r^1(Q) = Q$ and $r^2(X^d) = r(X^d)$.
 
 \begin{remark}
     The linear demand function in \citet{bresnahan1982oligopoly} is not separable:
@@ -186,82 +185,143 @@ Then, the separable definition of \eqref{eq:demand_separable} satisfies the weak
 
 \section{Proof in Lau(1982)}\label{sec:proof_lau}
 Now, let's investigate the proof of \citet{lau1982identifying}.
-Taking derivatives with $X^{d}$ and $X^{s}$ for both \eqref{eq:foc_alpha}
-and \eqref{eq:foc_beta}.
-From \eqref{eq:foc_alpha},
+Note that we fill some gaps between the lines in the original proof in \citet{lau1982identifying}.
+
+\subsection{Necessity}
+\citet{lau1982identifying} shows that non-identification implies that the demand function is separable.
+First, by taking the derivative of the first-order condition \eqref{eq:foc_alpha} with respect to $X^{d}$, we obtain
 \begin{align}
-    & \frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{d}} + \frac{\partial f}{\partial X^{d}} + \theta\left(\frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{d}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial h_2}{\partial X^{d}} + \frac{\partial^2 f}{\partial X^{d}\partial Q}Q \right) = \frac{\partial g}{\partial Q}\frac{\partial h_2}{\partial X^{d}}\label{eq:foc_derivative_demand}\\
-    & \frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{s}} + \theta \left(\frac{\partial f}{\partial Q}\frac{\partial h_2}{\partial X^{s}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial h_2}{\partial X^{s}} \right) =  \frac{\partial g}{\partial Q}\frac{\partial h_2}{\partial X^{s}} + \frac{\partial g}{\partial X^{s}}\label{eq:foc_derivative_supply}.
+    \frac{\partial g}{\partial Q}\frac{\partial h}{\partial X^{d}} = & \frac{\partial f}{\partial Q}\frac{\partial h}{\partial X^{d}} + \frac{\partial f}{\partial X^{d}} + \theta\left(\frac{\partial f}{\partial Q}\frac{\partial h}{\partial X^{d}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial h}{\partial X^{d}} + \frac{\partial^2 f}{\partial X^{d}\partial Q}Q \right).
 \end{align}
-\eqref{eq:foc_derivative_demand} and \eqref{eq:foc_derivative_supply} also hold for \eqref{eq:foc_beta}.
-As the non-identification implies that $h_2(X^{d}, X^{s}) = h_2'(X^{d}, X^{s})$ for all $X^{d}$ and $X^{s}$,
+Here, we use the reduced form equation $Q = h(X^{d}, X^{s})$.
+Then, by summarizing the equation by $\frac{\partial h}{\partial X^{d}}$, we obtain
 \begin{align}
-    \frac{\partial h_2}{\partial X^{d}} & = - \frac{\frac{\partial f}{\partial X^{d}} + \theta \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}\\
-    & = - \frac{\frac{\partial f}{\partial X^{d}} + \theta' \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}= \frac{\partial h_2'}{\partial X^{d}},
+    \frac{\partial h}{\partial X^{d}} = & -\frac{\frac{\partial f}{\partial X^{d}} + \theta \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}. \label{eq:foc_derivative_demand}
+\end{align}
+
+Next, by taking derivative of \eqref{eq:foc_alpha} with respect to $X^{s}$, we obtain
+\begin{align}
+    & \frac{\partial f}{\partial Q}\frac{\partial h}{\partial X^{s}} + \theta \left(\frac{\partial f}{\partial Q}\frac{\partial h}{\partial X^{s}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial h}{\partial X^{s}} \right) =  \frac{\partial g}{\partial Q}\frac{\partial h}{\partial X^{s}} + \frac{\partial g}{\partial X^{s}}.
+\end{align}
+Then we also have
+\begin{align}
+    \frac{\partial h}{\partial X^{s}} & = \frac{\frac{\partial g}{\partial X^{s}}}{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}. \label{eq:foc_derivative_supply}
+\end{align}
+The similar relationships hold for \eqref{eq:foc_beta}.
+
+As the non-identification implies that $Q = h(X^{d}, X^{s}) = h'(X^{d}, X^{s})$ for all $X^{d}$ and $X^{s}$, we have
+\begin{align}
+    \frac{\partial h}{\partial X^{d}}  = \frac{\partial h'}{\partial X^{d}}\quad \text{  and  } \quad \frac{\partial h}{\partial X^{s}}  = \frac{\partial h'}{\partial X^{s}}.
+\end{align}
+Thus from \eqref{eq:foc_derivative_demand} and \eqref{eq:foc_derivative_supply}, we obtain
+\begin{align}
+     - \frac{\frac{\partial f}{\partial X^{d}} + \theta \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}} = - \frac{\frac{\partial f}{\partial X^{d}} + \theta' \frac{\partial^2 f}{\partial X^{d}\partial Q}Q }{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}\label{eq:derivative_q_x_d}
 \end{align}
 and
 \begin{align}
-    \frac{\partial h_2}{\partial X^{s}} & = -\frac{-\frac{\partial g}{\partial X^{s}}}{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}} \\
-     & = -\frac{-\frac{\partial g'}{\partial X^{s}}}{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}} = \frac{\partial h_2'}{\partial X^{s}}.
+    \frac{\frac{\partial g}{\partial X^{s}}}{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}} & = \frac{\frac{\partial g'}{\partial X^{s}}}{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}.\label{eq:derivative_q_x_s}
 \end{align}
-Let
+
+
+By using \eqref{eq:derivative_q_x_s}, \citet{lau1982identifying} claims the following:
+\begin{claim}
+    From \eqref{eq:derivative_q_x_s}, there exists a function $\lambda(\cdot)$ such that
+    \begin{align}
+        \frac{\partial g}{\partial X^{s}} = \lambda(Q, X^{s}) \frac{\partial g'}{\partial X^{s}}. \label{eq:transformation_g}
+    \end{align}
+    By Lemmna \ref{lemma_1_GU}, there is a function $F$ such that
+    \begin{align}
+        g(Q,X^{s}) = F(g'(Q,X^{s}), Q).
+    \end{align}
+\end{claim}
+
+After the claim, he substitutes \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} in the above equation, obtaining
 \begin{align}
-    \mu(Q,X^{s}) \equiv \frac{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}.
-\end{align}
-Then 
-\begin{align}
-    \frac{\partial g}{\partial X^{s}} = \lambda(Q, X^{s}) \frac{\partial g'}{\partial X^{s}}. \label{eq:transformation_g}
-\end{align}
-By Lemmna \ref{lemma_1_GU}, there is a function $F$ such that
-\begin{align}
-    g(Q,X^{s}) = F(g'(Q,X^{s}), Q).
-\end{align}
-By substituting \eqref{eq:foc_alpha} and \eqref{eq:foc_beta},
-\begin{align}
-    f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q  = F\left(f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q, Q \right) \label{eq:transform_theta}
+    f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q  = F\left(f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q, Q \right).
+    \label{eq:transform_theta}
 \end{align}
 Differentiate \eqref{eq:transform_theta} with respect to $X^{d}$, obtaining
 \begin{align}
 \frac{\partial f}{\partial X^{d}}(Q, X^{d}) + \theta' \frac{\partial^2 f}{\partial X^{d} \partial Q}(Q, X^{d})Q &= F_{1} \cdot \left[\frac{\partial f}{\partial X^{d}}(Q, X^{d}) + \theta \frac{\partial^2 f}{\partial X^{d} \partial Q}(Q, X^{d})Q\right]\label{eq:transform_theta_derivative_first}\\
 (1 - F_{1}) \frac{\partial f}{\partial X^{d}}(Q, X^{d}) & = (F_{1} \theta - \theta')\frac{\partial^2 f}{\partial X^{d} \partial Q}(Q, X^{d})Q,\label{eq:transform_theta_derivative_second}
 \end{align}
-where $F_1$ is the derivative of $F$ with respect to the first element. 
+where $F_1$ is the derivative of $F$ with respect to the first element.
 
 Pick $i$ and $j$th elements in \eqref{eq:transform_theta_derivative_second} and take a ratio of them implies
 \begin{align}
-\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})} & = \frac{(\partial^2 f/\partial X^{d}_{i} \partial Q)}{(\partial^2 f/\partial X^{d}_{j} \partial Q)},\label{eq:ratio_foc}
+\frac{\partial f/\partial X^{d}_{i}}{\partial f/\partial X^{d}_{j}} & = \frac{\partial^2 f/\partial X^{d}_{i} \partial Q}{\partial^2 f/\partial X^{d}_{j} \partial Q}.\label{eq:ratio_foc}
 \end{align}
-which turn implies
+From this, we have
 \begin{align}
-    \frac{\partial}{\partial Q}\left(\frac{(\partial f/\partial X^{d}_{i})(Q, X^{d})}{(\partial f/\partial X^{d}_{j})(Q, X^{d})}\right) =0.\label{eq:derivative_separable}
+    \frac{\partial }{\partial Q} \log\left( \frac{\partial f}{\partial X^{d}_{i}}\right) = \frac{\partial^2 f/\partial X^{d}_{i} \partial Q}{\partial f/\partial X^{d}_{i}}  = \frac{\partial^2 f/\partial X^{d}_{j} \partial Q}{\partial f/\partial X^{d}_{j}} = \frac{\partial }{\partial Q} \log\left( \frac{\partial f}{\partial X^{d}_{j}}\right).
 \end{align}
-Thus $f$ must be a separable function due to Theorem \ref{thorem_2_GU}.
+Note that we can exchange the order of partial derivative due to Young's theorem.
+Therefore, we have
+\begin{align}
+    0 & = \frac{\partial}{\partial Q}\log\left(\frac{\partial f/\partial X^{d}_{i}}{\partial f/\partial X^{d}_{j}}\right)\\
+    & = \frac{1}{\frac{\partial f/\partial X^{d}_{i}}{\partial f/\partial X^{d}_{j}}} \frac{\partial}{\partial Q} \left(\frac{\partial f/\partial X^{d}_{i}}{\partial f/\partial X^{d}_{j}}\right).
+    \label{eq:derivative_separable}
+\end{align}
+Note that it can be assume that $\partial f/\partial X^{d}_{i}\ne 0$, nevertheless, it implies that $f$ does not include $X_{i}$.
+Therefore  $\frac{\partial f/\partial X^{d}_{i}}{\partial f/\partial X^{d}_{j}}$ is well-defined, and hence we have 
+\begin{align}
+    \frac{\partial}{\partial Q} \left(\frac{\partial f/\partial X^{d}_{i}}{\partial f/\partial X^{d}_{j}}\right) = 0.
+\end{align}
+Thus $f$ must be a separable function due to Theorem \ref{thorem_2_GU}, which complete the proof for the necessity.
 
-\subsection{Questions to the proof}
 
-\begin{itemize}
-    \item First, note that the left-hand side of \eqref{eq:foc_derivative_demand} and \eqref{eq:transform_theta_derivative_first} are both the derived of the left-hand side of \eqref{eq:foc_alpha} with respect to $X^{d}$.
-    However, the former allows the differentiation of $Q = h_2(X^{d}, X^{s})$ with respect to $X^{d}$, the latter does not.
-    In other words, the former views $f(Q, X^{d})$ as $f(h_2(X^{d}, X^{s}), X^{d})$ but the latter assumes that $Q$ does not depend on $X^{d}$.
-    The independence between $Q$ and $X^{d}$ is the key to show the separability of $f$.
-    In fact, separability in this model does not hold because $Q$ is an equilibrium object and thus always depends on $X^{d}$. 
-    Thus $f(Q, r(X^{d}))$ is always written as $f(h_2(X^{d}, X^{s}), r(X^{d}))$, which contradict to the separability assumption.
-    \item $F$ is written as a two-variable function, but $F$ is a one-variable function in the Lemma in \citet{goldmanNote1964}. Thus there shouldn't be an argument such as $F_1$, which is the derivative of $F$ in the first element, but there is no second element of $F$ in \citet{goldmanNote1964}!
-    \item 
-    When we allow the differentiation of $Q$ with respect to $X^{d}$, \eqref{eq:ratio_foc} becomes
-    \begin{align}
-        \frac{\frac{\partial f}{\partial X^{d}_{i}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{i}}}{\frac{\partial f}{\partial X^{d}_{j}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{j}}} = \frac{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{i}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{i}} + \frac{\partial^2 f}{\partial X^{d}_{i}\partial Q}Q }{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{j}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{j}} + \frac{\partial^2 f}{\partial X^{d}_{j}\partial Q}Q }.
-    \end{align}
-    \item 
-    Additionally, \eqref{eq:derivative_separable} shows weak-separability, but why this holds from \eqref{eq:ratio_foc}?
-    \begin{align}
-        & \frac{\partial }{\partial Q} \left(\frac{(\partial^2 f/\partial X^{d}_{i} \partial Q)}{(\partial^2 f/\partial X^{d}_{j} \partial Q)}  \right)\\
-        = &   \frac{(\partial^3 f/\partial Q\partial X^{d}_{i} \partial Q)(\partial f^2/\partial X^{d}_{j} \partial Q) - (\partial f^2/\partial X^{d}_{i} \partial Q)(\partial f^3/\partial Q\partial X^{d}_{j} \partial Q)}{(\partial f^2/\partial X^{d}_{j} \partial Q)^2}\\
-        =& 0\ (?).
-    \end{align}
-    The sufficient condition is $\frac{(\partial^2 f/\partial X^{d}_{i} \partial Q)}{(\partial^2 f/\partial X^{d}_{j} \partial Q)} = 1$.
-    But this is not assumed in the proof.
-\end{itemize}
+
+\section{Questions to the proof}
+
+\subsection{Claim 1}
+
+Question is if Lau correctly uses Lemma \ref{lemma_1_GU} to show the exsistence of $F$.
+First $F$ should be one-variable function in  \ref{lemma_1_GU}, although he defines $F$ as two-variable function.
+
+Based on \eqref{eq:derivative_q_x_s}, it seems that \citet{lau1982identifying} defines
+\begin{align}
+    \lambda(Q, X^{s}) \equiv \frac{(1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q}}{(1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q}}.
+\end{align}
+This expression clearly states that $\lambda$ depends on both $Q$ and $X^{s}$.
+Furthermore, $g$ also depends on both $Q$ and $X^{s}$.
+While $Q$ is a scalar, $X^{s}$ could be a vector, and hence we can think that he devide $K+1$ variables into two groups $Q$ and $X^{S}$.
+What he claims based on Lemma \ref{lemma_1_GU} is that there exists $F$ such that
+\begin{align}
+    g(Q,X^{s}) = F(g'(Q,X^{s})).
+\end{align}
+However to show this, he only uses \eqref{eq:transformation_g}, although Lemma \ref{lemma_1_GU} also requires 
+\begin{align}
+    \frac{\partial g}{\partial Q} = \lambda(Q,X^{s}) \frac{\partial g'}{\partial Q}
+\end{align}
+becuase $g$ depends both $Q$ and $X^{s}$.
+
+What can we obtain about $\frac{\partial g}{\partial Q}$ and $\frac{\partial g'}{\partial Q}$?
+From the first-order condition, we have
+\begin{align}
+    0 &= (1+\theta)\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g}{\partial Q},\\
+    0 &= (1+\theta')\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q - \frac{\partial g'}{\partial Q},
+\end{align}
+which implies that 
+\begin{align}
+    \frac{\partial g}{\partial Q} = \frac{\partial g'}{\partial Q} + (\theta - \theta') \left(\frac{\partial f}{\partial Q} + \frac{\partial^2 f}{\partial Q^2}Q \right).
+\end{align}
+The second term and the derivatie of $g$ with respect to $Q$ is not multicable separable and the second term does not coincide with $\lambda$, and hence we cannot have $\frac{\partial g}{\partial Q} = \lambda(Q,X^{s}) \frac{\partial g'}{\partial Q}$.
+Therefore, we cannot claim that $F$ exists.
+
+\begin{remark}
+    A possible interpretation is that he fixs $Q$ and thinks that $g$ is a function of $X^{s}$ only to obtain $F$. But this looks very tricky...
+\end{remark}
+
+
+
+\subsection{Other questions}
+First, note that the left-hand side of \eqref{eq:foc_derivative_demand} and \eqref{eq:transform_theta_derivative_first} are both the derived of the left-hand side of \eqref{eq:foc_alpha} with respect to $X^{d}$.
+However, the former allows the differentiation of $Q = h(X^{d}, X^{s})$ with respect to $X^{d}$, the latter does not.
+In other words, the former views $f(Q, X^{d})$ as $f(h(X^{d}, X^{s}), X^{d})$ but the latter assumes that $Q$ does not depend on $X^{d}$.
+When we allow the differentiation of $Q$ with respect to $X^{d}$, \eqref{eq:ratio_foc} becomes
+\begin{align}
+    \frac{\frac{\partial f}{\partial X^{d}_{i}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{i}}}{\frac{\partial f}{\partial X^{d}_{j}} + \frac{\partial f}{\partial Q} \frac{\partial Q}{\partial X^{d}_{j}}} = \frac{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{i}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{i}} + \frac{\partial^2 f}{\partial X^{d}_{i}\partial Q}Q }{\frac{\partial f}{\partial Q}\frac{\partial Q}{\partial X^{d}_{j}}  + \frac{\partial^2 f}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{j}} + \frac{\partial^2 f}{\partial X^{d}_{j}\partial Q}Q }.
+\end{align}
 
 \section{A counterexample}
 
