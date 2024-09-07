@@ -1,0 +1,474 @@
+---
+title: "10_2_estimate_counterexample_for_Lau1982" 
+author: "Kaede Hanazawa"
+date: "2024/09/07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+# Load
+
+```{r,echo=FALSE,results = "hide"}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+# we need to use old version of modelsummary for latex output
+if(1 == 0){
+  devtools::install_version(
+    "modelsummary",
+    version = "0.9.4", 
+    repos = "http://cran.us.r-project.org")
+  }
+
+library(modelsummary)
+
+n_observation_list <-
+  c(
+    50,
+    100,
+    200, 
+    1000
+    )
+sigma_list <-
+  c(
+    0.001,
+    0.5, 
+    1.0, 
+    2.0
+    )
+
+true_parameter_linear <-
+  c(
+    5,
+    rep(1, 7),
+    0.5
+    )
+# linear with demand shifter
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "counterexample_for_Lau1982_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        sep = ""
+      )
+    temp_data <-
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "parameter_hat_table_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
+    temp_data <-
+      temp_data %>% 
+      dplyr::rename(
+        `$\\alpha_{0}$` =
+          alpha0_hat,
+        `$\\alpha_{1}$` =
+          alpha1_hat,
+        `$\\alpha_{2}$` =
+          alpha2_hat,
+        `$\\beta_{0}$` =
+          beta0_hat,
+        `$\\beta_{1}$` =
+          beta1_hat,
+        `$\\beta_{2}$` =
+          beta2_hat,
+        `$\\theta$` =
+          theta_hat,
+        `$R^{2}$ (demand)` =
+          R2_demand,
+        `$R^{2}$ (supply)` =
+          R2_supply) %>% 
+      dplyr::mutate(
+        filename =
+          paste(
+            "(",
+            nn,
+            ") ",
+            "$n=",
+            temp_nn,
+            "$",
+            sep = ""
+            )
+        )
+    assign(
+      filename,
+      temp_data) 
+  }
+}
+
+
+create_table <- function(target_data)
+  {
+  f_with_demand_shifter <-
+  (`$\\alpha_{0}$` +
+  `$\\alpha_{1}$`+
+  `$\\alpha_{2}$`+
+  `$\\beta_{0}$`+
+  `$\\beta_{1}$`+
+  `$\\beta_{2}$`+
+  `$\\theta$`+
+  `$R^{2}$ (demand)`+
+  `$R^{2}$ (supply)` ) ~
+  filename * (Mean + SD)*Arguments(na.rm = TRUE)
+    filelocation <-
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        ".tex",
+        sep = "")
+    new_rows <- 
+      data.frame(
+        "Sample size ($T$)",
+        "",
+        "50",
+        "",
+        "100",
+        "",
+        "200",
+        "",
+        "1000")
+    target_data %>%
+      modelsummary::datasummary(
+        f_with_demand_shifter,
+        escape = FALSE,
+        fmt = 3,
+        data = .,
+        add_rows = new_rows,
+        output = "latex_tabular"
+        ) %>%
+      gsub("\\multicolumn.*\\\\", "", .) %>%
+      kableExtra::save_kable(
+        file = here::here(
+          filelocation)
+        )
+    res <-
+      modelsummary::datasummary(
+        f_with_demand_shifter,
+        data = target_data,
+        fmt = 3,
+        add_rows = new_rows,
+        notes = filelocation)
+    return(res)
+  }
+
+create_table_bias_rmse <-
+  function(target_data){
+    bias_info <-
+      target_data %>% 
+      dplyr::group_by(filename) %>% 
+      # Redefine variables as the errors
+      dplyr::summarise(
+        `$\\alpha_{0}$` =
+          mean(`$\\alpha_{0}$` -
+                 true_parameter_linear[1],
+               na.rm = TRUE),
+        `$\\alpha_{1}$` =
+          mean(`$\\alpha_{1}$` -
+                 true_parameter_linear[2],
+               na.rm = TRUE),
+        `$\\alpha_{2}$` =
+          mean(`$\\alpha_{2}$` -
+                 true_parameter_linear[3],
+               na.rm = TRUE),
+        `$\\beta_{0}$` =
+          mean(`$\\beta_{0}$` -
+                 true_parameter_linear[5],
+               na.rm = TRUE),
+        `$\\beta_{1}$` =
+          mean(`$\\beta_{1}$` - 
+                 true_parameter_linear[6],
+               na.rm = TRUE),
+        `$\\beta_{2}$` =
+          mean(`$\\beta_{2}$` - 
+                 true_parameter_linear[7],
+               na.rm = TRUE),
+        `$\\theta$` =
+          mean(`$\\theta$` -
+                 true_parameter_linear[9],
+               na.rm = TRUE)
+      ) %>% 
+      dplyr::ungroup()
+    rmse_info <-
+      target_data %>% 
+      dplyr::group_by(filename) %>% 
+      dplyr::summarise(
+        `$\\alpha_{0}$` =
+          sqrt(mean((`$\\alpha_{0}$` -
+                       true_parameter_linear[1])^2,
+               na.rm = TRUE)),
+        `$\\alpha_{1}$` =
+          sqrt(mean((`$\\alpha_{1}$` -
+                       true_parameter_linear[2])^2,
+               na.rm = TRUE)),
+        `$\\alpha_{2}$` =
+          sqrt(mean((`$\\alpha_{2}$` -
+                       true_parameter_linear[3])^2,
+               na.rm = TRUE)),
+        `$\\beta_{0}$` =
+          sqrt(mean((`$\\beta_{0}$` -
+                       true_parameter_linear[5])^2,
+               na.rm = TRUE)),
+        `$\\beta_{1}$` =
+          sqrt(mean((`$\\beta_{1}$` -
+                       true_parameter_linear[6])^2,
+               na.rm = TRUE)),
+        `$\\beta_{2}$` =
+          sqrt(mean((`$\\beta_{2}$` -
+                       true_parameter_linear[7])^2,
+               na.rm = TRUE)),
+        `$\\theta$` =
+          sqrt(mean((`$\\theta$` -
+                       true_parameter_linear[9])^2,
+               na.rm = TRUE))
+      ) %>% 
+      dplyr::ungroup()
+    file_name_list <-
+      unique(
+        rmse_info$filename)
+    for(nn in 1:length(file_name_list)){
+      temp_file_name <-
+        as.character(
+          file_name_list[nn])
+      temp_bias <-
+        bias_info %>% 
+        dplyr::filter(
+          filename == 
+            temp_file_name
+        )
+      temp_rmse <-
+        rmse_info %>% 
+        dplyr::filter(
+          filename == 
+            temp_file_name
+          )
+      temp_bias_rmse <-
+        data.frame(
+          "Bias" = 
+            format(
+              round(
+                t(temp_bias[-1]),
+                digits = 3),
+              nsmall = 3),
+          "RMSE" = 
+            format(
+              round(
+                t(temp_rmse[-1]),
+                digits = 3),
+              nsmall = 3)
+          )
+      if(nn == 1){
+        all_bias_rmse <-
+          temp_bias_rmse
+      }else{
+        #merge 
+        all_bias_rmse <-
+          cbind(
+            all_bias_rmse,
+            temp_bias_rmse)
+      }
+    }
+    new_rows <-
+      data.frame(
+        #"Sample size ($T$)",
+        "",
+        "50",
+        "",
+        "100",
+        "",
+        "200",
+        "",
+        "1000")
+    colnames(new_rows) <-
+      colnames(all_bias_rmse)
+    all_bias_rmse_for_latex <-
+      rbind(
+        all_bias_rmse,
+        new_rows
+        )
+    rownames(all_bias_rmse_for_latex)[8] <-
+      "Sample size ($T$)"
+    filelocation <-
+      paste(
+        "figuretable/",
+        deparse(
+          substitute(
+            target_data
+            )
+          ),
+        as.character(),
+        "_bias_rmse",
+        ".tex",
+        sep = "")
+    all_bias_rmse_for_latex %>% 
+      kableExtra::kbl(
+        format = "latex",
+        align = c("l","r","r","r","r","r","r","r","r"),
+        escape = FALSE,
+        booktabs = TRUE,
+        linesep = ""
+      ) %>% 
+      kableExtra::save_kable(
+        file = here::here(
+          filelocation
+        )
+      )
+    res <-
+      all_bias_rmse_for_latex %>% 
+      kableExtra::kable() %>% 
+      kableExtra::kable_styling()
+    return(res)
+  }
+
+options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
+```
+
+# Model
+A log-linear demand equation:
+$$
+\log P = \alpha_0\log Q + \alpha_1\log X_{d1} + \alpha_2\log X_{d2} + \epsilon_d \tag{16}
+$$
+
+A log-linear supply equation:
+$$
+\log P = -\log(1+\theta\alpha_0) + \beta_0\log Q + \beta_1\log X_{s1} + \beta_2\log X_{s2} + \epsilon_s \tag{17}
+$$
+
+The equilibrium quantity $Q$ is obtained as
+$$
+\log Q = \frac{\beta_1\log X_{s1} + \beta_2\log X_{s2}-\log(1+\theta\alpha_0) + \epsilon_s - \alpha_1\log X_{d1}-\alpha_2\log X_{d2}-\epsilon_d}{\alpha_0 - \beta_0}
+$$
+
+The instrumental variables for demand estimation are $(X_{d1}, X_{d2}, iv_{s1}, iv_{s2})$
+and for supply estimation are $(X_{s1}, X_{s2}, X_{d1}, X_{d2})$.
+
+# Specification {.tabset}
+
+```{r, eval=FALSE}
+# exogenous demand shifter
+logX_d1 <- log(runif(nk, min = 1, max = 3))
+logX_d2 <- log(runif(nk, min = 1, max = 3))
+
+# exogenous cost shifter
+logX_s1 <- log(runif(nk, min = 1, max = 3))
+logX_s2 <- log(runif(nk, min = 1, max = 3))
+
+
+# instrumental variables for cost shifter
+iv_s1 <- logX_s1 + rnorm(nk, mean = 0, sd = 1)
+iv_s2 <- logX_s2 + rnorm(nk, mean = 0, sd = 1)
+
+# conduct parameter
+theta <- 0.5
+
+# for demand
+alpha0 <- 5
+alpha1 <- 1
+alpha2 <- 1
+
+# for supply
+beta0 <- 1
+beta1 <- 1
+beta2 <- 1
+
+epsilon_d <- rnorm(nk, mean = 0, sd = target_sigma)
+epsilon_s <- rnorm(nk, mean = 0, sd = target_sigma)
+```
+
+# Estimation {.tabset}
+
+## log-linear demand, log-linear cost {.tabset}
+
+### 2SLS {.tabset}
+
+#### $\sigma=0.001$
+
+```{r,echo=FALSE,results = "asis"}
+counterexample_for_Lau1982_sigma_0.001 <-
+  rbind(
+    counterexample_for_Lau1982_n_50_sigma_0.001,
+    counterexample_for_Lau1982_n_100_sigma_0.001,
+    counterexample_for_Lau1982_n_200_sigma_0.001,
+    counterexample_for_Lau1982_n_1000_sigma_0.001)
+create_table(
+  counterexample_for_Lau1982_sigma_0.001
+)
+create_table_bias_rmse(
+  counterexample_for_Lau1982_sigma_0.001
+)
+```
+
+#### $\sigma=0.5$
+
+```{r,echo=FALSE,results = "asis"}
+counterexample_for_Lau1982_sigma_0.5 <-
+  rbind(
+    counterexample_for_Lau1982_n_50_sigma_0.5,
+    counterexample_for_Lau1982_n_100_sigma_0.5,
+    counterexample_for_Lau1982_n_200_sigma_0.5,
+    counterexample_for_Lau1982_n_1000_sigma_0.5)
+create_table(
+  counterexample_for_Lau1982_sigma_0.5
+)
+create_table_bias_rmse(
+  counterexample_for_Lau1982_sigma_0.5
+)
+```
+
+#### $\sigma=1.0$
+
+```{r,echo=FALSE,results = "asis"}
+counterexample_for_Lau1982_sigma_1 <-
+  rbind(
+    counterexample_for_Lau1982_n_50_sigma_1,
+    counterexample_for_Lau1982_n_100_sigma_1,
+    counterexample_for_Lau1982_n_200_sigma_1,
+    counterexample_for_Lau1982_n_1000_sigma_1)
+create_table(
+  counterexample_for_Lau1982_sigma_1
+)
+create_table_bias_rmse(
+  counterexample_for_Lau1982_sigma_1
+)
+```
+
+#### $\sigma=2.0$ 
+
+```{r,echo=FALSE,results = "asis"}
+counterexample_for_Lau1982_sigma_2 <-
+  rbind(
+    counterexample_for_Lau1982_n_50_sigma_2,
+    counterexample_for_Lau1982_n_100_sigma_2,
+    counterexample_for_Lau1982_n_200_sigma_2,
+    counterexample_for_Lau1982_n_1000_sigma_2)
+create_table(
+  counterexample_for_Lau1982_sigma_2
+)
+create_table_bias_rmse(
+  counterexample_for_Lau1982_sigma_2
+)
+
+```
