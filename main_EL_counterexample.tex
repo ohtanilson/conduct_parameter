@@ -1,0 +1,251 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.4}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\DeclareMathOperator{\rank}{rank}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+
+\title{Identifying Conduct Parameters with Separable Demand: A Counterexample to \cite{lau1982identifying}}
+\author{Yuri Matsumura\thanks{\href{mailto:}{yuri.matsumura23@gmail.com}, Department of Economics, Rice University.} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, Department of Economics, University of Tokyo
+\\Declarations of interest: none %this is for Economics Letters
+}}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+    We provide a counterexample to the conduct parameter identification result established in the foundational work of \citet{lau1982identifying}, which generalizes the identification theorem of \citet{bresnahan1982oligopoly} by relaxing the linearity assumptions. We identify a separable demand function that still permits identification and validate this case both theoretically and through numerical simulations.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Conduct parameters, Homogenous Goods Market, Monte Carlo simulation
+\vspace{0in}
+\newline
+\noindent\textbf{JEL Codes:} C5, C13, L1
+
+\bigskip
+
+\section{Introduction}
+
+Measuring market power is a central task in the field of industrial organization. 
+The conduct parameter approach offers a method for assessing market power, and the empirical literature extensively investigates the identification of this parameter.
+A seminal contribution by \citet{bresnahan1982oligopoly} establishes conditions for identifying the conduct parameter in a homogeneous product market with a linear demand function and a linear marginal cost function. 
+Another foundational work by \citet{lau1982identifying} generalizes the identification theorem and relaxes the linearity assumptions. 
+\cite{lau1982identifying} argues that the separability of the demand function, a concept introduced by \citet{goldmanNote1964}, is critical for identification. 
+Specifically, when the demand function is non-separable or follows a particular separable form, both the conduct parameter and the marginal cost function can be identified.
+
+In this note, we provide a counterexample to the identification result proposed by \citet{lau1982identifying}. 
+We identify a separable demand function that does not conform to his specified functional form yet still allows for identification. 
+We validate this case both theoretically and through numerical simulation exercises, following \citet{matsumura2023resolving,matsumura2024challenges}.
+
+\section{Model}
+Consider a homogeneous product market.
+The aggregate demand and aggregate marginal cost function is given as
+\begin{align}
+    P = f(Q, X^{d}), \label{eq:demand}
+    \\
+    MC = g(Q, X^{c}),\label{eq:marginal_cost}
+\end{align}
+where $Q$ is the aggregate quantity, $X^{d}$ and $X^{c}$ are the vector of exogenous variables.
+Assume that $X^{d}$ and $X^{s}$ are exclusive, that is, there is no common variable in $X^{d}$ and $X^{s}$.
+Then, we obtain the supply equation:
+\begin{align}
+     P + \theta\frac{\partial P(Q)}{\partial Q}Q = MC,\label{eq:supply_equation}
+\end{align}
+where $\theta\in[0,1]$, which is the conduct parameter. The equation nests perfect competition ($\theta=0$) and perfect collusion ($\theta=1$) (See \cite{bresnahan1982oligopoly}). 
+
+As the demand function can be identified, \citet{lau1982identifying} attempts to simultaneously identify both the conduct parameter and the marginal cost function through the supply equation \eqref{eq:supply_equation}. 
+Instead of directly proving identification, \citet{lau1982identifying} takes an indirect approach by specifying the conditions under which the model is not identified. 
+He defines non-identification in this model as follows:
+\begin{definition}\label{def:non_identification}
+    Non-identification implies
+    \begin{align}
+    f(Q, X^{d}) + \theta \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g(Q, X^{s}),\label{eq:foc_alpha}\\
+    f(Q, X^{d}) + \theta' \frac{\partial f}{\partial Q}(Q, X^{d})Q &= g'(Q, X^{s}), \label{eq:foc_beta}
+    \end{align}
+    where $\theta \neq \theta'$, $g \ne g'$,\footnote{This condition is not stated in \citet{lau1982identifying}, but assuming $g \ne g'$ makes the identification simple.} and the reduced form functions $Q = h(X^{d}, X^{s})$ and $Q = h'(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
+\end{definition}
+Intuitively, this means that two models with different conduct parameters and marginal cost functions can generate the same equilibrium quantity and price. 
+In other words, the researcher is unable to distinguish between the two models based solely on the observed data.
+
+\citet{lau1982identifying} presents the condition on the demand function under which the conduct parameter cannot be identified:
+\begin{theorem}\label{theorem_lau}
+    Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is,
+    \begin{align}
+        P = f(Q, r(X^{d})), \label{eq:demand_separable}
+    \end{align}
+    but not take the form, 
+    \begin{align}
+        P = Q^{-1/\theta}r(X^{d}) + s(Q). \label{eq:identification_separable}
+    \end{align}
+\end{theorem}
+The theorem implies that the conduct parameter is identified when the demand function is not separable.
+Even when the demand function is separable, the conduct parameter is identified if it satisfies \eqref{eq:identification_separable}.
+
+Note that by Theorem 2 in \citet{goldmanNote1964}, the separability of \eqref{eq:demand_separable} is equivalent to
+\begin{align}
+    \frac{\partial }{\partial Q} \left(\frac{\partial P/\partial X_{di}}{\partial P/\partial X_{dj}} \right) = 0,\quad i \ne j, 
+\end{align}
+where $X_{di}$ is the $i$-th element in $X_{d}$.
+We will use this to check if a function is separable.
+
+\begin{remark}
+    \citet{bresnahan1982oligopoly} considers a model with linear demand and marginal cost.
+    He considers a demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 Z) Q + \alpha_3 Y + \varepsilon$ where $Z$ is called a demand rotation instrument.
+    It is easy to verify that this demand is not separable.
+    Under the demand, the conduct parameter and the marginal cost parameter can be identified.
+    \citet{matsumura2023resolving} provide more detailed conditions for the identification.
+\end{remark}
+
+
+
+\section{A counterexample}
+
+We show that the conduct parameter is identified when the inverse demand function is separable. 
+Consider the following inverse demand function and marginal cost function:
+\begin{align}
+    P & = \exp(\varepsilon_{d}) Q^{\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}\label{eq:counter_demand}\\
+    MC & = \exp(\varepsilon_{s})Q^{\beta_0} X_{s1}^{\beta_1} X_{s2}^{\beta_2},\label{eq:counter_mc}
+\end{align}
+where $\varepsilon_{d}$ and $\varepsilon_{s}$ satisfy the mean independence condition $E[\varepsilon_{d}\mid X_{d}, X_{s}] = E[\varepsilon_{s} \mid X_{d}, X_{s}] =0$. 
+%Assume that $\alpha_0 <0$.
+
+The inverse demand \eqref{eq:counter_demand} is separable because
+\begin{align}
+    \frac{\partial }{\partial Q} \left(\frac{\partial P/\partial X_{d1}}{\partial P/\partial X_{d2}} \right) = \frac{\partial }{\partial Q} \left(\frac{\alpha_{1}\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1-1}X_{d2}^{\alpha_2}}{\alpha_2\exp(\varepsilon_{d}) Q^{-\alpha_0} X_{d1}^{\alpha_1}X_{d2}^{\alpha_2-1}} \right) =  \frac{\partial }{\partial Q}\left(\frac{\alpha_1}{\alpha_2} \frac{X_{d2}}{X_{d1}} \right)=0.
+\end{align}
+%According to Theorem \ref{theorem_lau}, the conduct parameter cannot be identified.
+
+By taking the logarithm of the inverse demand \eqref{eq:counter_demand}, we have a log-linear demand equation such that 
+\begin{align}
+    \log P = \alpha_0 \log Q + \alpha_1 \log X_{d1}  + \alpha_2 \log X_{d2} + \varepsilon_{d}.\label{eq:counter_demand_equation}
+\end{align}
+The demand parameters can be identified when $X^s$ is a vector of exclusive demand instruments.
+Thus, we can assume that $\alpha_0, \alpha_1$, and $\alpha_2$ are known.  
+
+The left-hand side of the first-order condition \eqref{eq:supply_equation} can be written as
+\begin{align}
+    P + \theta\frac{\partial P(Q)}{\partial Q}Q & =  P + \theta (\alpha_0 \exp(\varepsilon_{d})Q^{\alpha_0-1}X_{d1}^{\alpha_1}X_{d2}^{\alpha_2}) Q\\
+    & = P + \theta \alpha_0 P\\
+    &= (1 + \theta\alpha_0) P.
+\end{align}
+Substituting this and the marginal cost function \eqref{eq:counter_mc} into the supply equation \eqref{eq:supply_equation} and taking a logarithm, we obtain the log-linear supply equation,
+\begin{align}
+    \log P = - \log(1 + \theta\alpha_0) + \beta_0 \log Q + \beta_1 \log X_{s1}+\beta_2 \log X_{s2} + \varepsilon_{s}.\label{eq:counter_supply_equation}
+\end{align}
+Let $\gamma = - \log(1 + \theta\alpha_0)$. When $X^d$ and $X^s$ contain non-overlapping variables, $X^d$ serves as a vector of instrumental variables for the supply equation. 
+By applying the identification argument for instrumental variable regression, the parameters in Equation \eqref{eq:counter_supply_equation}, namely $\gamma$, $\beta_0$, and $\beta_1$, are identified. 
+Consequently, the parameter $\theta$ is also identified as $\theta = (\exp(-\gamma) - 1)/\alpha_0$, which contradicts Theorem \ref{theorem_lau}. 
+Note that we do not need to introduce Bresnahan demand rotation instruments, discussed in \cite{matsumura2023resolving}.
+
+
+\section{Simulation}
+We validate our counterexample numerically via Monte Carlo simulation as in \cite{matsumura2023resolving}.
+We set true parameters and distributions as shown in Table \ref{tb:parameter_setting}. 
+For the simulation, we generate 1,000 data sets. 
+The demand and supply equations are estimated separately using two-stage least squares (2SLS) estimation. The instrumental variables for the demand estimation are $(Z_{s1}, Z_{s2})$, and for the supply estimation, the instrumental variables are $(X_{d1}, X_{d2})$. 
+As reported in Table \ref{tb:counterexample_for_Lau1982_sigma_0.001_bias_rmse}, both biases and RMSEs decrease sharply as the sample size increases. 
+This confirms our finding that our counterexample successfully achieves conduct parameter identification.
+
+
+\begin{table}[!htbp]
+    \caption{True parameters and distributions}
+    \label{tb:parameter_setting}
+    \begin{center}
+    \subfloat[Parameters]{
+    \begin{tabular}{cr}
+            \hline
+            & linear  \\
+            $\alpha_0$ & $-1.0$  \\
+            $\alpha_1$ & $1.0$  \\
+            $\alpha_2$ & $1.0$ \\
+            $\beta_0$ & $1.0$ \\
+            $\beta_1$ & $1.0$  \\
+            $\beta_2$ & $1.0$ \\
+            $\theta$ & $0.5$ \\
+            \hline
+        \end{tabular}
+    }
+    \subfloat[Distributions]{
+    \begin{tabular}{crr}
+            \hline
+            & linear\\
+            Demand shifter&  \\
+            $X_{d1}$ & $U(1,3)$  \\
+            $X_{d2}$ & $U(1,3)$  \\
+            Cost shifter&    \\
+            $X_{s1}$ & $U(1,3)$   \\
+            $X_{s2}$ & $U(1,3)$  \\
+            $Z_{s1}$ & $\log X_{s1} +N(0,1)$   \\
+            $Z_{s2}$ & $\log X_{s2} +N(0,1)$   \\
+            Error&  &  \\
+            $\varepsilon^{d}$ & $N(0,\sigma)$  \\
+            $\varepsilon^{s}$ & $N(0,\sigma)$ \\
+            \hline
+        \end{tabular}
+    }
+    \end{center}
+    \footnotesize
+    Note: $\sigma=\{0.001, 0.5, 1.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution. The replication code is available on the author's github.
+\end{table}
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Results of the separable demand model}
+      \label{tb:counterexample_for_Lau1982_sigma_0.001_bias_rmse} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/counterexample_for_Lau1982_sigma_0.001_bias_rmse}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/counterexample_for_Lau1982_sigma_0.5_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$]{\input{figuretable/counterexample_for_Lau1982_sigma_1_bias_rmse}}
+  \end{center}
+  \footnotesize
+  Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0,\sigma)$. Th
+\end{table} 
+
+\section{Conclusion}
+
+We present a counterexample to \citet{lau1982identifying}'s identification result, showing that a separable demand function outside his specified form can still achieve identification of both the conduct parameter and the marginal cost. This finding, supported by theoretical analysis and numerical simulations, challenges existing assumptions for the identification of the conduct parameter beyond the linear specification of demand and marginal cost functions.
+
+\paragraph{Acknowledgments}
+This work was supported by JST ERATO Grant Number JPMJER2301, Japan. We thank Kaede Hanazawa for his excellent research assistance.
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+
+\end{document}
