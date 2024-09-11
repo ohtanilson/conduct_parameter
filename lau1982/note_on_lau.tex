@@ -44,7 +44,7 @@
 
 
 \title{Note on Lau (1982)}
-\author{Yuri Matsumura\thanks{\href{mailto:}{yuri.matsumura23@gmail.com}, Department of Economics, Rice University.} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo
+\author{Yuri Matsumura\thanks{\href{mailto:}{yuri.matsumura23@gmail.com}, Department of Economics, Rice University.} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, Department of Economics, University of Tokyo
 \\Declarations of interest: none %this is for Economics Letters
 }}
 
@@ -363,7 +363,7 @@ Thus we can assume that $\alpha_0, \alpha_1$, and $\alpha_2$ is known.
 
 Then it is easy to see that $- \log(1 + \theta\alpha_0), \beta_0$, and $\beta_1$ are identified with a vector of exclusive supply instrument $X^d$.
 Let $\gamma = - \log(1 + \theta\alpha_0)$, then $\theta = (\exp(-\gamma) - 1)/\alpha_0$.
-Because $\alpha_0$ is identified, the parameter $\theta$ is also identified, which contradicts Theorem \ref{theorem_lau}.
+Because $\alpha_0$ is identified, the parameter $\theta$ is also identified, which contradicts Theorem \ref{theorem_lau}. In fact, Table \ref{tb:counterexample_for_Lau1982_sigma_0.001_bias_rmse} verifies our findings.
 
 \begin{remark}
     The above inverse demand function has a constant-elasticity property. 
@@ -375,6 +375,18 @@ Because $\alpha_0$ is identified, the parameter $\theta$ is also identified, whi
 \begin{remark}
     When the demand equation and the marginal cost equation have an intercept, the identification is impossible because the constant term in \eqref{eq:counter_supply_equation} becomes $-\log(1+\theta \alpha_0) + \beta$ and $\beta$ and $\theta$ cannot be separately identified without additional variables such as demand rotation parameter.
 \end{remark}
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Results of the separable demand model}
+      \label{tb:counterexample_for_Lau1982_sigma_0.001_bias_rmse} 
+      \subfloat[$\sigma=0.001$]{\input{figuretable/counterexample_for_Lau1982_sigma_0.001_bias_rmse}}\\
+      \subfloat[$\sigma=0.5$]{\input{figuretable/counterexample_for_Lau1982_sigma_0.5_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$]{\input{figuretable/counterexample_for_Lau1982_sigma_1_bias_rmse}}
+  \end{center}
+  \footnotesize
+  Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0,\sigma)$.
+\end{table} 
 
 \section{Alternative identification result}
 
