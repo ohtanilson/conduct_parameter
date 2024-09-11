@@ -1,0 +1,379 @@
+---
+title: "10_1_simulate_counterexample_for_Lau1982_"
+author: "Suguru Otani"
+date: "2022/12/03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load
+
+```{r,echo=FALSE,results = "asis"}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+library(modelsummary) # for N in datasummary
+# set constant ----
+# set constant ----
+n_observation_list <-
+  c(
+    50,
+    100,
+    200,
+    1000
+    )
+sigma_list <-
+  c(
+    0.001,
+    0.5,
+    1.0,
+    2.0
+    )
+
+# load, estimate, and save data ----
+## linear demand and linear cost ----
+### with demand_shifter_y ----
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "linear_linear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        sep = ""
+      )
+    cat(filename,"\n")
+    # load 
+    target_data <-
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
+    assign(
+      filename,
+      target_data)
+  }
+}
+n_observation_list <-
+  c(
+    50,
+    100,
+    200,
+    1000,
+    1500
+    )
+# loglinear loglinear 
+for(nn in 1:length(n_observation_list)){
+  for(ss in 1:length(sigma_list)){
+    temp_nn <-
+      n_observation_list[nn]
+    temp_sigma <-
+      sigma_list[ss]
+    filename <-
+      paste(
+        "loglinear_loglinear_",
+        "n_",
+        temp_nn,
+        "_sigma_",
+        temp_sigma,
+        sep = ""
+      )
+    cat(filename,"\n")
+    # load 
+    target_data <-
+      readRDS(
+        file = 
+          here::here(
+            paste(
+              "output/data_",
+              filename,
+              ".rds",
+              sep = ""
+              )
+            )
+        )
+    assign(
+      filename,
+      target_data)
+  }
+}
+
+generate_plot <-
+  function(
+    data
+  ){
+    temp <-
+      data %>% 
+      dplyr::filter(
+        group_id_k < 10)
+    x <-
+      ggplot(temp,
+             aes(x = Q, y = P)) + 
+      geom_point(alpha = 0.3) + 
+      stat_smooth(method = "lm",
+                    se = FALSE) +
+      theme_classic() + 
+      scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8)) +
+      theme(plot.title = element_text(hjust = 0.5)) +
+      xlab("Q") + 
+      ylab("P")
+    return(x)
+  }
+
+generate_plot_log_log <-
+  function(
+    data
+  ){
+    temp <-
+      data %>% 
+      dplyr::filter(
+        group_id_k < 10)
+    x <-
+      ggplot(temp,
+             aes(x = logQ, y = logP)) + 
+      geom_point(alpha = 0.3) + 
+      stat_smooth(method = "lm",
+                    se = FALSE) +
+      theme_classic() + 
+      scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8)) +
+      theme(plot.title = element_text(hjust = 0.5)) +
+      xlab("logQ") + 
+      ylab("logP")
+    return(x)
+  }
+
+options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
+```
+
+
+# Estimation {.tabset}
+
+## linear-demand linear-cost {.tabset}
+
+\begin{align}
+    P_t = \alpha_0 - (\alpha_1 + \alpha_2Z^R_t)Q_t + \alpha_3 Y_t + \varepsilon_{dt},\\
+    MC_t = \gamma_0  + \gamma_1 Q + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct},
+\end{align}
+where $w_t$ and $r_t$ are excluded cost shifter.
+The supply equation is given as
+\begin{align}
+    P_t = \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^R_t)+ \gamma_1] Q_t   + \gamma_2 w_t + \gamma_3 r_t + \varepsilon_{ct}
+\end{align}
+
+From the supply equation and the demand equation, we can represent the aggregate quantity $Q_t$ based on the parameters and the exogenous variables as   
+\begin{align}
+    Q_t =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 w_t - \gamma_3 r_t + \varepsilon_{dt} - \varepsilon_{ct}}{(1 + \theta) (\alpha_1 + \alpha_2Z^R_t) + \gamma_1}.
+\end{align}
+
+### n = 50 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_50_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_50_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_50_sigma_1
+  )
+generate_plot(
+    linear_linear_n_50_sigma_2
+  )
+```
+
+
+### n = 100
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_100_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_100_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_100_sigma_1
+  )
+generate_plot(
+    linear_linear_n_100_sigma_2
+  )
+```
+
+
+### n = 200 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_200_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_200_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_200_sigma_1
+  )
+generate_plot(
+    linear_linear_n_200_sigma_2
+  )
+```
+
+
+### n = 1000 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot(
+    linear_linear_n_1000_sigma_0.001
+  )
+generate_plot(
+    linear_linear_n_1000_sigma_0.5
+  )
+generate_plot(
+    linear_linear_n_1000_sigma_1
+  )
+generate_plot(
+    linear_linear_n_1000_sigma_2
+  )
+```
+
+
+## log-linear-demand log-linear-cost {.tabset}
+
+Considers a model with log demand and a Cobb-Douglas cost function. 
+The demand equation is given as a log-demand, 
+\begin{align}
+    \log P_{t} = \alpha_0 - (\alpha_1 + \alpha_2 Z^R_t) \log Q_t + \alpha_3 \log Y_t + \varepsilon_{dt}.
+\end{align}
+The log marginal cost is given as 
+\footnote{\cite{hyde1995can} consider a Cobb-Douglas cost function such that \begin{align*}
+    C_t = A^{-1/\gamma} \gamma \left(\frac{w_t}{\alpha}\right)^{\frac{\alpha}{\gamma}} \left(\frac{r_t}{\beta}\right)^{\frac{\beta}{\gamma}} Q_t^{\frac{1}{\gamma}}e^{\varepsilon_{ct}},
+\end{align*} where $\alpha + \beta = \gamma$, and derive the log marginal cost function.}
+\begin{align}
+    \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+\end{align}
+Since $P'(Q) = - (\alpha_1 + \alpha_2 Z^R) \frac{P}{Q} $, the supply equation is given as
+\begin{align}
+    P_t &= \theta_t (\alpha_1 + \alpha_2 Z^R_t) \frac{P_t}{Q_t} Q_t + mc_t,
+\end{align}
+and by taking logarithm, we obtain
+\begin{align}
+    \log P_t & = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}
+\end{align}
+From the supply equation and the demand equation, the log aggregate quantity is given as 
+\begin{align}
+    \log Q_t &= \frac{ \alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^R_t)) - \gamma_0  -  \gamma_2 \log w_t - \gamma_3 \log r_t + \varepsilon_{dt} - \varepsilon_{ct}}{\gamma_1+ \alpha_1 + \alpha_2 Z^R_t }.
+\end{align}
+
+
+\begin{align}
+    &\log P_{t} = \alpha_0 - \alpha_1 \log Q_t - \alpha_2 Z^R_t\log Q_t + \alpha_3 \log Y_t \varepsilon_{dt},\\
+    &\log P_t  = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^R_t)) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log w_t + \gamma_3 \log r_t + \varepsilon_{ct}.
+\end{align}
+
+### n = 50 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot_log_log(
+    loglinear_loglinear_n_50_sigma_0.001
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_50_sigma_0.5
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_50_sigma_1
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_50_sigma_2
+  )
+```
+
+
+### n = 100
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot_log_log(
+    loglinear_loglinear_n_100_sigma_0.001
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_100_sigma_0.5
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_100_sigma_1
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_100_sigma_2
+  )
+```
+
+
+### n = 200 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot_log_log(
+    loglinear_loglinear_n_200_sigma_0.001
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_200_sigma_0.5
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_200_sigma_1
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_200_sigma_2
+  )
+```
+
+
+### n = 1000 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot_log_log(
+    loglinear_loglinear_n_1000_sigma_0.001
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_1000_sigma_0.5
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_1000_sigma_1
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_1000_sigma_2
+  )
+```
+
+
+### n = 1500 {.tabset}
+
+```{r,echo=TRUE,results = "asis"}
+generate_plot_log_log(
+    loglinear_loglinear_n_1500_sigma_0.001
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_1500_sigma_0.5
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_1500_sigma_1
+  )
+generate_plot_log_log(
+    loglinear_loglinear_n_1500_sigma_2
+  )

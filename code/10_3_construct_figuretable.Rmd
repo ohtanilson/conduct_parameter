@@ -43,7 +43,7 @@ sigma_list <-
 
 true_parameter_linear <-
   c(
-    5,
+    -1,
     rep(1, 7),
     0.5
     )
