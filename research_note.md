@@ -1,0 +1,18 @@
+## Lauの十分性の議論
+
+まず，このペーパーで考えられているのは，需要関数を与えられたときに，２つの異なるconduct parameterとmarginal cost functionの組み合わせで，observable equivalentな均衡を生成するものを見つけられるか？という問いをしている．
+
+この点で，自分たちが反例と呼んでいるものは反例ではなく，実際にはseparableな需要関数を与えられたときに，2つの異なるconduct parameterとmarginal cost functionの組み合わせで，常にobservanle equivalentな均衡を生成できないようなmarginal cost functionの関数型を特定しただけである．
+これはJeremyの指摘通りで，同じ需要関数で，他の関数の形でobservable equivalentな均衡を生成してしまうようなmarginal cost functionが存在する可能性はある．
+
+Lauはまず，separableな需要関数が識別できないことの必要条件であることを示すために，OEな均衡を生成してしまうような異なるconduct parameterとMCの組み合わせがあるときにdemand functionはseparableが導かれることを示している．
+    - 実際にBeresnahanのlinear demand linear marginal costの例では，demandはseparableだったときに，異なるlinear marginal cost functionとconduct parameterの値で，どんな(Y,W)の変化に対してもOEとなるような均衡を生成してしまっている．
+    - 言い換えると，separableな需要関数が与えられたときに，observable equivalentな均衡を生成するものを見つけてしまっている．
+
+
+一方で，Lauはseparableな需要関数のもとでは識別はできないとも主張している．つまり，separableな需要関数が識別できないことの十分条件になっていると主張している．
+
+
+
+
+
