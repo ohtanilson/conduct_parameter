@@ -233,12 +233,11 @@ Given $X^{d}$ and $X^{s}$, the true component $(\theta, MC)$ satisfy the first-o
     F(Q, X^{d}, X^{s}) \equiv P(Q, X^{d}) + \theta\frac{\partial P}{\partial Q}(Q, X^{d})Q - MC(Q, X^{s}) = 0.
 \end{align}
 Assume that we can solve the first-order condition and obtain the reduced-form equation for the equilibrium quantity, $Q^e$.
-Assume that the derivative of $F$ with respect to $Q$ at the equilibrium quantity $Q^e$ is nonzero.
+Assume that the derivative of $F$ with respect to $Q$ at the equilibrium quantity $Q^e$ is nonzero;
 \begin{align}
     \frac{\partial F}{\partial Q}(Q^e, X^{d}, X^{s}) = (1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC}{\partial Q}(Q^e, X^{s}) \ne 0.
 \end{align}
-Then, we can apply the implicit function theorem. 
-The equilibrium quantity has a reduced-form equation $Q^e = h(X^{d}, X^{s})$.
+Then, we can apply the implicit function theorem, and hence, the equilibrium quantity has a reduced-form equation $Q^e = h(X^{d}, X^{s})$.
 The derivatives of $F$ for each variable are
 \begin{align}
     \frac{\partial F}{\partial X^{d}_i}(Q^e, X^{d}, X^{s}) & =  \frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e,\\
@@ -264,10 +263,10 @@ By applying the same argument for \eqref{eq:foc_beta}, we obtain
 
  
 % Use the definition of non-identification
-Hereafter, for notational simplicity, I suppress $(Q^e, X^{d}, X^{s})$).
+Hereafter, for notational simplicity, I suppress $(Q^e, X^{d}, X^{s})$.
 As the non-identification implies that $Q^e = h(X^{d}, X^{s}) = h^{*}(X^{d}, X^{s})$ for all $X^{d}$ and $X^{s}$, we have
 \begin{align}
-    \frac{\partial h^{*}}{\partial X^{d}_{i}}  = \frac{\partial h}{\partial X^{d}_{i}}\quad \text{  and  } \quad \frac{\partial h^{*}}{\partial X^{s}_{i}}  = \frac{\partial h}{\partial X^{s}_{i}}. \label{eq:observale_equivalence_derivative}
+    \frac{\partial h^{*}}{\partial X^{d}_{i}}(X^{d}, X^{s})  = \frac{\partial h}{\partial X^{d}_{i}}(X^{d}, X^{s})\quad \text{  and  } \quad \frac{\partial h^{*}}{\partial X^{s}_{i}}(X^{d}, X^{s})  = \frac{\partial h}{\partial X^{s}_{i}}(X^{d}, X^{s}) . \label{eq:observale_equivalence_derivative}
 \end{align}
 Thus, we obtain 
 \begin{align}
@@ -288,6 +287,13 @@ Lau defines $\lambda$ function as the function of $Q$ and $X^{d}$ or $X^{s}$ and
 Here, we explicitly use the fact that the quantity is fixed at $Q^e$; thus, the right-hand side of \eqref{eq:lambda_q_x} is a function of $X^{d}$ and $X^{s}$, and hence $\lambda$ is defined as the function of 
 $X^{d}$ and $X^{s}$.
 
+% 均衡数量周りでのhの変化が同じになる．
+%もし陰関数定理を適応するのであれば，hの微分は均衡数量周りでしか成立しないはず．
+%その点で，Tによる変換も実際はQが取りうるすべての値で成立するわけではなくて，均衡数量周りでしか成立しないと考える方がただしいのか？
+
+
+
+
 % Non-identification implies that there is a transformation for the inverse demand and the marginal cost 
 Then, \eqref{eq:derivative_q_x_d} and \eqref{eq:derivative_q_x_s} implies that 
 \begin{align}
@@ -300,13 +306,41 @@ and
 \end{align}
 By applying Lemma \ref{lemma_1_GU} to \eqref{eq:transform_demand} and \eqref{eq:transform_mc}, there exist a $T$ such that
 \begin{align}
-    P(Q^e, X^{d}) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e & = T\left(P(Q^e, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e; Q^e\right) \label{eq:transformation_T_demand}
+    P(Q^e, X^{d}) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e & = T\left(P(Q^e, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e\right) \label{eq:transformation_T_demand}
 \end{align}
 and
 \begin{align}
-    MC^{*}(Q^e, X^{s}) = T(MC(Q^e, X^{s}); Q^e). \label{eq:transformation_T_mc}
+    MC^{*}(Q^e, X^{s}) = T(MC(Q^e, X^{s})). \label{eq:transformation_T_mc}
 \end{align}
-Therefore, the first-order condition under the true component $(\theta, MC)$ can be transformed into the first-order condition under $(\theta^*, MC^*)$ through $T$.
+Therefore, the first-order condition under the true component $(\theta, MC)$ can be transformed into the first-order condition under $(\theta^*, MC^*)$ through $T$ while keeping the equilibrium quantity the same.
+
+In other words, given $(\theta, MC)$ and $\theta^{*}$, $T$ can generate an observable equivalent equilibrium.
+Under the true component $(\theta, MC)$, we can obtain the equilibrium quantity $Q^{e}$.
+This quantity should solve the first-order condition 
+\begin{align}
+    P(Q^e, X^d) + \theta \frac{\partial P}{\partial Q}(Q^e, X^d) Q^e = MC(Q^e, X^{s}).
+\end{align}
+Then, by applying $T$, we have
+\begin{align}
+    P(Q^e, X^d) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, X^d) Q^e 
+    & = T\left(P(Q^e, X^d) + \theta \frac{\partial P}{\partial Q}(Q^e, X^d) Q^e\right) \\
+    &= T( MC(Q^e, X^{s})).
+\end{align}
+Define $MC^{*}(Q, X^{s}) \equiv T(MC(Q, X^{s}))$.
+Then, the above relationship implies that $Q^{e}$ also solves the first-order condition under $(\theta^{*}, MC^{*})$;
+\begin{align}
+    P(Q^e, X^d) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, X^d) Q^e = MC^{*}(Q^e, X^{s}).
+\end{align}
+Therefore, two distinct pairs of the conduct parameter and the marginal cost lead to the same equilibrium quantity.
+
+\textcolor{red}{An important note is this relationship holds only at the equilibrium quantity. 
+In this sense, when $X^{d}$ or $X^{s}$ move, $Q^e$ also moves. 
+Thus, the transformation does not necessarily hold for any combination of $Q, X^{d}$ and $X^{s}$.}
+
+
+
+
+
 
 
 \subsubsection{The cases where observable equivalence does not hold}
@@ -318,8 +352,10 @@ In other words, the relation in \eqref{eq:derivative_q_x_d} and \eqref{eq:deriva
 % Lau 自身の議論
 
 \begin{remark}
-    Lau relates this argument with the singularity of the transformation $T$.
-For example, differentiate \eqref{eq:transformation_T_demand} with respect to $X^{d}_i$, obtaining
+Lau relates this argument with the singularity of the transformation $T$.
+First, Lau only derives \eqref{eq:transform_mc} and \eqref{eq:transformation_T_mc}.
+Then, substitute the left-hand side of the first-order condition into \eqref{eq:transformation_T_mc} to get \eqref{eq:transformation_T_demand}.
+By differentiate \eqref{eq:transformation_T_demand} with respect to $X^{d}_i$, obtaining
 \begin{align}
 \frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_i \partial Q}(Q, X^{d})Q &= T_{1} \cdot \left[\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta \frac{\partial^2 P}{\partial X^{d}_i \partial Q}(Q, X^{d})Q\right]\label{eq:transform_theta_derivative_first}
 \end{align}
@@ -514,132 +550,102 @@ for all $Q, X^d$.
 While $X^{d}$ be a vector, \eqref{eq:sufficiency_transform_p} corresponds to the \eqref{eq:transformation_T_demand} with a scalar demand shifter due to the separability.
 Therefore, we cannot identify the conduct parameter except when the separable satisfies \eqref{eq:identification_separable}.
 
-If there exists $T$, \eqref{eq:sufficiency_transform_p} implies non-identification.
-In other words, given $(\theta, MC)$ and $\theta^{*}$, $T$ can generate an observable equivalent equilibrium.
-Under the true component $(\theta, MC)$, we can obtain the equilibrium quantity $Q^{e}$.
-This quantity should solve the first-order condition 
-\begin{align}
-    P(Q^e, r(X^d)) + \theta \frac{\partial P}{\partial Q}(Q^e, r(X^d)) Q^e = MC(Q^e, X^{s}).
-\end{align}
-Then, by applying $T$, we have
-\begin{align}
-    P(Q^e, r(X^d)) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, r(X^d)) Q^e 
-    & = T\left(P(Q^e, r(X^d)) + \theta \frac{\partial P}{\partial Q}(Q^e, r(X^d)) Q^e\right) \\
-    &= T( MC(Q^e, X^{s})).
-\end{align}
-Define $MC^{*}(Q, X^{s}) \equiv T(MC(Q, X^{s}))$.
-Then, the above relationship implies that $Q^{e}$ also solves the first-order condition under $(\theta^{*}, MC^{*})$;
-\begin{align}
-    P(Q^e, r(X^d)) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, r(X^d)) Q^e = MC^{*}(Q^e, X^{s}).
-\end{align}
-Therefore, two distinct pairs of the conduct parameter and the marginal cost lead to the same equilibrium quantity.
-Note that while I assume that $P$ is separable, this argument holds even when the demand function is not separable.
 
 
-\textcolor{red}{Q: when the demand function is separable, can we always have a transformation $T$? }
 
-Define a function
+Because \eqref{eq:sufficiency_transform_p} is equivalent to non-identification, an important question is whether we always have a transformation $T$  when the demand function is separable.
+For notional simplicity, define a function
 \begin{align}
-    G(Q, X^{d}; \theta) \equiv P(Q, X^d) + \theta \frac{\partial P}{\partial Q}(Q, X^d) Q. 
+    G(Q, X^{d}; \theta) \equiv P(Q, X^d) + \theta \frac{\partial P}{\partial Q}(Q, X^d) Q.
 \end{align}
-where $Q$ and $X^{d}$ are a scalar, and  $\theta$ a parameter 
-Then, we need to find a transformation $T$ such that
-\begin{align}
-    G(Q, X^{d}; \theta^{*}) = T(G(Q, X^{d}; \theta)).
-\end{align}
-where $\theta^{*} \ne \theta$.
-
 Let $(Q_1, X_1)$ and $(Q_2, X_2)$ be different combinations of $(Q,X^{d})$ where $Q_1 \ne Q_2$ and $X_1 \ne X_2$.
-If there is a such $T$, we must have that
+If there is a transformation $T$, we must have that
 \begin{align}
-    G(Q_1, X_1; \theta) = G(Q_2, X_2; \theta) \Longrightarrow G(Q_1, X_1; \theta^{*}) = G(Q_2, X_2; \theta^{*}) \label{eq:existence_transformation}
+    G(Q_1, X_1; \theta) = G(Q_2, X_2; \theta) \text{ implies } G(Q_1, X_1; \theta^{*}) = G(Q_2, X_2; \theta^{*}). \label{eq:existence_transformation}
+\end{align}
+Suppose $G(Q_1, X_1; \theta^{*}) \ne G(Q_2, X_2; \theta^{*})$.
+Then, we have
+\begin{align}
+    G(Q_1, X_1; \theta^{*}) = T(G(Q_1, X_1; \theta)) \ne T(G(Q_2, X_2; \theta) = G(Q_2, X_2; \theta^{*}),
+\end{align}
+However, this leads to a contradiction because the middle part implies that
+\begin{align}
+     G(Q_1, X_1; \theta) \ne G(Q_2, X_2; \theta).
 \end{align}
 
-
-
-However, there is a counterexample to this statement.
+\subsubsection{Counterexample}
+Unfortunately, the separability of the inverse demand function does not guarantee the existence of $T$.
 Suppose that $\theta = 0$ and $\theta^{*} = 1$.
+Thus, the true firm conduct is perfect competition and the alternative is monopoly.
 In this case, we have
 \begin{align}
-    G(Q, X^{d};0) = P(Q,X^{d}),\text{ and }  G(Q, X^{d};1) =  P(Q, X^d) + \frac{\partial P}{\partial Q}(Q, X^d) Q.
-\end{align}
-Because the first term is the same,  \eqref{eq:existence_transformation} implies that for  $(Q_1, X_1)$ and $(Q_2, X_2)$,
-\begin{align}
-    \frac{\partial P}{\partial Q}(Q_1, X_1)Q_1 = \frac{\partial P}{\partial Q}(Q_2, X_2)Q_2.
+    G(Q, X^{d};0) & = P(Q,X^{d}),\\
+    G(Q, X^{d};1) & = P(Q, X^d) + \frac{\partial P}{\partial Q}(Q, X^d) Q.
 \end{align}
 
-
-Consider the inverse demand function $P(Q,X^{d}) = X^{d}\exp(-Q)$.
-Then
+Consider the inverse demand function $P(Q,X^{d}) = X^{d}\exp(-Q) + 1$, where $Q$ and $X^{d}$ are scalar.
+This is a separable function in $Q$ and $X^d$ but does not satisfy \eqref{eq:identification_separable}.
+For any $\theta$, we have
 \begin{align}
-    G(Q,X^{d}; 1) = X^{d}\exp(-Q) - X^{d}\exp(-Q)Q = X^{d}\exp(-Q) (1 - Q). 
+    \frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta \frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q  = \exp(-Q) (1 - \theta Q).
 \end{align}
-Pick up
+Therefore, when $(1 - \theta Q^e) = 0$, we have that $\frac{\partial h}{\partial X_{i}^d} = 0$ and $\frac{\partial h^{*}}{\partial X^d} \ne 0$.
+While \eqref{eq:identification_separable} requires that $\frac{\partial h}{\partial X_{i}^d} =0$ holds for any $Q$ and $X^{d}$, the above inverse demand requires $\frac{\partial h}{\partial X_{i}^d}  = 0$ only at $Q^e = \frac{1}{\theta}$.
+
+
+
+
+
+The inverse demand is decreasing in $Q$.
+For example, when the true marginal function is a linear function such that $MC(Q, X^{s}) = \beta_1 Q + \beta_1X^s$, we can easily find the unique equilibrium.
+
+
+As Lau states, even though $X^{d}$ is a vector, we can proceed with a similar discussion by replacing $X^{d}$ with $r(X^{d})$.
+Pick up different combinations of the quantity and the demand shifter such that 
 \begin{align}
-    (Q_1, X_1) = (1, 2) \text{ and } (Q_2, X_2) = (2, 2e)
+    (Q_1, X_1) = (1, 2) \text{ and } (Q_2, X_2) = (2, 2e),
 \end{align}
 where $e$ is Euler's number.
+It is easy to verify that $P(Q_1, X_1) = P(Q_2, X_2)$;
+\begin{align}
+    P(Q_1, X_1) = 2 \times \exp(-1) = 2 e^{-1} + 1 = 2 e \times e^{-2} +1 = 2e \times \exp(-2)  +1=  P(Q_2, X_2).
+\end{align}
+On the other hand, the second term in $G(Q, X^{d};1)$ is
+\begin{align}
+    \frac{\partial P}{\partial Q}(Q, X^{d})Q = - X^{d} \exp(-Q) Q = - P(Q,X^{d})Q.
+\end{align}
+Then, it is easy to see that 
+\begin{align}
+    \frac{\partial P}{\partial Q}(Q_1, X_1)Q_1 - \frac{\partial P}{\partial Q}(Q_2, X_2)Q_2 = - P(Q_1,X_1)(Q_1 - Q_2) \ne 0.
+\end{align}
+The last part follows from (i) $P(Q_1, X_1) = P(Q_2, X_2)$ and (ii) $Q_1 \ne Q_2$.
+Therefore, in this example we have $G(Q_1, X_1; \theta) = G(Q_2, X_2; \theta)$ but cannot have $G(Q_1, X_1; \theta^{*}) = G(Q_2, X_2; \theta^{*})$, which implies that we cannot have a transformation $T$.
+Figure \ref{fig:counterxample_demand_curves} shows that the situation happens for other $(Q_1, X_1)$ and $(Q_2, X_2)$.
 
-
-
-
-These points are carefully chosen to demonstrate a notable characteristic: they yield identical prices while exhibiting different demand elasticities. 
-
-
-
-
-However, when we examine the elasticity term $\frac{\partial P}{\partial Q} \cdot Q$ at these points:
-
-
-This reveals an important economic insight: two market equilibria can have the same price level but different price sensitivities to quantity changes. The elasticity term $\frac{\partial P}{\partial Q} \cdot Q$ measures how responsive price is to proportional changes in quantity, and our analysis shows that this responsiveness differs between the two points despite their equal prices.
-
-
-
-
-\begin{figure}[h]
-\caption{Inverse Demand Curves and Their Elasticities}
-\label{fig:demand_curves}
-The graph shows two inverse demand curves for different values of X. The dashed lines represent the elasticity terms at each point where the prices are equal.
+\begin{figure}[th]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../figuretable/plot_counter_example.pdf}
+\caption{The relationship between $G(Q,X^{d};0)$ and $G(Q,X^{d};1)$}
+\label{fig:counterxample_demand_curves}
+\end{center}
+The graph plots $G(Q,X^{d};0)$ and $G(Q,X^{d};1)$.
+The solid lines represent $G(Q,X^{d};0)$ and the dashed lines represent $G(Q,X^{d};1)$.
+The color corresponds to $(Q_1, X_1)$ and $(Q_2, X_2)$.
+$G(Q,X^{d};0)$ takes the same value, but $G(Q,X^{d};1)$ takes different values under $(Q_1, X_1)$ and $(Q_2, X_2)$.
 \end{figure}
 
 
 
+At least, based on the assumptions and the argument in Lau's original proof, we cannot guarantee that a separable inverse demand function implies non-identification.
+The correct assumption could be "inverse demand functions that guarantee the existence of transformation $T$".
+For example $P(Q, X) = Q^{-1/2}X^{d}$ is a separable function and can guarantee the existence because 
+\begin{align}
+    \frac{\partial P}{\partial Q}(Q, X^{d})Q  = -\frac{1}{2}Q^{-\frac{1}{2}}X^d = \frac{1}{2}P(Q,X^{d}).
+\end{align}
 
 
 
-
-
-
-
-\iffalse
-
-\begin{remark}
-    I still don't understand why this is the proof for sufficiency because the proof does not find any distinct pairs of the conduct parameter and the marginal cost function that lead to observable equivalence.
-    At least, if the separable demand satisfies the specific functional form, for any conduct parameter and marginal cost function that lead to observable equivalent equilibrium, we cannot construct a well defined transformation $T$, which contradicts the fact that such pairs lead to observable equivalent.
-\end{remark}
-
-
-%The crux of the matter is Section 4.2. Here is my hunch as to what is happening. This is a severe form of non-identification. Start with a true (theta,g). Then someone else proposes an alternative theta’. Then you can use the transformation F, which depends on theta’ and the true (theta,g), to find a new g’. If this intuition is correct, any value of theta’ is observationally equivalent to the true theta as you can pick g’ to make all the data the same. Being able to pick any theta^{*} is why I previously used the term "severe form of non-identification”. 
-
-%3. 7, Unclear how definition of a singular transformation relates to F as F is not the first display equation of Section 4.1.1
-
-
-
-
-
-
-
-% 概念的にには(\theta, g)の組み合わせがいっぱいあって，その中にはOEになるようなものもあるが，かと言って，separableであることだけをもって，常にOEになる組み合わせに絞られているとは限らない．
-% bresnahanの論文中で考えている例だと識別できないようなパラメーターの組み合わせがある
-% その一方で，separable demandだったとしてもmarginal costにうまくivが入れば，それで識別ができる例もある(appendixに載せてもよい)
-% necessityは多分大丈夫．異なるgと\thetaの組み合わせがあってOEを導いているなら，separableな関数になっているという議論
-%問題はsufficiencyで，serapableなdemandをgivenとしたときに，具体的にOEになるようなgとthetaの組み合わせを見つけられるか？という議論をする必要がある
-%Lauの議論としては，まず，separableな関数を仮定する．その後に，もし，
-
-
-
-
-
+\section{Discussion}
 
 \subsection{Relation to the recent literature on distinguishing firm conduct}
 
@@ -652,57 +658,11 @@ Even so, Lau's proof of sufficiency does not show that unless a separable demand
 Therefore, there could be a separable function except \eqref{eq:identification_separable} that can achieve identification based on other variations in markets.
 
 
-\section{Questions to the proof}
 
-\subsection{Claim 1}
-
-Question is if Lau correctly uses Lemma \ref{lemma_1_GU} to show the exsistence of $F$.
-First $F$ should be one-variable function in  \ref{lemma_1_GU}, although he defines $F$ as two-variable function.
-
-Based on \eqref{eq:derivative_q_x_s}, it seems that \citet{lau1982identifying} defines
-\begin{align}
-    \lambda( X^{s}) \equiv \frac{(1+\theta)\frac{\partial P}{\partial Q} + \frac{\partial^2 P}{\partial Q^2}Q - \frac{\partial MC}{\partial Q}}{(1+\theta^{*})\frac{\partial P}{\partial Q} + \frac{\partial^2 P}{\partial Q^2}Q - \frac{\partial MC^{*}}{\partial Q}}.
-\end{align}
-This expression clearly states that $\lambda$ depends on both $Q$ and $X^{s}$.
-Furthermore, $g$ also depends on both $Q$ and $X^{s}$.
-While $Q$ is a scalar, $X^{s}$ could be a vector, and hence we can think that he devide $K+1$ variables into two groups $Q$ and $X^{S}$.
-What he claims based on Lemma \ref{lemma_1_GU} is that there exists $F$ such that
-\begin{align}
-    MC(Q,X^{s}) = T(MC^{*}(Q,X^{s})).
-\end{align}
-However to show this, he only uses \eqref{eq:transformation_T}, although Lemma \ref{lemma_1_GU} also requires 
-\begin{align}
-    \frac{\partial MC}{\partial Q} = \lambda(X^{d}, X^{s}) \frac{\partial MC^{*}}{\partial Q}
-\end{align}
-becuase $g$ depends both $Q$ and $X^{s}$.
-
-What can we obtain about $\frac{\partial MC}{\partial Q}$ and $\frac{\partial MC^{*}}{\partial Q}$?
-From the first-order condition, we have
-\begin{align}
-    0 &= (1+\theta)\frac{\partial P}{\partial Q} + \frac{\partial^2 P}{\partial Q^2}Q - \frac{\partial MC}{\partial Q},\\
-    0 &= (1+\theta^{*})\frac{\partial P}{\partial Q} + \frac{\partial^2 P}{\partial Q^2}Q - \frac{\partial MC^{*}}{\partial Q},
-\end{align}
-which implies that 
-\begin{align}
-    \frac{\partial MC}{\partial Q} = \frac{\partial MC^{*}}{\partial Q} + (\theta - \theta^{*}) \left(\frac{\partial P}{\partial Q} + \frac{\partial^2 P}{\partial Q^2}Q \right).
-\end{align}
-The second term and the derivatie of $g$ with respect to $Q$ is not multicable separable and the second term does not coincide with $\lambda$, and hence we cannot have $\frac{\partial MC}{\partial Q} = \lambda(X^{d}, X^{s}) \frac{\partial MC^{*}}{\partial Q}$.
-Therefore, we cannot claim that $F$ exists.
-
-\begin{remark}
-    A possible interpretation is that he fixes $Q$ and thinks that $g$ is a function of $X^{s}$ only to obtain $F$. But this looks very tricky...
-\end{remark}
-
-
-
-\subsection{Other questions}
-First, note that the left-hand side of \eqref{eq:foc_derivative_demand} and \eqref{eq:transform_theta_derivative_first} are both the derived of the left-hand side of \eqref{eq:foc_alpha} with respect to $X^{d}$.
-However, the former allows the differentiation of $Q = h(X^{d}, X^{s})$ with respect to $X^{d}$, the latter does not.
-In other words, the former views $P(Q, X^{d})$ as $f(h(X^{d}, X^{s}), X^{d})$ but the latter assumes that $Q$ does not depend on $X^{d}$.
-When we allow the differentiation of $Q$ with respect to $X^{d}$, \eqref{eq:ratio_foc} becomes
-\begin{align}
-    \frac{\frac{\partial P}{\partial X^{d}_{i}} + \frac{\partial P}{\partial Q} \frac{\partial Q}{\partial X^{d}_{i}}}{\frac{\partial P}{\partial X^{d}_{j}} + \frac{\partial P}{\partial Q} \frac{\partial Q}{\partial X^{d}_{j}}} = \frac{\frac{\partial P}{\partial Q}\frac{\partial Q}{\partial X^{d}_{i}}  + \frac{\partial^2 P}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{i}} + \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}Q }{\frac{\partial P}{\partial Q}\frac{\partial Q}{\partial X^{d}_{j}}  + \frac{\partial^2 P}{\partial Q^2}Q\frac{\partial Q}{\partial X^{d}_{j}} + \frac{\partial^2 P}{\partial X^{d}_{j}\partial Q}Q }.
-\end{align}
+\newpage
+\bibliographystyle{aer}
+\bibliography{conduct_parameter}
+\appendix
 
 \section{A counterexample}
 
@@ -756,62 +716,9 @@ Because $\alpha_0$ is identified, the parameter $\theta$ is also identified, whi
     When the demand equation and the marginal cost equation have an intercept, the identification is impossible because the constant term in \eqref{eq:counter_supply_equation} becomes $-\log(1+\theta \alpha_0) + \beta$ and $\beta$ and $\theta$ cannot be separately identified without additional variables such as demand rotation parameter.
 \end{remark}
 
-\section{Alternative identification result}
-
-Suppose that there are $\theta$,$\theta^{*}$, $g$, and $g'$ that satisfy Definition \ref{def:non_identification}.
-From \eqref{eq:foc_alpha} and \eqref{eq:foc_beta},
-\begin{align}
-    0 = (\theta - \theta^{*})\frac{\partial P}{\partial Q}(Q,X^{d})Q + MC^{*}(Q,X^{s}) - MC(Q,X^{s}). 
-\end{align}
-%線形の場合に，この式をダイレクトに使って，線型独立を証明しているのがMO2023
-%この式自体，g' = (\theta - \theta^{*}) \partial P/\partial Q + gと変換した場合，
-% g'はgのtransformationになっていることを示していそう．つまり，g' = T(g)となるようなFが存在する． 
-%やっぱこれは無理そう．あるものの変換であるとは，g(a) = (b) となるa,bに対して，g'(a) = g'(b)であることを要求するが，\partial P/\partial Q (Q, a) = \partial P/\partial Q (Q, b)が成立するとは限らない． 
 
 
-Differentiating this with $Q$,
-\begin{align}
-    0 = (\theta - \theta^{*})\left[ \frac{\partial^2 P(Q,X^{d})}{\partial^2 Q}Q + \frac{\partial P(Q,X^{d})}{\partial Q} \right] + \frac{\partial MC^{*}(Q,X^{s})}{\partial Q} - \frac{\partial MC(Q,X^{s})}{\partial Q}.\label{eq:foc_with_Q}
-\end{align}
-Derivative with $X^{d}$,
-\begin{align}
-    0 & =  (\theta - \theta^{*})\left[ \frac{\partial^2 P(Q,X^{d})}{\partial^2 Q}\frac{\partial Q}{\partial X^{d}} Q  + \frac{\partial^2 P(Q,X^{d})}{\partial X^{d}\partial Q}Q + \frac{\partial P(Q,X^{d})}{\partial Q} \frac{\partial Q}{\partial X^{d}}\right]\\
-    &\quad + \frac{\partial MC^{*}(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{d}} - \frac{\partial MC(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{d}}\\
-    & = \left[(\theta - \theta^{*})\left[ \frac{\partial^2 P(Q,X^{d})}{\partial^2 Q}Q + \frac{\partial P(Q,X^{d})}{\partial Q} \right] + \frac{\partial MC^{*}(Q,X^{s})}{\partial Q} - \frac{\partial MC(Q,X^{s})}{\partial Q}\right] \frac{\partial Q}{\partial X^{d}}\\
-    &\quad + (\theta - \theta^{*})\frac{\partial^2 P(Q,X^{d})}{\partial X^{d}\partial Q}Q \\
-    & = (\theta - \theta^{*})\frac{\partial^2 P(Q,X^{d})}{\partial X^{d}\partial Q}Q.\label{eq:foc_with_X_d}
-\end{align}
-Derivative with $X^{s}$,
-\begin{align}
-    0 = & (\theta - \theta^{*})\left[ \frac{\partial^2 P(Q,X^{d})}{\partial^2 Q}\frac{\partial Q}{\partial X^{s}} Q  + \frac{\partial P(Q,X^{d})}{\partial Q} \frac{\partial Q}{\partial X^{s}}\right]\\
-    &\quad + \frac{\partial MC^{*}(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{s}} + \frac{\partial MC^{*}(Q,X^{s})}{\partial X^{s}} - \frac{\partial MC(Q,X^{s})}{\partial Q}\frac{\partial Q}{\partial X^{s}} - \frac{\partial MC(Q,X^{s})}{\partial X^{s}}\\
-    & = \left[(\theta - \theta^{*})\left[ \frac{\partial^2 P(Q,X^{d})}{\partial^2 Q}Q + \frac{\partial P(Q,X^{d})}{\partial Q} \right] + \frac{\partial MC^{*}(Q,X^{s})}{\partial Q} - \frac{\partial MC(Q,X^{s})}{\partial Q}\right] \frac{\partial Q}{\partial X^{s}}\\
-    & \quad +  \frac{\partial MC^{*}(Q,X^{s})}{\partial X^{s}} -  \frac{\partial MC(Q,X^{s})}{\partial X^{s}}\\
-    & = \frac{\partial MC^{*}(Q,X^{s})}{\partial X^{s}} -  \frac{\partial MC(Q,X^{s})}{\partial X^{s}}.\label{eq:foc_with_X_s}
-\end{align}
-
-Because $\theta \ne \theta^{*}$, \eqref{eq:foc_with_X_d} implies that 
-\begin{align}
-    \frac{\partial^2 P(Q,X^{d})}{\partial X^{d}\partial Q}Q = 0.
-\end{align}
-When $Q\ne 0$, this implies that $P(Q, X^{d}) = h(Q) + k(X^{d})$ for some $h$ and $k$. 
-As this is the necessary condition for non-identification, we can identify the conduct parameter when this does not hold.
-For example, a linear demand function $P = \alpha_0 + \alpha_1 Q + \alpha_2 X$ satisfies the functional form and we cannot identify $\theta$.
-In contrast, $P = \alpha_0 + (\alpha_1 +\alpha_z Z) Q + \alpha_2 Y$ with $X = (Z,Y)$ and $P = \exp(\alpha_0)Q^{\alpha_1}X^{\alpha2}$ do not satisfy the functional form.
-\citet{bresnahan1982oligopoly} and the above counterexample show that the conduct parameter can be identified under the two demand functions.
-
-\eqref{eq:foc_with_X_s} implies $g$ and $g'$ have same slope with respect to $X^{s}$.
-\textcolor{red}{I don't know what \eqref{eq:foc_with_Q} means.}
-%少なくとも，gとg'がX^sに関して並行である場合には識別できないことになる．
-%線形の場合には切片があって，切片が異なるgとg'のX^sの微分系数が同じだと，識別できていないことになる．
-
-% そもそも均衡アウトカムのQに関する微分ってとれるのか？線形の時は弾力性を出すのにQに関しての微分を取っているが...外生変数の変化なしに，内生変数の変化を考慮するのはOK？
-%gのQに関する微分については第1項の分だけシフトしていることになる．ただ，Lau自体もQに関する微分をそのまま識別の条件として使っているわけではないし，Qが均衡アウトカムであることを考えると，Qの変化もdemand shifter やcost shifterによって起きるものなので，X^dとX^sの微分だけを考えればよいのか？
-
-
-
-
-\subsection{Interpretation}
+\section{Interpretation}
 
 
 Let's return to the original idea in \citet{bresnahan1982oligopoly}.
@@ -931,7 +838,7 @@ The total revenue is
 \begin{align}
     TR = PQ = \exp(\varepsilon_{d}) Q^{-\alpha_0+1} Y^{\alpha_1},
 \end{align}
-and hence the marginal revenue is
+and hence, the marginal revenue is
 \begin{align}
     MR = (-\alpha_0+1)\exp(\varepsilon_{d}) Q^{-\alpha_0} Y^{\alpha_1}
 \end{align}
@@ -994,16 +901,6 @@ and the equilibrium quantity is given by
     \caption{Identification of the conduct under the log-linear model}
     \label{fig:simpe_identification}
 \end{figure}
-
-
-
-
-\fi
-
-\newpage
-\bibliographystyle{aer}
-\bibliography{conduct_parameter}
-\appendix
 
 
 
