@@ -3,6 +3,16 @@
 \fi
 \begin{thebibliography}{xx}
 
+\harvarditem[Adachi]{Adachi}{2023}{adachiMicrofoundation2023}
+{\bf Adachi, Takanori}, ``A Microfoundation for the Conduct Parameter Approach:
+  Game Theory is Not Necessary to Introduce Imperfect,'' {\it Working
+  {{Paper}}}, 2023.
+
+\harvarditem[Berry and Haile]{Berry and Haile}{2014}{berry2014identification}
+{\bf Berry, Steven~T and Philip~A Haile}, ``Identification in differentiated
+  products markets using market level data,'' {\it Econometrica}, 2014, {\it
+  82} (5), 1749--1797.
+
 \harvarditem[Bresnahan]{Bresnahan}{1982}{bresnahan1982oligopoly}
 {\bf Bresnahan, Timothy~F}, ``The oligopoly solution concept is identified,''
   {\it Economics Letters}, 1982, {\it 10} (1-2), 87--92.

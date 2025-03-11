@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main_EL_counterexample.aux
+The style file: aer.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: conduct_parameter.bib
+You've used 8 entries,
+            2984 wiz_defined-function locations,
+            701 strings with 5702 characters,
+and the built_in function-call counts, 6603 in all, are:
+= -- 1066
+> -- 339
+< -- 98
++ -- 104
+- -- 56
+* -- 395
+:= -- 1505
+add.period$ -- 8
+call.type$ -- 8
+change.case$ -- 56
+chr.to.int$ -- 8
+cite$ -- 8
+duplicate$ -- 98
+empty$ -- 206
+format.name$ -- 178
+if$ -- 1637
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 8
+newline$ -- 30
+num.names$ -- 96
+pop$ -- 116
+preamble$ -- 1
+purify$ -- 64
+quote$ -- 0
+skip$ -- 0
+stack$ -- 0
+substring$ -- 221
+swap$ -- 41
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 32
+warning$ -- 0
+while$ -- 90
+width$ -- 0
+write$ -- 133
