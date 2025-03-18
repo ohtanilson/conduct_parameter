@@ -198,8 +198,14 @@ From \eqref{eq:derivative_q_x_s}, there is a relationship between $MC$ and $MC^{
     However, in footnote 5, Lau recognizes that $Q$ is a function of $X^{d}$ and $X^{s}$, and hence we use $Q^e$ in our definition to express that we are considering the equilibrium quantity.
 }
 \begin{align}
-    \frac{\partial MC^{*}}{\partial X^{s}_{i}}(Q^e, X^{s}) = \lambda(Q^e, X^{s})\frac{\partial MC}{\partial X^{s}_{i}}(Q^e, X^{s}), \quad \forall Q^e, X^{s}. \label{eq:derivative_q_x_s_la}
+    \frac{\partial MC^{*}}{\partial X^{s}_{i}}(Q^e, X^{s}) = \lambda(Q^e, X^{d},  X^{s})\frac{\partial MC}{\partial X^{s}_{i}}(Q^e, X^{s}), \quad \forall Q^e, X^{s}. \label{eq:derivative_q_x_s_la}
 \end{align}
+where
+\begin{align}
+    \lambda(Q, X^{d}, X^{s}) \equiv \frac{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}
+\end{align}
+
+
 By applying Lemma \ref{lemma_1_GU} in \citet{goldmanNote1964} to this, we obtain
 \begin{align}
     MC^{*}(Q^e, X^{s}) = T\left(MC(Q^e, X^{s}), Q^e\right), \quad \forall Q^e, X^{s}, \label{eq:transformation_T_mc_la}
@@ -208,6 +214,26 @@ and by substituting the left-hand side of \eqref{eq:foc_alpha} and \eqref{eq:foc
 \begin{align}
     P(Q^e, X^{d}) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e & = T\left(P(Q^e, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e, Q^e\right), \quad \forall Q^e, X^{d}.\label{eq:transformation_T_demand_la}
 \end{align}
+
+\subsection{Case of the demand shifter is not a scalar}\label{sec:case_x_d_not_scalar}
+When $X^{d}$ is a vector, \eqref{eq:derivative_q_x_d} implies that
+\begin{align}
+    \frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e  = \lambda(Q, X^{d}) \left[\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e \right]
+\end{align}
+Equivalently, this can be written as
+\begin{align}
+    (1 -  \lambda(Q, X^{d}))\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) = (\lambda(Q, X^{d})\theta  - \theta^*)\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e.
+\end{align}
+By taking the ratio between $i$ and $j$, $(1 - \lambda(Q, X^{d}))$ and  $(\lambda(Q, X^{d})\theta - \theta^{*})$ are canceled out, and hence we have
+\begin{align}
+    \frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})} & = \frac{ \frac{\partial^2 P}{\partial X^{d}_{i} \partial Q}(Q, X^{d})}{\frac{\partial^2 P}{\partial X^{d}_{j} \partial Q}(Q, X^{d})}, \label{eq:ratio_inverse_demand}
+\end{align}
+which implies that \footnote{See Appendix \ref{app:ommitted_proof} for the detailed calculation.}
+\begin{align}
+    \frac{\partial}{\partial Q} \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right) = 0.
+\end{align}
+This is equivalent to the weak separability in \citet{goldmanNote1964}, and hence we can apply Theorem \ref{thorem_2_GU} in \citet{goldmanNote1964} to conclude that when $X^{d}$ is a vector, non-identification implies that the inverse demand function satisfies a separable function $f(Q, r(X^{d}))$.
+
 
 
 \subsection{Case of the demand shifter is a scalar}\label{sec:case_x_d_scalar}
@@ -219,7 +245,7 @@ As for the scalar case, based on the notation and the equation numbers in our se
     If the transformation between these two alternative sets of independent variables is non-singular, there always exists a $T(\cdot, Q^e)$ such that \eqref{eq:transformation_T_demand_la} holds.
     The transformation becomes singular only if,
     \begin{align}
-        \frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta^{*} \frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q = 0. \label{eq:singular_equation}
+        \frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta \frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q = 0. \label{eq:singular_equation}
     \end{align}
     which can be integrated to yield
     \begin{align}
@@ -258,14 +284,12 @@ Then, \eqref{eq:derivative_q_x_d} under $\theta$ is
 Suppose that the true conduct is perfect competition, $\theta = 0$.
 Then, we have under $\theta$ that 
 \begin{align}
-    \frac{\partial h}{\partial X^{d}}(X^{d}, X^{s}) = - \frac{X^{d}\exp(-Q)}{X^{d}\exp(-Q)(-1) - \frac{\partial MC}{\partial Q}(Q, X^{s})}. \label{eq:derivative_q_x_d_counterexample_competitive}
+    \frac{\partial h}{\partial X^{d}}(X^{d}, X^{s}) & = - \frac{X^{d}\exp(-Q)(1-\theta Q)}{X^{d}\exp(-Q)(\theta(Q- 1) -1) - \frac{\partial MC}{\partial Q}(Q, X^{s})} ,\label{eq:derivative_q_x_d_counterexample_competitive} \\
+    \frac{\partial h}{\partial X^{d}}(X^{d}, X^{s})  & = - \frac{X^{d}\exp(-Q)(1-\theta^{*} Q)}{X^{d}\exp(-Q)(\theta^{*}(Q- 1) -1) - \frac{\partial MC}{\partial Q}(Q, X^{s})} \label{eq:derivative_q_x_d_counterexample_alternative}
 \end{align}
-On the other hand, we have under $\theta^{*}$ that
-\begin{align}
-    \frac{\partial h^{*}}{\partial X^{d}}(X^{d}, X^{s}) = - \frac{X^{d}\exp(-Q)(1 - \theta^{*} Q)}{X^{d}\exp(-Q)(Q -2) - \frac{\partial MC^{*}}{\partial Q}(Q, X^{s})}. \label{eq:derivative_q_x_d_counterexample_alternative}
-\end{align}
-While the numerator of \eqref{eq:derivative_q_x_d_counterexample_competitive} is always positive, the numerator of \eqref{eq:derivative_q_x_d_counterexample_alternative} is zero when $Q = \frac{1}{\theta^{*}}$.
-As the denominator is assumed to be non-zero, we have $\frac{\partial h^{*}}{\partial X^{d}}(X^{d}, X^{s}) \ne 0$ and $\frac{\partial h^{*}}{\partial X^{d}}(X^{d}, X^{s}) = 0$ when $Q = \frac{1}{\theta^{*}}$.
+When $Q = \frac{1}{\theta^{*}}$, while the numerator of \eqref{eq:derivative_q_x_d_counterexample_competitive} is nonzero, the numerator of \eqref{eq:derivative_q_x_d_counterexample_alternative} is zero.
+As the denominator is assumed to be non-zero, we have $\frac{\partial h}{\partial X^{d}}(X^{d}, X^{s}) \ne 0$ and $\frac{\partial h^{*}}{\partial X^{d}}(X^{d}, X^{s}) = 0$ when $Q = \frac{1}{\theta^{*}}$.
+
 The quantity $Q = \frac{1}{\theta^{*}}$ can arise as a solution to the first-order condition when $\theta = 0$.
 Suppose that the true first-order condition is given by $MC(Q, X^{s}) = X^{s}\exp(Q) + 1$.
 Then the first-order condition is given by
@@ -279,45 +303,7 @@ which leads to
 Therefore, $Q^e = \frac{1}{\theta^{*}}$ is a solution to the first-order condition when $X^{d} = \exp\left(\frac{2}{\theta^{*}}\right)X^{s}$.
 Thus, when the true conduct is perfect competition, for any value of $\theta^*$, we can find a pair of $\hat{Q}^e$ and $\hat{X}^{d}$ such that $\frac{\partial h}{\partial X^{d}}(\hat{X}^{d}, X^{s}) \ne \frac{\partial h^{*}}{\partial X^{d}}(\hat{X}^{d}, X^{s})$, which contradicts that the conduct parameter can be identified only when the inverse demand satisfies \eqref{eq:identification_separable}.
 
-\subsection{Case of the demand shifter is not a scalar}\label{sec:case_x_d_not_scalar}
-When $X^{d}$ is a vector, by differentiating \eqref{eq:transformation_T_demand_la} with respect to $X_{i}^{d}$, we have
-\begin{align}
-    &\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) -\theta^{*} \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e\\
-    & \quad = T_1\left[\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) - \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e\right] \quad \forall Q^e, X^{d}, \label{eq:transform_demand}
-\end{align}
-where $T_1$ is the derivative of $T$ with respect to the first argument.
-Equivalently, \eqref{eq:transform_demand} can be written as
-\begin{align}
-    (1 -  T_1)\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) = ( T_1\theta  - \theta^*)\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e.
-\end{align}
-By taking the ratio between $i$ and $j$, $(1 - T_1)$ and  $(T_1\theta - \theta^{*})$ are canceled out, and hence we have
-\begin{align}
-    \frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})} & = \frac{ \frac{\partial^2 P}{\partial X^{d}_{i} \partial Q}(Q, X^{d})}{\frac{\partial^2 P}{\partial X^{d}_{j} \partial Q}(Q, X^{d})}, 
-\end{align}
-which implies that \footnote{See Appendix \ref{app:ommitted_proof} for the detailed calculation.}
-\begin{align}
-    \frac{\partial}{\partial Q} \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right) = 0.
-\end{align}
-This is equivalent to the weak separability in \citet{goldmanNote1964}, and hence we can apply Theorem \ref{thorem_2_GU} in \citet{goldmanNote1964} to conclude that when $X^{d}$ is a vector, non-identification implies that the inverse demand function satisfies a separable function $f(Q, r(X^{d}))$.
 
-
-\subsubsection{A counterexample of the demand shifter is a vector}\label{sec:counterexample_lau_vector}
-Note that even the vector case, Lau states \eqref{eq:transformation_T_demand_la} holds except the singular case.
-Appendix \ref{app:ommitted_proof} discusses this point in detail.
-However, again, there could be a case where $T$ becomes singular at a specific $X^{d}$ and $X^{s}$.
-Consider an inverse demand function $P(Q,X^{d}) = X^{d}_1 X^{d}_2\exp(-Q) + 1$.
-This is a separable function because
-\begin{align}
-    \frac{\partial}{\partial Q}\left(\frac{\frac{\partial P}{\partial X^{d}_{1}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{2}}(Q, X^{d})}\right) = \frac{\partial}{\partial Q}\left(\frac{X^{d}_2\exp(-Q)}{X^{d}_1\exp(-Q)}\right) = \frac{\partial}{\partial Q} \frac{X^{d}_2}{X^{d}_1} = 0.
-\end{align}
-This does not satisfy \eqref{eq:identification_separable}.
-\begin{align}
-    \frac{\partial h}{\partial X^{d}_{i}}(X^{d}, X^{s}) = \frac{X_j^{d}\exp(-Q)(1-\theta Q)}{X_1^{d}X_2^{d}\exp(-Q)(\theta(Q- 1) -1) - \frac{\partial MC}{\partial Q}(Q, X^{s})}.
-\end{align}
-
-Again, when $\theta =0$, the derivative is always positive, but the derivative becomes zero when $Q = \frac{1}{\theta^{*}}$ for any $\theta^{*} \ne 0$, which violates observable equivalence.
-Suppose that $MC(Q, X^{s}) = X^{s}_1X^{s}_2\exp(Q)$.
-In a similar discussion, $Q^e = \frac{1}{\theta^{*}}$ realizes under $\theta = 0$ when $X^{s}_1X^{s}_2 = \exp\left(\frac{2}{\theta^*}\right) X^{d}_1 X^{d}_2$.
 
 \section{Sufficiency Proof in Lau(1982)}\label{sec:proof_lau_sufficiency}
 Now, we also discuss the sufficiency of separability; that is, when the inverse demand function is separable, we cannot identify the conduct parameter except the inverse demand with \eqref{eq:identification_separable}.
@@ -336,7 +322,7 @@ However, $r(X^{d})$ can be treated as a single variable. Thus, our previous anal
 
 However, the argument has a problem because Lau does not state why a separable inverse demand function guarantees the existence of the transformation $T$ such that \eqref{eq:sufficiency_transform_p} holds.
 
-In fact, we cannot have the transformation $T$ under a separable inverse demand.
+In fact, we cannot have a transformation $T$ under a separable inverse demand.
 To see this, suppose that when the inverse demand function is separable, $T$ always exists.
 Take the derivative of the inverse demand function with respect to $X^{d}$, then we have
 \begin{align}
@@ -351,7 +337,7 @@ Substituting the demand into this equation, we have
 X^{d}_j\exp(-Q) = T_1\left[X^{d}_j\exp(-Q)(1 - Q)\right].
 \end{align}
 When $X^{d}_j$ is positive, the left-hand side is always positive, while the right-hand side is zero when $Q = 1$.
-This implies that \eqref{eq:} does not work properly to transform the change on the right-hand side into the change on the left-hand side.
+This implies that \eqref{eq:sufficiency_transform_p} does not work properly to transform the change on the right-hand side into the change on the left-hand side.
 Thus, separability does not guarantee the existence of the transformation $T$.
 
 
@@ -519,12 +505,7 @@ This implies that the equilibrium quantity does not depend on $X^{d}$ and only d
 
 
 \subsection{Separable inverse demand function}
-
-\eqref{eq:transform_demand} can be written as
-\begin{align}
-    (1 -  T_1)\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) = ( T_1\theta  - \theta^*)\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e.
-\end{align}
-By taking the ratio between $i$ and $j$, $(1 - T_1)$ and  $(T_1\theta - \theta^{*})$ are canceled out, and hence we have
+From \eqref{eq:ratio_inverse_demand}, we have
 \begin{align}
     \frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})} & = \frac{ \frac{\partial^2 P}{\partial X^{d}_{i} \partial Q}(Q, X^{d})}{\frac{\partial^2 P}{\partial X^{d}_{j} \partial Q}(Q, X^{d})}\\
     \frac{\frac{\partial^2 P}{\partial X^{d}_{i} \partial Q}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}  & = \frac{\frac{\partial^2 P}{\partial X^{d}_{j} \partial Q}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\\ 
@@ -532,7 +513,6 @@ By taking the ratio between $i$ and $j$, $(1 - T_1)$ and  $(T_1\theta - \theta^{
     0& = \frac{\partial}{\partial Q}\log\left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right)
 \end{align}
 Note that we can exchange the order of partial derivative due to Young's theorem as $P$ is twice continuously differentiable.
-
 Then, by the chain rule, we have
 \begin{align}
     0 & = \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right)^{-1} \frac{\partial}{\partial Q} \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right).
