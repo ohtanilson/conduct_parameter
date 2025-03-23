@@ -1218,10 +1218,10 @@ INPUT ./main_EL_counterexample.out
 INPUT ./main_EL_counterexample.out
 INPUT ./main_EL_counterexample.brf
 INPUT ./main_EL_counterexample.brf
-INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
-INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb
@@ -1236,7 +1236,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy9.pfb
 INPUT /usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb
 INPUT /usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb
 INPUT /usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb

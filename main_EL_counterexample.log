@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  10 MAR 2025 19:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  23 MAR 2025 13:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -663,17 +663,7 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count336
 \l__pdf_internal_box=\box71
 )
-(./main_EL_counterexample.aux
-
-LaTeX Warning: Label `eq:simple_demand' multiply defined.
-
-
-LaTeX Warning: Label `eq:simple_marginal_cost' multiply defined.
-
-
-LaTeX Warning: Label `eq:quantity_loglinear' multiply defined.
-
-)
+(./main_EL_counterexample.aux)
 \openout1 = `main_EL_counterexample.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
@@ -794,34 +784,34 @@ LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 61
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (0.18556pt too wide) in paragraph at lines 157--159
+[]\T1/qtm/m/n/10.95 Suppose that $\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 ^^R; MC\OT1/mlmr/m/n/10.95 )$ \T1/qtm/m/n/10.95 is the pair of the true model com-po-nent, but there is an-other pair $\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 ^^R[]; MC[]\OT1/mlmr/m/n/10.95 )$
+ []
+
+[3] [4] [5] [6] [7] [8] [9] [10] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
 \tf@brf=\write6
 \openout6 = `main_EL_counterexample.brf'.
 
-) [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] (./main_EL_counterexample.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
+) [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] (./main_EL_counterexample.aux)
 Package rerunfilecheck Info: File `main_EL_counterexample.out' has not changed.
-(rerunfilecheck)             Checksum: 2D9CE0FF628D61D75C827551CB139748;3687.
+(rerunfilecheck)             Checksum: 877A447E35DC52D303F691393E63E27A;3513.
 Package rerunfilecheck Info: File `main_EL_counterexample.brf' has not changed.
-(rerunfilecheck)             Checksum: F40299EBF0F4FA3A06EC0E623EAFC75E;1690.
+(rerunfilecheck)             Checksum: EFFC6672C0D09F440EB809D0BE0300EE;1844.
  ) 
 Here is how much of TeX's memory you used:
- 25865 strings out of 478287
- 479949 string characters out of 5849289
- 780213 words of memory out of 5000000
- 43482 multiletter control sequences out of 15000+600000
+ 25817 strings out of 478287
+ 478971 string characters out of 5849289
+ 780399 words of memory out of 5000000
+ 43437 multiletter control sequences out of 15000+600000
  544662 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,15n,91p,579b,736s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
-
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy9.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on main_EL_counterexample.pdf (22 pages, 313802 bytes).
+ 87i,15n,91p,579b,735s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb>
+Output written on main_EL_counterexample.pdf (20 pages, 300561 bytes).
 PDF statistics:
- 487 PDF objects out of 1000 (max. 8388607)
- 423 compressed objects within 5 object streams
- 84 named destinations out of 1000 (max. 500000)
- 149 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 470 PDF objects out of 1000 (max. 8388607)
+ 412 compressed objects within 5 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -136,19 +136,27 @@ Non-identification asks the following question: given an identified inverse dema
         P = Q^{-1/\theta}r(X^{d}) + s(Q). \label{eq:identification_separable}
     \end{align}
 \end{theorem}
-The theorem implies that the conduct parameter is identified when the demand function is not separable or is \eqref{eq:identification_separable}.
-The inverse demand \eqref{eq:demand_separable} is defined only when $X^{d}$ is a vector and satisfies "weak separability" in \citet{goldmanNote1964}.\footnote{See Appendix \ref{app:summary_of_goldman_and_uzawa} for the summary of definitions and results in \citet{goldmanNote1964}.}
-Thus, when $X^{d}$ is a scalar, the conduct parameter is identified only when the demand function is given by \eqref{eq:identification_separable}.
-When $X^{d}$ is not a scalar, the conduct parameter is identified when the demand function is neither separable \eqref{eq:demand_separable} nor \eqref{eq:identification_separable}.
+The theorem implies that the conduct parameter is identified when the demand function is not separable\footnote{The separability in \eqref{eq:demand_separable} is called "weak separability" in \citet{goldmanNote1964}. See Appendix \ref{app:summary_of_goldman_and_uzawa} for the summary of definitions and results in \citet{goldmanNote1964}.} or is separable given by \eqref{eq:identification_separable}.
 
 
 
-\section{Necessity Proof in Lau(1982)}\label{sec:proof_lau_necessity}
-Let's investigate the proof of \citet{lau1982identifying}.
-We try to fill some gaps between the lines in the original proof.
-Suppose that $(\theta, MC)$ is the pair of the true model component, but there is another pair $(\theta^{*}, MC^{*})$ that leads to an observable equivalent equilibrium.
-Given $X^{d}$ and $X^{s}$, the true component $(\theta, MC)$ satisfy the first-order condition for the equilibrium quantity $Q^e$,
-\begin{align}
+
+\section{}
+In this note, we show that the sufficiency does not hold; that is, the separable inverse demand function does not imply the nonidentification of the conduct parameter.
+
+Before providing a counterexample, we prove the following lemma.
+\begin{lemma}
+    Nonidentification implies that there exists a transformation $T$ such that
+    \begin{align}
+        P(Q, X^{d}) + \theta^{*} \frac{\partial P}{\partial Q}(Q, X^{d}) Q = T\left(P(Q, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q, X^{d}) Q, Q\right), \quad \forall Q, X^{d}.
+    \end{align}
+    and $T$ is a function of $P(Q, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q, X^{d}) Q$ and $Q$.
+\end{lemma}
+
+\begin{proof}
+    Suppose that $(\theta, MC)$ is the pair of the true model component, but there is another pair $(\theta^{*}, MC^{*})$ that leads to an observable equivalent equilibrium.
+    Given $X^{d}$ and $X^{s}$, the true component $(\theta, MC)$ satisfy the first-order condition for the equilibrium quantity $Q^e$,
+    \begin{align}
     F(Q^e, X^{d}, X^{s}) \equiv P(Q^e, X^{d}) + \theta\frac{\partial P}{\partial Q}(Q^e, X^{d})Q^e - MC(Q^e, X^{s}) = 0.
 \end{align}
 Assume that the derivative of $F$ with respect to $Q$ at the equilibrium quantity $Q^e$ is nonzero;
@@ -174,6 +182,9 @@ By applying the same argument for \eqref{eq:foc_beta}, we obtain
     \frac{\partial h^{*}}{\partial X^{d}_{i}}(X^{d}, X^{s}) &= -\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e }{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})},\label{eq:foc_derivative_demand_beta}\\
     \frac{\partial h^{*}}{\partial X^{s}_{i}}(X^{d}, X^{s}) & = \frac{\frac{\partial MC^{*}}{\partial X^{s}_{i}}(Q^e, X^{s})}{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}.\label{eq:foc_derivative_supply_beta}
 \end{align}
+
+
+\end{proof}
 
  
 % Use the definition of non-identification
@@ -237,8 +248,31 @@ This is equivalent to the weak separability in \citet{goldmanNote1964}, and henc
 
 
 \subsection{Case of the demand shifter is a scalar}\label{sec:case_x_d_scalar}
-After obtaining \eqref{eq:transformation_T_demand_la}, Lau considers two cases where $X^{d}$ is a scalar and where $X^{d}$ is not a scalar.
-As for the scalar case, based on the notation and the equation numbers in our setting, Lau states the following on page 96:
+
+When the demand shifter is a scalar, we cannot take the ratio between $i$ and $j$ in \eqref{eq:ratio_inverse_demand}, and hence non-identification does not imply the weak separability.
+Again, from \eqref{eq:derivative_q_x_d}, we have
+\begin{align}
+    \frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta^{*} \frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q = \lambda(Q, X^{d}) \left[\frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q \right], 
+\end{align}
+which is equivalent to
+\begin{align}
+    (1 - \lambda(Q, X^{d}))\frac{\partial P}{\partial X^{d}}(Q, X^{d}) = (\lambda(Q, X^{d})\theta  - \theta^{*})\frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q.
+\end{align}
+As $\lambda(Q, X^{d})$ is a function of $Q$ and $X^{d}$ and it also depends on the true and alternative marginal cost function, it is hard to solve the differential equation with respect to $P$ analytically.
+However, at least we know that even the scalar case, nonidentification implies that there is a transformation $T$ that satisfies \eqref{eq:transformation_T_demand_la}.
+
+
+While it is hard to investigate what demand function is implied by nonidentification in the scalar case, Lau considers inverse demand functions which violate nonidentification.
+Note that we have assumed only the twice continuously differentiability on the inverse demand function and the marginal cost function.
+Thus, there could be inverse demand functions which cannot have observable equivalence equilibrium to any alternative conduct parameter and the marginal cost function.
+
+To investigate this, Lau uses \eqref{eq:transformation_T_demand_la}.
+By taking the derivative of \eqref{eq:transformation_T_demand_la} with respect to $X^{d}$, we have
+\begin{align}
+    \frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta \frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q = T_1\left[\frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta \frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q\right], 
+\end{align}
+where $T_1$ is the derivative of $T$ with respect to its first argument.
+Lau states the following on page 96:
 \begin{framed}
     If $X^{d}$ is a scalar, then for any given $\theta^*$, the left-hand side of \eqref{eq:transformation_T_demand_la} is a function of $Q^e$ and $X^{d}$.  
     The right-hand side is a function of two independent variables, $P(Q^e, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q^e, X^{d}) Q^e,$ and $Q^e$.  
@@ -253,9 +287,20 @@ As for the scalar case, based on the notation and the equation numbers in our se
     \end{align}
     Thus, except for this singular case, $\theta$ cannot be uniquely identified when $X^{d}$ is a scalar.
 \end{framed}
-The intuition of the singular case is as follows.
-When \eqref{eq:singular_equation} holds, we have $\frac{\partial h}{\partial X^{d}}(X^{d}, X^{s}) = 0$ for all $X^{d}$ and $X^{s}$ under the true conduct parameter $\theta$.
-In contrast, by substituting \eqref{eq:identification_separable} into $\frac{\partial h^{*}}{\partial X^d}$, we have
+Note that the last inverse demand function is equivalent to \eqref{eq:identification_separable}.
+This inverse demand function is a separable function of $Q$ and $X^{d}$ and depends on the true conduct parameter $\theta$.
+Based on Lau's statement, when the inverse demand function takes a form such that $P(Q, X^{d}) = Q^{-k}r(X^{d}) + s(Q)$ where $k \ne \frac{1}{\theta}$, the conduct parameter cannot be identified.
+
+Let's investigate what the singular case implies.
+When \eqref{eq:singular_equation} holds, the numerator of \eqref{eq:foc_derivative_demand} is zero:
+\begin{align}
+    \frac{\partial h}{\partial X^{d}}(X^{d}, X^{s}) &= -\frac{\frac{\partial P}{\partial X^{d}}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e }{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC}{\partial Q}(Q^e, X^{s})} \\
+    &= 0, \quad \forall X^{d}, X^{s}.
+\end{align}
+This implies that  $\frac{\partial h}{\partial X^{d}}(X^{d}, X^{s}) = 0$ for all $X^{d}$ and $X^{s}$ under the true conduct parameter $\theta$.
+
+The specific inverse demand function is obtained by solving the partial differential equation \eqref{eq:singular_equation} with respect to $P(Q, X^{d})$.
+By substituting \eqref{eq:identification_separable} into $\frac{\partial h^{*}}{\partial X^d}$, we have
 \begin{align}
     \frac{\partial h^{*}}{\partial X^d} = \frac{\partial P}{\partial X^d} + \theta^{*} \frac{\partial^2 P}{\partial X^d\partial Q}Q  &= Q^{-1/\theta} r'(X^d) - \frac{\theta^{*}}{\theta} Q^{-1/\theta-1} r'(X^d) Q\\
     &= Q^{-1/\theta} r'(X^d) \left(1 - \frac{\theta^{*}}{\theta} \right).
@@ -267,12 +312,16 @@ Hence for any $\theta^{*} \ne \theta$, we have
 \end{align}
 for any $X^{d}$ and $X^{s}$.
 Thus, under the inverse demand function, we cannot have observable equivalence equilibrium.
+As the result, we can conclude that the conduct parameter can be identified when the inverse demand function satisfies \eqref{eq:identification_separable}.
 
+Now, Lau states that except this case, the conduct parameter cannot be identified.
+However, this is not correct.
+Note that the singular case requires that the numerator of \eqref{eq:foc_derivative_demand} is zero for all $X^{d}$ and $X^{s}$ under the true conduct parameter $\theta$.
+This is a very strong condition, and it is enough to show identification that observable equivalence is violated at specific $X^{d}$ and $X^{s}$ under an inverse demand function.
+Formally, we can says the following 
+Rather the next example shows that there is another inverse demand function which violates the observable equivalence at specific $X^{d}$ and $X^{s}$ between the true and alternative conduct parameters.
 
-\subsubsection{A counterexample}\label{sec:counterexample_lau}
-
-A concern is that \eqref{eq:singular_equation} requires the violation of the observable equivalence for all $X^{d}$ and $X^{s}$.
-However, it is enough to show identification that observable equivalence is violated at specific $X^{d}$ and $X^{s}$ under an inverse demand function.
+\subsubsection{An example of violation of observable equivalence}\label{sec:counterexample_lau}
 
 Consider an inverse demand function $P(Q,X^{d}) = X^{d}\exp(-Q) + 1$, where $Q$ and $X^{d}$ are scalar.
 This does not satisfy \eqref{eq:identification_separable}.
@@ -298,11 +347,11 @@ Then the first-order condition is given by
 \end{align}
 which leads to
 \begin{align}
-    Q^e = -\frac{1}{2} \log\left(\frac{X^{s}}{X^{d}}\right).
+    Q = -\frac{1}{2} \log\left(\frac{X^{s}}{X^{d}}\right).
 \end{align}
-Therefore, $Q^e = \frac{1}{\theta^{*}}$ is a solution to the first-order condition when $X^{d} = \exp\left(\frac{2}{\theta^{*}}\right)X^{s}$.
-Thus, when the true conduct is perfect competition, for any value of $\theta^*$, we can find a pair of $\hat{Q}^e$ and $\hat{X}^{d}$ such that $\frac{\partial h}{\partial X^{d}}(\hat{X}^{d}, X^{s}) \ne \frac{\partial h^{*}}{\partial X^{d}}(\hat{X}^{d}, X^{s})$, which contradicts that the conduct parameter can be identified only when the inverse demand satisfies \eqref{eq:identification_separable}.
-
+Therefore, $Q = \frac{1}{\theta^{*}}$ is a solution to the first-order condition when $X^{d} = \exp\left(\frac{2}{\theta^{*}}\right)X^{s}$.
+Thus, when the true conduct is perfect competition, for any value of $\theta^*$, we can find a pair of $\hat{Q}$, $\hat{X}^{d}$, and $\hat{X}^{s}$ such that $\frac{\partial h}{\partial X^{d}}(\hat{X}^{d}, \hat{X}^{s}) \ne \frac{\partial h^{*}}{\partial X^{d}}(\hat{X}^{d}, \hat{X}^{s})$.
+Therefore, given a true conduct parameter, for any other alternative conduct parameter, we can find a pair of $X^{d}$ and $X^{s}$ such that observable equivalence is violated at a specific equilibrium quantity.
 
 
 \section{Sufficiency Proof in Lau(1982)}\label{sec:proof_lau_sufficiency}
@@ -318,12 +367,31 @@ for all $Q$ and $ X^{d}$.
 However, $r(X^{d})$ can be treated as a single variable. Thus, our previous analysis of the scalar $X^{d}$ case applies, which implies that $\theta$ cannot be uniquely identified except for the singular case.
 \end{framed}
 
-\subsection{A counterexample of the sufficiency} \label{sec:counterexample_sufficiency}
 
+The point in the argument is that when the inverse demand function is separable, the transformation $T$ corresponds to the case with the scalar demand shifter.
+Thus, Lau states that the argument in the scalar case applies, which implies that except for the special inverse demand function, the conduct parameter can be identified and hence nonidentificatin holds.
 However, the argument has a problem because Lau does not state why a separable inverse demand function guarantees the existence of the transformation $T$ such that \eqref{eq:sufficiency_transform_p} holds.
+
+
+
+
+\subsection{A counterexample of the sufficiency} \label{sec:counterexample_sufficiency}
 
 In fact, we cannot have a transformation $T$ under a separable inverse demand.
 To see this, suppose that when the inverse demand function is separable, $T$ always exists.
+
+
+For the shake of a contradiction, assume that nonidentification is held.
+Then, by the separability, we have 
+\begin{align}
+    P(Q, r(X^{d})) + \theta^{*} \frac{\partial P}{\partial Q} (Q, r(X^{d})) Q = T\left(P(Q, r(X^{d})) + \theta \frac{\partial P}{\partial Q} (Q, r(X^{d})) Q, Q\right), \quad \forall Q, X^{d}.
+\end{align}
+
+Assume that the inverse demand function is given by $P(Q, X^{d}) = $
+
+
+
+
 Take the derivative of the inverse demand function with respect to $X^{d}$, then we have
 \begin{align}
     \frac{\partial P}{\partial X^{d}_i}(Q, r(X^{d})) + \theta^{*} \frac{\partial^2 P}{\partial X^{d}_i\partial Q}(Q, r(X^{d}))Q 
@@ -331,12 +399,12 @@ Take the derivative of the inverse demand function with respect to $X^{d}$, then
 \end{align}
 for all $Q$ and $X^{d}$, where $T_1$ is the derivative of $T$ with respect to its first argument.
 
-Consider the case of the inverse demand function in Example \ref{sec:counterexample_lau_vector} and assume that $\theta = 1$ and $\theta^{*} = 0$.
+Consider the case of the inverse demand function in Example \ref{sec:counterexample_lau} and assume that separable inverse demand function guarantees the existence of the transformation $T$ such that \eqref{eq:sufficiency_transform_p} holds.
 Substituting the demand into this equation, we have
 \begin{align}
-X^{d}_j\exp(-Q) = T_1\left[X^{d}_j\exp(-Q)(1 - Q)\right].
+X^{d}\exp(1 -\theta^{*} Q) = T_1\left[X^{d}\exp(-Q)(1 - \theta Q)\right].
 \end{align}
-When $X^{d}_j$ is positive, the left-hand side is always positive, while the right-hand side is zero when $Q = 1$.
+When $Q = \frac{1}{\theta}$, the left-hand side is nonzero, while the right-hand side is zero.
 This implies that \eqref{eq:sufficiency_transform_p} does not work properly to transform the change on the right-hand side into the change on the left-hand side.
 Thus, separability does not guarantee the existence of the transformation $T$.
 

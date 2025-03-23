@@ -5,44 +5,44 @@ The style file: aer.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: conduct_parameter.bib
-You've used 8 entries,
+You've used 7 entries,
             2984 wiz_defined-function locations,
-            701 strings with 5702 characters,
-and the built_in function-call counts, 6603 in all, are:
-= -- 1066
-> -- 339
-< -- 98
-+ -- 104
-- -- 56
-* -- 395
-:= -- 1505
-add.period$ -- 8
-call.type$ -- 8
-change.case$ -- 56
-chr.to.int$ -- 8
-cite$ -- 8
-duplicate$ -- 98
-empty$ -- 206
-format.name$ -- 178
-if$ -- 1637
+            696 strings with 5514 characters,
+and the built_in function-call counts, 6001 in all, are:
+= -- 971
+> -- 309
+< -- 90
++ -- 95
+- -- 52
+* -- 369
+:= -- 1352
+add.period$ -- 7
+call.type$ -- 7
+change.case$ -- 49
+chr.to.int$ -- 7
+cite$ -- 7
+duplicate$ -- 88
+empty$ -- 189
+format.name$ -- 163
+if$ -- 1494
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 8
-newline$ -- 30
-num.names$ -- 96
-pop$ -- 116
+missing$ -- 7
+newline$ -- 27
+num.names$ -- 84
+pop$ -- 103
 preamble$ -- 1
-purify$ -- 64
+purify$ -- 56
 quote$ -- 0
 skip$ -- 0
 stack$ -- 0
-substring$ -- 221
-swap$ -- 41
+substring$ -- 208
+swap$ -- 38
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 32
+type$ -- 28
 warning$ -- 0
-while$ -- 90
+while$ -- 80
 width$ -- 0
-write$ -- 133
+write$ -- 119
