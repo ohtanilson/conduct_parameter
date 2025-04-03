@@ -2,10 +2,13 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -40,50 +43,74 @@
 \@writefile{brf}{\backcite{lau1982identifying}{{2}{1}{section.1}}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Model}{2}{section.2}\protected@file@percent }
 \@writefile{brf}{\backcite{lau1982identifying}{{2}{2}{section.2}}}
-\newlabel{def:non_identification}{{1}{2}{}{definition.1}{}}
-\newlabel{eq:foc_alpha}{{1}{2}{}{equation.2.1}{}}
-\newlabel{eq:foc_beta}{{2}{2}{}{equation.2.2}{}}
+\newlabel{assumption:twice_differentiable}{{1}{2}{}{assumption.1}{}}
+\@writefile{brf}{\backcite{lau1982identifying}{{2}{2}{assumption.1}}}
+\newlabel{assumption:unique_equilibrium}{{2}{2}{}{assumption.2}{}}
+\@writefile{brf}{\backcite{lau1982identifying}{{2}{2}{assumption.2}}}
+\citation{lau1982identifying}
+\citation{lau1982identifying}
+\citation{goldmanNote1964}
+\newlabel{assumption:inverse_demand_identification}{{3}{3}{}{assumption.3}{}}
+\@writefile{brf}{\backcite{lau1982identifying}{{3}{2}{assumption.3}}}
+\newlabel{def:non_identification}{{1}{3}{}{definition.1}{}}
+\newlabel{eq:foc_alpha}{{1}{3}{}{equation.2.1}{}}
+\newlabel{eq:foc_beta}{{2}{3}{}{equation.2.2}{}}
 \MT@newlabel{eq:foc_alpha}
 \MT@newlabel{eq:foc_beta}
-\@writefile{brf}{\backcite{lau1982identifying}{{2}{1}{Hfootnote.1}}}
-\citation{goldmanNote1964}
 \@writefile{brf}{\backcite{lau1982identifying}{{3}{2}{equation.2.2}}}
 \newlabel{theorem_lau}{{1}{3}{}{theorem.1}{}}
 \newlabel{eq:demand_separable}{{3}{3}{}{equation.2.3}{}}
 \newlabel{eq:identification_separable}{{4}{3}{}{equation.2.4}{}}
 \MT@newlabel{eq:identification_separable}
+\MT@newlabel{eq:identification_separable}
 \MT@newlabel{eq:demand_separable}
-\@writefile{brf}{\backcite{goldmanNote1964}{{3}{2}{equation.2.4}}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Counterexample to the sufficiency of separability}{3}{section.3}\protected@file@percent }
-\newlabel{sec:counterexample_sufficiency}{{3}{3}{Counterexample to the sufficiency of separability}{section.3}{}}
-\newlabel{lemma:nonidentification_transformation}{{1}{3}{}{lemma.1}{}}
-\newlabel{eq:lambda_foc_demand}{{5}{3}{}{equation.3.5}{}}
+\@writefile{brf}{\backcite{goldmanNote1964}{{3}{1}{Hfootnote.1}}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Counterexample to the sufficiency of separability}{4}{section.3}\protected@file@percent }
+\newlabel{sec:counterexample_sufficiency}{{3}{4}{Counterexample to the sufficiency of separability}{section.3}{}}
+\newlabel{lemma:non-identification_transformation}{{1}{4}{}{lemma.1}{}}
+\newlabel{eq:lambda_foc_demand}{{5}{4}{}{equation.3.5}{}}
 \newlabel{eq:foc_derivative_demand_supply}{{6}{4}{Counterexample to the sufficiency of separability}{equation.3.6}{}}
 \newlabel{eq:foc_derivative_demand}{{3}{4}{Counterexample to the sufficiency of separability}{equation.3.6}{}}
-\newlabel{eq:foc_derivative_supply}{{3}{4}{Counterexample to the sufficiency of separability}{equation.3.6}{}}
-\newlabel{eq:observale_equivalence_derivative}{{3}{4}{Counterexample to the sufficiency of separability}{equation.3.6}{}}
+\newlabel{eq:foc_derivative_supply}{{3}{5}{Counterexample to the sufficiency of separability}{equation.3.6}{}}
+\MT@newlabel{eq:foc_beta}
+\newlabel{eq:observale_equivalence_derivative}{{3}{5}{Counterexample to the sufficiency of separability}{equation.3.6}{}}
 \MT@newlabel{eq:foc_derivative_demand_supply}
-\newlabel{eq:foc_derivative_demand_supply_lambda}{{7}{4}{Counterexample to the sufficiency of separability}{equation.3.7}{}}
+\newlabel{eq:foc_derivative_demand_supply_lambda}{{7}{5}{Counterexample to the sufficiency of separability}{equation.3.7}{}}
+\newlabel{eq:lambda_foc}{{3}{5}{Counterexample to the sufficiency of separability}{equation.3.7}{}}
+\MT@newlabel{eq:foc_derivative_demand_supply_lambda}
+\MT@newlabel{eq:foc_derivative_demand_supply_lambda}
+\MT@newlabel{eq:lambda_foc_demand}
+\MT@newlabel{eq:demand_separable}
+\MT@newlabel{eq:demand_separable}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Sufficiency of separability}{5}{section.4}\protected@file@percent }
+\MT@newlabel{eq:demand_separable}
+\MT@newlabel{eq:lambda_foc_demand}
+\MT@newlabel{eq:lambda_foc_demand}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Case 1: one side is zero and the other is nonzero at the equilibrium quantity}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Case 2: both sides are nonzero at the equilibrium quantity}{7}{subsection.4.2}\protected@file@percent }
+\MT@newlabel{eq:lambda_foc_demand}
+\MT@newlabel{eq:lambda_foc_demand}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Necessity of Separability}{7}{section.5}\protected@file@percent }
+\MT@newlabel{eq:lambda_foc_demand}
+\MT@newlabel{eq:lambda_foc_demand}
+\citation{goldmanNote1964}
+\citation{goldmanNote1964}
 \citation{lau1982identifying}
 \citation{lau1982identifying}
 \citation{berry2014identification}
-\newlabel{eq:lambda_foc}{{3}{5}{Counterexample to the sufficiency of separability}{equation.3.7}{}}
-\MT@newlabel{eq:foc_derivative_demand_supply_lambda}
-\MT@newlabel{eq:lambda_foc_demand}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Counterexample}{5}{subsection.3.1}\protected@file@percent }
-\MT@newlabel{eq:lambda_foc_demand}
-\MT@newlabel{eq:lambda_foc_demand}
-\MT@newlabel{eq:lambda_foc_demand}
-\MT@newlabel{eq:lambda_foc_demand}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion and discussion}{5}{section.4}\protected@file@percent }
-\@writefile{brf}{\backcite{lau1982identifying}{{5}{4}{section.4}}}
-\@writefile{brf}{\backcite{lau1982identifying}{{5}{4}{section.4}}}
-\@writefile{brf}{\backcite{berry2014identification}{{5}{4}{section.4}}}
+\newlabel{eq:derivative_separable}{{8}{8}{Necessity of Separability}{equation.5.8}{}}
+\MT@newlabel{eq:derivative_separable}
+\@writefile{brf}{\backcite{goldmanNote1964}{{8}{5}{equation.5.8}}}
+\@writefile{brf}{\backcite{goldmanNote1964}{{8}{5}{equation.5.8}}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and discussion}{8}{section.6}\protected@file@percent }
+\@writefile{brf}{\backcite{lau1982identifying}{{8}{6}{section.6}}}
+\@writefile{brf}{\backcite{lau1982identifying}{{8}{6}{section.6}}}
+\@writefile{brf}{\backcite{berry2014identification}{{8}{6}{section.6}}}
 \citation{okazaki2022excess}
 \citation{matsumura2024loglinear}
-\@writefile{brf}{\backcite{okazaki2022excess}{{6}{4}{section.4}}}
-\@writefile{brf}{\backcite{matsumura2024loglinear}{{6}{4}{section.4}}}
-\@writefile{toc}{\contentsline {paragraph}{Acknowledgments}{6}{section*.1}\protected@file@percent }
+\@writefile{brf}{\backcite{okazaki2022excess}{{9}{6}{section.6}}}
+\@writefile{brf}{\backcite{matsumura2024loglinear}{{9}{6}{section.6}}}
+\@writefile{toc}{\contentsline {paragraph}{Acknowledgments}{9}{section*.1}\protected@file@percent }
 \bibstyle{aer}
 \bibdata{conduct_parameter.bib}
 \bibcite{berry2014identification}{{1}{2014}{{Berry and Haile}}{{Berry and Haile}}}
@@ -93,4 +120,6 @@
 \bibcite{matsumura2023resolving}{{5}{2023}{{Matsumura and Otani}}{{Matsumura and Otani}}}
 \bibcite{matsumura2024loglinear}{{6}{2024}{{Matsumura and Otani}}{{Matsumura and Otani}}}
 \bibcite{okazaki2022excess}{{7}{2022}{{Okazaki et al.}}{{Okazaki, Onishi and Wakamori}}}
-\gdef \@abspage@last{7}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Omitted Calculations}{10}{appendix.A}\protected@file@percent }
+\newlabel{omitted_calculation}{{A}{10}{Omitted Calculations}{appendix.A}{}}
+\gdef \@abspage@last{10}

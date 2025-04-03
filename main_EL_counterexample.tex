@@ -98,36 +98,59 @@ Consider a homogeneous product market with the aggregate inverse demand and aggr
 Assume that $X^{d}$ and $X^{s}$ are exclusive; that is, there is no common variable in $X^{d}$ and $X^{s}$.
 Thus, $X^{d}$ works as demand shifters, and $X^{s}$ works as cost shifters. 
 Let $K_d$ and $K_s$ be the number of demand shifters and cost shifters, respectively.
-The equilibrium quantity is characterized by the first-order condition
- \begin{align}
-    P(Q, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q, X^{d})Q &= MC(Q, X^{s}),
+We define the following function $F(Q, X^{d}, X^{s}; \theta, MC)$ as
+\begin{align}
+    F(Q, X^{d}, X^{s}; \theta, MC) \equiv P(Q, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q, X^{d}) Q - MC(Q, X^{s}),
 \end{align}
 where $\theta$ is called the conduct parameter. 
-Depending on the value of $\theta$, the relation can nest the first-order condition of several models, such as perfect competition ($\theta=0$) and Cournot competition ($\theta=1/N$). 
-See the Appendix for the details of the interpretation.
+The equilibrium quantity $Q^e$ is characterized by the first-order condition,
+\begin{align}
+    F(Q^e, X^{d}, X^{s}; \theta, MC) = 0.
+\end{align}
+Depending on the value of $\theta$, the relation can nest the first-order condition of several models, such as perfect competition ($\theta=0$) and Cournot competition ($\theta=1/N$).
+
+\citet{lau1982identifying} impose the following restriction on the inverse demand and the marginal cost function:
+\begin{assumption}\label{assumption:twice_differentiable}
+    The inverse demand and the marginal cost function are twice continuously differentiable.
+\end{assumption}
+
+\citet{lau1982identifying} does not impose any further restrictions except Assumption \ref{assumption:twice_differentiable}, but we are interested in the point identification of the conduct parameter and the marginal cost function, and hence it is natural to assume that the equilibrium quantity exists and is unique, which needs the following additional assumption:
+\begin{assumption}\label{assumption:unique_equilibrium}
+    Given an inverse demand function, a conduct parameter, and a marginal cost function, and given $X^{d}$ and $X^{s}$,
+    \begin{align}
+        \frac{\partial F}{\partial Q}(Q^{e}, X^{d}, X^{s}; \theta, MC) \ne 0 \text{ and } \left| \frac{\partial F}{\partial Q}(Q^{e}, X^{d}, X^{s}; \theta, MC)\right| < \infty. 
+    \end{align}
+\end{assumption}
 
 
 Suppose that the researcher observes the aggregate price $P$ and the aggregate quantity $Q$, and the vector of exogenous variables $X^{d}$ and $X^{s}$.
-In this setting, the researcher can independently identify the inverse demand function by using the demand and cost shifters.
-Therefore, the researcher wants to identify the conduct parameter and the marginal cost function from the observed data.
-\citet{lau1982identifying} considers the identification problem but takes an indirect approach and specifies the conditions under which the model is not identified. 
-The definition of non-identification is as follows:
+Then, \citet{lau1982identifying} considers the identification problem of the conduct parameter and the marginal cost function.
+As for the inverse demand function, he assumes that the inverse demand function is solely identified from the data.
+Formally, this is equivalent to the following assumption:
+\begin{assumption}\label{assumption:inverse_demand_identification}
+    The inverse demand function is identified from the data on price, quantity, and other exogenous variables.
+\end{assumption}
 
+
+
+
+\citet{lau1982identifying} takes an indirect approach and specifies the conditions under which the model is not identified.
+The definition of non-identification is as follows:
 \begin{definition}\label{def:non_identification}
 Non-identification implies for any $X^{d}$ and $X^{s}$,
 \begin{align}
-P(Q^e, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q^e, X^{d})Q^e &= MC(Q^e, X^{s}),  \label{eq:foc_alpha}\\
-P(Q^e, X^{d}) + \theta^{*} \frac{\partial P}{\partial Q}(Q^e, X^{d})Q^e &= MC^{*}(Q^e, X^{s}),\label{eq:foc_beta}
+& F(Q^e, X^{d}, X^{s}; \theta, MC) = 0,  \label{eq:foc_alpha}\\
+& F(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*}) = 0,\label{eq:foc_beta}
 \end{align}
-where $\theta \neq \theta^{*}$, $MC \ne MC^{*}$,\footnote{This condition is not stated in \citet{lau1982identifying}, but assuming $MC = MC^{*}$ makes the identification simple.} and the equilibrium quantity $Q^e$ has a reduced form functions $Q^e = h(X^{d}, X^{s})$ and $Q^e = h^{*}(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
+where $\theta \neq \theta^{*}$, $MC \ne MC^{*}$, and the equilibrium quantity $Q^e$ has a reduced form functions $Q^e = h(X^{d}, X^{s})$ and $Q^e = h^{*}(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
 \end{definition}
 
 In other words, given two distinct pairs of the conduct parameter and the marginal cost, the equilibrium quantity $Q^e$ solves the first-order condition for both pairs.
 Non-identification asks the following question: given an identified inverse demand function, is it possible to find two distinct pairs of a conduct parameter and a marginal cost that lead to observable equivalent equilibrium?
-\citet{lau1982identifying} finds that the separability of the inverse demand function and non-identification are equivalent.
-
+Then, \citet{lau1982identifying} finds that the separability of the inverse demand function and non-identification are equivalent.
 \begin{theorem}\label{theorem_lau}
-    Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is,
+    Given Assumption \ref{assumption:twice_differentiable} and Assumption \ref{assumption:unique_equilibrium},
+    the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is,
     \begin{align}
         p = P(Q, r(X^{d})), \label{eq:demand_separable}
     \end{align}
@@ -136,27 +159,16 @@ Non-identification asks the following question: given an identified inverse dema
         P = Q^{-1/\theta}r(X^{d}) + s(Q). \label{eq:identification_separable}
     \end{align}
 \end{theorem}
-The theorem implies that the conduct parameter is identified when the demand function is not separableor is separable given by \eqref{eq:identification_separable}.
-The separable inverse demand \eqref{eq:demand_separable} has "weak separability" defined in \citet{goldmanNote1964}. 
+The theorem implies that the conduct parameter is identified when the demand function is not separable or is separable but given by \eqref{eq:identification_separable}.\footnote{The separable inverse demand \eqref{eq:demand_separable} has weak separability defined in \citet{goldmanNote1964}. For example, when the inverse demand function include a demand rotation instrument, the inverse demand function becomes non-separable.}Additionally, the function $r(X^{d})$ is as a single variable depending on $X^{d}$.
+Thus, the theorem also implies that when the demand shifter is a scalar, except \eqref{eq:identification_separable}, the conduct parameter cannot identified.
 
 
 
 \section{Counterexample to the sufficiency of separability}\label{sec:counterexample_sufficiency}
-In this section, we show that the sufficiency does not hold; that is, the separable inverse demand function does not imply the nonidentification of the conduct parameter.
-
-
-For the simplisity of the argument, we define the following function $F(Q, X^{d}, X^{s}; \theta, MC)$ as
-\begin{align}
-    F(Q, X^{d}, X^{s}; \theta, MC) \equiv P(Q, X^{d}) + \theta \frac{\partial P}{\partial Q}(Q, X^{d}) Q - MC(Q, X^{s}).
-\end{align}
-Note that by the first-order condition, we have at the equilibrium quantity $Q^e$ that
-\begin{align}
-    F(Q^e, X^{d}, X^{s}; \theta, MC) = 0.
-\end{align}
-
-Before proving the counterexample, we provide a lemma that characterizes the nonidentification.
-\begin{lemma}\label{lemma:nonidentification_transformation}
-    Nonidentification implies that there exists a function $\lambda(Q^e, X^{d}, X^{s})$ such that
+In this section, we show that the sufficiency does not hold; that is, the separable inverse demand function does not imply the non-identification of the conduct parameter.
+Before proving the counterexample, we provide a lemma that characterizes the non-identification.
+\begin{lemma}\label{lemma:non-identification_transformation}
+    Non-identification implies that there exists a function $\lambda(Q^e, X^{d}, X^{s})$ such that
     \begin{align}
         &\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e \\
         &\quad = \lambda(Q^e, X^{d}, X^{s}) \left[\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e \right] \quad \forall i = 1, \ldots, K_d,\label{eq:lambda_foc_demand}
@@ -165,24 +177,31 @@ Before proving the counterexample, we provide a lemma that characterizes the non
 
 \begin{proof}
 Assume that given $X^{d}$ and $X^{s}$, we can solve the first-order condition for the equilibrium quantity $Q^e$.
+Then, by Assumption \ref{assumption:unique_equilibrium}, we can apply the implicit function theorem, and for the reduced-form equation $Q^e = h(X^{d}, X^{s})$, the derivative of $h$ with respect to the demand shifters and the cost shifters are
+\begin{align}
+    Dh(X^{d}, X^{s}) = \begin{pmatrix}
+        \dfrac{\partial h}{\partial X^{d}_{1}}(X^{d}, X^{s})\\
+        \vdots \\
+        \dfrac{\partial h}{\partial X^{d}_{K_d}}(X^{d}, X^{s})\\[1em]
+        \dfrac{\partial h}{\partial X^{s}_{1}}(X^{d}, X^{s})\\
+        \vdots \\
+        \dfrac{\partial h}{\partial X^{s}_{K_s}}(X^{d}, X^{s})
+    \end{pmatrix} = \begin{pmatrix}
+        -\dfrac{\frac{\partial F}{\partial X^{d}_{1}}(h(X^{d}, X^{s}), X^{d}, X^{s})}{\frac{\partial F}{\partial Q}(h(X^{d}, X^{s}), X^{d}, X^{s})}\\
+        \vdots \\
+        -\dfrac{\frac{\partial F}{\partial X^{d}_{K_d}}(h(X^{d}, X^{s}), X^{d}, X^{s})}{\frac{\partial F}{\partial Q}(h(X^{d}, X^{s}), X^{d}, X^{s})}\\[1.5em]
+        -\dfrac{\frac{\partial F}{\partial X^{s}_{1}}(h(X^{d}, X^{s}), X^{d}, X^{s})}{\frac{\partial F}{\partial Q}(h(X^{d}, X^{s}), X^{d}, X^{s})}\\
+        \vdots \\        
+        -\dfrac{\frac{\partial F}{\partial X^{s}}(h(X^{d}, X^{s}), X^{d}, X^{s})}{\frac{\partial F}{\partial Q}(h(X^{d}, X^{s}), X^{d}, X^{s})}
+    \end{pmatrix}.\label{eq:foc_derivative_demand_supply}
+\end{align}
 The derivatives of $F$ for each variable are
 \begin{align}
     \frac{\partial F}{\partial X^{d}_i}(Q^e, X^{d}, X^{s}; \theta, MC) & =  \frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e, \quad i = 1, \ldots, K_d,\\
     \frac{\partial F}{\partial X^{s}_i}(Q^e, X^{d}, X^{s}; \theta, MC) & =  -\frac{\partial MC}{\partial X^{s}_{i}}(Q^e, X^{s}), \quad i = 1, \ldots, K_s, \\
     \frac{\partial F}{\partial Q}(Q^e, X^{d}, X^{s}; \theta, MC) & = (1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC}{\partial Q}(Q^e, X^{s}).
 \end{align}
-Assume that the derivative of $F$ with respect to $Q$, the last equation, at the equilibrium quantity $Q^e$ is nonzero.
-Then, we can apply the implicit function theorem, and for the reduced-form equation $Q^e = h(X^{d}, X^{s})$, the derivative of $h$ with respect to the demand shifters and the cost shifters are
-\begin{align}
-    Dh(X^{d}, X^{s}) = \begin{pmatrix}
-        \dfrac{\partial h}{\partial X^{d}}(X^{d}, X^{s})\\[1em]
-        \dfrac{\partial h}{\partial X^{s}}(X^{d}, X^{s})
-    \end{pmatrix} = \begin{pmatrix}
-        -\dfrac{\frac{\partial F}{\partial X^{d}}(h(X^{d}, X^{s}), X^{d}, X^{s})}{\frac{\partial F}{\partial Q}(h(X^{d}, X^{s}), X^{d}, X^{s})}\\[1.5em]
-        -\dfrac{\frac{\partial F}{\partial X^{s}}(h(X^{d}, X^{s}), X^{d}, X^{s})}{\frac{\partial F}{\partial Q}(h(X^{d}, X^{s}), X^{d}, X^{s})}
-    \end{pmatrix}.\label{eq:foc_derivative_demand_supply}
-\end{align}
-Thus, the derivative of $h$ with respect to $X^{d}_i$ and $X^{s}_i$ are given as for $i = 1, \ldots, K_d$ and $i = 1, \ldots, K_s$, respectively,
+Thus, the derivative of $h$ with respect to $X^{d}_i$ and $X^{s}_i$ are given as for $i = 1, \ldots, K_d$ and $i = 1, \ldots, K_s$,
 \begin{align}
     \frac{\partial h}{\partial X^{d}_{i}}(X^{d}, X^{s}) = -\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}_i) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d}_i)Q^e }{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}_i) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}_i)Q^e - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}, \label{eq:foc_derivative_demand}
 \end{align}
@@ -192,51 +211,180 @@ and
 \end{align}
 
 % Use the definition of non-identification
-Note that the same argument can be applied to the alternative model, and we have $Dh^{*}(X^{d}, X^{s})$.
-The non-identification implies that $Q^e = h(X^{d}, X^{s}) = h^{*}(X^{d}, X^{s})$ for all $X^{d}$ and $X^{s}$, and hence we must have
+Note that the same argument can be applied to the first-order condition \eqref{eq:foc_beta} of the alternative model.
+Recall that the non-identification implies that $Q^e = h(X^{d}, X^{s}) = h^{*}(X^{d}, X^{s})$ for all $X^{d}$ and $X^{s}$, and hence we must have
 \begin{align}
     Dh^{*}(X^{d}, X^{s}) = Dh(X^{d}, X^{s}) \quad \forall X^{d}, X^{s}. \label{eq:observale_equivalence_derivative}
 \end{align}
 From \eqref{eq:foc_derivative_demand_supply}, this implies that for all $Q^e$, $X^{d}$, and $X^{s}$,
 \begin{align}
     \begin{pmatrix}
-        \frac{\partial F}{\partial X^{d}}(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*})\\
-        \frac{\partial F}{\partial X^{s}}(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*})
+        \frac{\partial F}{\partial X^{d}_{1}}(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*})\\
+        \vdots \\
+        \frac{\partial F}{\partial X^{d}_{K_d}}(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*})\\
+        \frac{\partial F}{\partial X^{s}_{1}}(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*})\\
+        \vdots \\
+        \frac{\partial F}{\partial X^{s}_{K_s}}(Q^e, X^{d}, X^{s}; \theta^{*}, MC^{*})
     \end{pmatrix}
     = \lambda(Q^e, X^{d}, X^{s})
     \begin{pmatrix}
-        \frac{\partial F}{\partial X^{d}}(Q^e, X^{d}, X^{s}; \theta, MC)\\
-        \frac{\partial F}{\partial X^{s}}(Q^e, X^{d}, X^{s}; \theta, MC),
+        \frac{\partial F}{\partial X^{d}_{1}}(Q^e, X^{d}, X^{s}; \theta, MC)\\
+        \vdots \\
+        \frac{\partial F}{\partial X^{d}_{K_d}}(Q^e, X^{d}, X^{s}; \theta, MC)\\
+        \frac{\partial F}{\partial X^{s}_{1}}(Q^e, X^{d}, X^{s}; \theta, MC)\\
+        \vdots \\
+        \frac{\partial F}{\partial X^{s}_{K_s}}(Q^e, X^{d}, X^{s}; \theta, MC)
     \end{pmatrix},\label{eq:foc_derivative_demand_supply_lambda}
 \end{align}
 where $\lambda(Q^e, X^{d}, X^{s})$ is defined as
 \begin{align}
     \lambda(Q^e, X^{d}, X^{s}) \equiv \frac{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}. \label{eq:lambda_foc}
 \end{align}
-It is straightforward to see that the first row in \eqref{eq:foc_derivative_demand_supply_lambda} is equivalent to \eqref{eq:lambda_foc_demand}.
+Assumption \ref{assumption:unique_equilibrium} guarantees that $\lambda(Q^e, X^{d}, X^{s})$ is well-defined and $\lambda(Q^e, X^{d}, X^{s}) \ne 0$ and $|\lambda(Q^e, X^{d}, X^{s})| < \infty$.
+Therefore, it is easy to see from \eqref{eq:foc_derivative_demand_supply_lambda} that the first $K_d$ rows in \eqref{eq:foc_derivative_demand_supply_lambda} are equivalent to \eqref{eq:lambda_foc_demand}.
 \end{proof}
 
-\subsection{Counterexample}
 
-When the separability implies nonidentifcation, separability guarantees that we have the condition \eqref{eq:lambda_foc_demand} for all $Q^e$, $X^{d}$, and $X^{s}$.
-Note that when the function is separable $P(Q, r(X^{d}))$, we can regard $r(X^{d})$ as a single variable.
-Thus, it is enough to consider the case of the demand shifter is a scalar.
-In the following counterexample, we show that there is an inverse demand function that violates the condition \eqref{eq:lambda_foc_demand} at some $Q^e$, $X^{d}$, and $X^{s}$.
-Therefore, separability does not imply nonidentification.
 
-Assume that the inverse demand function is given by
+
+
+
+\begin{proposition}
+    When the true inverse demand function takes the form of \eqref{eq:demand_separable}, the inverse demand function is not identified. 
+\end{proposition}
+
+
+
+\begin{proof}
+When the inverse demand function is \eqref{eq:demand_separable}, based on the 
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Sufficiency of separability}
+
+Suppose that the inverse demand function is separable and given by \eqref{eq:demand_separable}.
+Note that when the inverse demand is separable, $r(X^{d})$ is regarded as a single variable depending on $X^{d}$, and hence the analysis is the same with the case where $X^{d}$ is a scalar and the inverse demand function is given as $p = P(Q, X^{d})$.
+
+Suppose that the conduct parameter is identified.
+In this case, for any distinct pairs of the conduct parameter and the marginal cost, at least one equilibrium quantity $Q^e$ violates the condition \eqref{eq:lambda_foc_demand}.
+Additionally, $Q^e$ should be realized as an equilibrium quantity for any pair of the conduct parameter and the marginal cost.
+Therefore, even though a pair of $Q^e$, $X^{d}$, and $X^{s}$ violates the condition \eqref{eq:lambda_foc_demand}, when it is not an equilibrium quantity for more than two pairs of the conduct parameter and the marginal cost, the observable equivalence could be satisfied for these pairs.
+
+In the following, we consider two cases where the observable equivalence is violated.
+The first case is when one side is zero and the other is nonzero at the equilibrium quantity.
+The second case is when both sides are nonzero at the equilibrium quantity.
+
+\subsection{Case 1: one side is zero and the other is nonzero at the equilibrium quantity}
+Given an inverse demand function, suppose that there is a pair of $Q^e$, $X^{d}$, and $X^{s}$ such that 
 \begin{align}
-    P(Q, X^{d}) = X^{d}\exp(-Q).
+    \frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e  \ne 0,\\
+    \frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e  = 0.
 \end{align}
-Suppose for the sake of a contradiction that given two pairs of the conduct parameter and the marginal cost, we have \eqref{eq:lambda_foc_demand} for all $Q^e$, $X^{d}$, and $X^{s}$.
-Under the inverse demand function, \eqref{eq:lambda_foc_demand} is written as
+In this case, the observable equivalence is violated because the left-hand side is nonzero but the right-hand side is zero at the equilibrium quantity.
+However, when $Q^e$ is not realized as an equilibrium quantity under a pair of the conduct parameter and the marginal cost, the observable equivalence is not violated given an inverse demand function.
+
+The second equation implies that
 \begin{align}
-    \exp(-Q)(1 -\theta^{*} Q) = \lambda(Q^e, X^{d}, X^{s}) \exp(-Q)(1 - \theta Q).
+    \frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e  = \frac{\partial}{\partial X^{d}_i}\left( P(Q^e, X^{d}) + \theta^{*}\frac{\partial P}{\partial Q^e}(Q^e, X^{d})Q^e\right) = 0.
 \end{align}
-First, when $\theta >0$, the left-hand side is nonzero but the right-hand side is zero when $Q = \frac{1}{\theta}$.
-When $\theta = 0$ and $\theta^{*} >0$, the left-hand side is zero when $Q = \frac{1}{\theta^{*}}$.
-In contrast, as we assume that the $\lambda(Q^e, X^{d}, X^{s})$ is always positive, the right-hand side is always nonzero for any $Q$.
-Therefore, there is a separable inverse demand function that leads to identification at some $Q^e$, $X^{d}$, and $X^{s}$, which is a contradiction to the sufficiency of separability in Theorem \ref{theorem_lau}.
+The inside of the bracket is the marginal revenue function evaluated at the equilibrium quantity, and hence the equation implies that the marginal revenue does not depend on the demand shifter $X^{d}_i$.
+In other words, at the equilibrium quantity, the marginal revenue is written as a function of $Q^e$ only, defined as $S(\cdot)$.
+In this case, the first-order condition is written as
+\begin{align}
+    MC(Q^e, X^{s}) = S(Q^e).
+\end{align}
+Because $S(Q^e)$ is the value of $S$ at $Q^e$, the equation implies that the marginal cost is constant at the equilibrium quantity.
+Because we assume that the marginal cost is twice continuously differentiable, the intermediate value theorem implies that given $Q^e$, there exists a $X^{s}$ such that $MC(Q^e, X^{s}) = S(Q^e)$ when the range of the marginal cost includes $S(Q^e)$.
+However, this does not hold for all marginal cost functions.
+
+
+
+
+Therefore, the observable equivalence should be violated for any quantity.
+In this case, the equation becomes a partial differential equation.
+Again the equation is 
+\begin{align}
+    \frac{\partial P}{\partial X^{d}}(Q, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}\partial Q}(Q, X^{d})Q = 0.\\
+    P(Q^e, X^d) = (Q^e)^{-1/\theta^*}[C(X^d) + \int \frac{h(Q^e)}{\theta^*Q^e}(Q^e)^{1/\theta^*}dQ^e]
+\end{align}
+
+
+
+So far, we have assumed that the inverse demand function is solely identified from the data including $Q^e$, $X^{d}$, and $X^{s}$.
+However, we are now considering the inverse demand function that the equilibrium quantity does not depend on the demand shifter $X^{d}$.
+Therefore, the demand shifter $X^{d}$ does not change the equilibrium price, which implies that the derivative of the inverse demand function with respect to $X^{d}$ is zero: $\partial P/\partial X^{d} = 0$.
+In this case, the identification of the inverse demand function through the demand shifter $X^{d}$ is not possible because any function $r(X^{d})$ can rationalize the data.
+
+
+
+
+
+
+\subsection{Case 2: both sides are nonzero at the equilibrium quantity}
+Given $Q^e$, $X^{d}$, and $X^{s}$, as the inverse demand function is known, we can put the value of the components in \eqref{eq:lambda_foc_demand} as
+\begin{align}
+    A & \equiv \frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e,\\
+    B & \equiv \frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})Q^e,\\
+    C & \equiv \frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*}\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e,\\
+    D & \equiv \frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d})Q^e.
+\end{align}
+Then \eqref{eq:lambda_foc_demand} is written as
+\begin{align}
+    A = \frac{C - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}{D- \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}B,
+\end{align}
+which is equivalent to
+\begin{align}
+    AD - BC \ne B\frac{\partial MC}{\partial Q}(Q^e, X^{s}) - A \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s}).
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+\section{Necessity of Separability}
+
+From Lemma \ref{lemma:non-identification_transformation}, we know that the non-identification implies the condition \eqref{eq:lambda_foc_demand} holds for all $Q^e$, $X^{d}$, and $X^{s}$.
+When the demand shifter is a vector, from \eqref{eq:lambda_foc_demand}, we have
+\begin{align}
+    (1 - \lambda(Q^e, X^{d}, X^{s}))\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) = (\lambda(Q^e, X^{d}, X^{s})\theta -  \theta^{*})\frac{\partial^2 P}{\partial X^{d}_i\partial Q}(Q^e, X^{d})Q^e.
+\end{align}
+Pick up $i$ and $j$-th elements of the demand shifter and by taking the ratio the above equation, we have
+\begin{align}
+    \frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})} & = \frac{ \frac{\partial^2 P}{\partial X^{d}_{i} \partial Q}(Q, X^{d})}{\frac{\partial^2 P}{\partial X^{d}_{j} \partial Q}(Q, X^{d})},
+\end{align}
+which is equivalent to \footnote{See \ref{omitted_calculation} for the detailed calculation.}
+\begin{align}
+    0 & = \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right)^{-1} \frac{\partial}{\partial Q} \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right).
+    \label{eq:derivative_separable}
+\end{align}
+
+Because $X^{d}$ is a vector of demand shifters that affect the inverse demand function, it is natural to think that $\partial P/\partial X^{d}_{i} \ne 0$ for all $i$.
+Therefore, we should have
+\begin{align}
+    \frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})} \ne 0.
+\end{align}
+Therefore, the denominator in \eqref{eq:derivative_separable} is nonzero, which implies that the derivative with respect to $Q$ is zero;
+\begin{align}
+    \frac{\partial}{\partial Q} \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right) = 0.
+\end{align}
+This is equivalent to the weak separability in \citet{goldmanNote1964}, and hence we can apply Theorem 2 in \citet{goldmanNote1964} to conclude that when $X^{d}$ is a vector, non-identification implies that the inverse demand function is a separable function such that $P(Q, r(X^{d}))$.
+
+
+
+
 
 
 
@@ -245,7 +393,7 @@ Therefore, there is a separable inverse demand function that leads to identifica
 
 \section{Conclusion and discussion}
 
-We present a counterexample to \citet{lau1982identifying}'s identification result, separability does not imply nonidentification.
+We present a counterexample to \citet{lau1982identifying}'s identification result, separability does not imply non-identification.
 Our finding is that even though non-identification implies the separability of the inverse demand function, the class of separable inverse demand functions that leads to non-identification is more restricted than the class considered in \citet{lau1982identifying}.
 
 Based on the recent literature on distinguishing firm conduct, this result is not surprising.
@@ -266,5 +414,24 @@ This work was supported by JST ERATO Grant Number JPMJER2301, Japan.
 \newpage
 \bibliographystyle{aer}
 \bibliography{conduct_parameter.bib}
+
+\appendix
+
+\section{Omitted Calculations}\label{omitted_calculation}
+
+
+\begin{align}
+    \frac{\frac{\partial^2 P}{\partial X^{d}_{i} \partial Q}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}  & = \frac{\frac{\partial^2 P}{\partial X^{d}_{j} \partial Q}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\\ 
+    \frac{\partial }{\partial Q} \log\left( \frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})\right) &= \frac{\partial }{\partial Q} \log\left( \frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})\right)\\
+    0& = \frac{\partial}{\partial Q}\log\left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right)
+\end{align}
+Note that we can exchange the order of partial derivative due to Young's theorem as $P$ is twice continuously differentiable.
+Then, by the chain rule, we have
+\begin{align}
+    0 & = \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right)^{-1} \frac{\partial}{\partial Q} \left(\frac{\frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d})}{\frac{\partial P}{\partial X^{d}_{j}}(Q, X^{d})}\right).
+\end{align}
+
+
+
 
 \end{document}
