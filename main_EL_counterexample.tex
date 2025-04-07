@@ -384,10 +384,16 @@ By redefining $r(X^{d}) = Cr(X^{d})$, we have
 \end{align}
 which is the same with \eqref{eq:identification_separable}.
 
+Additionally, we need to check that \eqref{eq:case1_left} is nonzero for any $Q$, $X^{d}$.
+By substituting the above inverse demand function into the left-hand side of \eqref{eq:lambda_foc_demand}, we have
+\begin{align}
+    \frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d}) + \theta^{*} \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d})Q  &= Q^{-1/\theta} r_i(X^d) - \frac{\theta^{*}}{\theta} Q^{-1/\theta-1} r_i(X^d) Q\\
+    &= Q^{-1/\theta} r_i(X^d) \left(1 - \frac{\theta^{*}}{\theta} \right).
+\end{align}
+This becomes zero if and only if $\theta= \theta^{*}$.
+Hence, under the inverse demand function, \eqref{eq:case1_left} and \eqref{eq:case1_right} hold simultaneously for any $Q$, $X^{d}$.
 
-
-
-On the other hand, when
+On the other hand, when we have
 \begin{align}
     \frac{\partial P}{\partial X^{d}_i}(\hat{Q}, \hat{X}^{d}) + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(\hat{Q}, \hat{X}^{d})\hat{Q}  =  0,\\
     \frac{\partial P}{\partial X^{d}_i}(\hat{Q}, \hat{X}^{d}) + \theta^{*}\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(\hat{Q}, \hat{X}^{d})\hat{Q}  \ne 0,
@@ -402,16 +408,25 @@ the observable equivalence is always violated.
 
 
 
+
+
+
+
+
 \subsection{Case 2: both sides are nonzero at the equilibrium quantity}
 In this case, we have that the derivative of the marginal revenue with respect to the demand shifter is nonzero at the equilibrium quantity:
 \begin{align}
     r'_i(X^{d})\left[\frac{\partial P}{\partial r}(Q, r(X^{d})) + \theta\frac{\partial^2 P}{\partial r\partial Q}(Q, r(X^{d}))Q\right] \ne 0.
 \end{align}
 
-This case is not considered in \citet{lau1982identifying}.
+In this case, to show that the separability of inverse demand functions is a sufficient condition, we need to find two different pairs of the conduct parameter and the marginal cost function that satisfy \eqref{eq:lambda_foc_demand} for any $Q^e$, $X^{d}$, and $X^{s}$, but both sides are nonzero at the equilibrium quantity.
 
+An important note is that this case is not considered in \citet{lau1982identifying}.
+He only considers the case 1 where one side of \eqref{eq:lambda_foc_demand} is zero.
+In case 1, we have seen that there is a specific inverse demand function that always violate the observable equivalence.
+In case 2, we show that there is an example of the inverse demand function under which there is no marginal cost function that satisfies the observable equivalence.
 
-\subsubsection{A counterexample}
+\subsubsection{An example}
 
 Note that by assuming $r(X^{d}) = X^{d}$, a separable inverse demand function is equivalent to the case with scalar demand shifter.
 Then, consider the following inverse demand function:
@@ -433,10 +448,9 @@ To this holds, $MC$ should satisfy
     \frac{\partial MC}{\partial Q}(Q, X^{s}) & = \alpha_1 + \alpha_2 + \alpha_3 (Q(1 + \theta) - X^{d}). 
 \end{align}
 $MC^{*}$ also satisfies the same condition with $\theta^{*}$ replaced by $\theta$.
-However, this implies that the marginal cost function depends on the demand shifter $X^{d}$, which is a contradiction because $X^{d}$ is defined as the variable that does not affect the marginal cost function.
+However, this implies that the marginal cost function depends on the demand shifter $X^{d}$, which violates the assumption that $X^{d}$ is the variable that does not affect the marginal cost function.
 Additionally, any other marginal cost function cannot satisfy \eqref{eq:case2_lambda_foc} for any $Q^e$, $X^{d}$, and $X^{s}$.
-Therefore, we cannot have a pair of the conduct parameter and the marginal cost function that satisfies \eqref{eq:case2_lambda_foc} for any $Q^e$, $X^{d}$, and $X^{s}$, which is a contradiction.
-This concludes that under the inverse demand function, the conduct parameter is identified.
+Therefore, we cannot have two different pairs of the conduct parameter and the marginal cost function that satisfies \eqref{eq:case2_lambda_foc} for any $Q^e$, $X^{d}$, and $X^{s}$, which concludes that under the inverse demand function, the observable equivalence is always violated.
 
 
 \section{Necessity of Separability}
