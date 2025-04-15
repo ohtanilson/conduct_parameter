@@ -111,13 +111,18 @@ where $W_{t}$ and $R_{t}$ are excluded cost shifters and $Z^{R}_{t}$ is Bresnaha
 The supply equation is written as follows:
 \begin{align}
     P_t 
-    %&= \gamma_0 + [\theta(\alpha_1 + \alpha_2Z^{R}_{t})+ \gamma_1] Q_{t}   + \gamma_2 W_{t} + \gamma_3 R_{t} + \varepsilon^{c}_{t}\nonumber\\ 
     &= \gamma_0 + \theta \alpha_2 Z^{R}_tQ_{t} + (\theta\alpha_1 + \gamma_1) Q_{t} + \gamma_2 W_t + \gamma_3 R_{t} +\varepsilon^c_t.\label{eq:linear_supply_equation}
 \end{align}
 By substituting Equation \eqref{eq:linear_demand} with Equation \eqref{eq:linear_supply_equation} and solving it for $P_t$, we obtain the aggregate quantity $Q_{t}$ based on the parameters and exogenous variables as follows:
 \begin{align}
     Q_{t} =  \frac{\alpha_0 + \alpha_3 Y_t - \gamma_0 - \gamma_2 W_{t} - \gamma_3 R_{t} + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}}{(1 + \theta) (\alpha_1 + \alpha_2 Z^{R}_{t}) + \gamma_1}.\label{eq:quantity_linear}
 \end{align}
+
+
+
+
+
+
 
 \subsection{Is the multicollinearity problem in PS incorrect?}
 To demonstrate the multicollinearity problem, PS attempt to demonstrate linear dependence between the variables in the supply equation. 
@@ -174,6 +179,10 @@ Thus, the imprecise results reported by PS are due to the lack of demand shifter
   \footnotesize
   Note: The error terms in the demand and supply equation are drawn from a normal distribution, $N(0,\sigma)$.
 \end{table} 
+
+
+
+
 
 
 
