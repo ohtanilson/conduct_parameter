@@ -1237,8 +1237,8 @@ INPUT ./main_EL_counterexample.out
 INPUT ./main_EL_counterexample.brf
 INPUT ./main_EL_counterexample.brf
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
-INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ts1.enc
