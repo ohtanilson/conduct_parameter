@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  8 APR 2025 15:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  26 APR 2025 19:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -413,31 +413,41 @@ LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 \c@claim=\count310
 \c@corollary=\count311
 \c@example=\count312
- (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+
+/home/yuri/Documents/GitHub/conduct_parameter/main_EL_linear.tex:41: Undefined control sequence.
+l.41 \appendixsection
+                     
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count313
 \l__pdf_internal_box=\box59
 ) (./main_EL_linear.aux)
 \openout1 = `main_EL_linear.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -492,7 +502,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 45.
+Package hyperref Info: Link coloring ON on input line 56.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -502,62 +512,206 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count320
 )
-LaTeX Info: Redefining \ref on input line 45.
-LaTeX Info: Redefining \pageref on input line 45.
-LaTeX Info: Redefining \nameref on input line 45.
- (./main_EL_linear.out) (./main_EL_linear.out)
+LaTeX Info: Redefining \ref on input line 56.
+LaTeX Info: Redefining \pageref on input line 56.
+LaTeX Info: Redefining \nameref on input line 56.
 \@outlinefile=\write3
 \openout3 = `main_EL_linear.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 48.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 59.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 48.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 59.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] (./figuretable/linear_linear_sigma_0.001_bias_rmse.tex) (./figuretable/linear_linear_sigma_0.5_bias_rmse.tex) (./figuretable/linear_linear_sigma_2_bias_rmse.tex) [4] [5] (./main_EL_linear.bbl) [6]pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 1 undefined on input line 79.
+
+
+Package natbib Warning: Citation `lau1982identifying' on page 1 undefined on input line 81.
+
+
+Package natbib Warning: Citation `nevoIdentificationOligopolySolution1998' on page 1 undefined on input line 81.
+
+
+Package natbib Warning: Citation `perloff2012collinearity' on page 1 undefined on input line 84.
+
+
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 1 undefined on input line 84.
+
+
+Package natbib Warning: Citation `claessensWhatDrivesBank2004' on page 1 undefined on input line 87.
+
+
+Package natbib Warning: Citation `coccoreseMultimarketContactCompetition2013' on page 1 undefined on input line 87.
+
+
+Package natbib Warning: Citation `coccoreseWhatAffectsBank2021' on page 1 undefined on input line 87.
+
+
+Package natbib Warning: Citation `garciaMarketStructuresProduction2020' on page 1 undefined on input line 87.
+
+
+Package natbib Warning: Citation `kumbhakarNewMethodEstimating2012' on page 1 undefined on input line 87.
+
+
+Package natbib Warning: Citation `perekhozhukRegionalLevelAnalysisOligopsony2015' on page 1 undefined on input line 87.
+
+
+Package natbib Warning: Citation `shafferMarketPowerCompetition2017' on page 1 undefined on input line 87.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 2 undefined on input line 90.
+
+
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 2 undefined on input line 93.
+
+
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 2 undefined on input line 104.
+
+[2]
+
+LaTeX Warning: Reference `eq:linear_demand' on page 3 undefined on input line 127.
+
+
+LaTeX Warning: Reference `eq:linear_supply_equation' on page 3 undefined on input line 127.
+
+
+LaTeX Warning: Reference `eq:linear_supply_equation' on page 3 undefined on input line 147.
+
+
+LaTeX Warning: Reference `eq:linear_supply_equation' on page 3 undefined on input line 160.
+
+[3]
+
+Package natbib Warning: Citation `magnolfi2022falsifying' on page 4 undefined on input line 165.
+
+
+Package natbib Warning: Citation `berry2014identification' on page 4 undefined on input line 166.
+
+
+LaTeX Warning: Reference `tb:linear_linear_sigma_1' on page 4 undefined on input line 172.
+
+(./figuretable/linear_linear_sigma_0.001_bias_rmse.tex) (./figuretable/linear_linear_sigma_0.5_bias_rmse.tex) (./figuretable/linear_linear_sigma_2_bias_rmse.tex)
+
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 4 undefined on input line 202.
+
+
+Package natbib Warning: Citation `perloff2012collinearity' on page 4 undefined on input line 202.
+
+
+Package natbib Warning: Citation `perloff2012collinearity' on page 4 undefined on input line 203.
+
+
+Package natbib Warning: Citation `bresnahan1982oligopoly' on page 4 undefined on input line 205.
+
+[4] [5] (./main_EL_linear.bbl) [6]
+/home/yuri/Documents/GitHub/conduct_parameter/main_EL_linear.tex:283: Undefined control sequence.
+l.283 \appendixsection
+                      
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+pdfTeX warning (ext4): destination with the same identifier (name{appendix.A}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.360 
-       [1]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
+l.284 \section{Online appendix}
+                               \label{sec:appendix}
+
+LaTeX Warning: Reference `eq:quantity_linear' on page 1 undefined on input line 293.
+
+
+LaTeX Warning: Reference `eq:linear_independence' on page 1 undefined on input line 293.
+
+
+LaTeX Warning: Reference `tb:parameter_setting' on page 1 undefined on input line 318.
+
+
+LaTeX Warning: Reference `tb:parameter_setting' on page 1 undefined on input line 369.
+
+
+LaTeX Warning: Reference `eq:quantity_linear' on page 1 undefined on input line 370.
+
+
+LaTeX Warning: Reference `eq:linear_demand' on page 1 undefined on input line 371.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.395 
-       [2] (./figuretable/linear_linear_sigma_0.001_without_demand_shifter_y.tex) (./figuretable/linear_linear_sigma_0.5_without_demand_shifter_y.tex) (./figuretable/linear_linear_sigma_1_without_demand_shifter_y.tex) (./figuretable/linear_linear_sigma_2_without_demand_shifter_y.tex)pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
+l.372 
+       [1]
+
+LaTeX Warning: Reference `tb:linear_linear_sigma_Perloff_Shen' on page 2 undefined on input line 403.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \end{document}
+l.407 
+       [2]
+
+LaTeX Warning: Reference `tb:linear_linear_sigma_1_without_demand_shifter_y' on page 3 undefined on input line 408.
+
+(./figuretable/linear_linear_sigma_0.001_without_demand_shifter_y.tex) (./figuretable/linear_linear_sigma_0.5_without_demand_shifter_y.tex) (./figuretable/linear_linear_sigma_1_without_demand_shifter_y.tex) (./figuretable/linear_linear_sigma_2_without_demand_shifter_y.tex)
+
+Package natbib Warning: There were undefined citations.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.444 \end{document}
                      [3]pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \end{document}
+l.444 \end{document}
                      [4]pdfTeX warning (ext4): destination with the same identifier (name{page.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \end{document}
-                     [5] (./main_EL_linear.aux)
-Package rerunfilecheck Info: File `main_EL_linear.out' has not changed.
-(rerunfilecheck)             Checksum: 8A874DADA7FD4D106B6BCB8CC45AFAAF;1873.
+l.444 \end{document}
+                     [5] (./main_EL_linear.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main_EL_linear.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main_EL_linear.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  D908BA4FC0D3BDD40E60C67A949CB3B9;1879.
  ) 
 Here is how much of TeX's memory you used:
- 14502 strings out of 478287
- 236889 string characters out of 5849289
- 577474 words of memory out of 5000000
- 32384 multiletter control sequences out of 15000+600000
+ 14485 strings out of 478287
+ 236655 string characters out of 5849289
+ 575089 words of memory out of 5000000
+ 32372 multiletter control sequences out of 15000+600000
  488159 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,11n,76p,584b,596s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
-Output written on main_EL_linear.pdf (11 pages, 267206 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb>
+Output written on main_EL_linear.pdf (11 pages, 271807 bytes).
 PDF statistics:
- 288 PDF objects out of 1000 (max. 8388607)
- 236 compressed objects within 3 object streams
- 49 named destinations out of 1000 (max. 500000)
- 89 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 200 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

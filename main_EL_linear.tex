@@ -36,6 +36,17 @@
 \newtheorem{example}{Example}
 \DeclareMathOperator{\rank}{rank}
 
+% Appendix内で番号をリセットする設定
+\appendix
+\appendixsection
+\numberwithin{theorem}{section}
+\numberwithin{lemma}{section}
+\numberwithin{proposition}{section}
+\numberwithin{corollary}{section}
+\numberwithin{definition}{section}
+\numberwithin{example}{section}
+\numberwithin{assumption}{section}
+\numberwithin{claim}{section}
 
 \title{Resolving the Conflict on Conduct Parameter Estimation in Homogeneous Goods Markets between Bresnahan (1982) and Perloff and Shen (2012)}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{Department of Economics, Rice University. Email: so19@rice.edu
@@ -269,6 +280,7 @@ We thank Jeremy Fox and Isabelle Perrigne for their valuable advice. This resear
 % \end{proof}
 \setcounter{page}{1}
 \appendix
+\appendixsection
 \section{Online appendix}\label{sec:appendix}
 \subsection{Omitted proof of Proposition 1}
 \begin{proof}
