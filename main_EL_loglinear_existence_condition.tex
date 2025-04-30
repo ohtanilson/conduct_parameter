@@ -251,9 +251,12 @@ We propose a constrained generalized method of moments estimator (GMM) incorpora
 First, we derive the conditions.
 Second, Monte Carlo simulations confirm that incorporating the conditions resolves the problems of implausibly low or negative values of conduct parameters in a log-linear model, as reported in the literature. 
 
+\textcolor{blue}{Two well-known concerns have long accompanied the conduct parameter approach: first, the difficulty in economically interpreting intermediate or extreme values of the estimated conduct parameter; and second, the critique—most notably by \cite{corts1999conduct}—that conduct estimates can severely understate the degree of market power when firms engage in collusion. In this paper, we clarify that the implausible or unstable estimates often observed in the empirical literature are not necessarily indicative of these conceptual limitations, but are instead frequently driven by numerical issues in parameter estimation, particularly when key equilibrium conditions are neglected. By resolving these computational issues, we demonstrate that a more coherent and interpretable set of estimates emerges. This distinction is important: conflating estimation artifacts with theoretical limitations may lead to unwarranted dismissal of the approach. With these issues addressed, we hope this paper motivates a more constructive discussion about the settings in which conduct parameter methods remain a useful tool for empirical analysis.}
+
 
 \paragraph{Acknowledgments}
-We thank Jeremy Fox, Yelda Gungor, and Isabelle Perrigne for their valuable comments. This research received no specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
+We thank Jeremy Fox, Yelda Gungor, and Isabelle Perrigne for their valuable comments. %This research received no specific grant from funding agencies in the public, commercial, or not-for-profit sectors. 
+We were supported by JST ERATO Grant Number JPMJER2301 and Otani was supported by JSPS Grant-in-Aid (KAKENHI) for Young Researcher 25K16620.
 
 \newpage
 \bibliographystyle{aer}
@@ -628,7 +631,9 @@ Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_
 As a summary, the main findings in the main text are robust.
 
 In Tables \ref{tb:linear_linear_sigma_1} and  \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}, we illustrate that N2SLS with Constraints \eqref{eq:conduct_constraint} works for the linear model as in \cite{matsumura2023resolving}. 
-This means that incorporating the conditions is innocuous for the linear model.
+This means that incorporating the conditions is innocuous for the linear model. 
+
+\textcolor{blue}{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:conduct_constraint} within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. These results underscore that Constraints \eqref{eq:conduct_constraint} alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence}. In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic.}
 
 Additional ad hoc improvement is possible by using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}. 
 Table \ref{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} shows that the estimation of the conduct parameter $\theta$ improves, that is, the bias is 0.014 and RMSE is 0.217. 
@@ -701,6 +706,18 @@ However, the results with ad hoc improvement do not dominate the results without
   \footnotesize
   Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table} 
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{N2SLS with Constraints \eqref{eq:conduct_constraint} for the loglinear model}
+      \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} 
+      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}
+  \end{center}
+  \footnotesize
+  %Note: The data generating process follows \cite{matsumura2023resolving}.
+\end{table}
 
 
 % \begin{table}[!htbp]
