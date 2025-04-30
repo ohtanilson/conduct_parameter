@@ -1,0 +1,115 @@
+
+
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= RawSienna, citecolor = RawSienna, filecolor = RawSienna, urlcolor = RawSienna, hypertexnames = true, backref = page]{hyperref}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.3}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+\usepackage[T1]{fontenc}
+\usepackage{mlmodern}  % 太いComputer Modern
+% MLmodernのバグを修正: cf. https://tex.stackexchange.com/questions/646333/size-of-integral-symbol-in-section-header-with-mlmodern
+\DeclareFontFamily{OMX}{mlmex}{}
+\DeclareFontShape{OMX}{mlmex}{m}{n}{<->mlmex10}{} 
+\usepackage{tgtermes} % 数式以外の欧文をTXフォントで上書き
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\DeclareMathOperator{\rank}{rank}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+
+\title{Rebuttal to our paper ``Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification"}
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University, \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{Market Design Center, Department of Economics, University of Tokyo, \href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}
+\\Declarations of interest: none %this is for Economics Letters
+}}
+
+\begin{document}
+
+\maketitle
+
+\bigskip
+
+Our deadline. June 30, 2025
+
+\section{Referee comments}
+\begin{enumerate}
+    \item The key question is whether the conduct parameter alone may be sufficient to resolve the problem. If this is the case, then using the equilibrium conditions in estimation may be unnecessary, lessening the contribution of the paper. I encourage the authors to demonstrate convincingly that results depend in important ways on the equilibrium conditions. Doing so is, in my view, a necessary condition for publication.
+    \begin{itemize}
+        \item (Reply) We thank the reviewer for the helpful suggestion. In response, we have conducted additional simulations following the setting proposed by the reviewer. The full set of results and detailed explanations are provided in the Online Appendix. For ease of reference, we also include Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} in the main text. We add the following explanation on page 16, paragraph 3:
+        
+        \textit{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} (Table 8 in the main text) demonstrates that relying solely on Constraints (10) within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. These results underscore that Constraints (10) alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions (11) and (12). In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic.}
+    \end{itemize}
+    \item I would also encourage the authors to include at least a short discussion motivating modern use of this approach for learning about conduct. The original Bresnahan approach to conduct testing was subject to two main criticisms. The first was that it is not clear what were the implications of an estimated conduct parameter that was different from 0, 1 or 1/N (symmetric cournot). The second issue is that inference on the degree of market power should not be done without specifying underlying behavior and that if the underlying behavior was collusive, then the estimated conduct parameter typically will underestimate market power (this is the Cort’s critique). Nonetheless, taking this into account, learning more about the applicability of this method in the homogeneous goods setting for additional functional forms is probably worthwhile.
+    \begin{itemize}
+        \item (Reply) In line with the reviewer’s suggestion, we have included a brief discussion motivating the modern use of the conduct parameter approach in Paragraph 2 of the Conclusion. This addition clarifies the empirical relevance of the method while acknowledging well-known critiques, and positions our contribution as addressing key implementation challenges that have hindered its practical use.
+        
+        \textit{Two well-known concerns have long accompanied the conduct parameter approach: first, the difficulty in economically interpreting intermediate or extreme values of the estimated conduct parameter; and second, the critique—most notably by \cite{corts1999conduct}—that conduct estimates can severely understate the degree of market power when firms engage in collusion. In this paper, we clarify that the implausible or unstable estimates often observed in the empirical literature are not necessarily indicative of these conceptual limitations, but are instead frequently driven by numerical issues in parameter estimation, particularly when key equilibrium conditions are neglected. By resolving these computational issues, we demonstrate that a more coherent and interpretable set of estimates emerges. This distinction is important: conflating estimation artifacts with theoretical limitations may lead to unwarranted dismissal of the approach. With these issues addressed, we hope this paper motivates a more constructive discussion about the settings in which conduct parameter methods remain a useful tool for empirical analysis.}
+    \end{itemize}
+\end{enumerate}
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Performance comparison (Table 1 in the main text, for reference)}
+      \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
+      \subfloat[N2SLS without Constraints (10), (11), and (12)]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[N2SLS with Constraints (10), (11), and (12)]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
+    \subfloat[Ad hoc method using (3) to compute $\varepsilon_t^c$ and (4) as constraints with  Constraints (10), (11), and (12)]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}
+  \end{center}
+  \footnotesize
+  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$. %See online appendix \ref{sec:setting} for the setting.
+\end{table} 
+
+
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{N2SLS with Constraints (10) for the loglinear model}
+      \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} 
+      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
+    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}
+  \end{center}
+  \footnotesize
+  %Note: The data generating process follows \cite{matsumura2023resolving}.
+\end{table}
+
+
+
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter.bib}
+
+
+\end{document}
