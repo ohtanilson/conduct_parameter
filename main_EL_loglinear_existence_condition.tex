@@ -3,14 +3,15 @@
 \usepackage{amsmath,setspace,geometry}
 \usepackage{amsthm}
 \usepackage{amsfonts}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
 \usepackage[shortlabels]{enumitem}
 \usepackage{rotating}
 \usepackage{pdflscape}
 \usepackage{graphicx}
 \usepackage{bbm}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[colorlinks=true, linkcolor= RawSienna, citecolor = RawSienna, filecolor = RawSienna, urlcolor = RawSienna, hypertexnames = true, backref = page]{hyperref}
 \usepackage[]{natbib} 
 \bibpunct[:]{(}{)}{,}{a}{}{,}
 \geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
@@ -22,11 +23,22 @@
 \usepackage{booktabs}
 \usepackage{pdfpages}
 \usepackage{threeparttable}
+\usepackage{framed}
+\usepackage{comment}
 \usepackage{lscape}
 \usepackage{bm}
+\usepackage{adjustbox}
 \setstretch{1.4}
 %\usepackage[tablesfirst,nolists]{endfloat}
 
+\usepackage[T1]{fontenc}
+\usepackage{mlmodern}  % 太いComputer Modern
+% MLmodernのバグを修正: cf. https://tex.stackexchange.com/questions/646333/size-of-integral-symbol-in-section-header-with-mlmodern
+\DeclareFontFamily{OMX}{mlmex}{}
+\DeclareFontShape{OMX}{mlmex}{m}{n}{<->mlmex10}{} 
+\usepackage{tgtermes} % 数式以外の欧文をTXフォントで上書き
+
+% Theorem numbering setup
 \newtheorem{theorem}{Theorem}
 \newtheorem{assumption}{Assumption}
 \newtheorem{lemma}{Lemma}
@@ -40,9 +52,8 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-
 \title{Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification}
-\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: Yuri.Matsumura@rice.edu} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{Market Design Center, University of Tokyo. Email: \href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}.
 \\Declarations of interest: none %this is for Economics Letters
 }}
 
@@ -52,12 +63,12 @@
 
 \maketitle
 \begin{abstract}
-    We propose a constrained generalized method of moments estimator (GMM) incorporating theoretical conditions for the unique existence of equilibrium prices for estimating conduct parameters in a log-linear model with homogeneous goods markets. 
+    We propose a constrained generalized method of moments (GMM) estimator with some equilibrium uniqueness conditions for estimating the conduct parameter in a log-linear model with homogeneous goods markets. 
     First, we derive such conditions.
     Second, Monte Carlo simulations confirm that in a log-linear model, incorporating the conditions resolves the problems of implausibly low or negative values of conduct parameters.
 \end{abstract}
 
-\noindent\textbf{Keywords:} Conduct parameters, Homogenous Goods Market, Mathematical Programming with Equilibrium Constraints, Monte Carlo simulation
+\noindent\textbf{Keywords:} Conduct parameters, Homogeneous Goods Market, Mathematical Programming with Equilibrium Constraints, Monte Carlo simulation
 \vspace{0in}
 \newline
 \noindent\textbf{JEL Codes:} C5, C13, L1
@@ -70,17 +81,16 @@ Conduct parameter is considered a useful measure of competitiveness.
 However, it cannot be directly measured from data because data usually lack information about marginal cost.
 Therefore, researchers aim to identify and estimate the conduct parameter.
 
-As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of conduct parameters for the linear model. \cite{matsumura2023resolving,matsumura2024challenges} resolves the conflict on some identification problems between \cite{bresnahan1982oligopoly} and \cite{perloff2012collinearity}. 
-However, researchers often implement alternative specifications, such as the log-linear model \citep{okazaki2022excess,merel2009measuring}. 
-In the context of the log-linear model, these papers identify estimation issues, with some estimated conduct parameters being unrealistically low or even negative.
-This raises doubts about the methodology, despite the identification strategy outlined by \citet{lau1982identifying}.
-This is an obstacle to choosing a better specification of the demand and supply functions.
+As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of the conduct parameter for linear models. 
+Recently, \cite{matsumura2023resolving} provides the detailed conditions for the identification in this setting. 
+However, the researchers often implement alternative specifications, such as the log-linear model \citep{okazaki2022excess,merel2009measuring}. 
+While the identification condition is provided by \citet{lau1982identifying} for general models, these papers face the issue that the estimated conduct parameter becomes unrealistically low or even negative.
+This raises doubts about the methodology and is an obstacle to choosing a better specification of the demand and supply functions.
 
-To overcome the problem, we propose a constrained generalized method of moments estimator (GMM) incorporating theoretical conditions for the unique existence of equilibrium prices as constraints. 
-First, we prove that a unique equilibrium exists under certain theoretical conditions. 
-As far as we know, this is a new result.
-Second, we show that incorporating equilibrium existence and uniqueness conditions resolves the above estimation problems and makes the model work in estimating conduct parameters even in the log-linear model. 
-Hence, our results support those of \cite{lau1982identifying} numerically.
+To overcome the problem, we propose a constrained generalized method of moments (GMM) estimator incorporating theoretical conditions for the unique existence of equilibrium as constraints. 
+First, we prove that a unique equilibrium exists under certain conditions, which is new to the literature as far as we know.
+Second, we implement several Monte Carlo simulations and demonstrate that incorporating the equilibrium uniqueness conditions leads to accurate estimation results. 
+
 
 \section{Model}
 Consider data with $T$ markets with homogeneous products.
@@ -88,53 +98,46 @@ Assume there are $N$ firms in each market.
 Let $t = 1,\ldots, T$ be the index of markets.
 Then, we obtain the supply equation:
 \begin{align}
-     P_t = -\theta\frac{\partial P_t(Q_{t})}{\partial Q_{t}}Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
+     P_t = -\theta P_t'(Q_{t})Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
 \end{align}
-where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ is the demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$, which is the conduct parameter. 
-The equation nests perfect competition $(\theta=0)$, Cournot competition $(\theta=1 / N)$, and perfect collusion $(\theta=$ $1)$ \citep{bresnahan1982oligopoly}.
+where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ is the inverse demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is the conduct parameter. 
+The equation nests perfect competition $(\theta=0)$, Cournot competition $(\theta=1 / N)$, and perfect collusion $(\theta=$ $1)$. See \citet{bresnahan1982oligopoly} for the details.
 
 Consider an econometric model.
-Assume that the demand and the marginal cost functions are written as follows: 
+Assume that the inverse demand and the marginal cost functions are given as
 \begin{align*}
     P_t = f(Q_{t}, X^{d}_{t}, \varepsilon^{d}_{t}, \alpha), %\label{eq:demand}
     \\
     MC_t = g(Q_{t}, X^{c}_{t}, \varepsilon^{c}_{t}, \gamma),%\label{eq:marginal_cost}
 \end{align*}
 where $X^{d}_{t}$ and $X^{c}_{t}$ are the vector of exogenous variables, $\varepsilon^{d}_{t}$ and $\varepsilon^{c}_{t}$ are the error terms, and $\alpha$ and $\gamma$ are the vector of parameters.
-We allow $X^{d}_{t}$ and $X^{c}_{t}$ to have common variables but assume that there are one demand variable and one cost variable that are mutually excluded.
-In other words, one demand variable affects only the demand but not the cost, and vice versa.
-We also have the demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition $E[\varepsilon^{d}_{t}\mid X^{d}_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid X^{c}_{t}, Z^{c}_{t}] =0$. 
+We allow $X^{d}_{t}$ and $X^{c}_{t}$ to have common variables, but assume that there is at least one demand variable and one cost variable that are mutually excluded.
+We also have the demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition, $E[\varepsilon^{d}_{t}\mid X^{d}_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid X^{c}_{t}, Z^{c}_{t}] =0$. 
 
-\citet{lau1982identifying} provide the condition where the conduct parameter cannot be identified:
+The identification of the conduct parameter is indirectly characterized by \citet{lau1982identifying}:
 \begin{theorem}
-    Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, but does not take the form $P = Q^{-1/\theta}r(X^{d}) + s(Q)$.
+    Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is, $f(Q, r(X^{d}))$, but not take the form $P = Q^{-1/\theta}r(X^{d}) + s(Q)$.
 \end{theorem}
-The proof is based on \citet{goldmanNote1964}.
-A function is separable if $f(x,y) = f(x, r(y))$ for $r(t)$, which is called weak separability in \citet{goldmanNote1964}.
-This theorem implies the conduct parameter is identified if $X^{d}$ and $Q$ are not separable in the inverse demand function.
-When $X^{d}_{t}$ is a vector, if there is at least one exogenous variable in $X^{d}_{t}$ that is not separable from $Q$, the conduct parameter is identified.
-
-\begin{remark}
-    The model of \citet{bresnahan1982oligopoly} is not a special case of \citet{lau1982identifying} because the twice continuous differentiability does not hold.
-    \citet{bresnahan1982oligopoly} consider a non-separable demand function such that $P = \alpha_0 + (\alpha_1 + \alpha_2 X^0) Q + \alpha_3 X^1 + \varepsilon$ where $X^{d} = (X^0, X^1)$ and $X^0$ is called a demand rotation parameter.
-\end{remark}
+This theorem implies that the conduct parameter is identified if the inverse demand function is not separable.
+For example, introducing a demand rotation instrument proposed in \citet{bresnahan1982oligopoly} makes an inverse demand function non-separable.
+See Appendix \ref{appendix:summary_goldman_uzawa} for the details.
 
 
 \subsection{Log-linear demand and log-linear marginal cost}
 Consider a log-linear model, which is a typical specification.
-The demand and marginal cost functions are specified as
+The inverse demand and marginal cost functions are specified as
 \begin{align}
     \log P_{t} &= \alpha_0 - (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t + \alpha_3 \log Y_t + \varepsilon^{d}_{t},\label{eq:log_linear_demand}\\
     \log MC_t &= \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t},\label{eq:log_linear_marginal_cost}
 \end{align}
-where $Y_{t}$ is an excluded demand shifter, $W_t$ and $R_t$ are excluded cost shifters, and $Z_t^R$ is Bresnahan's demand rotation instrument.
+where $Y_{t}$ and $Z_t^R$ are excluded demand shifters and $W_t$ and $R_t$ are excluded cost shifters.
+When $Y_{t}$ and $Z_{t}^{R}$ vary without changing the equilibrium quantity, they work as the demand rotation instrument.  
 %Since $\partial P_t/\partial Q_t = - (\alpha_1 + \alpha_2 Z_{t}^R) (P_t/Q_t) $, 
-Then, Equation \eqref{eq:supply_equation} is written as
+Then, \eqref{eq:supply_equation} is written as
 \begin{align}
     P_t &= \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) P_t + MC_t.\label{eq:log_linear_supply_equation_direct}
 \end{align}
-
-By taking logarithm of Equation \eqref{eq:log_linear_supply_equation_direct} and substituting Equation \eqref{eq:log_linear_marginal_cost}, we obtain
+By taking logarithm of \eqref{eq:log_linear_supply_equation_direct} and substituting \eqref{eq:log_linear_marginal_cost}, we obtain
 \begin{align}
     \log P_t = - \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) + \gamma_0 + \gamma_1 \log Q_t +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}. \label{eq:log_linear_supply_equation}
 \end{align}
@@ -146,22 +149,22 @@ By taking logarithm of Equation \eqref{eq:log_linear_supply_equation_direct} and
 % The standard numerical algorithm stops with invalid errors when the inside of the log function, $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, becomes negative during the search for an optimizer.
 % This problem is not specific to the above model and happens in other specifications, such as a model with linear demand and log-linear marginal cost.
 
-In this model, the number of equilibrium prices varies. 
-Although it is a widely known model, to our knowledge, there is no paper examining this.
-Thus, we derive the conditions for the uniqueness in the following proposition which are used in our estimation. 
+The intersection of \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation} determines the equilibrium, but there could be multiple equilibria.
+Although this model is widely known, no paper has examined the multiple equilibria problem to our knowledge.
+The next proposition provides the conditions for uniqueness.
+The proof is in the online appendix \ref{sec:appendix_proof}.
 \begin{proposition}\label{prop:equilibrium_existence}
-    Assume that $\alpha_1 + \alpha_2 Z^{R}_{t}\ne 0$. Let $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y_t + \varepsilon^{d}_{t}}{\alpha_1 + \alpha_2 Z^{R}_{t}} +  \gamma_2 \log W_{t} + \gamma_3 \log R_t + \varepsilon^{c}_{t}$.
-    The number of equilibrium prices $P_{t}^*>0$ is determined as follows:
+    Assume that $\alpha_1 + \alpha_2 Z^{R}\ne 0$. Let $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y + \varepsilon^{d}}{\alpha_1 + \alpha_2 Z^{R}} +  \gamma_2 \log W + \gamma_3 \log R + \varepsilon^{c}$.
+    The number of equilibrium prices $P^*>0$ is determined as follows:
     \begin{itemize}
-        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, there is no equilibrium price,
-        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) >0$, 
+        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}) \le 0$, there is no equilibrium,
+        \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}) >0$, 
         \begin{itemize}
-            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \ne 1$, there is a unique equilibrium price,
-            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) =1$, there are infinitely many equilibrium prices when $\exp(\Xi) = 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, but there is no equilibrium price otherwise.
+            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \ne 1$, there is a unique equilibrium,
+            \item If $-\gamma_1/(\alpha_1+\alpha_2 Z^R) =1$, there are infinitely many equilibria when $\exp(\Xi) = 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})$, but there is no equilibrium otherwise.
         \end{itemize}
     \end{itemize}
 \end{proposition}
-See the online appendix \ref{sec:appendix_proof} for the proof.
 
 
 
@@ -179,26 +182,25 @@ See the online appendix \ref{sec:appendix_proof} for the proof.
 % where $C=\alpha_0 + \alpha_3 \log Y_t + \log (1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) - \gamma_0  -  \gamma_2 \log W_{t} - \gamma_3 \log R_t + \varepsilon^{d}_{t} - \varepsilon^{c}_{t}$.
 % Note that although this specification does not have an analytical solution, we can find numerically find a single positive solution.
 \section{Estimation}
-To estimate parameters in the demand and supply equations, we use GMM estimation.
-Among GMM estimators, we apply the nonlinear system two-stage-least-squares (N2SLS) using Equation \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation}.
-
-Let $\xi = (\alpha_0,\alpha_1, \alpha_2, \alpha_3, \gamma_0,\gamma_1, \gamma_2, \gamma_3, \theta)$ be the vector of parameters. 
-Given the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation}, we can write the error terms in the demand and supply equation as
+Let $\xi = (\alpha_0,\alpha_1, \alpha_2, \alpha_3, \gamma_0,\gamma_1, \gamma_2, \gamma_3, \theta)$ be the vector of the parameters in the model. 
+We use the GMM for the estimation.
+Among GMM estimators, we apply the nonlinear system two-stage-least-squares (N2SLS) using \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation}.
+Note that we can rewrite the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation} as
 \begin{align}
     {\varepsilon}_t^d(\xi) & =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t \label{eq:residual_demand_2sls}, \\
     {\varepsilon}_t^c(\xi) & =  \log P_t + \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t \label{eq:residual_supply_2sls}.
 \end{align}
-To estimate the parameters, we convert the conditional moment conditions, $E[\varepsilon_t^d\mid Z_t^d] = E[\varepsilon_t^c\mid Z_t^c]=0$, into unconditional moment conditions, $E[\varepsilon_t^d Z_t^d] = E[\varepsilon_t^cZ_t^c]=0$.
-Using Equations \eqref{eq:residual_demand_2sls} and \eqref{eq:residual_supply_2sls}, we construct the sample analog of the moment conditions:
+To estimate the parameters, we convert the conditional moments, $E[\varepsilon_t^d\mid Z_t^d] = E[\varepsilon_t^c\mid Z_t^c]=0$, into unconditional moments, $E[\varepsilon_t^d Z_t^d] = E[\varepsilon_t^cZ_t^c]=0$.
+Using Equations \eqref{eq:residual_demand_2sls} and \eqref{eq:residual_supply_2sls}, we construct the sample analog of the unconditional moments:
 \begin{align*}
     g(\xi) = \left[\begin{array}{l}
     \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{d}_{t}(\xi)Z_{t}^{d} \\
     \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{c}_{t}(\xi)Z_{t}^{c}
     \end{array}\right].
 \end{align*}
-We define the GMM estimator as the vector $\xi^*$ that solves the problem,
+We define the N2SLS estimator as the solution to the problem,
 \begin{align}
-    \min_{\xi}\ g(\xi)^\top W g(\xi) \label{eq:minimization_gmm}
+     \xi^* = \arg \min_{\xi}\ g(\xi)^\top W g(\xi) \label{eq:minimization_gmm}
 \end{align}
 where the weight matrix $W$ is defined as
 \begin{align}
@@ -207,42 +209,74 @@ where the weight matrix $W$ is defined as
         0 & Z_{t}^{c\top}
     \end{array}\right].\label{eq:weight_matrix}
 \end{align}
-The solution to \eqref{eq:minimization_gmm} is called the N2SLS estimator \citep{wooldridge2010econometric}. 
+While the above estimator has been used in the literature, the resulting estimator converges to an implausibly low or negative value.
+This is because the log specification leads to a very flat objective function, and hence the algorithm searches the area in which no equilibrium exists and finds unreasonable local optima.
+The details are explained in Appendix \ref{appendix:implausible_estimator}.
 
-Using Proposition \ref{prop:equilibrium_existence}, we impose the following constraints:
+To overcome the problem, we add the following constraints based on Proposition \ref{prop:equilibrium_existence} to \eqref{eq:minimization_gmm}:
 \begin{align}
     &0\le\theta \le 1,\label{eq:conduct_constraint}\\
     &\alpha_1 + \alpha_2 Z_{t}^{R} >0, \quad \gamma_1>0 ,\quad t = 1,\ldots, T\label{eq:slope_constraint}\\
-    &1- \theta(\alpha_1 + \alpha_2 Z_{t}^{R}) >0,\quad t = 1,\ldots, T.\label{eq:equlibrium_existence}
+    &1- \theta(\alpha_1 + \alpha_2 Z_{t}^{R}) >0,\quad t = 1,\ldots, T.\label{eq:equilibrium_existence}
 \end{align}
 Constraint \eqref{eq:conduct_constraint} is a standard assumption on the conduct parameter.
-Constraints \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence} relate to the uniqueness of equilibrium prices. 
-Constraint \eqref{eq:slope_constraint} implies the downward-sloping demand and upward-sloping marginal cost. See online appendix \ref{sec:setting} for the detailed setting.
+Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} relate to the uniqueness of equilibrium prices. 
+Constraint \eqref{eq:slope_constraint} implies the downward-sloping demand and upward-sloping marginal cost. 
+See the detailed simulation setting in the online appendix \ref{sec:setting}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Simulation results}\label{sec:results}
 
-We compare N2SLS estimation with and without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}.
-Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} presents the results.
-First, as reported in the literature \citep{merel2009measuring,okazaki2022excess}, N2SLS without constraints converges to implausibly low and negative conduct parameters.
-This is because the algorithm searches the area in which no equilibrium price and quantity exist and then finds unreasonable local optima that might have a lower objective function than at the true values.
-Second, N2SLS with constraints converges to the reasonable values. 
+We compare N2SLS estimation with and without the constraints.
+Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} presents the results, and we can see that N2SLS with constraints converges to reasonable values. 
 As the sample size increases, the bias and root-mean-square error (RMSE) decrease to levels comparable to linear models.
-Third, we find an ad hoc method that uses Equation \eqref{eq:log_linear_marginal_cost} to compute the residual in the supply estimation, $\varepsilon_{t}^c$, and Equation \eqref{eq:log_linear_supply_equation_direct} as an equality constraint with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}. 
+
+We also find an ad hoc method that uses Equation \eqref{eq:log_linear_marginal_cost} to compute the residual in the supply estimation, $\varepsilon_{t}^c$, and Equation \eqref{eq:log_linear_supply_equation_direct} as an equality constraint with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}. 
 Then, the bias and RMSE of conduct parameter $\theta$ are reduced to 0.014 and 0.217 in Panel (c), although the results do not dominate the results in Panel (b) for all parameters.
-Therefore, incorporating equilibrium existence and uniqueness conditions simply is helpful for conduct parameter estimation in nonlinear models such as a log-linear model.
+Therefore, incorporating equilibrium existence and uniqueness conditions is helpful for the conduct parameter estimation in nonlinear models such as a log-linear model.
 See online appendix \ref{sec:additional_experiments} for additional experiments under different variances of errors and the results of a linear model. 
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Performance comparison}
-      \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
-    \subfloat[Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}
+  \caption{Performance comparison}
+    \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
+  \text{(a) N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
   \end{center}
   \footnotesize
-  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
-\end{table} 
+  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0, \alpha_1=1.0, \alpha_2=0.1, \alpha_3=1.0, \gamma_0=5.0, \gamma_1=1.0, \gamma_2=1.0, \gamma_3=1.0, \theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
+\end{table}
 
 
 
@@ -268,59 +302,38 @@ We were supported by JST ERATO Grant Number JPMJER2301 and Otani was supported b
 \section{Online appendix}
 
 
-\subsection{Summary of Goldman and Uzawa (1964)}
+\subsection{Summary of Goldman and Uzawa (1964)}\label{appendix:summary_goldman_uzawa}
 
 \citet{goldmanNote1964} investigate separability concepts in demand analysis.
-Let $N$ be a set of product, $N = \{1,\ldots, n\}$.
+Let $N$ be a set of variables, $N = \{1,\ldots, n\}$.
 Consider a partition of $N$ into $S$ parts, $\{N^1, \ldots, N^S\}$ such that $N = \bigcup_{s=1}^S N^s$ and $N^s \cap N^t = \emptyset$.
 
-A utility function is weakly separable with respect to a partition if 
+A function is weakly separable with respect to a partition if 
 \begin{align}
-    \frac{\partial u_i(x)/ u_j(x)}{\partial x_k} = 0, \quad i,j\in N^s, k \notin N^s.
+    \frac{\partial}{\partial x_k}\left(\frac{\partial f(x)/\partial x_i}{\partial f(x)/\partial x_j} \right)= 0, \quad i,j\in N^s, k \notin N^s.
 \end{align}
-This implies that the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $N^s$.
+This implies that, for example, the marginal rate of substitution between $i$ and $j$ in the same partition is independent of the quantities of commodities outside $N^s$.
 
-In theorem 2, \citet{goldmanNote1964} shows the utility function that satisfies the weak separability.
+In Theorem 2, \citet{goldmanNote1964} characterizes the function that satisfies the weak separability.
 \begin{theorem}[Theorem 2 in \citet{goldmanNote1964}]
-    A utility function $u(x)$ is weakly separable with respect to a partition $\{N^1, .. ., N^s\}$ if, and only if, $u(x)$ is of the form: 
+    A function $f(x)$ is weakly separable with respect to a partition $\{N^1, .. ., N^s\}$ if, and only if, $f(x)$ is of the form: 
     \begin{align}
-        u(X) = \Phi(u^1(x^{(1)}),\ldots, u^s(x^{(s)})   )
-    \end{align} where $\Phi(u^1,\ldots, u^s)$ is a function of $S$ variables and, for each $s$, $u^s(x^{(s)})$ is a function subvector $x^{(s)}$ alone.
+        f(X) = \Phi(f^1(x^{(1)}),\ldots, f^s(x^{(s)})   )
+    \end{align} where $\Phi(f^1,\ldots, f^s)$ is a function of $S$ variables and, for each $s$, $f^s(x^{(s)})$ is a function subvector $x^{(s)}$ alone.
 \end{theorem}
 
 Let $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$ be the set of dependent variables and divide the variables into two groups $(Q, X^{d})$.
-\citet{lau1982identifying} defines that a inverse demand function is separable if $P = f(Q, r(X^{d}))$.
-
-The linear demand function in \citet{bresnahan1982oligopoly} and the log-linear demand function in this paper is not separable.
+In this case, we can see that the linear demand function in \citet{bresnahan1982oligopoly} and the log-linear demand function in this paper are not separable.
 For the linear case,
 \begin{align}
-    \frac{f_Q}{f_Y} = \frac{(\alpha_1 + \alpha_2 Z)}{\alpha_3} \Longrightarrow \frac{\partial f_Q/f_Y}{\partial Z} = \frac{\alpha_2}{\alpha_3} \ne 0.
+    \frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y} = \frac{ \alpha_2 Q}{\alpha_3} \Longrightarrow \frac{\partial}{\partial Q}\left(\frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y}\right) = \frac{\alpha_2}{\alpha_3} \ne 0.
 \end{align}
+The last part, $\frac{\alpha_2}{\alpha_3} \ne 0$, is concluded from the identification condition in \citet{matsumura2023resolving}.
 For the log-linear case, 
 \begin{align}
-    \frac{f_Q}{f_Y} = \frac{Y(\alpha_1 + \alpha_2 Z)}{\alpha_3Q} \Longrightarrow \frac{\partial f_Q/f_Y}{\partial Z} = \frac{\alpha_2Y}{\alpha_3Q} \ne 0.
+    \frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y}  = \frac{\alpha_2 Y \log Q}{\alpha_3} \Longrightarrow \frac{\partial}{\partial Q}\left(\frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y}\right) = \frac{\alpha_2Y}{\alpha_3Q} \ne 0.
 \end{align}
-Thus for the log-linear case, it is sufficient to assume either $\alpha_2/\alpha_3$ or $Y/Q$ is nonzero to identify the conduct parameter.
-
-
-\citet{lau1982identifying} use the following lemmna in \citet{goldmanNote1964}.
-\begin{lemma}
-    Let $f(x)$ and $g(x)$ be two continuously twice-differentiable functions of $n$ variables $x=(x_1, \dots, x_n)$. If each indifference surface is connected, and if there exists a function $\lambda(x)$ such that
-    \begin{align}
-    f_i(x) &= \lambda(x)g_i(x), \quad i=1, \dots, n, \quad \text{for all } x,
-    \end{align}
-    then $f(x)$ is a transformation of $g(x)$; namely, there exists a function $F(t)$ of one variable such that
-    \begin{align}
-    f(x) &= F(g(x)), \quad \text{for all } x.
-    \end{align}
-    Hence, in particular, the function $\lambda(x)$ satisfying (4) must be of the form:
-    \begin{align}
-        \lambda(x) &= \Lambda(g(x)), \quad \text{for all } x,
-    \end{align}
-    with some function $\Lambda(t)$ of one variable.
-\end{lemma}
-
-
+Thus,
 \subsection{Existence and uniqueness of equilibrium prices}\label{sec:appendix_proof}
 
 Proposition \ref{prop:equilibrium_existence} proposes the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.
@@ -611,7 +624,7 @@ We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl
     Note: $\sigma=\{0.5, 1.0, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
 \end{table}
 
-\subsection{Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}
+\subsection{Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}\label{appendix:implausible_estimator}
 
 We should interpret reasons why the estimation without equilibrium conditions converges to the negative conduct parameters, as shown in Panel (a) in Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}, although the obtained parameters cannot be interpreted as the exogenous elements determining equilibrium outcomes. 
 First, we rewrite the terms in Equation \eqref{eq:residual_supply_2sls} into $$\log(1 - \theta C_{t})-\gamma_{0}$$
@@ -633,88 +646,168 @@ As a summary, the main findings in the main text are robust.
 In Tables \ref{tb:linear_linear_sigma_1} and  \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}, we illustrate that N2SLS with Constraints \eqref{eq:conduct_constraint} works for the linear model as in \cite{matsumura2023resolving}. 
 This means that incorporating the conditions is innocuous for the linear model. 
 
-\textcolor{blue}{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:conduct_constraint} within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. These results underscore that Constraints \eqref{eq:conduct_constraint} alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions \eqref{eq:slope_constraint} and \eqref{eq:equlibrium_existence}. In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic.}
+\textcolor{blue}{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:conduct_constraint} within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. These results underscore that Constraints \eqref{eq:conduct_constraint} alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence}. In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic.}
 
-Additional ad hoc improvement is possible by using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}. 
+Additional ad hoc improvement is possible by using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}. 
 Table \ref{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} shows that the estimation of the conduct parameter $\theta$ improves, that is, the bias is 0.014 and RMSE is 0.217. 
 However, the results with ad hoc improvement do not dominate the results without the improvement for all parameters.
 
-\begin{landscape}{
+
+
 \begin{table}[!htbp]
-  \begin{center}
-      \caption{Performance comparison ($\sigma=0.5$)}
-      \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse} 
-      \subfloat[N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}}
-  \end{center}
+  \centering
+  \caption{Performance comparison ($\sigma=0.5$)}
+  \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}
+  %--- 1つ目の表 ---
+  \text{(a)N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_non_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+  \vspace{1.5em}  % 表の間隔
+  %--- 2つ目の表 ---
+  \text{(b) N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+   \input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
   \footnotesize
-  
-\end{table} 
-}
-\end{landscape}
+\end{table}
 
-\begin{landscape}{
+
+
 \begin{table}[!htbp]
-  \begin{center}
-      \caption{Performance comparison ($\sigma=2.0$)}
-      \label{tb:loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse} 
-      \subfloat[N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse}}
-  \end{center}
+  \centering
+  \caption{Performance comparison ($\sigma=2.0$)}
+  \label{tb:loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}
+
+  %--- 1つ目の表 ---
+  \text{(a) N2SLS without Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1.5em}  % 表の間隔
+
+  %--- 2つ目の表 ---
+  \text{(b) N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
   \footnotesize
-  
-\end{table} 
-}
-\end{landscape}
+\end{table}
 
 
 \begin{table}[!htbp]
-  \begin{center}
-      \caption{Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equlibrium_existence}}
-      \label{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
-  \end{center}
+  \centering
+  \caption{Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}
+  \label{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse}
+
+  %--- 表 (a): σ = 0.5 ---
+  \text{(a) $\sigma = 0.5$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+  %--- 表 (b): σ = 1.0 ---
+  \text{(b) $\sigma = 1.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+  %--- 表 (c): σ = 2.0 ---
+  \text{(c) $\sigma = 2.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
   \footnotesize
-  
-\end{table} 
-
-
-
+\end{table}
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{N2SLS without Constraints \eqref{eq:conduct_constraint} Results of the linear model}
-      \label{tb:linear_linear_sigma_1} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_bias_rmse.tex}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_bias_rmse}}
+  \caption{N2SLS without Constraints \eqref{eq:conduct_constraint} Results of the linear model}
+  \label{tb:linear_linear_sigma_1} 
+
+  \text{(a) $\sigma = 0.5$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/linear_linear_sigma_0.5_bias_rmse.tex}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) $\sigma = 1.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/linear_linear_sigma_1_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) $\sigma = 2.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/linear_linear_sigma_2_bias_rmse}
+  \end{adjustbox}
+        \end{center}
+  \footnotesize
+  Note: The data generating process follows \cite{matsumura2023resolving}.
+\end{table}
+
+% ------------------------------------------------------------------------
+
+\begin{table}[!htbp]
+  \begin{center}
+  \caption{N2SLS with Constraints \eqref{eq:conduct_constraint} for the linear model}
+  \label{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse} 
+
+  \text{(a) $\sigma = 0.5$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/linear_linear_sigma_0.5_mpec_linear_non_constraint_theta_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) $\sigma = 1.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/linear_linear_sigma_1_mpec_linear_non_constraint_theta_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) $\sigma = 2.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}
+  \end{adjustbox}
+      
   \end{center}
   \footnotesize
   Note: The data generating process follows \cite{matsumura2023resolving}.
-\end{table} 
+\end{table}
+
+% ------------------------------------------------------------------------
 
 \begin{table}[!htbp]
-  \begin{center}
-      \caption{N2SLS with Constraints \eqref{eq:conduct_constraint} for the linear model}
-      \label{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/linear_linear_sigma_0.5_mpec_linear_non_constraint_theta_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/linear_linear_sigma_1_mpec_linear_non_constraint_theta_constraint_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}}
-  \end{center}
-  \footnotesize
-  Note: The data generating process follows \cite{matsumura2023resolving}.
-\end{table} 
+  \centering
+  \caption{N2SLS with Constraints \eqref{eq:conduct_constraint} for the loglinear model}
+  \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} 
 
-\begin{table}[!htbp]
-  \begin{center}
-      \caption{N2SLS with Constraints \eqref{eq:conduct_constraint} for the loglinear model}
-      \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}
-  \end{center}
+  \text{(a) $\sigma = 0.5$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) $\sigma = 1.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) $\sigma = 2.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
   \footnotesize
   %Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table}
@@ -724,9 +817,9 @@ However, the results with ad hoc improvement do not dominate the results without
 %   \begin{center}
 %       \caption{Additional improvement by adding supply constraints}
 %       \label{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} 
-%       \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, \eqref{eq:equlibrium_existence}, and supply constraints ($\sigma=0.5$)]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
-%       \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, \eqref{eq:equlibrium_existence}, and supply constraints ($\sigma=1.0$)]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
-%       \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, \eqref{eq:equlibrium_existence}, and supply constraints ($\sigma=2.0$)]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
+%       \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, \eqref{eq:equilibrium_existence}, and supply constraints ($\sigma=0.5$)]{\input{figuretable/loglinear_loglinear_sigma_0.5_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
+%       \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, \eqref{eq:equilibrium_existence}, and supply constraints ($\sigma=1.0$)]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}\\
+%       \subfloat[N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, \eqref{eq:equilibrium_existence}, and supply constraints ($\sigma=2.0$)]{\input{figuretable/loglinear_loglinear_sigma_2_mpec_theta_constraint_slope_constraint_bias_rmse}}
 %   \end{center}
 %   \footnotesize
 % \end{table} 
