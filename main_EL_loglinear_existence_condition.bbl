@@ -7,6 +7,10 @@
 {\bf Bresnahan, Timothy~F}, ``The oligopoly solution concept is identified,''
   {\it Economics Letters}, 1982, {\it 10} (1-2), 87--92.
 
+\harvarditem[Corts]{Corts}{1999}{corts1999conduct}
+{\bf Corts, Kenneth~S}, ``Conduct parameters and the measurement of market
+  power,'' {\it Journal of Econometrics}, 1999, {\it 88} (2), 227--250.
+
 \harvarditem[Goldman and Uzawa]{Goldman and Uzawa}{1964}{goldmanNote1964}
 {\bf Goldman, S.~M. and H.~Uzawa}, ``A {{Note}} on {{Separability}} in {{Demand
   Analysis}},'' {\it Econometrica}, 1964, {\it 32} (3), 387--398.
@@ -17,16 +21,10 @@
   (1-2), 93--99.
 
 \harvarditem[Matsumura and Otani]{Matsumura and
-  Otani}{2023a}{matsumura2023test}
-{\bf Matsumura, Yuri and Suguru Otani}, ``Finite Sample Performance of a
-  Conduct Parameter Test in Homogenous Goods Markets,'' {\it arXiv preprint
-  arXiv:2310.04576}, 2023.
-
-\harvarditem[Matsumura and Otani]{Matsumura and
-  Otani}{2023b}{matsumura2023resolving}
-{\bf \bysame{} and \bysame{}}, ``Resolving the conflict on conduct parameter
-  estimation in homogeneous goods markets between Bresnahan (1982) and Perloff
-  and Shen (2012),'' {\it Economics Letters}, 2023, p.~111193.
+  Otani}{2023}{matsumura2023resolving}
+{\bf Matsumura, Yuri and Suguru Otani}, ``Resolving the conflict on conduct
+  parameter estimation in homogeneous goods markets between Bresnahan (1982)
+  and Perloff and Shen (2012),'' {\it Economics Letters}, 2023, p.~111193.
 
 \harvarditem[M{\'e}rel]{M{\'e}rel}{2009}{merel2009measuring}
 {\bf M{\'e}rel, Pierre~R}, ``Measuring market power in the French Comt{\'e}
@@ -38,11 +36,6 @@
 {\bf Okazaki, Tetsuji, Ken Onishi, and Naoki Wakamori}, ``Excess Capacity and
   Effectiveness of Policy Interventions: Evidence from the Cement Industry,''
   {\it International Economic Review}, 2022, {\it 63} (2), 883--915.
-
-\harvarditem[Perloff and Shen]{Perloff and Shen}{2012}{perloff2012collinearity}
-{\bf Perloff, Jeffrey~M and Edward~Z Shen}, ``Collinearity in linear structural
-  models of market power,'' {\it Review of Industrial Organization}, 2012, {\it
-  40} (2), 131--138.
 
 \harvarditem[Wooldridge]{Wooldridge}{2010}{wooldridge2010econometric}
 {\bf Wooldridge, Jeffrey~M}, {\it Econometric analysis of cross section and

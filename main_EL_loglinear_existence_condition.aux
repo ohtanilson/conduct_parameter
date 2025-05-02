@@ -2,10 +2,13 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -16,70 +19,114 @@
 \providecommand\babel@aux[2]{}
 \@nameuse{bbl@beforestart}
 \citation{bresnahan1982oligopoly}
-\citation{matsumura2023resolving,matsumura2023test}
-\citation{bresnahan1982oligopoly}
-\citation{perloff2012collinearity}
+\citation{matsumura2023resolving}
 \citation{okazaki2022excess,merel2009measuring}
 \citation{lau1982identifying}
+\providecommand \oddpage@label [2]{}
 \babel@aux{english}{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
-\citation{lau1982identifying}
+\@writefile{brf}{\backcite{bresnahan1982oligopoly}{{1}{1}{section.1}}}
+\@writefile{brf}{\backcite{matsumura2023resolving}{{1}{1}{section.1}}}
+\@writefile{brf}{\backcite{okazaki2022excess}{{1}{1}{section.1}}}
+\@writefile{brf}{\backcite{merel2009measuring}{{1}{1}{section.1}}}
+\@writefile{brf}{\backcite{lau1982identifying}{{1}{1}{section.1}}}
 \citation{bresnahan1982oligopoly}
 \citation{lau1982identifying}
+\citation{bresnahan1982oligopoly}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Model}{2}{section.2}\protected@file@percent }
 \newlabel{eq:supply_equation}{{1}{2}{Model}{equation.2.1}{}}
-\citation{goldmanNote1964}
-\citation{goldmanNote1964}
-\citation{bresnahan1982oligopoly}
-\citation{lau1982identifying}
-\citation{bresnahan1982oligopoly}
+\@writefile{brf}{\backcite{bresnahan1982oligopoly}{{2}{2}{equation.2.1}}}
+\@writefile{brf}{\backcite{lau1982identifying}{{2}{2}{equation.2.1}}}
+\newlabel{thm:lau_identification}{{1}{2}{}{theorem.1}{}}
+\@writefile{brf}{\backcite{bresnahan1982oligopoly}{{2}{2}{theorem.1}}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Log-linear demand and log-linear marginal cost}{3}{subsection.2.1}\protected@file@percent }
 \newlabel{eq:log_linear_demand}{{2}{3}{Log-linear demand and log-linear marginal cost}{equation.2.2}{}}
 \newlabel{eq:log_linear_marginal_cost}{{3}{3}{Log-linear demand and log-linear marginal cost}{equation.2.3}{}}
+\MT@newlabel{eq:supply_equation}
 \newlabel{eq:log_linear_supply_equation_direct}{{4}{3}{Log-linear demand and log-linear marginal cost}{equation.2.4}{}}
+\MT@newlabel{eq:log_linear_supply_equation_direct}
+\MT@newlabel{eq:log_linear_marginal_cost}
 \newlabel{eq:log_linear_supply_equation}{{5}{3}{Log-linear demand and log-linear marginal cost}{equation.2.5}{}}
+\MT@newlabel{eq:log_linear_demand}
+\MT@newlabel{eq:log_linear_supply_equation}
 \newlabel{prop:equilibrium_existence}{{1}{3}{}{proposition.1}{}}
-\citation{wooldridge2010econometric}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Estimation}{4}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Estimation}{3}{section.3}\protected@file@percent }
+\MT@newlabel{eq:log_linear_demand}
+\MT@newlabel{eq:log_linear_supply_equation}
+\MT@newlabel{eq:log_linear_demand}
+\MT@newlabel{eq:log_linear_supply_equation}
 \newlabel{eq:residual_demand_2sls}{{6}{4}{Estimation}{equation.3.6}{}}
 \newlabel{eq:residual_supply_2sls}{{7}{4}{Estimation}{equation.3.7}{}}
+\MT@newlabel{eq:residual_demand_2sls}
+\MT@newlabel{eq:residual_supply_2sls}
 \newlabel{eq:minimization_gmm}{{8}{4}{Estimation}{equation.3.8}{}}
-\newlabel{eq:weight_matrix}{{9}{4}{Estimation}{equation.3.9}{}}
-\newlabel{eq:conduct_constraint}{{10}{4}{Estimation}{equation.3.10}{}}
-\newlabel{eq:slope_constraint}{{11}{4}{Estimation}{equation.3.11}{}}
-\newlabel{eq:equlibrium_existence}{{12}{4}{Estimation}{equation.3.12}{}}
-\citation{merel2009measuring,okazaki2022excess}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Simulation results}{5}{section.4}\protected@file@percent }
-\newlabel{sec:results}{{4}{5}{Simulation results}{section.4}{}}
+\newlabel{eq:weight_matrix}{{3}{4}{Estimation}{equation.3.8}{}}
+\MT@newlabel{eq:minimization_gmm}
+\newlabel{eq:conduct_constraint}{{9}{4}{Estimation}{equation.3.9}{}}
+\newlabel{eq:slope_constraint}{{10}{4}{Estimation}{equation.3.10}{}}
+\newlabel{eq:equilibrium_existence}{{11}{4}{Estimation}{equation.3.11}{}}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\MT@newlabel{eq:slope_constraint}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Simulation results}{4}{section.4}\protected@file@percent }
+\newlabel{sec:results}{{4}{4}{Simulation results}{section.4}{}}
+\citation{corts1999conduct}
+\MT@newlabel{eq:log_linear_marginal_cost}
+\MT@newlabel{eq:log_linear_supply_equation_direct}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{5}{section.5}\protected@file@percent }
+\@writefile{brf}{\backcite{corts1999conduct}{{5}{5}{section.5}}}
 \@writefile{toc}{\contentsline {paragraph}{Acknowledgments}{5}{section*.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Performance comparison\relax }}{6}{table.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}{{1}{6}{Performance comparison\relax }{table.caption.1}{}}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\MT@newlabel{eq:log_linear_marginal_cost}
+\MT@newlabel{eq:log_linear_supply_equation_direct}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
 \bibstyle{aer}
 \bibdata{conduct_parameter}
 \bibcite{bresnahan1982oligopoly}{{1}{1982}{{Bresnahan}}{{Bresnahan}}}
-\bibcite{goldmanNote1964}{{2}{1964}{{Goldman and Uzawa}}{{Goldman and Uzawa}}}
-\bibcite{lau1982identifying}{{3}{1982}{{Lau}}{{Lau}}}
-\bibcite{matsumura2023test}{{4}{2023a}{{Matsumura and Otani}}{{Matsumura and Otani}}}
-\bibcite{matsumura2023resolving}{{5}{2023b}{{Matsumura and Otani}}{{Matsumura and Otani}}}
+\bibcite{corts1999conduct}{{2}{1999}{{Corts}}{{Corts}}}
+\bibcite{goldmanNote1964}{{3}{1964}{{Goldman and Uzawa}}{{Goldman and Uzawa}}}
+\bibcite{lau1982identifying}{{4}{1982}{{Lau}}{{Lau}}}
+\bibcite{matsumura2023resolving}{{5}{2023}{{Matsumura and Otani}}{{Matsumura and Otani}}}
 \bibcite{merel2009measuring}{{6}{2009}{{M{\'e}rel}}{{M{\'e}rel}}}
 \bibcite{okazaki2022excess}{{7}{2022}{{Okazaki et al.}}{{Okazaki, Onishi and Wakamori}}}
-\bibcite{perloff2012collinearity}{{8}{2012}{{Perloff and Shen}}{{Perloff and Shen}}}
-\bibcite{wooldridge2010econometric}{{9}{2010}{{Wooldridge}}{{Wooldridge}}}
+\bibcite{wooldridge2010econometric}{{8}{2010}{{Wooldridge}}{{Wooldridge}}}
 \citation{goldmanNote1964}
 \citation{goldmanNote1964}
 \citation{goldmanNote1964}
-\citation{lau1982identifying}
 \citation{bresnahan1982oligopoly}
-\citation{lau1982identifying}
-\citation{goldmanNote1964}
+\citation{matsumura2023resolving}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Online appendix}{8}{appendix.A}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Summary of Goldman and Uzawa (1964)}{8}{subsection.A.1}\protected@file@percent }
+\newlabel{appendix:summary_goldman_uzawa}{{A.1}{8}{Summary of Goldman and Uzawa (1964)}{subsection.A.1}{}}
+\@writefile{brf}{\backcite{goldmanNote1964}{{8}{A.1}{subsection.A.1}}}
+\@writefile{brf}{\backcite{goldmanNote1964}{{8}{A.1}{subsection.A.1}}}
+\@writefile{brf}{\backcite{goldmanNote1964}{{8}{2}{theorem.2}}}
+\@writefile{brf}{\backcite{bresnahan1982oligopoly}{{8}{A.1}{theorem.2}}}
+\@writefile{brf}{\backcite{matsumura2023resolving}{{8}{A.1}{theorem.2}}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Existence and uniqueness of equilibrium prices}{9}{subsection.A.2}\protected@file@percent }
 \newlabel{sec:appendix_proof}{{A.2}{9}{Existence and uniqueness of equilibrium prices}{subsection.A.2}{}}
-\newlabel{eq:equilibrium_equation}{{20}{9}{Existence and uniqueness of equilibrium prices}{equation.A.20}{}}
-\newlabel{eq:fixed_point}{{21}{10}{Existence and uniqueness of equilibrium prices}{equation.A.21}{}}
+\MT@newlabel{eq:log_linear_demand}
+\MT@newlabel{eq:log_linear_supply_equation}
+\MT@newlabel{eq:log_linear_demand}
+\MT@newlabel{eq:log_linear_supply_equation}
+\newlabel{eq:equilibrium_equation}{{12}{9}{Existence and uniqueness of equilibrium prices}{equation.A.12}{}}
+\MT@newlabel{eq:equilibrium_equation}
+\newlabel{eq:fixed_point}{{13}{9}{Existence and uniqueness of equilibrium prices}{equation.A.13}{}}
+\MT@newlabel{eq:fixed_point}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The illustrations of the equilibrium existence and uniqueness conditions\relax }}{11}{figure.caption.4}\protected@file@percent }
 \newlabel{fg:equilibrium_existence}{{1}{11}{The illustrations of the equilibrium existence and uniqueness conditions\relax }{figure.caption.4}{}}
 \newlabel{fig:fixed_monotone_decreasing}{{1a}{11}{$\frac {-\gamma _1}{\alpha _1 + \alpha _2 Z^{R}_{t}} < 0$\relax }{figure.caption.4}{}}
@@ -92,28 +139,72 @@
 \newlabel{sub@fig:fixed_parallel}{{d}{11}{$\frac {-\gamma _1}{\alpha _1 + \alpha _2 Z^{R}_{t}} = 1, 1-\theta (\alpha _1+\alpha _2 Z_t^R) \ne \exp (\Xi ) $\relax }{figure.caption.4}{}}
 \newlabel{fig:fixed_convex}{{1e}{11}{$\frac {-\gamma _1}{\alpha _1 + \alpha _2 Z^{R}_{t}}> 1$\relax }{figure.caption.4}{}}
 \newlabel{sub@fig:fixed_convex}{{e}{11}{$\frac {-\gamma _1}{\alpha _1 + \alpha _2 Z^{R}_{t}}> 1$\relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The illustrations of the equilibrium existence and uniqueness conditions\relax }}{13}{figure.caption.5}\protected@file@percent }
-\newlabel{fg:equilibrium_existence_demand_supply}{{2}{13}{The illustrations of the equilibrium existence and uniqueness conditions\relax }{figure.caption.5}{}}
+\MT@newlabel{eq:fixed_point}
+\MT@newlabel{eq:log_linear_supply_equation}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The illustrations of the equilibrium existence and uniqueness conditions\relax }}{12}{figure.caption.5}\protected@file@percent }
+\newlabel{fg:equilibrium_existence_demand_supply}{{2}{12}{The illustrations of the equilibrium existence and uniqueness conditions\relax }{figure.caption.5}{}}
+\citation{wooldridge2010econometric}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Simulation and estimation procedure}{13}{subsection.A.3}\protected@file@percent }
 \newlabel{sec:setting}{{A.3}{13}{Simulation and estimation procedure}{subsection.A.3}{}}
-\citation{wooldridge2010econometric}
-\newlabel{eq:quantity_loglinear}{{25}{14}{Simulation and estimation procedure}{equation.A.25}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces True parameters and distributions\relax }}{14}{table.caption.6}\protected@file@percent }
-\newlabel{tb:parameter_setting}{{2}{14}{True parameters and distributions\relax }{table.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}{14}{subsection.A.4}\protected@file@percent }
+\MT@newlabel{eq:log_linear_demand}
+\MT@newlabel{eq:log_linear_supply_equation}
+\newlabel{eq:quantity_loglinear}{{14}{13}{Simulation and estimation procedure}{equation.A.14}{}}
+\MT@newlabel{eq:quantity_loglinear}
+\MT@newlabel{eq:log_linear_demand}
+\@writefile{brf}{\backcite{wooldridge2010econometric}{{13}{A.3}{equation.A.14}}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces True parameters and distributions\relax }}{13}{table.caption.6}\protected@file@percent }
+\newlabel{tb:parameter_setting}{{2}{13}{True parameters and distributions\relax }{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}{13}{subsection.A.4}\protected@file@percent }
+\newlabel{appendix:implausible_estimator}{{A.4}{13}{Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}{subsection.A.4}{}}
+\MT@newlabel{eq:residual_supply_2sls}
 \citation{matsumura2023resolving}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Additional experiments}{15}{subsection.A.5}\protected@file@percent }
-\newlabel{sec:additional_experiments}{{A.5}{15}{Additional experiments}{subsection.A.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Performance comparison ($\sigma =0.5$)\relax }}{16}{table.caption.7}\protected@file@percent }
-\newlabel{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}{{3}{16}{Performance comparison ($\sigma =0.5$)\relax }{table.caption.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Performance comparison ($\sigma =2.0$)\relax }}{17}{table.caption.8}\protected@file@percent }
-\newlabel{tb:loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}{{4}{17}{Performance comparison ($\sigma =2.0$)\relax }{table.caption.8}{}}
 \citation{matsumura2023resolving}
 \citation{matsumura2023resolving}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Ad hoc method using \eqref  {eq:log_linear_marginal_cost} to compute $\varepsilon _t^c$ and \eqref  {eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref  {eq:conduct_constraint}, \eqref  {eq:slope_constraint}, and \eqref  {eq:equlibrium_existence}\relax }}{18}{table.caption.9}\protected@file@percent }
-\newlabel{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse}{{5}{18}{Ad hoc method using \eqref {eq:log_linear_marginal_cost} to compute $\varepsilon _t^c$ and \eqref {eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref {eq:conduct_constraint}, \eqref {eq:slope_constraint}, and \eqref {eq:equlibrium_existence}\relax }{table.caption.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces N2SLS without Constraints \eqref  {eq:conduct_constraint} Results of the linear model\relax }}{19}{table.caption.10}\protected@file@percent }
-\newlabel{tb:linear_linear_sigma_1}{{6}{19}{N2SLS without Constraints \eqref {eq:conduct_constraint} Results of the linear model\relax }{table.caption.10}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces N2SLS with Constraints \eqref  {eq:conduct_constraint} for the linear model\relax }}{20}{table.caption.11}\protected@file@percent }
-\newlabel{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}{{7}{20}{N2SLS with Constraints \eqref {eq:conduct_constraint} for the linear model\relax }{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Additional experiments}{14}{subsection.A.5}\protected@file@percent }
+\newlabel{sec:additional_experiments}{{A.5}{14}{Additional experiments}{subsection.A.5}{}}
+\MT@newlabel{eq:conduct_constraint}
+\@writefile{brf}{\backcite{matsumura2023resolving}{{14}{A.5}{subsection.A.5}}}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\MT@newlabel{eq:log_linear_marginal_cost}
+\MT@newlabel{eq:log_linear_supply_equation_direct}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Performance comparison ($\sigma =0.5$)\relax }}{15}{table.caption.7}\protected@file@percent }
+\newlabel{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse}{{3}{15}{Performance comparison ($\sigma =0.5$)\relax }{table.caption.7}{}}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Performance comparison ($\sigma =2.0$)\relax }}{16}{table.caption.8}\protected@file@percent }
+\newlabel{tb:loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}{{4}{16}{Performance comparison ($\sigma =2.0$)\relax }{table.caption.8}{}}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Ad hoc method using \MT_extended_eqref:n  {eq:log_linear_marginal_cost} to compute $\varepsilon _t^c$ and \MT_extended_eqref:n  {eq:log_linear_supply_equation_direct} as constraints with Constraints \MT_extended_eqref:n  {eq:conduct_constraint}, \MT_extended_eqref:n  {eq:slope_constraint}, and \MT_extended_eqref:n  {eq:equilibrium_existence}\relax }}{17}{table.caption.9}\protected@file@percent }
+\MT@newlabel{eq:log_linear_marginal_cost}
+\MT@newlabel{eq:log_linear_supply_equation_direct}
+\MT@newlabel{eq:conduct_constraint}
+\MT@newlabel{eq:slope_constraint}
+\MT@newlabel{eq:equilibrium_existence}
+\newlabel{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse}{{5}{17}{Ad hoc method using \eqref {eq:log_linear_marginal_cost} to compute $\varepsilon _t^c$ and \eqref {eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref {eq:conduct_constraint}, \eqref {eq:slope_constraint}, and \eqref {eq:equilibrium_existence}\relax }{table.caption.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces N2SLS without Constraints \MT_extended_eqref:n  {eq:conduct_constraint} Results of the linear model\relax }}{18}{table.caption.10}\protected@file@percent }
+\MT@newlabel{eq:conduct_constraint}
+\newlabel{tb:linear_linear_sigma_1}{{6}{18}{N2SLS without Constraints \eqref {eq:conduct_constraint} Results of the linear model\relax }{table.caption.10}{}}
+\@writefile{brf}{\backcite{matsumura2023resolving}{{18}{\caption@xref {??}{ on input line 771}}{table.caption.10}}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces N2SLS with Constraints \MT_extended_eqref:n  {eq:conduct_constraint} for the linear model\relax }}{19}{table.caption.11}\protected@file@percent }
+\MT@newlabel{eq:conduct_constraint}
+\newlabel{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}{{7}{19}{N2SLS with Constraints \eqref {eq:conduct_constraint} for the linear model\relax }{table.caption.11}{}}
+\@writefile{brf}{\backcite{matsumura2023resolving}{{19}{\caption@xref {??}{ on input line 802}}{table.caption.11}}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces N2SLS with Constraints \MT_extended_eqref:n  {eq:conduct_constraint} for the loglinear model\relax }}{20}{table.caption.12}\protected@file@percent }
+\MT@newlabel{eq:conduct_constraint}
+\newlabel{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}{{8}{20}{N2SLS with Constraints \eqref {eq:conduct_constraint} for the loglinear model\relax }{table.caption.12}{}}
 \gdef \@abspage@last{20}

@@ -64,8 +64,7 @@
 \maketitle
 \begin{abstract}
     We propose a constrained generalized method of moments (GMM) estimator with some equilibrium uniqueness conditions for estimating the conduct parameter in a log-linear model with homogeneous goods markets. 
-    First, we derive such conditions.
-    Second, Monte Carlo simulations confirm that in a log-linear model, incorporating the conditions resolves the problems of implausibly low or negative values of conduct parameters.
+    We demonstrate that Monte Carlo simulations of a log-linear model resolves the problems of implausibly low or negative values of conduct parameters when the equilibrium uniqueness conditions are imposed.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogeneous Goods Market, Mathematical Programming with Equilibrium Constraints, Monte Carlo simulation
@@ -75,17 +74,18 @@
 
 \bigskip
 
+
 \section{Introduction}
 Measuring competitiveness is a crucial task in the empirical industrial organization literature.
 Conduct parameter is considered a useful measure of competitiveness. 
 However, it cannot be directly measured from data because data usually lack information about marginal cost.
 Therefore, researchers aim to identify and estimate the conduct parameter.
 
-As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of the conduct parameter for linear models. 
-Recently, \cite{matsumura2023resolving} provides the detailed conditions for the identification in this setting. 
-However, the researchers often implement alternative specifications, such as the log-linear model \citep{okazaki2022excess,merel2009measuring}. 
-While the identification condition is provided by \citet{lau1982identifying} for general models, these papers face the issue that the estimated conduct parameter becomes unrealistically low or even negative.
-This raises doubts about the methodology and is an obstacle to choosing a better specification of the demand and supply functions.
+As the simplest specification, \citet{bresnahan1982oligopoly} considers identification of the conduct parameter under a model with linear demand and linear marginal cost.
+Recently, \cite{matsumura2023resolving} provide the detailed conditions for the identification in this setting. 
+However, the researchers often employ log-linear models \citep{okazaki2022excess,merel2009measuring}. 
+While the identification condition is provided by \citet{lau1982identifying} for general models, these papers face an issue that the estimated conduct parameter becomes unrealistically low or even negative.
+This raises doubts about the methodology and is an obstacle to choosing a better specification of the inverse demand and marginal cost functions.
 
 To overcome the problem, we propose a constrained generalized method of moments (GMM) estimator incorporating theoretical conditions for the unique existence of equilibrium as constraints. 
 First, we prove that a unique equilibrium exists under certain conditions, which is new to the literature as far as we know.
@@ -115,7 +115,7 @@ We allow $X^{d}_{t}$ and $X^{c}_{t}$ to have common variables, but assume that t
 We also have the demand- and supply-side instruments, $Z^{d}_{t}$ and $Z^{c}_{t}$, and assume that the error terms satisfy the mean independence condition, $E[\varepsilon^{d}_{t}\mid X^{d}_{t}, Z^{d}_{t}] = E[\varepsilon^{c}_{t} \mid X^{c}_{t}, Z^{c}_{t}] =0$. 
 
 The identification of the conduct parameter is indirectly characterized by \citet{lau1982identifying}:
-\begin{theorem}
+\begin{theorem}\label{thm:lau_identification}
     Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is, $f(Q, r(X^{d}))$, but not take the form $P = Q^{-1/\theta}r(X^{d}) + s(Q)$.
 \end{theorem}
 This theorem implies that the conduct parameter is identified if the inverse demand function is not separable.
@@ -155,7 +155,7 @@ The next proposition provides the conditions for uniqueness.
 The proof is in the online appendix \ref{sec:appendix_proof}.
 \begin{proposition}\label{prop:equilibrium_existence}
     Assume that $\alpha_1 + \alpha_2 Z^{R}\ne 0$. Let $\Xi = \gamma_0 + \gamma_1\frac{\alpha_0 + \alpha_3 \log Y + \varepsilon^{d}}{\alpha_1 + \alpha_2 Z^{R}} +  \gamma_2 \log W + \gamma_3 \log R + \varepsilon^{c}$.
-    The number of equilibrium prices $P^*>0$ is determined as follows:
+    The number of equilibria is determined as follows:
     \begin{itemize}
         \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}) \le 0$, there is no equilibrium,
         \item When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}) >0$, 
@@ -323,17 +323,37 @@ In Theorem 2, \citet{goldmanNote1964} characterizes the function that satisfies 
 \end{theorem}
 
 Let $\{Q, X_{1}^{d},\ldots, X_{K}^{d}\}$ be the set of dependent variables and divide the variables into two groups $(Q, X^{d})$.
-In this case, we can see that the linear demand function in \citet{bresnahan1982oligopoly} and the log-linear demand function in this paper are not separable.
+Then, as the inverse demand function $P(Q, X^{d}) = f(Q, r(X^{d}))$ in Theorem \ref{thm:lau_identification} has the form in the above theorem, we can say that the conduct parameter is not identified when the inverse demand function is separable.
+
+In contrast, we can see that the linear demand function in \citet{bresnahan1982oligopoly} and the log-linear demand function in this paper are not separable.
 For the linear case,
 \begin{align}
     \frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y} = \frac{ \alpha_2 Q}{\alpha_3} \Longrightarrow \frac{\partial}{\partial Q}\left(\frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y}\right) = \frac{\alpha_2}{\alpha_3} \ne 0.
 \end{align}
 The last part, $\frac{\alpha_2}{\alpha_3} \ne 0$, is concluded from the identification condition in \citet{matsumura2023resolving}.
-For the log-linear case, 
+For the log-linear case, we have
 \begin{align}
     \frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y}  = \frac{\alpha_2 Y \log Q}{\alpha_3} \Longrightarrow \frac{\partial}{\partial Q}\left(\frac{\partial P(Q, X^{d})/\partial Z^{R}}{\partial P(Q, X^{d})/\partial Y}\right) = \frac{\alpha_2Y}{\alpha_3Q} \ne 0.
 \end{align}
-Thus,
+Thus, again when $\frac{\alpha_2}{\alpha_3}$ is nonzero, which emphasizes the role of the demand shifters,  the inverse demand function is not separable.
+Note that due to the log specification, $Y$ and $Q$ are positive.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Existence and uniqueness of equilibrium prices}\label{sec:appendix_proof}
 
 Proposition \ref{prop:equilibrium_existence} proposes the conditions for the unique existence of $P_{t}(>0)$ solving the demand equation \eqref{eq:log_linear_demand} and supply equation \eqref{eq:log_linear_supply_equation} for $P_{t}$ under $\theta\in[0,1]$.

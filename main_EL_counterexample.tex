@@ -65,7 +65,7 @@
 \makeatother
 
 
-\title{Revisiting the identification of conduct parameters in homogeneous goods markets}
+\title{Revisiting the Identification of the Conduct Parameter in Homogeneous Goods Markets}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: \href{mailto:yuri.matsumura23@gmail.com}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{Market Design Center, Department of Economics, University of Tokyo. Email: \href{mailto:suguru.otani@e.u-tokyo.ac.jp}{suguru.otani@e.u-tokyo.ac.jp}
 }}
 
@@ -78,7 +78,7 @@
     However, we provide a novel characterization of non-identification and show that the statement in \citet{lau1982identifying} is incorrect.
     Based on our characterization, we provide a new necessary and sufficient condition for the non-identification of the conduct parameter.
     This result implies that the class of inverse demand functions that lead to identification is much broader than \citet{lau1982identifying} considers.
-    Our result also emphasizes the insight of \citet{bresnahan1982oligopoly} that the demand rotation instrument is crucial for the identification of the conduct parameter even in more general settings.
+    Our result also emphasizes the insight of \citet{bresnahan1982oligopoly}; the demand rotation instrument is crucial for the identification of the conduct parameter even in more general settings.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Identification, Conduct Parameter, Homogenous Goods Market
@@ -121,21 +121,29 @@ Additionally, we find that the class of inverse demand functions also works as a
 Therefore, the class of inverse demand functions that lead to identification is much broader than \citet{lau1982identifying} considers.
 
 
+The rest of the paper is organized as follows.
+Section \ref{sec:setting} describes the setting.
+Section \ref{sec:nonidentification_characterization} provides a new characterization of non-identification and shows the necessary and sufficient condition for non-identification.
+Appendix includes the omitted proofs in the main text and a summary of \citet{goldmanNote1964}.
+
 
 
 
 \section{Setting}\label{sec:setting}
+
+\subsection{Model and Assumptions}
+
 Consider a homogeneous product market with the aggregate inverse demand and aggregate marginal cost function as $P(Q, X^{d})$ and $MC(Q, X^{s})$ where $X^{d}$ and $X^{s}$ are the vector of exogenous variables.
 Let $K_d$ and $K_s$ be the dimension of $X^{d}$ and $X^{s}$, respectively.
 We call $X^{d}$ demand shifters and $X^{s}$ cost shifters, and assume the following:
 \begin{assumption}\label{assumption:exclusive_shifters}
     The demand shifter $X^{d}$ and the cost shifter $X^{s}$ are exclusive; that is, there is no common variable in $X^{d}$ and $X^{s}$, and $X^{d}$ affects the demand function but not the marginal cost function, and $X^{s}$ affects the marginal cost function but not the demand function; for all $i = 1, \ldots, K_d$ and $j = 1, \ldots, K_s$,
     \begin{align}
-        \frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d}) \ne 0 \quad \text{and} \quad \frac{\partial MC}{\partial X^{s}_{j}}(Q, X^{s}) \ne 0,\\
-        \frac{\partial P}{\partial X^{s}_{j}}(Q, X^{d}) = 0 \quad \text{and} \quad \frac{\partial MC}{\partial X^{d}_{i}}(Q, X^{s}) = 0.
+        \frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d}) \ne 0, \quad \frac{\partial MC}{\partial X^{s}_{j}}(Q, X^{s}) \ne 0, \quad \frac{\partial P}{\partial X^{s}_{j}}(Q, X^{d}) = 0, \quad \text{and} \quad \frac{\partial MC}{\partial X^{d}_{i}}(Q, X^{s}) = 0.
     \end{align}
 \end{assumption}
 We can also include some common variables in $X^{d}$ and $X^{s}$, but in that case, we still have some variable that exclusively affects the demand function and the marginal cost function.
+
 \citet{lau1982identifying} also imposes the following restriction on the inverse demand and the marginal cost function:
 \begin{assumption}\label{assumption:twice_differentiable}
     The inverse demand and the marginal cost function are twice continuously differentiable.
@@ -148,39 +156,38 @@ The equilibrium quantity $Q^e$ is defined as the solution to the following equat
 where $\theta$ is called the conduct parameter.
 Depending on the value of $\theta$, the relation can nest the equilibrium condition of several models, such as perfect competition ($\theta=0$) and Cournot competition ($\theta=1/N$).
 
-\citet{lau1982identifying} does not impose any further restrictions, but we are interested in the point identification of the conduct parameter and the marginal cost function, and hence it is natural to assume that the equilibrium quantity exists and is unique, which needs the following additional assumption:
+\citet{lau1982identifying} does not impose any further restrictions, but it is natural to assume that the equilibrium quantity exists, which needs the following additional assumption:
 \begin{assumption}\label{assumption:unique_equilibrium}
-    Given an inverse demand function, a conduct parameter, and a marginal cost function, and given $X^{d}$ and $X^{s}$, the derivative of the equilibrium condition with respect to $Q$ is not zero and finite, that is,
+    Given an inverse demand function, a conduct parameter, and a marginal cost function, and given $X^{d}$ and $X^{s}$, the derivative of the equilibrium condition with respect to $Q$ is not zero \footnote{By Assumption \ref{assumption:twice_differentiable}, the derivative of the equilibrium condition with respect to $Q$ is finite.}, that is,
     \begin{align}
-        (1+\theta)\frac{\partial P}{\partial Q}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial Q^2}(Q, X^{d}) - \frac{\partial MC}{\partial Q}(Q, X^{s}) & \ne 0,\\
-        \left| (1+\theta)\frac{\partial P}{\partial Q}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial Q^2}(Q, X^{d}) - \frac{\partial MC}{\partial Q}(Q, X^{s})\right| &< \infty. 
+        (1+\theta)\frac{\partial P}{\partial Q}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial Q^2}(Q, X^{d}) - \frac{\partial MC}{\partial Q}(Q, X^{s}) & \ne 0.
     \end{align}
 \end{assumption}
 
 
-Suppose that the researcher observes the aggregate price $P$ and the aggregate quantity $Q$, and the vector of exogenous variables $X^{d}$ and $X^{s}$.
-Then, \citet{lau1982identifying} considers the identification problem of the conduct parameter and the marginal cost function.
-Based on the exogenous variables, the researcher can identify the reduced form of the equilibrium quantity $Q^e = h_q(X^{d}, X^{s})$.
-Given the inverse demand function, the reduced form of the equilibrium price is $P$, defined as $h_p(X^{d}, X^{s})$, is also identified.
-We put this fact as an assumption:
-\begin{assumption}\label{assumption:reduced_form_identification}
-    The reduced form of the equilibrium quantity $Q^e = h_q(X^{d}, X^{s})$ and the reduced form of the equilibrium price $P^e = h_p(X^{d}, X^{s})$ are identified from the data on price, quantity, and other exogenous variables.
-\end{assumption}
+%Based on the exogenous variables, the researcher can identify the reduced form of the equilibrium quantity $Q^e = h_q(X^{d}, X^{s})$.
+%Given the inverse demand function, the reduced form of the equilibrium price is $P$, defined as $h_p(X^{d}, X^{s})$, is also identified.
+%We put this fact as an assumption:
+%\begin{assumption}\label{assumption:reduced_form_identification}
+%    The reduced form of the equilibrium quantity $Q^e = h_q(X^{d}, X^{s})$ and the reduced form of the equilibrium price $P^e = h_p(X^{d}, X^{s})$ are identified from the data on price, quantity, and other exogenous variables.
+%\end{assumption}
 
 
 \subsection{Non-identification of the conduct parameter and the marginal cost function}\label{sec:definition_identification}
-While we are interested in the conditions for the identification of the conduct parameter, \citet{lau1982identifying} takes an indirect approach and specifies the conditions under which the model is not identified.
+Suppose that the researcher observes the aggregate price $P$ and the aggregate quantity $Q$, and the vector of exogenous variables $X^{d}$ and $X^{s}$.
+Given the inverse demand function, we are interested in the identification of the conduct parameter and the marginal cost function.
+While the interest is the identification, we take an indirect approach and specifies the conditions under which the model is not identified.
 The definition of non-identification is as follows:
 \begin{definition}\label{definition:non_identification}
-    Non-identification implies for any $X^{d}$ and $X^{s}$,
+    The conduct parameter and the marginal cost function are not identified if and only if for any $X^{d}$ and $X^{s}$,
     \begin{align}
     & P(Q^e, X^{d}) + \theta Q^e\frac{\partial P}{\partial Q}(Q^e, X^{d}) = MC(Q^e, X^{s}) ,  \label{eq:foc_alpha}\\
     & P(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial P}{\partial Q}(Q^e, X^{d}) = MC^{*}(Q^e, X^{s}),\label{eq:foc_beta}
     \end{align}
     where $\theta \neq \theta^{*}$, $MC \ne MC^{*}$, and the equilibrium quantity $Q^e$ has a reduced form functions $Q^e = h_q(X^{d}, X^{s})$ and $Q^e = h_q^{*}(X^{d}, X^{s})$ defined by \eqref{eq:foc_alpha} and \eqref{eq:foc_beta} respectively are identical.
 \end{definition}
-In other words, given two distinct pairs of the conduct parameter and the marginal cost, the equilibrium quantity $Q^e$ solves the equilibrium condition for both pairs.
-Non-identification asks the following question: given an inverse demand function, is it possible to find two distinct pairs of a conduct parameter and a marginal cost that lead to observable equivalent equilibrium?
+In other words, given two distinct pairs of the conduct parameter and the marginal cost function, the equilibrium quantity $Q^e$ solves the equilibrium condition for both pairs.
+Non-identification asks the following question: given an inverse demand function, is it possible to find two distinct pairs of a conduct parameter and a marginal cost function that lead to observable equivalent equilibrium?
 
 
 By taking the contraposition of Definition \ref{definition:non_identification}, we can also define the identification of the conduct parameter and marginal cost function:
@@ -189,10 +196,15 @@ By taking the contraposition of Definition \ref{definition:non_identification}, 
 \end{definition}
 The intuition is that identification means that given an economic condition, any different pairs of conduct parameters and marginal cost functions cannot lead to the same equilibrium quantity, that is, violates the observable equivalence of the equilibrium quantity.
 
-Then, \citet{lau1982identifying} finds that the separability of the inverse demand function and non-identification are equivalent.
+
+
+
+
+\section{Lau's Result and Discussion}\label{sec:lau_result}
+Based on the above setting, \citet{lau1982identifying} finds that the separability of the inverse demand function and non-identification are equivalent.
 \begin{theorem}\label{theorem_lau}
     Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:twice_differentiable}, and \ref{assumption:unique_equilibrium},
-    the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is,
+    the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is separable in the demand shifter \footnote{The inverse demand function satisfying \eqref{eq:separable_demand} has weak separability defined in \citet{goldmanNote1964}. See Definition \ref{def:weal_separable} in Appendix \ref{appendix:summary_goldman_uzawa}.}, that is,
     \begin{align}
         P(Q, h(X^{d})), \label{eq:separable_demand}
     \end{align}
@@ -201,316 +213,50 @@ Then, \citet{lau1982identifying} finds that the separability of the inverse dema
         P(Q, h(X^{d})) = Q^{-\frac{1}{\theta}}h(X^{d}) + k(Q). \label{eq:identification_separable_demand_lau}
     \end{align}
 \end{theorem}
-The inverse demand function satisfies \eqref{eq:separable_demand} has weak separability defined in \citet{goldmanNote1964}.\footnote{See Definition \ref{def:weal_separable} in Appendix \ref{appendix:summary_goldman_uzawa}.}
-An important implication is that when the demand shifter is a scalar, by putting $h(X^{d})= X^{d}$, the inverse demand function \eqref{eq:separable_demand} can include any inverse demand with a scalar demand shifter.
-Thus, the conduct parameter can be identified only when the inverse demand function takes the form \eqref{eq:identification_separable_demand_lau} when the demand shifter is a scalar.
-Therefore, the shape of the inverse demand function and the dimension of the demand shifter are important for the identification.
-
-
-
-
-\section{Characterization of Non-identification}\label{sec:non-identification_characterization}
-
-First, we characterizes the non-identification condition based on Definition \ref{definition:non_identification} by following the proof of necessary condition in \citet{lau1982identifying}.
-Note that observable equivalence implies that the reduced form of the equilibrium quantity $h_q$ and $h_q^{*}$ are identical for any $X^{d}$ and $X^{s}$.
-Therefore, its derivative with respect to the demand and cost shifters, $\nabla h_q$ and $\nabla h_q^{*}$, should be also identical.
-Then, by applying the implicit function theorem to the equilibrium condition, we can compute $\nabla h_q$ and $\nabla h_q^{*}$, and hence we can derive the following proposition:
-\begin{proposition}\label{proposition:non-identification_charaterization}
-    Non-identification implies that for any $X^{d}$, $X^{s}$, and $Q^e$ under these exogenous variables, we have for $i = 1, \ldots, K_d$,
-    \begin{align}
-        &\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta^{*} Q^e \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})\\  
-        &= \lambda(Q^e, X^{d}, X^{s})\left[ \frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta Q^e \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d}) \right], \label{eq:nonidentification_demand}
-    \end{align}
-    and for $j = 1,\ldots, K_s$,
-    \begin{align}
-        \frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s}) = \lambda(Q^e, X^{d}, X^{s}) \frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s}),\label{eq:nonidentification_marginal_cost}
-    \end{align}
-    where $\lambda(Q^e, X^{d}, X^{s})$ is defined as
-    \begin{align}
-        \lambda(Q^e, X^{d}, X^{s}) \equiv \frac{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}. \label{eq:lambda_foc}
-    \end{align}
-\end{proposition}
-See Appendix \ref{appendix:proof} for the proof.
-This proposition comes from the proof of necessary condition in \citet{lau1982identifying}.
-However, while he uses the same logic, he ignores the fact that $\lambda(Q^e, X^{d}, X^{s})$ depends on $X^{d}$ and obtains the following equation similar to \eqref{eq:nonidentification_marginal_cost}:
+The result says that the shape of the inverse demand function and the dimension of the demand shifter are important for the identification.
+When the inverse demand function is separable in the demand shifter, the conduct parameter is not identified.
+For example, \citet{bresnahan1982oligopoly} considers the inverse demand function such that 
 \begin{align}
-    \frac{\partial MC^{*}}{\partial X^{s}_j}(Q, X^{s}) = \lambda'(Q, X^{s}) \frac{\partial MC}{\partial X^{s}_j}(Q, X^{s}),\quad \forall Q, X^{s}, \label{eq:nonidentification_marginal_cost_lau}
+    P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d}_1 + \alpha_3QX^{d}_1 + \alpha_4X^{d}_2. \label{eq:demand_bresnahan}
 \end{align}
-where $\lambda'(Q, X^{s})$ depends on $Q$ and $X^{s}$ but not $X^{d}$, and then he concludes that there is a transformation $T$ such that 
+where $X^{d}_1$ works as a demand rotation instrument because it changes the slope and intercept of the inverse demand function.
+This inverse demand function is not separable in $X^{d}$ because it includes the interaction term of $Q$ and $Z$.
+Therefore, the conduct parameter is identified.
+
+Additionally, this theorem implies that when the demand shifter is a scalar, the inverse demand function \eqref{eq:separable_demand} can include any inverse demand with a scalar demand shifter by putting $h(X^{d})= X^{d}$.
+Thus, when the demand shifter is a scalar, the conduct parameter can be identified only when the inverse demand function takes the form \eqref{eq:identification_separable_demand_lau}.
+However, consider the following inverse demand function:
 \begin{align}
-    MC^{*}(Q, X^{s}) = T(MC(Q, X^{s}), Q). \label{eq:mc_transformation_lau}
+    P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d}_1 + \alpha_3QX^{d}_1, \label{eq:demand_counterexample}
 \end{align}
-The existence of the transformation $T$ is shown by integrating \eqref{eq:nonidentification_marginal_cost_lau} with respect to $X^{s}$ when $X^{s}$ is a scalar, and by applying Lemma \ref{lemma_1_GU} from \citet{goldmanNote1964} when $X^{s}$ is a vector.
+where we remove $X^{d}_2$ from \eqref{eq:demand_bresnahan}, and hence $X^{d}$ is a scalar.
+As this inverse demand function does not take the form \eqref{eq:identification_separable_demand_lau}, Theorem \ref{theorem_lau} implies that the conduct parameter is not identified.
+The difference is only including $Y$ in the demand shifter, which changes only the intercept of the inverse demand function.
+Therefore, even if $Y$ changes the intercept slightly in addition to the change in $Z$, the change in $Y$ is the crucial to identify the conduct parameter.
 
-His argument has some problems.
-First, 
-
-
-His argument is correct as long as $\lambda(Q, X^{d}, X^{s})$ does not depend on $X^{d}$, but when not, $MC^{*}$ recovered by \eqref{eq:mc_transformation_lau} needs to depend on $X^{d}$, which is not allowed because the marginal cost function should be independent of $X^{d}$ by Assumption \ref{assumption:exclusive_shifters}.
-
-
-
-
-\subsection{Alternative Characterization of Non-identification}
-To resolve the problems in \citet{lau1982identifying}, we provide a new characterization of non-identification based on both \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost}.
-First, for $i = 1, \ldots, K_d$, we rewrite \eqref{eq:nonidentification_demand} as
-\begin{align}
-    \frac{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) }{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) } = \frac{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}.
-\end{align}
-Note that Assumption \ref{assumption:unique_equilibrium} guarantees that the right-hand side is well-defined.
-We also need to check that the left-hand side is well-defined, but temporarily we ignore this issue and
-assume that the left-hand side is well-defined.
-We discuss this point in detail later.
-Then, by rearranging this equation based on the derivative of $MC$ and $MC^{*}$ with respect to $Q$, we have
-\begin{align}
-    \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s}) =D_i(Q^e, X^{d}) + C_i(Q^e, X^{d})\frac{\partial MC}{\partial Q}(Q^e, X^{s}),\label{eq:mc_transformation_quantity}
-\end{align}
-where $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ are defined as
-\begin{align}
-    C_i(Q, X^{d}) \equiv \frac{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) }{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) },\label{eq:ratio_marginal_revenue}
-\end{align}
-and
-\begin{align}
-    &D_i(Q, X^{d})\\
-    &\equiv\frac{(\theta^{*} - \theta)\Bigg[\left(\frac{\partial P}{\partial Q}(Q, X^{d}) + Q\frac{\partial^2 P}{\partial Q^2}(Q, X^{d})\right) \frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) - Q \frac{\partial P}{\partial Q}(Q, X^{d}) \frac{\partial^2 P}{\partial X^{d}_i\partial Q}(Q, X^{d}) \Bigg]}{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d})}.\label{eq:intercation_derivative_demand}
-\end{align}
-%This can be more simplified as (we suppress the arguments of the functions for brevity),
-%\begin{align}
-    %&(1+ \theta^{*})\frac{\partial P}{\partial Q} + \theta^{*} Q\frac{\partial^2 P}{\partial Q^2} - \frac{\frac{\partial P}{\partial X^{d}_i} + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q} }{\frac{\partial P}{\partial X^{d}_i} + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q} }\left[(1+ \theta) \frac{\partial P}{\partial Q} + \theta Q\frac{\partial^2 P}{\partial Q^2}\right]\\
-    %&= \frac{1}{\frac{\partial P}{\partial X^{d}_i} + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}Q}\left[\left((1 + \theta^{*}) \frac{\partial P}{\partial Q} + \theta^{*} Q\frac{\partial^2 P}{\partial  Q^2}\right)\left(\frac{\partial P}{\partial X^{d}_i} + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}\right)\right]\\
-    %&\quad - \frac{1}{\frac{\partial P}{\partial X^{d}_i} + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}Q}\left[\left( (1 + \theta) \frac{\partial P}{\partial Q} + \theta Q\frac{\partial^2 P}{\partial Q^2}\right)\left(\frac{\partial P}{\partial X^{d}_i} + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}\right)\right]\\
-    %& = 
-%\end{align}
-Next, \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost} imply that for $i = 1, \ldots, K_d$ and $j = 1, \ldots, K_s$,
-\begin{align}
-    \lambda(Q^e, X^{d}, X^{s}) =  \frac{\frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s})}{\frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s})} =  \frac{\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d}) }{\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta Q^e\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})},
-\end{align}
-and from the second equality, we have for $i = 1, \ldots, K_d$ and $j = 1, \ldots, K_s$,
-\begin{align}
-    \frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s}) = C_i(Q^e, X^{d})\frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s}).\label{eq:mc_transformation_cost_shifter}
-\end{align}
-Because \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} come from \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost}, they are also the necessary conditions for non-identification.
-Therefore, we have a new characterization of non-identification as follows:
-\begin{proposition}\label{proposition:necessary_nonidentification}
-    Non-identification implies that for any $X^{d}$, $X^{s}$, and $Q^e$ under these exogenous variables, we have \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} such that
-    \begin{align}
-        \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s}) =D_i(Q^e, X^{d}) + C_i(Q^e, X^{d})\frac{\partial MC}{\partial Q}(Q^e, X^{s})
-    \end{align}
-    and
-    \begin{align}
-        \frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s}) = C_i(Q^e, X^{d})\frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s}),
-    \end{align} 
-    for $i = 1, \ldots, K_d$, $j = 1, \ldots, K_s$. The definition of $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ is given by \eqref{eq:ratio_marginal_revenue} and \eqref{eq:intercation_derivative_demand}, respectively.
-\end{proposition}
-This characterization gives the information about how the derivative of $MC$ and $MC^{*}$ with respect to $Q$ and $X^{s}$ at the equilibrium quantity are related and tells more about what happens when non-identification holds than \cite{lau1982identifying}.
-First, while Lau uses only \eqref{eq:nonidentification_marginal_cost} which is the derivative with respect to $X^{s}$, this characterization uses the relationship between $MC$ and $MC^{*}$ with respect to both $Q$ and $X^{s}$.
-
-Second, this characterization can restrict the form of the inverse demand function that leads to non-identification.
-Note that \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} imply that given any conduct parameters $\theta$ and $\theta^{*}$, and a marginal cost function $MC$, marginal cost function $MC^{*}$ can be constructed based on \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter}.
-However, \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} do not necessary leads to a valid marginal cost function because $C_i(Q^e, X^{d})$ and $D_i(Q^e, X^{d})$ are functions of $Q^e$ and $X^{d}$.
-Therefore, the left-hand side of \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} can be a function of $X^{d}$.
-However, this violates the Assumption \ref{assumption:exclusive_shifters} that $X^{d}$ is a vector of exclusive demand shifters.
-Therefore, to have a valid marginal cost function $MC^{*}$, $C_i$ and $D_i$ should be independent of $X^{d}$.
-Additionally, while we index $C_i$ and $D_i$ by $i$, the change in $X^{d}_i$ should not affect the change in $MC^{*}$.
-
-
-
-
-
-So far, we have implicitly assumed that $C_i$ and $D_i$ are well-defined.
-However, this is not always the case because the denominator of \eqref{eq:ratio_marginal_revenue} can be zero and hence $C_i$ and $D_i$ take infinite values.
-When this happens, the necessary condition in Proposition \ref{proposition:necessary_nonidentification} is not satisfied, which implies that the conduct parameter and the marginal cost function are identified.
-In fact, the condition that the denominator of \eqref{eq:ratio_marginal_revenue} is not zero restricts the class of inverse demand functions that always leads to identification.
-We state this result as follows:
-\begin{lemma}\label{lemma:identification_condition_separable}
-    When $\theta \ne 0$, $C_i$ and $D_i$ are not well-defined because the denominator of \eqref{eq:ratio_marginal_revenue} is zero, that is, 
-    \begin{align}
-        \frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) = 0. \label{eq:identification_condition_separable}
-    \end{align}
-    Therefore, under this inverse demand function, the conduct parameter and the marginal cost function are identified.
-    Let $\mathcal{I}$ be the set of demand shifters where \eqref{eq:identification_condition_separable} holds.
-    Then, \eqref{eq:identification_condition_separable} leads to the inverse demand function such that
-    \begin{align}
-        P(Q, X^{d}) = Q^{-\frac{1}{\theta}}h(X^{d}) + k(Q, X^{d}_{-\mathcal{I}}), \label{eq:identification_separable_demand}
-    \end{align}
-    where $X^{d}_{-\mathcal{I}}$ is the vector of demand shifters whose index is not in $\mathcal{I}$.
-    The numerator of \eqref{eq:ratio_marginal_revenue} is always nonzero under \eqref{eq:identification_separable_demand}.
-\end{lemma}
-See Appendix \ref{appendix:proof} for the proof.
-Note that \eqref{eq:identification_condition_separable} can be rewritten as
-\begin{align}
-    \frac{\partial }{\partial X^{d}_i}\left( P(Q, X^{d}) + \theta Q \frac{\partial P}{\partial Q}(Q, X^{d})\right) = 0,
-\end{align}
-which is the derivative of the marginal revenue under $\theta$ with respect to $X^{d}_i$.
-Thus, \eqref{eq:identification_condition_separable} implies that the marginal revenue is not affected by $X^{d}_i$.
-Additionally, the equilibrium condition \eqref{eq:foc_alpha} becomes
-\begin{align}
-    k(Q, X^{d}_{-\mathcal{I}}) + \theta Qk'(Q, X^{d}_{-\mathcal{I}}) = MC(Q, X^{s}),
-\end{align}
-which implies that the equilibrium quantity is not affected by the change in $X^{d}_i$.
-Therefore, under \eqref{eq:identification_separable_demand}, all demand shifters whose index is in $\mathcal{I}$ work as a demand rotation instrument when the conduct parameter is $\theta$.
-On the other hands, for any other conduct parameter $\theta^{*}$, the marginal revenue is always affected by $X^{d}_i$.
-Therefore, the observable equivalence is always violated.
-
-
-
-
-\begin{assumption}\label{assumption:three_times_differentiable}
-    The inverse demand function $P(Q, X^{d})$ is three times continuously differentiable with respect to $Q$ and $X^{d}$.
-    The marginal cost function $MC(Q, X^{s})$ is twice continuously differentiable with respect to $Q$ and $X^{s}$.
-\end{assumption}
-
-
-
-
-
-
-
-
-
-\begin{example}\label{example:bresnahan_1982}
-    Consider a linear demand such that
-    \begin{align}
-        P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d}.
-    \end{align}
-    Then, \eqref{eq:mc_transformation} is given as
-    \begin{align}
-        \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s}) = (\theta^{*} - \theta)\alpha_1 + \frac{\partial MC}{\partial Q}(Q^e, X^{s}).
-    \end{align}
-    This implies that $MC^{*}$ can be independent of $X^{d}$ and the following $MC^{*}$ leads to observationally equivalent to $MC$.
-\end{example}
-\begin{example}\label{example:log_linear}
-    Consider a nonlinear demand such that
-    \begin{align}
-        P(Q, X^{d}) = \exp(\alpha_0)Q^{-\alpha_1}(X^{d})^{\alpha_2}
-    \end{align}
-    This leads to a log-linear inverse demand function,
-    \begin{align}
-        \log P(Q, X^{d} ) = \alpha_0 - \alpha_1 \log Q + \alpha_2 \log X^{d}.
-    \end{align}
-    Then \eqref{eq:mc_transformation} is given as
-    \begin{align}
-        \frac{MC^{*}}{\partial Q}(Q, X^{s}) = \frac{1 - \theta^{*} \alpha_1}{1 - \theta \alpha_1} \frac{\partial MC}{\partial Q}(Q, X^{s}). 
-    \end{align}
-    Thus, $D_i(Q, X^{d})$ is vanished and $C_i(Q,X^{d})$ does not depend on $X^{d}$, which implies that we can construct a new marginal cost $MC^{*}$ that leads to observable equivalent equilibrium to $MC$.
-\end{example}
-
-\begin{example}\label{example:demand_counterexample}
-    Consider the linear demand given by \eqref{eq:demand_counterexample}.
-    Then, \eqref{eq:mc_transformation} is given by
-    \begin{align}
-        \frac{\partial MC^{*}}{\partial Q}(Q, X^{s}) = (\theta^{*} - \theta)(-\alpha_1 + \alpha_3X^{d}) +  \frac{\alpha_2 + \theta\alpha_3Q}{\alpha_2 + \theta^{*}\alpha_3Q}\frac{\partial MC}{\partial Q}(Q, X^{s}).
-    \end{align}
-    This implies that any new marginal cost function $MC^{*}$ that is observationally equivalent to the given marginal cost function $MC$ should depend on the demand shifter, which is not allowed by the Assumption \ref{assumption:exclusive_shifters}.
-    Section \ref{sec:identification_example} considers the case with linear marginal cost function, but this intuition holds for any marginal cost function $MC$.
-\end{example}
-
-
-
-
-
-
-
-
-
-Now, given that \eqref{eq:identification_condition_separable} does not hold, we characterize the class of inverse demand functions that makes $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ independent of $X^{d}$.
-\begin{proposition}\label{proposition:non-identification_inverse_demand}
-    Suppose that \eqref{eq:identification_condition_separable} does not hold.
-    $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ for $i = 1, \ldots, K_d$ are independent of $X^{d}$ implies that the inverse demand function is given as
-    \begin{align}
-        P(Q, X^{d}) = Q^{\alpha_1}h(X^{d}) + k(Q). \label{eq:nonidentification_inverse_demand}
-    \end{align}
-    where $\alpha_1 \in \mathbb{R}$ is a constant.
-\end{proposition}
-See Appendix \ref{appendix:proof} for the proof.
-
-
-It is easy to verify that the inverse demand function in Example \ref{example:bresnahan_1982} and \ref{example:log_linear} satisfies \eqref{eq:nonidentification_inverse_demand}, but Example \ref{example:demand_counterexample} does not.
-Additionally, when $X^{d}$ is a vector, non-additivity of $X^{d}$ can lead to identification.
-Based on Lemma \ref{lemma:identification_condition_separable}, when $X^{d}$ is a scalar, $\alpha_1 = -\frac{1}{\theta}$ leads to the inverse demand \eqref{eq:nonidentification_inverse_demand}, which should be excluded so as not to lead to identification.
-Note that from Lemma \ref{lemma:identification_condition_separable}, $\alpha_1 \ne -\frac{1}{\theta}$ must hold.
-
-
-
-Now, we switch to the sufficient condition.
-Suppose that we have a transformation $T$ of the marginal revenue and the marginal cost under $(\theta, MC)$ and $(\theta^{*}, MC^{*})$:
-\begin{align}
-    P(Q, X^{d}) + \theta^{*} Q \frac{\partial P}{\partial Q}(Q, X^{d}) = T\left(P(Q, X^{d}) + \frac{\partial P}{\partial Q}(Q, X^{d}), Q\right)
-\end{align}
-and
-\begin{align}
-    MC(Q, X^{s}) = T\left(MC(Q, X^{s}), Q\right).
-\end{align}
-Then, when an equilibrium quantity $Q^e$ satisfies the equilibrium condition under $(\theta, MC)$, $Q^e$ also satisfies the equilibrium condition under $(\theta^{*}, MC^{*})$ because by using the transformation, we have that
-\begin{align}
-    T\left(P(Q^e, X^{d}) + \theta Q^e \frac{\partial P}{\partial Q}(Q^e, X^{d}), Q^e\right)&= T\left(MC(Q^e, X^{s}), Q^e\right)\\
-    P(Q^e, X^{d}) + \theta^{*} Q^e \frac{\partial P}{\partial Q}(Q^e, X^{d})&= MC^{*}(Q^e, X^{s}).
-\end{align}
-This implies that given a conduct parameter $\theta$ and a marginal cost function $MC$, for any conduct parameter $\theta^{*}$, we can construct a new marginal cost function $MC^{*}$ and transform the marginal revenue under $\theta$ to the marginal revenue under $\theta^{*}$ so that observable equivalence holds between $(\theta, MC)$ and $(\theta^{*}, MC^{*})$.
-Therefore, we are interested in whether \eqref{eq:nonidentification_inverse_demand} can lead to such a transformation.
-In fact, \eqref{eq:mc_transformation_quantity} can give us the transformation under \eqref{eq:nonidentification_inverse_demand}, which implies that the inverse demand function \eqref{eq:nonidentification_inverse_demand} can lead to non-identification.
-We state this result as a proposition and the proof is given in Appendix \ref{appendix:proof}:
-\begin{proposition}\label{proposition:sufficient_nonidentification}
-    Suppose that $\alpha_1 \ne -\frac{1}{\theta}$. The inverse demand function \eqref{eq:nonidentification_inverse_demand} is a sufficient condition for non-identification of the conduct parameter and the marginal cost function.
-\end{proposition}
-
-In summary, we have the following theorem:
-\begin{theorem}\label{theorem:identification_characterization}
-    Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:unique_equilibrium}, and \ref{assumption:three_times_differentiable}, the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is given as \eqref{eq:nonidentification_inverse_demand} but not $\alpha_1 = -\frac{1}{\theta}$.
-\end{theorem}
-When $\alpha_1 \ne 0$, the demand shifter changes only the slope of the inverse demand function, but not the intercept.
-When $\alpha_1 = 0$, the demand shifter changes only the intercept of the inverse demand function, but not the slope.
-Therefore, we cannot have a variation in $X^{d}$ that works as a demand rotation instrument.
-The difference between Theorem \ref{theorem_lau} is that our theorem also allows the identification when the demand shifter is a scalar, but when the demand shifter does not include any demand rotation instrument, the identification does not hold.
-
-
-
-
-
-
-\section{Identification of the inverse demand function}
-
-So far, by following \citet{lau1982identifying}, we have considered the identification of the conduct parameter and the marginal cost function given the inverse demand function.
-However, 
-
-
-
-
-
-\section{We can identify the conduct parameter even when the demand function is separable}\label{sec:identification_example}
-
-
-
-
-
-We first show that the identification result in \citet{lau1982identifying} is incorrect by providing a counterexample where a separable demand function induces identification.
-
-The intuition is the following.
-Consider a linear demand with a demand rotation instrument, given by
-\begin{align}
-    P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d} + \alpha_3QX^{d}. \label{eq:demand_counterexample}
-\end{align}
-Because the demand shifter is a scalar, the inverse demand function satisfies \eqref{eq:demand_separable}.
-Here, the demand shifter is works as a demand rotation instrument introduced in \citet{bresnahan1982oligopoly} to identify the conduct parameter.
-\citet{bresnahan1982oligopoly} considers the linear demand and the linear marginal cost function, but let's see why the demand rotation instrument works even when a more general environment.
-Suppose that the true conduct is the perfect competition, that is, $\theta = 0$ and the alternative conduct is the monopoly, that is, $\theta^{*} = 1$.
+However, the following observation gives a different intuition.
+Suppose that the inverse demand function is given by \eqref{eq:demand_counterexample} and that the true conduct is the perfect competition, that is, $\theta = 0$ and the alternative conduct is the monopoly, that is, $\theta^{*} = 1$.
 The true and alternative marginal cost functions are also given as linear functions.
+Figure \ref{fig:identification_example} illustrates this environment.
+Note that the equilibrium quantity is determined by the intersection of the inverse demand function and the marginal cost $MC$ under perfect competition.
+The equilibrium quantity under the monopoly is determined by the intersection of the marginal revenue $MR^{*}$ and the marginal cost function $MC^{*}$.
 
-Figure \ref{fig:identification_example} illustrates the intuition.
-Figure \ref{fig:identification_example_step_1} illustrates the non-identification result.
-When the true conduct is the perfect competition, the equilibrium point is $E$, but the marginal revenue under the monopoly, $MR^{*}$, and the marginal cost $MC^{*}$ leads to the same equilibrium point $E$.
-Now, let's consider the change in the demand rotation instrument.
+
+In Figure \ref{fig:identification_example_step_1}, the perfect competition and the monopoly leads to the same equilibrium $E$.
+Now, consider the change in the demand rotation instrument $X^{d}_1$.
 In Figure \ref{fig:identification_example_step_2}, the demand rotation changes the intercept and slope of the demand function without changing the equilibrium point under the true model.
 Then, under the monopoly, the new equilibrium point is $E^{*}$, which is different from $E$ and hence the observable equivalence is violated.
+So as to lead to the same equilibrium after the change in the demand rotation ($E = E^{*})$, $MC^{*}$ should shift as in Figure \ref{fig:identification_example_step_3_1} and \ref{fig:identification_example_step_3_2}.
+Note that we changed only the demand shifter, and hence the cost shifter $X^{s}$ is unchanged.
+Thus, for observable equivalence to hold, $MC^{*}$ should also change along with the change in the demand rotation, which implies that $MC^{*}$ is a function of the demand shifter.
+However, this is impossible because it violates Assumption \ref{assumption:exclusive_shifters}, that is, $MC^{*}$ should be a function of the quantity and the cost shifter only.
+Therefore, even though the demand shifter is a scalar, when it works as a demand rotation instrument, observational equivalence does not holds for any $X^{d}$ and $X^{s}$, and hence the conduct parameter can be identified.
 
-When $MC^{*}$ leads to the same equilibrium point $E$ after the change in the demand rotation, $MC^{*}$ should shift as in Figure \ref{fig:identification_example_step_3_1} and \ref{fig:identification_example_step_3_2}.
-However, this cannot be done by the cost shifter because if this does by a cost shifter, it also changes the true marginal cost function $MC$.
-Therefore, the shift in $MC^{*}$ should correlate with the change in the demand rotation, which implies that $MC^{*}$ should be a function of the demand shifter.
-This is impossible because it violates Assumption \ref{assumption:exclusive_shifters}.
 
 Here, we consider the case $MC^{*}$ is also a linear function.
 Non-identification requires to find two distinct pairs of conduct parameter and marginal cost function that lead to the same equilibrium quantity, and hence there is a possibility that under non-linear $MC$ and $MC^{*}$, $MC^{*}$ can achieve observable equivalence without depending on the demand shifter.
-However, as we will see later, this is impossible under the inverse demand and the same intuition applies.
+However, as we will see later, under the inverse demand \eqref{eq:demand_counterexample}, we cannot find any marginal cost function that leads to observable equivalence.
+
 
 \begin{figure}[p!]
     \begin{center}
@@ -672,25 +418,245 @@ However, as we will see later, this is impossible under the inverse demand and t
 
 
 
+\section{Characterization of Non-identification}\label{sec:nonidentification_characterization}
+
+First, we characterizes the non-identification condition based on Definition \ref{definition:non_identification} by following the proof of necessary condition in \citet{lau1982identifying}, but with some modifications.
+The characterization is based on the fact that observable equivalence implies that the reduced form of the equilibrium quantity $h_q$ and $h_q^{*}$ are identical for any $X^{d}$ and $X^{s}$.
+Therefore, its derivative with respect to the demand and cost shifters, $\nabla h_q$ and $\nabla h_q^{*}$, should be also identical.
+Then, by applying the implicit function theorem to the equilibrium condition, we can compute $\nabla h_q$ and $\nabla h_q^{*}$, and hence we can derive the following proposition:
+\begin{proposition}\label{proposition:nonidentification_charaterization}
+    Non-identification implies that for any $X^{d}$, $X^{s}$, and $Q^e$ under these exogenous variables, we have for $i = 1, \ldots, K_d$,
+    \begin{align}
+        &\frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta^{*} Q^e \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})\\  
+        &= \lambda(Q^e, X^{d}, X^{s})\left[ \frac{\partial P}{\partial X^{d}_{i}}(Q^e, X^{d}) + \theta Q^e \frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d}) \right], \label{eq:nonidentification_demand}
+    \end{align}
+    and for $j = 1,\ldots, K_s$,
+    \begin{align}
+        \frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s}) = \lambda(Q^e, X^{d}, X^{s}) \frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s}),\label{eq:nonidentification_marginal_cost}
+    \end{align}
+    where $\lambda(Q^e, X^{d}, X^{s})$ is defined as
+    \begin{align}
+        \lambda(Q^e, X^{d}, X^{s}) \equiv \frac{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}. \label{eq:lambda_foc}
+    \end{align}
+\end{proposition}
+See Appendix \ref{appendix:proof} for the detailed proof.
+The modified part from \citet{lau1982identifying} is the definition of $\lambda(Q^e, X^{d}, X^{s})$.
+While \citet{lau1982identifying} uses the same logic, he obtains the following equation slightly different from \eqref{eq:nonidentification_marginal_cost}:
+\begin{align}
+    \frac{\partial MC^{*}}{\partial X^{s}_j}(Q, X^{s}) = \lambda'(Q, X^{s}) \frac{\partial MC}{\partial X^{s}_j}(Q, X^{s}),\quad \forall Q, X^{s}, \label{eq:nonidentification_marginal_cost_lau}
+\end{align}
+where $\lambda'(Q, X^{s})$ depends on $Q$ and $X^{s}$ but not $X^{d}$, and then he concludes that there is a transformation $T$ such that 
+\begin{align}
+    MC^{*}(Q, X^{s}) = T(MC(Q, X^{s}), Q). \label{eq:mc_transformation_lau}
+\end{align}
+The existence of the transformation $T$ is shown by integrating \eqref{eq:nonidentification_marginal_cost_lau} with respect to $X^{s}$ when $X^{s}$ is a scalar, and by applying Lemma \ref{lemma_1_GU} from \citet{goldmanNote1964} when $X^{s}$ is a vector.
+
+His argument has some problems.
+First, when $\lambda(Q, X^{d}, X^{s})$ cannot be independent of $X^{d}$, and hence we cannot define $\lambda'(Q, X^{s})$.
+This implies that  $MC^{*}$ recovered by \eqref{eq:mc_transformation_lau} needs to depend on $X^{d}$, which is not allowed as the marginal cost function should be independent of $X^{d}$ by Assumption \ref{assumption:exclusive_shifters}.
+Second, neither $\lambda(Q, X^{d}, X^{s})$ nor $\lambda'(Q, X^{s})$ is a good tool to construct a transformation between $MC$ and $MC^{*}$ because they also consist of the derivative of $MC$ and $MC^{*}$.
+Third, he uses only \eqref{eq:nonidentification_marginal_cost} and does not use \eqref{eq:nonidentification_demand}, and hence there could be the possibility that by fully using both equations, we can derive a new characterization of non-identification.
+
+
+
+
+
+\subsection{Alternative Characterization of Non-identification}
+\subsubsection{Necessary Condition for Non-identification}
+To resolve these problems, we provide a new characterization of non-identification based on both \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost}.
+First, for $i = 1, \ldots, K_d$, we rewrite \eqref{eq:nonidentification_demand} as
+\begin{align}
+    &\frac{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) }{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) }\\ 
+    & \quad = \frac{(1+\theta^{*})\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s})}{(1+\theta)\frac{\partial P}{\partial Q}(Q^e, X^{d}) + \theta Q^e\frac{\partial^2 P}{\partial Q^2}(Q^e, X^{d}) - \frac{\partial MC}{\partial Q}(Q^e, X^{s})}.
+\end{align}
+Note that Assumption \ref{assumption:unique_equilibrium} guarantees that the right-hand side takes a finite value.
+We also need to check that the left-hand side is well-defined, but temporarily we ignore this issue and
+assume the left-hand side has a finite value (we will discuss this point in Lemma \ref{lemma:identification_condition_separable}).
+Then, by rearranging this equation based on the derivative of $MC$ and $MC^{*}$ with respect to $Q$ at the equilibrium quantity, we have for $i = 1, \ldots, K_d$,
+\begin{align}
+    \frac{\partial MC^{*}}{\partial Q}(Q^e, X^{s}) =D_i(Q^e, X^{d}) + C_i(Q^e, X^{d})\frac{\partial MC}{\partial Q}(Q^e, X^{s}),\label{eq:mc_transformation_quantity}
+\end{align}
+where $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ are defined as
+\begin{align}
+    C_i(Q, X^{d}) \equiv \frac{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) }{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) },\label{eq:ratio_marginal_revenue}
+\end{align}
+and
+\begin{align}
+    &D_i(Q, X^{d})\\
+    &\equiv\frac{(\theta^{*} - \theta)\Bigg[\left(\frac{\partial P}{\partial Q}(Q, X^{d}) + Q\frac{\partial^2 P}{\partial Q^2}(Q, X^{d})\right) \frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) - Q \frac{\partial P}{\partial Q}(Q, X^{d}) \frac{\partial^2 P}{\partial X^{d}_i\partial Q}(Q, X^{d}) \Bigg]}{\frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d})}.\label{eq:intercation_derivative_demand}
+\end{align}
+
+%This can be more simplified as (we suppress the arguments of the functions for brevity),
+%\begin{align}
+    %&(1+ \theta^{*})\frac{\partial P}{\partial Q} + \theta^{*} Q\frac{\partial^2 P}{\partial Q^2} - \frac{\frac{\partial P}{\partial X^{d}_i} + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q} }{\frac{\partial P}{\partial X^{d}_i} + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q} }\left[(1+ \theta) \frac{\partial P}{\partial Q} + \theta Q\frac{\partial^2 P}{\partial Q^2}\right]\\
+    %&= \frac{1}{\frac{\partial P}{\partial X^{d}_i} + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}Q}\left[\left((1 + \theta^{*}) \frac{\partial P}{\partial Q} + \theta^{*} Q\frac{\partial^2 P}{\partial  Q^2}\right)\left(\frac{\partial P}{\partial X^{d}_i} + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}\right)\right]\\
+    %&\quad - \frac{1}{\frac{\partial P}{\partial X^{d}_i} + \theta\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}Q}\left[\left( (1 + \theta) \frac{\partial P}{\partial Q} + \theta Q\frac{\partial^2 P}{\partial Q^2}\right)\left(\frac{\partial P}{\partial X^{d}_i} + \theta^{*} Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}\right)\right]\\
+    %& = 
+%\end{align}
+
+
+
+Next, \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost} imply that for $i = 1, \ldots, K_d$ and $j = 1, \ldots, K_s$,
+\begin{align}
+    \lambda(Q^e, X^{d}, X^{s}) =  \frac{\frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s})}{\frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s})} =  \frac{\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta^{*} Q^e\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d}) }{\frac{\partial P}{\partial X^{d}_i}(Q^e, X^{d}) + \theta Q^e\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q^e, X^{d})},
+\end{align}
+and from the second equality, we have for $i = 1, \ldots, K_d$ and $j = 1, \ldots, K_s$,
+\begin{align}
+    \frac{\partial MC^{*}}{\partial X^{s}_j}(Q^e, X^{s}) = C_i(Q^e, X^{d})\frac{\partial MC}{\partial X^{s}_j}(Q^e, X^{s}).\label{eq:mc_transformation_cost_shifter}
+\end{align}
+Because \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} come from \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost}, they are also the necessary conditions for non-identification.
+Note that \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} can be regarded as transformations of the derivative of $MC$ and $MC^{*}$ with respect to $Q$ and $X^{s}$ at the equilibrium quantity.
+
+In other words, if we can find two different marginal cost functions $MC$ and $MC^{*}$ that leads to observable equivalence, $MC^{*}$ should be a transformation of $MC$.
+Now, the right-hand side of both equations include $C_i(Q^e, X^{d})$ and $D_i(Q^e, X^{d})$, which are functions of $Q^e$ and $X^{d}$.
+In contrast, the left-hand side of both equations does not depend on $Q^e$ and $X^{d}$, which implies $MC^{*}$ should depend on the demand shifter $X^{d}$, which is not allowed by Assumption \ref{assumption:exclusive_shifters}.
+This reflects the intuition in Figure \ref{fig:identification_example}.
+Therefore, to have a valid marginal cost function $MC^{*}$, $C_i$ and $D_i$ should be independent of $X^{d}$.
+
+
+
+First, while Lau uses only \eqref{eq:nonidentification_marginal_cost} which is the derivative with respect to $X^{s}$, this characterization uses the relationship between $MC$ and $MC^{*}$ with respect to both $Q$ and $X^{s}$.
+
+Second, this characterization can restrict the form of the inverse demand function that leads to non-identification.
+Note that \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} imply that given any conduct parameters $\theta$ and $\theta^{*}$, and a marginal cost function $MC$, marginal cost function $MC^{*}$ can be constructed based on \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter}.
+However, \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} do not necessary leads to a valid marginal cost function because $C_i(Q^e, X^{d})$ and $D_i(Q^e, X^{d})$ are functions of $Q^e$ and $X^{d}$.
+Therefore, the left-hand side of \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} can be a function of $X^{d}$.
+However, this violates the Assumption \ref{assumption:exclusive_shifters} that $X^{d}$ is a vector of exclusive demand shifters.
+Therefore, to have a valid marginal cost function $MC^{*}$, $C_i$ and $D_i$ should be independent of $X^{d}$.
+Additionally, while we index $C_i$ and $D_i$ by $i$, the change in $X^{d}_i$ should not affect the change in $MC^{*}$.
+
+
+
+
+To see characterizes the inverse demand function under which $C_i$ and $D_i$ are independent of $X^{d}$, we take the derivative of $C_i$ and $D_i$ with respect to $X^{d}$ and set it to zero.
+To do this, we need the following assumption:
+\begin{assumption}\label{assumption:three_times_differentiable}
+    The inverse demand function is three times continuously differentiable.
+    The marginal cost function is twice continuously differentiable.
+\end{assumption}
+This assumption puts a stronger restriction on the inverse demand function than Assumption \ref{assumption:twice_differentiable}.
+However, this is necessary for the investigation because $C_i$ and $D_i$ already include second-order derivatives of the inverse demand function.
+Another justification for this assumption is that recall that if we want to follow the argument in \citet{lau1982identifying} to construct a transformation between $MC$ and $MC^{*}$, we need to require that $\lambda(Q^e, X^{d}, X^{s})$ is independent of $X^{d}$.
+In this case, as $\lambda(Q^e, X^{d}, X^{s})$ includes second-order derivatives of the inverse demand function, the three-times differentiability of the inverse demand function is also necessary for the investigation.
+
+Of course, Proposition \ref{proposition:nonidentification_charaterization} requires twice-continuously differentiability.
+To get a transformation $T$ between $MC$ and $MC^{*}$, Lemma \ref{lemma_1_GU} requires twice-continuously differentiability on the marginal cost functions.
+However, because this way does not work, to move forward, it is not surprising that we need to assume three-times differentiability on the inverse demand function.
+
+
+
+
+So far, we have implicitly assumed that $C_i$ and $D_i$ have finite values.
+However, this is not always the case because the denominator of \eqref{eq:ratio_marginal_revenue} can be zero and hence $C_i$ and $D_i$ take infinite values.
+When this happens, \eqref{eq:mc_transformation_quantity} and \eqref{eq:mc_transformation_cost_shifter} are not satisfied, which implies that the conduct parameter and the marginal cost function are identified.
+In fact, the condition that the denominator of \eqref{eq:ratio_marginal_revenue} is not zero restricts the class of inverse demand functions that always leads to identification.
+\begin{lemma}\label{lemma:identification_condition_separable}
+    When $\theta \ne 0$, $C_i$ and $D_i$ are not well-defined because the denominator of \eqref{eq:ratio_marginal_revenue} is zero, that is, 
+    \begin{align}
+        \frac{\partial P}{\partial X^{d}_i}(Q, X^{d}) + \theta Q\frac{\partial^2 P}{\partial X^{d}_{i}\partial Q}(Q, X^{d}) = 0. \label{eq:identification_condition_separable}
+    \end{align}
+    Therefore, under this inverse demand function, the conduct parameter and the marginal cost function are identified.
+    Let $\mathcal{I}$ be the set of demand shifters where \eqref{eq:identification_condition_separable} holds.
+    Then, \eqref{eq:identification_condition_separable} leads to the inverse demand function such that
+    \begin{align}
+        P(Q, X^{d}) = Q^{-\frac{1}{\theta}}h(X^{d}) + k(Q, X^{d}_{-\mathcal{I}}), \label{eq:identification_separable_demand}
+    \end{align}
+    where $X^{d}_{-\mathcal{I}}$ is the vector of demand shifters whose index is not in $\mathcal{I}$.
+    The numerator of \eqref{eq:ratio_marginal_revenue} is always nonzero under \eqref{eq:identification_separable_demand}.
+\end{lemma}
+See Appendix \ref{appendix:proof} for the proof.
+Note that \eqref{eq:identification_condition_separable} can be rewritten as
+\begin{align}
+    \frac{\partial }{\partial X^{d}_i}\left( P(Q, X^{d}) + \theta Q \frac{\partial P}{\partial Q}(Q, X^{d})\right) = 0,
+\end{align}
+which is the derivative of the marginal revenue under $\theta$ with respect to $X^{d}_i$.
+Thus, \eqref{eq:identification_condition_separable} implies that the marginal revenue is not affected by $X^{d}_i$.
+Additionally, the equilibrium condition \eqref{eq:foc_alpha} becomes
+\begin{align}
+    k(Q, X^{d}_{-\mathcal{I}}) + \theta Qk'(Q, X^{d}_{-\mathcal{I}}) = MC(Q, X^{s}),
+\end{align}
+which implies that the equilibrium quantity is not affected by the change in $X^{d}_i$.
+Therefore, under \eqref{eq:identification_separable_demand}, all demand shifters whose index is in $\mathcal{I}$ work as a demand rotation instrument when the conduct parameter is $\theta$.
+On the other hands, for any other conduct parameter $\theta^{*}$, the marginal revenue is always affected by $X^{d}_i$.
+Therefore, the observable equivalence is always violated.
+
+
+
+
+
+
+
+Now, given that \eqref{eq:identification_condition_separable} does not hold, we characterize the class of inverse demand functions that makes $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ independent of $X^{d}$.
+\begin{proposition}\label{proposition:nonidentification_inverse_demand}
+    Non-identification of the conduct parameter and the marginal cost function implies that $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ are independent of $X^{d}$ and \eqref{eq:identification_condition_separable} does not hold for any $i = 1, \ldots, K_d$.
+    This holds if and only if the inverse demand function is given as
+    \begin{align}
+        P(Q, X^{d}) = Q^{\alpha_1}h(X^{d}) + k(Q). \label{eq:nonidentification_inverse_demand}
+    \end{align}
+    where $\alpha_1 \in \mathbb{R}$ is a constant but not $\alpha_1 = -\frac{1}{\theta}$, and $h(\cdot)$ and $k(\cdot)$ are twice continuously differentiable functions.
+\end{proposition}
+See Appendix \ref{appendix:proof} for the proof.
+When $\alpha_1 \ne 0$, the demand shifter changes only the slope of the inverse demand function, but not the intercept.
+When $\alpha_1 = 0$, the demand shifter changes only the intercept of the inverse demand function, but not the slope.
+Therefore, we cannot have any demand shifter that works as a demand rotation instrument under \eqref{eq:nonidentification_inverse_demand}.
+This result emphasizes the idea of \citet{bresnahan1982oligopoly} that demand rotation instrument is a key to identify the conduct parameter and the marginal cost function even in more general settings.
+In contrast to Theorem \ref{theorem_lau}, this result implies that there are inverse demand functions under which the conduct parameter and the marginal cost function are identified when the demand shifter is a scalar.
+
+\begin{example}\label{example:linear_demand}
+    The inverse demand \eqref{eq:demand_counterexample} does not satisfy \eqref{eq:nonidentification_inverse_demand}, and the transformation \eqref{eq:mc_transformation_quantity} is given as
+    \begin{align}
+        \frac{\partial MC^{*}}{\partial Q}(Q, X^{s}) = (\theta^{*} - \theta)(-\alpha_1 + \alpha_3X^{d}) +  \frac{\alpha_2 + \theta\alpha_3Q}{\alpha_2 + \theta^{*}\alpha_3Q}\frac{\partial MC}{\partial Q}(Q, X^{s}).
+    \end{align}
+    This implies that any new marginal cost function $MC^{*}$ that is observationally equivalent to the given marginal cost function $MC$ should depend on the demand shifter.
+    Figure \ref{fig:identification_example} considers the case with linear marginal cost function, but this intuition holds for any marginal cost function $MC$.
+\end{example}
+
+
+\subsubsection{Sufficient Condition for Non-identification}
+
+Now, we move to the sufficient condition.
+Suppose that we have a transformation $T$ of the marginal revenue and the marginal cost under $(\theta, MC)$ and $(\theta^{*}, MC^{*})$:
+\begin{align}
+    P(Q, X^{d}) + \theta^{*} Q \frac{\partial P}{\partial Q}(Q, X^{d}) = T\left(P(Q, X^{d}) + \frac{\partial P}{\partial Q}(Q, X^{d}), Q\right)
+\end{align}
+and
+\begin{align}
+    MC(Q, X^{s}) = T\left(MC(Q, X^{s}), Q\right).
+\end{align}
+Then, when an equilibrium quantity $Q^e$ satisfies the equilibrium condition under $(\theta, MC)$, $Q^e$ also satisfies the equilibrium condition under $(\theta^{*}, MC^{*})$ because by using the transformation, we have that
+\begin{align}
+    T\left(P(Q^e, X^{d}) + \theta Q^e \frac{\partial P}{\partial Q}(Q^e, X^{d}), Q^e\right)&= T\left(MC(Q^e, X^{s}), Q^e\right)\\
+    P(Q^e, X^{d}) + \theta^{*} Q^e \frac{\partial P}{\partial Q}(Q^e, X^{d})&= MC^{*}(Q^e, X^{s}).
+\end{align}
+This implies that given a conduct parameter $\theta$ and a marginal cost function $MC$, for any conduct parameter $\theta^{*}$, we can construct a new marginal cost function $MC^{*}$ and transform the marginal revenue under $\theta$ to the marginal revenue under $\theta^{*}$ so that observable equivalence holds between $(\theta, MC)$ and $(\theta^{*}, MC^{*})$.
+Therefore, we are interested in whether \eqref{eq:nonidentification_inverse_demand} can lead to such a transformation.
+In fact, \eqref{eq:mc_transformation_quantity} can give us the transformation under \eqref{eq:nonidentification_inverse_demand}, which implies that the inverse demand function \eqref{eq:nonidentification_inverse_demand} can lead to non-identification.
+We state this result as a proposition and the proof is given in Appendix \ref{appendix:proof}:
+\begin{proposition}\label{proposition:sufficient_nonidentification}
+    Suppose that $\alpha_1 \ne -\frac{1}{\theta}$. The inverse demand function \eqref{eq:nonidentification_inverse_demand} is a sufficient condition for non-identification of the conduct parameter and the marginal cost function.
+\end{proposition}
+
+
+
+\subsubsection{Main Result and Discussion}
+
+In summary, by combining Proposition \ref{proposition:nonidentification_inverse_demand} and Proposition \ref{proposition:sufficient_nonidentification}, we have the following theorem:
+\begin{theorem}\label{theorem:identification_characterization}
+    Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:unique_equilibrium}, and \ref{assumption:three_times_differentiable}, the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is given as \eqref{eq:nonidentification_inverse_demand} but not $\alpha_1 = -\frac{1}{\theta}$.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Conclusion and Discussion}
-
-We present a counterexample to \citet{lau1982identifying}'s identification result, separability does not imply non-identification.
-Our finding is that even though non-identification implies the separability of the inverse demand function, the class of separable inverse demand functions that leads to non-identification is more restricted than the class considered in \citet{lau1982identifying}.
-
-Based on the recent literature on distinguishing firm conduct, this result is not surprising.
-For example, in the differentiated product environment, \citet{berry2014identification}  use a broader variation in markets to distinguish conduct beyond demand rotation.
-In our counterexample, to violate observable equivalence, we need a variation in $X^{d}$ and $X^{s}$ that leads to a specific equilibrium quantity.
-Of course, homogeneous product settings are more restricted than differentiated product settings, but it sounds too strong to claim that any separable demand function is a necessary and sufficient condition for non-identification of the conduct parameter.
-Rather, even though the true inverse demand function is separable, the variation in markets may help to identify the conduct parameter.
-
-In this note, we have not investigated the exact class of separable inverse demand functions that leads to non-identification of the conduct parameter.
-However, in practice, this does not matter much because to estimate the conduct parameter, the researcher uses a parametric assumption on the inverse demand function and the marginal cost function (e.g., \citet{okazaki2022excess} and \citet{matsumura2024loglinear}).
-Even though the researcher wants to non-parametrically estimate the marginal cost function, at least a non-separable demand function leads to the identification of the conduct parameter.
-
-\paragraph{Acknowledgments}
-This work is based on the third chapter of the doctoral dissertation of the first author, submitted to the Rice University.
-We thank Jeremy Fox for his invaluable comments and suggestions.
-This work was supported by JST ERATO Grant Number JPMJER2301, Japan.  
 
 
 \bibliographystyle{aer}
@@ -709,13 +675,17 @@ This work was supported by JST ERATO Grant Number JPMJER2301, Japan.
 \numberwithin{assumption}{section}
 \numberwithin{claim}{section}
 
+\begin{center}
+\huge\textbf{Appendix}
+\end{center}
+\vspace{1mm}
 
 \section{Omitted Proofs}\label{appendix:proof}
 In this section, we provide the proofs of the lemmas and theorems in the main text.
 In what follows, we suppress the arguments of functions when no confusion arises.
 
 
-\subsection{Proof of Proposition \ref{proposition:non-identification_charaterization}}
+\subsection{Proof of Proposition \ref{proposition:nonidentification_charaterization}}
 Assume that given $X^{d}$ and $X^{s}$, we can solve the equilibrium condition for the equilibrium quantity $Q^e$.
 For notational simplicity, we define
 \begin{align}
@@ -852,13 +822,13 @@ By Assumption \ref{assumption:exclusive_shifters}, we have $h_i(X^d) \ne 0$.
 Therefore, as $\theta \ne \theta^{*}$, the numerator is nonzero, which implies that $C_i = \infty$.
 
 
-\subsection{Proof of Proposition \ref{proposition:non-identification_inverse_demand}}
+\subsection{Proof of Proposition \ref{proposition:nonidentification_inverse_demand}}
 
 
 Because $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ should be independent of $X^{d}$ simultaneously, we can first characterize the class of inverse demand functions that make $C_i(Q, X^{d})$ independent of $X^{d}$.
 Then, we characterize the class of inverse demand functions that make $D_i(Q, X^{d})$ independent of $X^{d}$ by substituting the derived inverse demand function into $D_i(Q, X^{d})$.
 
-\subsubsection*{Step 1}
+\subsubsection*{Step 1: Necessity for $C_i$ is independent of $X^{d}$}
 When $C_i(Q, X^{d})$ is independent of $X^{d}$, the derivative of $C_i(Q, X^{d})$ with respect to $X^{d}$ is zero.
 Let $u_i(Q, X^{d}) \equiv \frac{\partial P}{\partial X^{d}_i}(Q, X^{d})$.
 Then, the derivative of $C_i$ with respect to $X^{d}_j$ for $j = 1, \ldots, K_d$ is given by
@@ -927,9 +897,7 @@ Therefore, $P(Q, X^{d})$ must be of the form
 \end{align}
 
 
-
-
-\subsubsection*{Step 2}
+\subsubsection*{Step 2: Necessity for $D_i$ is independent of $X^{d}$}
 Next, given the inverse demand function, we further specify the form of the inverse demand function based on $D_i(Q, X^{d})$.
 By substituting the inverse demand function into $D_i(Q, X^{d})$, we have
 \begin{align}
@@ -986,16 +954,20 @@ By taking the exponential of both sides, we have
 where $\alpha_2 = \exp(a_2)$.
 In summary, when $C_i$ and $D_i$ are independent of $X^{d}$, the inverse demand function must be of the form
 \begin{align}
-    P(Q, X^{d}) = Q^{\alpha_1}h(X^{d}) + k(Q).
+    P(Q, X^{d}) = Q^{\alpha_1}h(X^{d}) + k(Q). \label{eq:inverse_demand_separable_step2}
 \end{align}
 Here, we absorb $\alpha_2$ into $h(\cdot)$.
 
 
+Recall that we require that \eqref{eq:identification_condition_separable} does not hold for any $i = 1, \ldots, K_d$.
+In Lemma \ref{lemma:identification_condition_separable}, the choice of $k(Q, X^{d}_{-\mathcal{I}})$ is arbitrary, we can set $k(Q, X^{d}_{-\mathcal{I}}) = k(Q)$ without loss of generality.
+Then, by comparing this inverse demand function with \eqref{eq:inverse_demand_separable_step2}, it is easy to see that the conduct parameter is identified when $\alpha_1 = -\frac{1}{\theta}$.
+Therefore, we need to assume that $\alpha_1 \ne -\frac{1}{\theta}$ to ensure the non-identification of the conduct parameter.
 
 
 
-
-\subsection{Proof of Proposition \ref{proposition:sufficient_nonidentification}}
+\subsubsection*{Step 3: Sufficiency}
+Now, we show that $C_i$ and $D_i$ are independent of $X^{d}$ under the inverse demand function.
 Under the inverse demand function \eqref{eq:nonidentification_inverse_demand}, $C_i(Q, X^{d})$ and $D_i(Q, X^{d})$ are given by
 \begin{align}
     C_i(Q, X^{d}) = \frac{Q^{\alpha_1}h'(X^{d}) + \theta^{*}\alpha_1Q^{\alpha_1}h'(X^{d})}{Q^{\alpha_1}h'(X^{d}) + \theta \alpha_1 Q^{\alpha_1}h'(X^{d})} = \frac{1 + \theta^{*}\alpha_1}{1 + \theta\alpha_1}.
@@ -1005,7 +977,14 @@ and
     D_i(Q, X^{d}) & = \frac{\theta^{*} - \theta}{Q^{\alpha_1} + \theta \alpha_1Q^{\alpha_1}} \left[ k'(Q)Q^{\alpha_1} + Qk''(Q) Q^{\alpha_1} - k'(Q)\alpha_1Q^{\alpha_1} \right]\\
     &= \frac{\theta^{*} - \theta}{1 + \theta\alpha_1} \left[\frac{d}{dQ}Qk'(Q)  -\alpha_1k'(Q) \right].
 \end{align}
-Then, consider a transformation of the derivative of a function $f(Q, X)$ with respect to $Q$,
+Thus, $C_i$ and $D_i$ are independent of $X^{d}$ under the inverse demand function, which implies that the inverse demand function is the necessary and sufficient condition for $C_i$ and $D_i$ to be independent of $X^{d}$.
+
+
+
+\subsection{Proof of Proposition \ref{proposition:sufficient_nonidentification}}
+
+From the proof of Proposition \ref{proposition:nonidentification_inverse_demand}, we know that $C_i$ and $D_i$ to be independent of $X^{d}$ under \eqref{eq:nonidentification_inverse_demand}.
+Then, consider a transformation of the derivative of a function $f(Q, X)$ with respect to $Q$ based on \eqref{eq:mc_transformation_quantity} such that
 \begin{align}
     T_Q\left(f(Q,X), Q\right) \equiv \frac{\theta^{*} - \theta}{1 + \theta\alpha_1}\left[\frac{d}{dQ}Qk'(Q)  -\alpha_1k'(Q) \right]+ \frac{1 + \theta^{*}\alpha_1}{1 + \theta\alpha_1} \frac{\partial f}{\partial Q}(Q, X).
 \end{align}
@@ -1028,7 +1007,7 @@ As the result, $T$ can connect the equilibrium conditions under the two models, 
 
 
 
-\section{A Summary of Goldman and Uzawa (1964)}\label{appendix:summary_goldman_uzawa}
+\section{Summary of Goldman and Uzawa (1964)}\label{appendix:summary_goldman_uzawa}
 
 Let $n$ be the number of variables and $x = (x_{1},\ldots, x_{n})$ be a vector of $n$ variables.
 Consider a partition of $X$ into $K$ parts, $\{x^1, \ldots, x^K\}$ such that $X = \bigcup_{k=1}^K x^k$ and $x^k \cap x^l = \emptyset$ for $k\ne l$.
