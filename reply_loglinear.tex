@@ -49,7 +49,7 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
-
+\usepackage{adjustbox}
 
 \title{Rebuttal to our paper ``Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification"}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University, \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{Market Design Center, Department of Economics, University of Tokyo, \href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}
@@ -70,7 +70,7 @@ Our deadline. June 30, 2025
     \begin{itemize}
         \item (Reply) We thank the reviewer for the helpful suggestion. In response, we have conducted additional simulations following the setting proposed by the reviewer. The full set of results and detailed explanations are provided in the Online Appendix. For ease of reference, we also include Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} in the main text. We add the following explanation on page 16, paragraph 3:
         
-        \textit{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} (Table 8 in the main text) demonstrates that relying solely on Constraints (10) within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. These results underscore that Constraints (10) alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions (11) and (12). In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic.}
+        \textit{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_non_constraint_bias_rmse} (Table 8 in the main text) demonstrates that relying solely on Constraints (10) and (11) within the N2SLS framework leads to severe bias, implying that only Constraints (10) and (11) cannot resolve the problem. Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} (Table 9 in the main text) demonstrates that relying solely on Constraints (9) within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. While the conduct parameter itself appears stable, this is mechanically due to the imposed domain constraint, which prevents extreme estimates by construction. These results underscore that Constraints (9) alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions (10) and (11). In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic. }
     \end{itemize}
     \item I would also encourage the authors to include at least a short discussion motivating modern use of this approach for learning about conduct. The original Bresnahan approach to conduct testing was subject to two main criticisms. The first was that it is not clear what were the implications of an estimated conduct parameter that was different from 0, 1 or 1/N (symmetric cournot). The second issue is that inference on the degree of market power should not be done without specifying underlying behavior and that if the underlying behavior was collusive, then the estimated conduct parameter typically will underestimate market power (this is the Cort’s critique). Nonetheless, taking this into account, learning more about the applicability of this method in the homogeneous goods setting for additional functional forms is probably worthwhile.
     \begin{itemize}
@@ -94,17 +94,60 @@ Our deadline. June 30, 2025
 
 
 \begin{table}[!htbp]
-  \begin{center}
-      \caption{N2SLS with Constraints (10) for the loglinear model}
-      \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} 
-      \subfloat[$\sigma=0.5$]{\input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-      \subfloat[$\sigma=1.0$]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[$\sigma=2.0$]{\input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}}
-  \end{center}
+  \centering
+  \caption{N2SLS with Constraints (10) and (11) for the loglinear model}
+  \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_non_constraint_bias_rmse} 
+
+  \text{(a) $\sigma = 0.5$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) $\sigma = 1.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_no_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) $\sigma = 2.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_no_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+
   \footnotesize
   %Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table}
 
+\begin{table}[!htbp]
+  \centering
+  \caption{N2SLS with Constraints (9) for the loglinear model}
+  \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} 
+
+  \text{(a) $\sigma = 0.5$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) $\sigma = 1.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) $\sigma = 2.0$}\\[0.5em]
+  \begin{adjustbox}{width=0.95\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \footnotesize
+  %Note: The data generating process follows \cite{matsumura2023resolving}.
+\end{table}
 
 
 
