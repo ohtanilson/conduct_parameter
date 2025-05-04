@@ -231,12 +231,16 @@ Thus, when the demand shifter is a scalar, the conduct parameter can be identifi
 As for the second point, we have a different intuition.
 Consider the following inverse demand function:
 \begin{align}
-    P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d}_1 + \alpha_3QX^{d}_1, \label{eq:demand_counterexample}
+    P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d}_1 + \alpha_3QX^{d}_1. \label{eq:demand_counterexample}
 \end{align}
-The only difference between \eqref{eq:demand_counterexample} and \eqref{eq:demand_bresnahan} is if $X^{d}_2$ is included in the demand shifter, which changes only the intercept of the inverse demand function.
-As this inverse demand function does not take the form \eqref{eq:identification_separable_demand_lau}, Theorem \ref{theorem_lau} implies that the conduct parameter is not identified because $X^{d}$ is a scalar.
-In other words, in addition to the change in $X^{d}_1$, the identification is possible because of the change in $X^{d}_2$.
-However, the role of demand rotation instrument is mostly contributed from the change in $X^{d}_1$, and hence the role of $X^{d}_2$ is almost negligible, which leads to a conflict with the result of \citet{lau1982identifying}.\footnote{For example, consider a linear marginal cost function, then we can find the path of $X^{d}_1$ that does not change the equilibrium quantity under the inverse demand \eqref{eq:demand_counterexample}.}
+Here, we exclude $X^{d}_2$ from the demand shifter, and hence the demand shifter becomes a scalar.
+But, $X^{d}_1$ works as a demand rotation instrument, and hence the inverse demand function is not separable in $X^{d}$.
+Theorem \ref{theorem_lau} implies that the conduct parameter is not identified because $X^{d}$ is a scalar.
+In other words, the identification is possible because of $X^{d}_2$.
+However, $X^{d}_1$ still works as a demand rotation insturument, and hence the role of $X^{d}_2$ is almost negligible, which leads to a conflict with the result of \citet{lau1982identifying}.\footnote{For example, consider a linear marginal cost function, then we can find the path of $X^{d}_1$ that does not change the equilibrium quantity under the inverse demand \eqref{eq:demand_counterexample}.}
+Unfortunately, Theorem \ref{theorem_lau} does not provide a clear explanation for this conflict.
+
+
 
 Now, we revisit why demand rotation works to identify the conduct parameter.
 Suppose that the inverse demand function is given by \eqref{eq:demand_counterexample} and that the true conduct is the perfect competition, that is, $\theta = 0$ and the alternative conduct is the monopoly, that is, $\theta^{*} = 1$.
@@ -413,8 +417,8 @@ Therefore, even though the demand shifter is a scalar, when it works as a demand
 
 
 Note that in Definition \ref{definition:non_identification}, non-identification requires to find two distinct pairs of conduct parameter and marginal cost function that lead to the same equilibrium quantity.
-Here, we showed only that the demand rotation breaks observable equivalence when $MC^{*}$ is a linear function, hence there is a possibility that under non-linear $MC$ and $MC^{*}$, $MC^{*}$ can achieve observable equivalence without depending on the demand shifter.
-However, hereafter, we show that this observation can be generalized, and we cannot find any marginal cost function that leads to observable equivalence under the inverse demand \eqref{eq:demand_counterexample}.
+Here, we showed only that the demand rotation breaks observable equivalence when $MC^{*}$ is a linear function, hence there is a possibility that under non-linear $MC$ and $MC^{*}$, observable equivalence can be achieved without depending on the demand shifter.
+However, hereafter, we show that we cannot find any marginal cost function that leads to observable equivalence under the inverse demand \eqref{eq:demand_counterexample}.
 
 
 
@@ -554,6 +558,14 @@ In fact, we have the following theorem:
     \end{align}
     where $\alpha_1 \in \mathbb{R}$ is a constant but not $\alpha_1 = -\frac{1}{\theta}$, and $h(\cdot)$ and $k(\cdot)$ are twice continuously differentiable functions.
 \end{theorem}
+Note that \eqref{eq:nonidentification_inverse_demand} is a separable function.
+However, our theorem tells more about under what type of separable function the non-identification holds.
+Observe that when $\alpha_1 \ne 0$, the demand shifter changes only the slope of the inverse demand function, but not the intercept, and when $\alpha_1 = 0$, the demand shifter changes only the intercept of the inverse demand function, but not the slope.
+Therefore, we cannot have any demand shifter that works as a demand rotation instrument under \eqref{eq:nonidentification_inverse_demand}, and hence the conduct parameter and the marginal cost function are not identified.
+
+This result connects to the idea of \citet{bresnahan1982oligopoly} that demand rotation instrument is a key to identify the conduct parameter and the marginal cost function even in more general settings.
+Additionally, in contrast to Theorem \ref{theorem_lau}, this result implies that there are inverse demand functions under which the conduct parameter and the marginal cost function are identified when the demand shifter is a scalar.
+
 
 
 \subsubsection{Necessary Condition for Non-identification}
@@ -605,11 +617,6 @@ Now, given that \eqref{eq:identification_condition_separable} does not hold, we 
     This holds if and only if the inverse demand function is given as \eqref{eq:nonidentification_inverse_demand}.
 \end{proposition}
 See Appendix \ref{appendix:proof} for the proof.
-When $\alpha_1 \ne 0$, the demand shifter changes only the slope of the inverse demand function, but not the intercept.
-When $\alpha_1 = 0$, the demand shifter changes only the intercept of the inverse demand function, but not the slope.
-Therefore, we cannot have any demand shifter that works as a demand rotation instrument under \eqref{eq:nonidentification_inverse_demand}.
-This result emphasizes the idea of \citet{bresnahan1982oligopoly} that demand rotation instrument is a key to identify the conduct parameter and the marginal cost function even in more general settings.
-In contrast to Theorem \ref{theorem_lau}, this result implies that there are inverse demand functions under which the conduct parameter and the marginal cost function are identified when the demand shifter is a scalar.
 
 \begin{example}\label{example:linear_demand}
     The inverse demand \eqref{eq:demand_counterexample} does not satisfy \eqref{eq:nonidentification_inverse_demand}, and the transformation \eqref{eq:mc_transformation_quantity} is given as
