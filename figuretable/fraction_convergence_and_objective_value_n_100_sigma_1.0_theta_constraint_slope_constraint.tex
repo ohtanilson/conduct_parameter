@@ -1,16 +1,20 @@
 \begin{table}
-
-\caption{\label{tab:unnamed-chunk-14}Fraction of convergence and smaller GMM objective value ($T=100,\sigma=1.0$)}
 \centering
-\begin{tabular}[t]{lrr}
+\begin{talltblr}[         %% tabularray outer open
+caption={Fraction of convergence and smaller GMM objective value (\$T=100,\textbackslash{}sigma=1.0\$)},
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]Q[]},
+column{1}={}{halign=l,},
+column{2,3}={}{halign=r,},
+}                     %% tabularray inner close
 \toprule
-classification & N & \%\\
-\midrule
-Both converged, different sol, MPEC has lower obj & 378 & 37.8\\
-Both converged, different sol, N2SLS has lower obj & 246 & 24.6\\
-Both converged, different sol, same obj & 16 & 1.6\\
-Both converged, same sol & 356 & 35.6\\
-MPEC only converged & 4 & 0.4\\
+classification & N & \% \\ \midrule %% TinyTableHeader
+Both converged, different sol, MPEC has lower obj  & 378 & 37.8 \\
+Both converged, different sol, N2SLS has lower obj & 246 & 24.6 \\
+Both converged, different sol, same obj            & 16  & 1.6  \\
+Both converged, same sol                           & 356 & 35.6 \\
+MPEC only converged                                & 4   & 0.4  \\
 \bottomrule
-\end{tabular}
+\end{talltblr}
 \end{table}
