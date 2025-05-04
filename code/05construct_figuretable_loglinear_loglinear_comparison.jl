@@ -4,10 +4,10 @@ parameter = market_parameters_log()
 estimation_methods = [(:separate,:non_constraint, :non_constraint), (:separate,:log_constraint, :theta_constraint), (:simultaneous,:non_constraint, :non_constraint), (:simultaneous,:log_constraint, :theta_constraint)];
 
 #-----------------------------------------------------------------------------------------
-# Draw histograms of the estimation reuslt of θ 
+# Draw histograms of the estimation results of θ 
 #-----------------------------------------------------------------------------------------
 for estimation_method = estimation_methods
-    for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
+    for t = [100, 200, 1000, 1500], sigma = [0.5, 1, 2]
 
         @unpack θ = parameter
         if sigma == 1 || sigma == 2
@@ -61,11 +61,20 @@ for estimation_method = estimation_methods
     end
     println("----------------------------------------------------------------")
 end
+
+
+
+
 #-----------------------------------------------------------------------------------------
-# Draw the contour figure for each simulation setting
+
+## Draw the contour figure for each simulation setting
+
 #-----------------------------------------------------------------------------------------
-for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
-    @unpack θ, γ_0 = parameter
+
+
+
+for t = [100, 200, 1000, 1500], sigma = [0.5, 1, 2]
+    (;θ_0, γ_0) = parameter
 
     if sigma == 1 || sigma == 2
         sigma = Int64(sigma)
@@ -85,15 +94,17 @@ for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
     data = DataFrames.sort(data, [:group_id_k])
     data = data[1:t,:]
 
+    display(data)
+
     theta_range = [-2:0.01:0.7;] 
-    gamma_range = [-10:0.01:10;]
+    gamma_range = [-20:0.05:20;]
 
     contour_gmm = generate_contour_set_of_GMM(parameter, data, theta_range, gamma_range);
     plot_contour = Plots.plot(
         contour(theta_range, gamma_range, contour_gmm,
         xlabel="θ", ylabel="γ_0",
         title="T =$t, σ = $sigma"))
-        vline!([θ], linestyle=:dash, label = "true θ")
+        vline!([θ_0], linestyle=:dash, label = "true θ")
         hline!([γ_0], linestyle=:dash, label = "true γ_0")
 
     filename_begin = "../conduct_parameter/figuretable/contour_loglinear_loglinear_n_"
@@ -104,9 +115,9 @@ for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
 end
 
 #-----------------------------------------------------------------------------------------
-# Draw the picture for each simulation setting
+## Draw the picture for each simulation setting
 #-----------------------------------------------------------------------------------------
-for t = [50, 100, 200, 1000], sigma = [0.001, 0.5, 1, 2]
+for t = [100, 200, 1000, 1500], sigma = [0.5, 1, 2]
     @unpack θ, γ_0, S = parameter
 
     if sigma == 1 || sigma == 2
