@@ -62,7 +62,8 @@
 \maketitle
 \begin{abstract}
     We propose a constrained generalized method of moments (GMM) estimator with some equilibrium uniqueness conditions for estimating the conduct parameter in a log-linear model with homogeneous goods markets.
-    We demonstrate that Monte Carlo simulations of a log-linear model resolves the problems of implausibly low or negative values of conduct parameters when the equilibrium uniqueness conditions are imposed.
+    Monte Carlo simulations demonstrate that merely imposing parameter restrictions leads to not just inaccurate estimations but also some numerical issues, and adding the equilibrium uniqueness conditions resolves them.
+    We also suggest a formulation of the GMM estimation to further avoid the numerical issues.
 \end{abstract}
 
 \noindent\textbf{Keywords:} Conduct parameters, Homogeneous Goods Market, Mathematical Programming with Equilibrium Constraints, Monte Carlo simulation
@@ -72,9 +73,11 @@
 
 \bigskip
 
+\newpage
 
 \section{Introduction}
-Measuring competitiveness is a crucial task in the empirical industrial organization literature.
+\begin{comment}
+    Measuring competitiveness is a crucial task in the empirical industrial organization literature.
 Conduct parameter is considered a useful measure of competitiveness. 
 However, it cannot be directly measured from data because data usually lack information about marginal cost.
 Therefore, researchers aim to identify and estimate the conduct parameter.
@@ -87,9 +90,22 @@ This raises doubts about the methodology and is an obstacle to choosing a better
 
 To overcome the problem, we propose a constrained generalized method of moments (GMM) estimator incorporating theoretical conditions for the unique existence of equilibrium as constraints. 
 First, we prove that a unique equilibrium exists under certain conditions, which is new to the literature as far as we know.
-Second, we implement several Monte Carlo simulations and demonstrate that incorporating the equilibrium uniqueness conditions leads to accurate estimation results. 
+Second, we implement several Monte Carlo simulations and demonstrate that merely imposing parameter restrictions leads to not just inaccurate estimations but also some numerical issues, and adding the equilibrium uniqueness conditions resolves them.
+We also suggest a formulation of the GMM estimation to further avoid these numerical issues.
+\end{comment}
 
 
+Measuring competitiveness is central in empirical IO, and the conduct parameter is a widely used proxy.
+Since marginal cost is typically unobserved, researchers identify and estimate the conduct parameter indirectly.
+
+\citet{bresnahan1982oligopoly} develops an identification strategy under linear demand and marginal cost, and \citet{matsumura2023resolving} provide detailed conditions for this case.
+Yet, empirical work often employs log-linear models \citep{okazaki2022excess,merel2009measuring}, which tend to produce implausibly low or negative estimates, even though identification conditions for general models are available from \citet{lau1982identifying}.
+This casts doubt on the methodology and complicates model selection.
+
+We address this by proposing a constrained GMM estimator that incorporates theoretical conditions for the uniqueness of equilibrium.
+First, we derive new conditions guaranteeing a unique equilibrium.
+Second, Monte Carlo simulations show that parameter restrictions alone yield inaccurate estimates and numerical errors, while adding equilibrium conditions resolves them.
+We also propose a modified GMM formulation that further mitigates these issues.
 
 \section{Model}
 Consider data with $T$ markets with homogeneous products.
@@ -97,7 +113,7 @@ Assume there are $N$ firms in each market.
 Let $t = 1,\ldots, T$ be the index of markets.
 Then, we obtain the supply equation:
 \begin{align}
-     P_t = -\theta P_t'(Q_{t})Q_{t} + MC_t(Q_{t}),\label{eq:supply_equation}
+     P_t + \theta Q_{t} P_t'(Q_{t})= MC_t(Q_{t}),\label{eq:supply_equation}
 \end{align}
 where $Q_{t}$ is the aggregate quantity, $P_t(Q_{t})$ is the inverse demand function, $MC_{t}(Q_{t})$ is the marginal cost function, and $\theta\in[0,1]$ is the conduct parameter. 
 The equation nests perfect competition $(\theta=0)$, Cournot competition $(\theta=1 / N)$, and perfect collusion $(\theta=$ $1)$. See \citet{bresnahan1982oligopoly} for the details.
@@ -118,8 +134,11 @@ The identification of the conduct parameter is indirectly characterized by \cite
     Under the assumption that the industry inverse demand and cost functions are twice continuously differentiable, the index of competitiveness $\theta$ cannot be identified from data on industry price and output and other exogenous variables alone if and only if the industry inverse demand function is separable in $X^{d}$, that is, $f(Q, r(X^{d}))$, but not take the form $P = Q^{-1/\theta}r(X^{d}) + s(Q)$.
 \end{theorem}
 This theorem implies that the conduct parameter is identified if the inverse demand function is not separable.
-For example, introducing a demand rotation instrument proposed in \citet{bresnahan1982oligopoly} makes an inverse demand function non-separable.
-See Appendix \ref{appendix:summary_goldman_uzawa} for the details.
+A demand rotation instrument \citep{bresnahan1982oligopoly} achieves this.
+\begin{comment}
+    For example, introducing a demand rotation instrument proposed in \citet{bresnahan1982oligopoly} makes an inverse demand function non-separable.
+\end{comment}
+See Appendix \ref{appendix:summary_goldman_uzawa} for the details of the definition of separability.
 
 
 \subsection{Log-linear demand and log-linear marginal cost}
@@ -184,7 +203,7 @@ The proof is in the online appendix \ref{sec:appendix_proof}.
 Let $\xi = (\alpha_0,\alpha_1, \alpha_2, \alpha_3, \gamma_0,\gamma_1, \gamma_2, \gamma_3, \theta)$ be the vector of the parameters in the model. 
 We use the GMM for the estimation.
 Among GMM estimators, we apply the nonlinear system two-stage-least-squares (N2SLS) using \eqref{eq:log_linear_demand} and \eqref{eq:log_linear_supply_equation}.
-Note that we can rewrite the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation} as
+We rewrite the demand equation \eqref{eq:log_linear_demand} and the supply equation \eqref{eq:log_linear_supply_equation} as
 \begin{align}
     {\varepsilon}_t^d(\xi) & =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t \label{eq:residual_demand_2sls}, \\
     {\varepsilon}_t^c(\xi) & =  \log P_t + \log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t})) -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t \label{eq:residual_supply_2sls}.
@@ -208,47 +227,58 @@ where the weight matrix $W$ is defined as
         0 & Z_{t}^{c\top}
     \end{array}\right].\label{eq:weight_matrix}
 \end{align}
-While the above estimator has been used in the literature, the resulting estimator converges to an implausibly low or negative value.
-This is because the log specification leads to a very flat objective function, and hence the algorithm searches the area in which no equilibrium exists and finds unreasonable local optima.
-The details are explained in Appendix \ref{appendix:implausible_estimator}.
 
-To overcome the problem, we add the following constraints based on Proposition \ref{prop:equilibrium_existence} to \eqref{eq:minimization_gmm}:
+We also add the following constraints based on Proposition \ref{prop:equilibrium_existence} to \eqref{eq:minimization_gmm}:
 \begin{align}
     &0\le\theta \le 1,\label{eq:conduct_constraint}\\
     &\alpha_1 + \alpha_2 Z_{t}^{R} >0, \quad \gamma_1>0 ,\quad t = 1,\ldots, T\label{eq:slope_constraint}\\
     &1- \theta(\alpha_1 + \alpha_2 Z_{t}^{R}) >0,\quad t = 1,\ldots, T.\label{eq:equilibrium_existence}
 \end{align}
 Constraint \eqref{eq:conduct_constraint} is a standard assumption on the conduct parameter.
-Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} relate to the uniqueness of equilibrium prices. 
-Constraint \eqref{eq:slope_constraint} implies the downward-sloping demand and upward-sloping marginal cost. 
+Constraint \eqref{eq:slope_constraint} implies the downward-sloping demand and upward-sloping marginal cost, which guarantees that $\gamma_1 + \alpha_1 + \alpha_2 Z^{R} \ne 0$.
+Constraint \eqref{eq:equilibrium_existence} relates to the uniqueness of equilibrium. 
 See the detailed simulation setting in the online appendix \ref{sec:setting}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 \section{Simulation results}\label{sec:results}
 
-We compare N2SLS estimation with and without the constraints.
-Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} presents the results, and we can see that N2SLS with constraints converges to reasonable values. 
-As the sample size increases, the bias and root-mean-square error (RMSE) decrease to levels comparable to linear models.
+\begin{comment}
+    We compare N2SLS estimation with and without the constraints in Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}.
+In Panel (a), N2SLS fails to accurately estimate the intercept of the log marginal cost  $\gamma_0$ and the conduct parameter.
+This replicates the observations in the literature.
+The reason is that the log specification leads to a very flat objective function, and hence the algorithm searches the area in which no equilibrium exists and finds unreasonable local optima.
+The details are explained in Appendix \ref{appendix:implausible_estimator}.
 
-We also find an ad hoc method that uses Equation \eqref{eq:log_linear_marginal_cost} to compute the residual in the supply estimation, $\varepsilon_{t}^c$, and Equation \eqref{eq:log_linear_supply_equation_direct} as an equality constraint with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}. 
-Then, the bias and RMSE of conduct parameter $\theta$ are reduced to 0.014 and 0.217 in Panel (c), although the results do not dominate the results in Panel (b) for all parameters.
-Therefore, incorporating equilibrium existence and uniqueness conditions is helpful for the conduct parameter estimation in nonlinear models such as a log-linear model.
+Panel (b) uses Constraint \eqref{eq:conduct_constraint} and shows a drastic improvement in the estimation of $\gamma_0$ and $\theta$ and the run convergence in the large sample cases mechanically due to the imposed domain constraint.\footnote{Note that relying solely on Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} within the N2SLS framework leads to severe bias, implying that only Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} cannot resolve the problem. See Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_slope_constraint_bias_rmse} in the online appendix \ref{sec:additional_experiments}.} 
+However, the accuracy of the demand parameter becomes worse in the small sample cases, and the run convergence rate is also decreased.
+Especially, we found that when the optimization does not converge, $\alpha_1$ becomes large, and hence $1 - \theta(\alpha_1 + \alpha_2 Z^{R}_t)$ becomes negative for some $t$.
+The optimization then encounters a numerical error because the term appears inside the log expression in \eqref{eq:supply_equation}.
+
+In Panel (c), we add the equilibrium conditions \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence}.
+We can see that in small samples, the convergence rate and the accuracy of the demand parameter estimation are improved, but still, there are some cases where the optimization does not converge.
+As for the large sample, the N2SLS with all constraints outperforms the N2SLS with Constraint \eqref{eq:conduct_constraint} in some parameters.
+
+To avoid the problem of the run convergence, we suggest an alternative formulation.
+Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} is based on an ad hoc method where we use Equation \eqref{eq:log_linear_marginal_cost} to compute the residual in the supply estimation, $\varepsilon_{t}^c$, and Equation \eqref{eq:log_linear_supply_equation_direct} as an equality constraint with  Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}.\footnote{See the online appendix \ref{sec:setting} for the formulation of the optimization problem.}
+The advantage of this formulation is that the objective function and the constraints do not include any log terms.
+Then, the convergence rate becomes 100\% for any sample size, and the bias and RMSE of the conduct parameter $\theta$ are reduced to 0.014 and 0.217, although the results do not dominate the results in Panel (c) in Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} for all parameters.
+
+In summary, incorporating equilibrium uniqueness conditions and avoiding the log function are helpful for the conduct parameter estimation in the log-linear model.
 See online appendix \ref{sec:additional_experiments} for additional experiments under different variances of errors and the results of a linear model. 
+\end{comment}
+
+We compare N2SLS estimations with and without constraints in Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}.
+Panel (a) shows that, without constraints, the estimator fails to recover $\gamma_0$ and $\theta$, replicating known issues due to the flat objective function and invalid search regions without equilibrium (Appendix \ref{appendix:implausible_estimator}).
+Panel (b), which imposes Constraint \eqref{eq:conduct_constraint}, improves estimation in large samples via the domain restriction.\footnote{Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} alone yield severe bias; see Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_slope_constraint_bias_rmse} and Appendix \ref{sec:additional_experiments}.}
+However, in small samples, demand parameter estimates degrade and convergence declines. When convergence fails, $\alpha_1$ becomes large, rendering $1 - \theta(\alpha_1 + \alpha_2 Z^R_t) < 0$ and causing numerical errors inside the log term in \eqref{eq:supply_equation}.
+Adding constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} in Panel (c) improves small-sample convergence and demand accuracy, though convergence is not guaranteed. 
+In large samples, performance surpasses that of Panel (b) for some parameters.
+
+To address convergence failure, we propose an alternative formulation (Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}) that computes $\varepsilon^c_t$ via \eqref{eq:log_linear_marginal_cost} and enforces Equation \eqref{eq:log_linear_supply_equation_direct} as a constraint, along with Constraints \eqref{eq:conduct_constraint}–\eqref{eq:equilibrium_existence}.\footnote{See Appendix \ref{sec:setting} for details.}
+This avoids log terms in both objective and constraints, achieving 100\% convergence and reducing $\theta$'s bias and RMSE to 0.014 and 0.217, though not dominating Panel (c) across all parameters.
+In sum, incorporating equilibrium uniqueness conditions and eliminating log terms greatly improves conduct parameter estimation. Additional experiments appear in Appendix \ref{sec:additional_experiments}.
+
 
 \begin{table}[!htbp]
   \begin{center}
@@ -261,30 +291,54 @@ See online appendix \ref{sec:additional_experiments} for additional experiments 
 
   \vspace{1em}
 
-  \text{(b) N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \text{(b) N2SLS with Constraints \eqref{eq:conduct_constraint}}\\[0.5em]
   \begin{adjustbox}{width=\textwidth}
-    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}
   \end{adjustbox}
 
   \vspace{1em}
 
-  \text{(c) Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
+  \text{(c) N2SLS with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}\\[0.5em]
   \begin{adjustbox}{width=\textwidth}
-    \input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}
   \end{adjustbox}
   \end{center}
   \footnotesize
   Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0, \alpha_1=1.0, \alpha_2=0.1, \alpha_3=1.0, \gamma_0=5.0, \gamma_1=1.0, \gamma_2=1.0, \gamma_3=1.0, \theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
 \end{table}
 
+\begin{table}[!htbp]
+  \begin{center}
+  \caption{Ad hoc method using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}}
+  \label{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} 
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+  \end{center}
+  % \footnotesize
+  % Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0, \alpha_1=1.0, \alpha_2=0.1, \alpha_3=1.0, \gamma_0=5.0, \gamma_1=1.0, \gamma_2=1.0, \gamma_3=1.0, \theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
+\end{table}
 
 
-\section{Conclusion}
-We propose a constrained generalized method of moments estimator (GMM) incorporating theoretical conditions for the unique existence of equilibrium prices for estimating conduct parameters in homogeneous goods markets.
-First, we derive the conditions.
-Second, Monte Carlo simulations confirm that incorporating the conditions resolves the problems of implausibly low or negative values of conduct parameters in a log-linear model, as reported in the literature. 
 
-\textcolor{blue}{Two well-known concerns have long accompanied the conduct parameter approach: first, the difficulty in economically interpreting intermediate or extreme values of the estimated conduct parameter; and second, the critique—most notably by \cite{corts1999conduct}—that conduct estimates can severely understate the degree of market power when firms engage in collusion. In this paper, we clarify that the implausible or unstable estimates often observed in the empirical literature are not necessarily indicative of these conceptual limitations, but are instead frequently driven by numerical issues in parameter estimation, particularly when key equilibrium conditions are neglected. By resolving these computational issues, we demonstrate that a more coherent and interpretable set of estimates emerges. This distinction is important: conflating estimation artifacts with theoretical limitations may lead to unwarranted dismissal of the approach. With these issues addressed, we hope this paper motivates a more constructive discussion about the settings in which conduct parameter methods remain a useful tool for empirical analysis.}
+\section{Discussion}
+%We propose a constrained generalized method of moments estimator (GMM) incorporating theoretical conditions for the unique existence of equilibrium prices for estimating conduct parameters in homogeneous goods markets.
+%First, we derive the conditions.
+%Second, Monte Carlo simulations confirm that incorporating the conditions resolves the problems of implausibly low or negative values of conduct parameters in a log-linear model, as reported in the literature. 
+
+\begin{comment}
+    Two well-known concerns have long accompanied the conduct parameter approach: first, the difficulty in economically interpreting intermediate or extreme values of the estimated conduct parameter; and second, the critique — most notably by \cite{corts1999conduct} — that conduct estimates can severely understate the degree of market power when firms engage in collusion.\footnote{As \citet{magnolfi2022comparison} mention, Corts's critique does not apply when we assume that the data generation process is a static model for any conduct parameter values.}
+
+In this paper, we clarify that the implausible or unstable estimates in log-linear specifications, often observed in the empirical literature, are not necessarily indicative of these conceptual limitations, but are instead frequently driven by numerical issues in parameter estimation, particularly when key equilibrium conditions are neglected. 
+By resolving these computational issues, we demonstrate that a more coherent and interpretable set of estimates emerges. This distinction is important: conflating estimation artifacts with theoretical limitations may lead to unwarranted dismissal of the approach. 
+With these issues addressed, we hope this paper motivates a more constructive discussion about the settings in which conduct parameter methods remain a useful tool for empirical analysis.
+\end{comment}
+Two concerns surround the conduct parameter approach: the difficulty of interpreting intermediate or extreme values, and the critique by \citet{corts1999conduct} that it may understate market power under collusion.\footnote{As \citet{magnolfi2022comparison} note, this critique does not apply when the data stem from a static model.}
+We show that implausible estimates in log-linear models often stem from numerical issues—especially when equilibrium conditions are omitted—rather than conceptual flaws. 
+Addressing these issues yields more stable and interpretable results.
+
+This distinction matters: misattributing numerical artifacts to theoretical limits risks dismissing a useful tool. Our findings aim to encourage more constructive use of the conduct parameter approach.
+
 
 
 \paragraph{Acknowledgments}
@@ -391,7 +445,7 @@ We label the first term as (I) and the second term as (II).
 
 An important note is that $P_t =0$ satisfies $\Delta(P_{t}) = 0$.
 Thus $P_t^* = 0$ holds.
-However, our interest is a unique positive equilibrium price, so we seek conditions in which there is a unique positive price that satisfies $\Delta(P_t)>0$.
+However, our interest is a unique positive equilibrium price, so we seek conditions in which there is a unique positive price that satisfies $\Delta(P_t)=0$.
     
 When $1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \le 0$, (I) is always negative on $P_t >0$. 
 In contrast, (II) is non-negative regardless of the sign of $-\gamma_1/(\alpha_1+\alpha_2 Z^R)$ on $P_t > 0$.
@@ -408,12 +462,13 @@ Therefore, the shape of (II) on $P_t >0$ is changed based on the value of $-\gam
 The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) < 0$ is illustrated in Figure \ref{fig:fixed_monotone_decreasing}. In this case, (II) is a monotone decreasing convex function because the first and second derivatives are both negative. As (I) is monotone increasing in $P_t >0$, (I) and (II) cross only once on $P_t >0$.
 
 The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) \in [0, 1)$ is illustrated in Figure \ref{fig:fixed_concave}. In this case, (II) becomes a monotone increasing concave function passing through the origin because the first derivative is positive and the second derivative is negative.
-As the value of the first derivative is infinity at $P_t = 0$ since $-\gamma_1/(\alpha_1+\alpha_2 Z^R)-1<0$, (II) should be greater than (I) around $P_t = 0$. Then as $P_t$ becomes large starting from zero, the difference in both terms becomes small, and both terms cross only once on $P_t >0$ eventually.
+As the value of the first derivative is infinity at $P_t = 0$ since $-\gamma_1/(\alpha_1+\alpha_2 Z^R)-1<0$, (II) should be greater than (I) around $P_t = 0$. 
+Then, as $P_t$ becomes large starting from zero, the difference in both terms becomes small, and both terms cross only once on $P_t >0$ eventually.
 
 When $-\gamma_1/(\alpha_1+\alpha_2 Z^R) = 1$, \eqref{eq:fixed_point} becomes
 \[ 0 = [1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) - \exp(\Xi)] P_t. \]
 If $ 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) = \exp(\Xi)$, the above equation holds for any $P_t$. 
-Thus there are infinitely many equilibrium prices on $P_t >0$, which is illustrated in Figure \ref{fig:fixed_coinside}.
+Thus, there are infinitely many equilibrium prices on $P_t >0$, which is illustrated in Figure \ref{fig:fixed_coinside}.
 When $ 1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t}) \ne \exp(\Xi)$, there is no equilibrium price on $P_t >0$ because the right-hand side of the equation is always non-zero on $P_t >0$, which is illustrated in Figure \ref{fig:fixed_parallel}.
 
 The case $-\gamma_1/(\alpha_1+\alpha_2 Z^R) > 1$ is illustrated in Figure \ref{fig:fixed_convex}. In this case, (II) becomes a monotone increasing convex function passing through the origin because the first and second derivatives are positive. Therefore, (I) and (II) cross only once on $P_t >0$.
@@ -643,13 +698,64 @@ We use state-of-the-art constrained optimization solvers, i.e., \texttt{Ipopt.jl
     Note: $\sigma=\{0.5, 1.0, 2.0\}$. $N:$ Normal distribution. $U:$ Uniform distribution.
 \end{table}
 
+The ad-hoc estimation for Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} is formulated as follows.
+Let $\Phi = (\xi, \{MC_t\}_{t = 1,\ldots, T})$.
+Consider a constrained minimization problem such that 
+\begin{align}
+         &\Phi^{*} = \arg\min_{\Phi}\ g(\Phi)^\top W g(\Phi),\\
+\end{align}
+subject to
+\begin{align}
+     &(\Phi) = \left[\begin{array}{l}
+    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{d}_{t}(\Phi)Z_{t}^{d} \\
+    \frac{1}{T}\sum_{t=1}^T{\varepsilon}^{c}_{t}(\Phi)Z_{t}^{c}
+    \end{array}\right],\\ 
+    & {\varepsilon}_t^d(\Phi) =  \log P_{t} - \alpha_0 + (\alpha_1 + \alpha_2 Z^{R}_{t}) \log Q_t - \alpha_3 \log Y_t, \\
+    & {\varepsilon}_t^c(\Phi) =  \log MC_t -\gamma_0 - \gamma_1 \log Q_t -  \gamma_2 \log W_{t} -\gamma_3 \log R_t, \\
+    & P_{t} = \theta(\alpha_1 + \alpha_2 Z^{R}_t)P_{t} + MC_{t},\\
+    & MC_t \ge 0,
+\end{align}
+where the matrix $W$ is the same as the original N2SLS.
+
+
+
+
+
 \subsection{Why does the estimation without equilibrium conditions converge to the extremely low conduct parameters?}\label{appendix:implausible_estimator}
 
-We should interpret reasons why the estimation without equilibrium conditions converges to the negative conduct parameters, as shown in Panel (a) in Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}, although the obtained parameters cannot be interpreted as the exogenous elements determining equilibrium outcomes. 
-First, we rewrite the terms in Equation \eqref{eq:residual_supply_2sls} into $$\log(1 - \theta C_{t})-\gamma_{0}$$
-where $C_{t}=\alpha_1 + \alpha_2 Z^{R}_{t}$ is given in the demand estimation.
-If the model allows $\theta<0$, then $1 - \theta C_{t}$ can take an arbitrarily large value through log-transformation relative to $\gamma_0$. 
-For example, if $1 - \theta C_{t}=1,000,000$, then $\log(1 - \theta C_{t})=13.8$, which has a small contribution relative to $\gamma_0$ for evaluating the moment conditions.
+In the literature, it is often observed that estimation without imposing equilibrium conditions tends to converge to negative values of the conduct parameter.
+We confirm this pattern in our Monte Carlo simulations, particularly in Panel (a) of Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse}.
+To understand this phenomenon, consider the supply equation \eqref{eq:log_linear_supply_equation}, which includes the following term:
+\begin{align}
+-\log(1 - \theta (\alpha_1 + \alpha_2 Z^{R}{t})) + \gamma{0}.
+\end{align}
+If the model allows for $\theta < 0$, the term inside the logarithm can become arbitrarily large in magnitude by choosing a sufficiently negative $\theta$ when $\alpha_1 + \alpha_2 Z^{R}_{t} > 0$:
+\begin{align}
+\lim_{\theta \rightarrow -\infty} \log(1 - \theta (\alpha_1 + \alpha_2 Z^{R}_{t})) \rightarrow \infty.
+\end{align}
+However, since $\theta$ appears inside a logarithmic function, changes in $\theta$—even when large—have a relatively small impact on the GMM objective function. Moreover, the effect of changes in $\theta$ can be offset by adjusting $\gamma_0$, with only modest changes in its value.
+This implies that the GMM objective function can be very flat in the neighborhood of the true values of $\theta$ and $\gamma_0$.
+
+We verify this implication by examining the shape of the GMM objective function.
+Figure \ref{fig:gmm_contour} plots the objective function on the $\theta$–$\gamma_0$ plane, fixing all other parameters at their true values and using one simulated dataset.
+The same pattern is observed across other simulation datasets as well.
+As the figure clearly shows, the GMM objective function is nearly flat around the true value of $\gamma_0$, and it allows for a wide range of $\theta$ values, especially in the negative direction, without significantly affecting the objective function value.
+
+
+
+
+\begin{figure}
+    \begin{center}
+    \includegraphics[width=0.7\linewidth]{figuretable/contour_loglinear_loglinear_n_100_sigma_1.pdf}
+    \caption{The contour map of the GMM objective function on $\theta - \gamma_0$ plane.}
+    \label{fig:gmm_contour}    
+    \end{center}
+    \footnotesize
+    Note: We pick one simulation data where $T = 100$ and $\sigma  =1$. The GMM objective function is flat around the true values of the intercept of the log marginal cost and the conduct parameter.
+\end{figure}
+
+
+
 
 % \footnote{The expansion of $\log(1+x)$ around $x=0$ is given by: $\log(1+x) = x - (x^2)/2 + (x^3)/3 - (x^4)/4 + \cdots$. This is known as the Taylor series expansion of the natural logarithm function around $x=0$.} The second order Taylor expansion around $\theta=0$ is 
 % $$\log(1 - \theta(\alpha_1 + \alpha_2 Z^{R}_{t}))-\gamma_{0}\approx -\theta(\alpha_1 + \alpha_2 Z^{R}_{t}) - \frac{(-\theta(\alpha_1 + \alpha_2 Z^{R}_{t}))^2}{2}-\gamma_{0}$$
@@ -661,17 +767,18 @@ For example, if $1 - \theta C_{t}=1,000,000$, then $\log(1 - \theta C_{t})=13.8$
 
 Additional results for different $\sigma$ are shown in Tables \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_slope_constraint_bias_rmse} and \ref{tb:loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}. 
 As a summary, the main findings in the main text are robust.
+ 
+Table \ref{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} shows the results of the estimation with ado hoc method with different standard deviations of the error terms.
+As in Table \ref{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}, the run convergence rate becomes 100\% and the accuracy of the conduct parameter estimation is improved.
+However, again, the results with ad hoc improvement do not dominate the results without the improvement for all parameters.
 
 In Tables \ref{tb:linear_linear_sigma_1} and  \ref{tb:linear_linear_sigma_2_mpec_linear_non_constraint_theta_constraint_bias_rmse}, we illustrate that N2SLS with Constraints \eqref{eq:conduct_constraint} works for the linear model as in \cite{matsumura2023resolving}. 
 This means that incorporating the conditions is innocuous for the linear model. 
 
-\textcolor{blue}{
-Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_non_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} within the N2SLS framework leads to severe bias, implying that only Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} cannot resolve the problem. Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:conduct_constraint} within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. While the conduct parameter itself appears stable, this is mechanically due to the imposed domain constraint, which prevents extreme estimates by construction. These results underscore that Constraints \eqref{eq:conduct_constraint} alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence}. In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic. 
-}
+Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_slope_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} within the N2SLS framework leads to severe bias, implying that only Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} cannot resolve the problem. Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} demonstrates that relying solely on Constraints \eqref{eq:conduct_constraint} within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. While the conduct parameter itself appears stable, this is mechanically due to the imposed domain constraint, which prevents extreme estimates by construction. These results underscore that Constraints \eqref{eq:conduct_constraint} alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence}. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic. 
 
-Additional ad hoc improvement is possible by using \eqref{eq:log_linear_marginal_cost} to compute $\varepsilon_t^c$ and \eqref{eq:log_linear_supply_equation_direct} as constraints with Constraints \eqref{eq:conduct_constraint}, \eqref{eq:slope_constraint}, and \eqref{eq:equilibrium_existence}. 
-Table \ref{tb:loglinear_loglinear_sigma_2_mpec_theta_constraint_non_constraint_bias_rmse} shows that the estimation of the conduct parameter $\theta$ improves, that is, the bias is 0.014 and RMSE is 0.217. 
-However, the results with ad hoc improvement do not dominate the results without the improvement for all parameters.
+
+
 
 
 
@@ -729,13 +836,6 @@ However, the results with ad hoc improvement do not dominate the results without
   \end{adjustbox}
 
   \vspace{1em}
-  %--- 表 (b): σ = 1.0 ---
-  \text{(b) $\sigma = 1.0$}\\[0.5em]
-  \begin{adjustbox}{width=0.95\textwidth}
-    \input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}
-  \end{adjustbox}
-
-  \vspace{1em}
   %--- 表 (c): σ = 2.0 ---
   \text{(c) $\sigma = 2.0$}\\[0.5em]
   \begin{adjustbox}{width=0.95\textwidth}
@@ -746,7 +846,7 @@ However, the results with ad hoc improvement do not dominate the results without
 
 \begin{table}[!htbp]
   \begin{center}
-  \caption{N2SLS without Constraints \eqref{eq:conduct_constraint} Results of the linear model}
+  \caption{N2SLS without Constraints \eqref{eq:conduct_constraint} results of the linear model}
   \label{tb:linear_linear_sigma_1} 
 
   \text{(a) $\sigma = 0.5$}\\[0.5em]
@@ -808,7 +908,7 @@ However, the results with ad hoc improvement do not dominate the results without
 \begin{table}[!htbp]
   \centering
   \caption{N2SLS with Constraints \eqref{eq:slope_constraint} and \eqref{eq:equilibrium_existence} for the loglinear model}
-  \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_non_constraint_bias_rmse} 
+  \label{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_slope_constraint_bias_rmse} 
 
   \text{(a) $\sigma = 0.5$}\\[0.5em]
   \begin{adjustbox}{width=0.95\textwidth}
@@ -828,7 +928,7 @@ However, the results with ad hoc improvement do not dominate the results without
   \begin{adjustbox}{width=0.95\textwidth}
     \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_no_constraint_slope_constraint_bias_rmse}
   \end{adjustbox}
-
+    
   \footnotesize
   %Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table}
@@ -856,7 +956,6 @@ However, the results with ad hoc improvement do not dominate the results without
   \begin{adjustbox}{width=0.95\textwidth}
     \input{figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse}
   \end{adjustbox}
-
   \footnotesize
   %Note: The data generating process follows \cite{matsumura2023resolving}.
 \end{table}

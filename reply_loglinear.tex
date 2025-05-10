@@ -68,29 +68,70 @@ Our deadline. June 30, 2025
 \begin{enumerate}
     \item The key question is whether the conduct parameter alone may be sufficient to resolve the problem. If this is the case, then using the equilibrium conditions in estimation may be unnecessary, lessening the contribution of the paper. I encourage the authors to demonstrate convincingly that results depend in important ways on the equilibrium conditions. Doing so is, in my view, a necessary condition for publication.
     \begin{itemize}
-        \item (Reply) We thank the reviewer for the helpful suggestion. In response, we have conducted additional simulations following the setting proposed by the reviewer. The full set of results and detailed explanations are provided in the Online Appendix. For ease of reference, we also include Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} in the main text. We add the following explanation on page 16, paragraph 3:
+        \item (Reply) We thank the reviewer for the helpful suggestion. In response, we have conducted additional simulations following the setting proposed by the reviewer. In summary, we confirm that (1) only the equilibrium uniqueness condition cannot resolve the problem, (2) imposing conduct parameter domain restrictions mechanically improves estimation, and (3) combining the equilibrium uniqueness condition yields substantial additional improvement. Given the new findings, we rewrite the Results Section as follows.
+        \begin{itemize}
+            \item (1st paragraph)\textit{We compare N2SLS estimations with and without constraints in Table 1. Panel (a) shows that, without constraints, the estimator fails to recover $\gamma_0$ and $\boldsymbol{\theta}$, replicating known issues due to the flat objective function and invalid search regions without equilibrium (Appendix A.4). Panel (b), which imposes Constraint (9), improves estimation in large samples via the domain restriction.\footnote{Constraints (10) and (11) alone yield severe bias; see Table 9 and Appendix A.5.} However, in small samples, demand parameter estimates degrade and convergence declines. When convergence fails, $\alpha_1$ becomes large, rendering $1-\theta\left(\alpha_1+\alpha_2 Z_t^R\right)<0$ and causing numerical errors inside the log term in (1). Adding constraints (10) and (11) in Panel (c) improves small-sample convergence and demand accuracy, though convergence is not guaranteed. In large samples, performance surpasses that of Panel (b) for some parameters.}
+            \item (2nd paragraph)\textit{To address convergence failure, we propose an alternative formulation (Table 2) that computes $\varepsilon_t^c$ via (3) and enforces Equation (4) as a constraint, along with Constraints (9)-(11). This avoids log terms in both objective and constraints, achieving 100\% convergence and reducing $\theta$ 's bias and RMSE to 0.014 and 0.217 , though not dominating Panel (c) across all parameters. In sum, incorporating equilibrium uniqueness conditions and eliminating log terms greatly improves conduct parameter estimation. Additional experiments appear in Appendix A. 5.}
+        \end{itemize}
+        \item Also, we rewrite the last paragraph in Introduction as follows:
+        \begin{itemize}
+            \item \textit{Second, Monte Carlo simulations show that parameter restrictions alone yield inaccurate estimates and numerical errors, while adding equilibrium conditions resolves them. We also propose a modified GMM formulation that further mitigates these issues.}
+        \end{itemize}
+        \item The full set of results and detailed explanations are provided in the Online Appendix. For ease of reference, we also include Table \ref{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} in the main text. We add the following explanation on A.5 Additional experiments:
+        \begin{itemize}
+            \item \textit{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_non_constraint_bias_rmse} (Table 9 in the main text appendix) demonstrates that relying solely on Constraints (10) and (11) within the N2SLS framework leads to severe bias, implying that only Constraints (10) and (11) cannot resolve the problem. Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} (Table 10 in the main text appendix) demonstrates that relying solely on Constraints (9) within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. While the conduct parameter itself appears stable, this is mechanically due to the imposed domain constraint, which prevents extreme estimates by construction. These results underscore that Constraints (9) alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions (10) and (11). In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic. }
+        \end{itemize}
         
-        \textit{Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_no_constraint_non_constraint_bias_rmse} (Table 8 in the main text) demonstrates that relying solely on Constraints (10) and (11) within the N2SLS framework leads to severe bias, implying that only Constraints (10) and (11) cannot resolve the problem. Table \ref{tb:loglinear_loglinear_sigma_0.5_simultaneous_theta_constraint_non_constraint_bias_rmse} (Table 9 in the main text) demonstrates that relying solely on Constraints (9) within the N2SLS framework leads to severe bias—especially in small samples—for parameters other than the conduct parameter, as well as poor convergence. While the conduct parameter itself appears stable, this is mechanically due to the imposed domain constraint, which prevents extreme estimates by construction. These results underscore that Constraints (9) alone are insufficient and highlight the critical importance of incorporating the equilibrium conditions (10) and (11). In large samples, however, the results are nearly identical. In large samples, however, the problem is substantially alleviated, as the parameter search becomes less problematic. }
     \end{itemize}
     \item I would also encourage the authors to include at least a short discussion motivating modern use of this approach for learning about conduct. The original Bresnahan approach to conduct testing was subject to two main criticisms. The first was that it is not clear what were the implications of an estimated conduct parameter that was different from 0, 1 or 1/N (symmetric cournot). The second issue is that inference on the degree of market power should not be done without specifying underlying behavior and that if the underlying behavior was collusive, then the estimated conduct parameter typically will underestimate market power (this is the Cort’s critique). Nonetheless, taking this into account, learning more about the applicability of this method in the homogeneous goods setting for additional functional forms is probably worthwhile.
     \begin{itemize}
-        \item (Reply) In line with the reviewer’s suggestion, we have included a brief discussion motivating the modern use of the conduct parameter approach in Paragraph 2 of the Conclusion. This addition clarifies the empirical relevance of the method while acknowledging well-known critiques, and positions our contribution as addressing key implementation challenges that have hindered its practical use.
+        \item (Reply) In line with the reviewer’s suggestion, we have included a brief discussion motivating the modern use of the conduct parameter approach and rewritten the Conclusion Section. This addition clarifies the empirical relevance of the method while acknowledging well-known critiques, and positions our contribution as addressing key implementation challenges that have hindered its practical use.
         
-        \textit{Two well-known concerns have long accompanied the conduct parameter approach: first, the difficulty in economically interpreting intermediate or extreme values of the estimated conduct parameter; and second, the critique—most notably by \cite{corts1999conduct}—that conduct estimates can severely understate the degree of market power when firms engage in collusion. In this paper, we clarify that the implausible or unstable estimates often observed in the empirical literature are not necessarily indicative of these conceptual limitations, but are instead frequently driven by numerical issues in parameter estimation, particularly when key equilibrium conditions are neglected. By resolving these computational issues, we demonstrate that a more coherent and interpretable set of estimates emerges. This distinction is important: conflating estimation artifacts with theoretical limitations may lead to unwarranted dismissal of the approach. With these issues addressed, we hope this paper motivates a more constructive discussion about the settings in which conduct parameter methods remain a useful tool for empirical analysis.}
+        \textit{Two concerns surround the conduct parameter approach: the difficulty of interpreting intermediate or extreme values, and the critique by \citet{corts1999conduct} that it may understate market power under collusion.\footnote{As \citet{magnolfi2022comparison} note, this critique does not apply when the data stem from a static model.}We show that implausible estimates in log-linear models often stem from numerical issues—especially when equilibrium conditions are omitted—rather than conceptual flaws. Addressing these issues yields more stable and interpretable results.
+        This distinction matters: misattributing numerical artifacts to theoretical limits risks dismissing a useful tool. Our findings aim to encourage more constructive use of the conduct parameter approach.}
     \end{itemize}
+    \item (Reply) We have substantially condensed the manuscript to comply with the 2,000-word limit required by Economics Letters. All sections, including the introduction, discussion, and simulation results, have been carefully shortened without altering the core contributions or technical content.
 \end{enumerate}
 
 \begin{table}[!htbp]
   \begin{center}
-      \caption{Performance comparison (Table 1 in the main text, for reference)}
-      \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
-      \subfloat[N2SLS without Constraints (10), (11), and (12)]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse}}\\
-    \subfloat[N2SLS with Constraints (10), (11), and (12)]{\input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}}\\
-    \subfloat[Ad hoc method using (3) to compute $\varepsilon_t^c$ and (4) as constraints with  Constraints (10), (11), and (12)]{\input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}}
+  \caption{Performance comparison (Table 1 in the main text, for reference)}
+    \label{tb:loglinear_loglinear_sigma_1_simultaneous_non_constraint_theta_constraint_bias_rmse} 
+  \text{(a) N2SLS without Constraints (9), (10), and (11)}\\[0.5em]
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_non_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(b) N2SLS with Constraints (9)}\\[0.5em]
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_non_constraint_bias_rmse}
+  \end{adjustbox}
+
+  \vspace{1em}
+
+  \text{(c) N2SLS with Constraints (9), (10), and (11)}\\[0.5em]
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_simultaneous_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
   \end{center}
   \footnotesize
-  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0,\alpha_1=1.0,\alpha_2=0.1,\alpha_3=1.0,\gamma_0=5.0,\gamma_1=1.0,\gamma_2=1.0,\gamma_3=1.0,\theta=0.5$ and $\sigma=1.0$. %See online appendix \ref{sec:setting} for the setting.
-\end{table} 
+  Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0, \alpha_1=1.0, \alpha_2=0.1, \alpha_3=1.0, \gamma_0=5.0, \gamma_1=1.0, \gamma_2=1.0, \gamma_3=1.0, \theta=0.5$ and $\sigma=1.0$. See online appendix A.3 for the setting.
+\end{table}
+
+\begin{table}[!htbp]
+  \begin{center}
+  \caption{Ad hoc method using (3) to compute $\varepsilon_t^c$ and (4) as constraints with Constraints (9), (10), and (11)}
+  \label{tb:loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse} 
+  \begin{adjustbox}{width=\textwidth}
+    \input{figuretable/loglinear_loglinear_sigma_1_mpec_theta_constraint_slope_constraint_bias_rmse}
+  \end{adjustbox}
+  \end{center}
+  % \footnotesize
+  % Note: The error terms are drawn from a normal distribution, $N(0, \sigma)$. True values: $\alpha_0=20.0, \alpha_1=1.0, \alpha_2=0.1, \alpha_3=1.0, \gamma_0=5.0, \gamma_1=1.0, \gamma_2=1.0, \gamma_3=1.0, \theta=0.5$ and $\sigma=1.0$. See online appendix \ref{sec:setting} for the setting.
+\end{table}
+
 
 
 \begin{table}[!htbp]
