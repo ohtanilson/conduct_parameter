@@ -402,6 +402,8 @@ end
 
 
 
+
+
 @everywhere function estimate_nonlinear_2SLS(simulation_setting::SIMULATION_SETTING)
     """
     Given data, reshape the data and pass it to the function that implement the GMM estimation
@@ -487,21 +489,21 @@ end
     Z_s = reduce(vcat,(Z_s))
 
     if estimation_method[1] == :separate 
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ , estimation_method, starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status, num_negative_Q, dist = GMM_estimation_separate(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ , estimation_method, starting_value, tol_level)
     elseif estimation_method[1] == :simultaneous
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status, num_negative_Q, dist = GMM_estimation_simultaneous(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :mpec || estimation_method[1] == :mpec_separate
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d,  α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ ,estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status, num_negative_Q, dist = GMM_estimation_MPEC(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d,  α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ ,estimation_method , starting_value, tol_level)
         if simulation_index % 100 == 0
             print("\nsimulation_index $simulation_index\n")
         end
     elseif estimation_method[1] == :mpec_linear
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status, num_negative_Q, dist = GMM_estimation_MPEC_linear(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     elseif estimation_method[1] == :optim_nelder_mead
-        α_hat, γ_hat, θ_hat, status = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
+        α_hat, γ_hat, θ_hat, status, num_negative_Q, dist = GMM_estimation_Optim(T, Q, P, Z, Z_s, Z_d, X, X_s, X_d, α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, estimation_method , starting_value, tol_level)
     end
 
-    return α_hat, γ_hat, θ_hat, status
+    return α_hat, γ_hat, θ_hat, status, num_negative_Q, dist
 end
 
 @everywhere function iterate_estimation_nonlinear_2SLS(parameter, data, estimation_method::Tuple{Symbol, Symbol, Symbol, Symbol}, starting_value, tol_level)
@@ -516,22 +518,29 @@ end
     γ_est  = Vector{Union{Missing, Float64}}[]
     θ_est  = Union{Missing, Float64}[]
     status = Union{Missing, Int64}[]
+    num_negative_Q = Union{Missing, Int64}[]
+    dist = Union{Missing, Float64}[]
+
 
     simulation_setting = [SIMULATION_SETTING(α_0, α_1, α_2, α_3, γ_0, γ_1, γ_2, γ_3, θ_0, start_θ, start_γ, T, σ, data, estimation_method, starting_value, tol_level,simulation_index) for simulation_index = 1:S]
 
-    @elapsed @time simulation_mpec_result = pmap(estimate_nonlinear_2SLS, simulation_setting);
+    @elapsed @time simulation_result = pmap(estimate_nonlinear_2SLS, simulation_setting);
 
     for s = 1:S
-        push!(α_est, simulation_mpec_result[s][1])
-        push!(γ_est, simulation_mpec_result[s][2])
-        push!(θ_est, simulation_mpec_result[s][3])
-        push!(status,simulation_mpec_result[s][4])
+        push!(α_est, simulation_result[s][1])
+        push!(γ_est, simulation_result[s][2])
+        push!(θ_est, simulation_result[s][3])
+        push!(status,simulation_result[s][4])
+        push!(num_negative_Q, simulation_result[s][5])
+        push!(dist, simulation_result[s][6])
     end 
 
     α_est = reduce(vcat, α_est')
     γ_est = reduce(vcat, γ_est')
     θ_est = reduce(vcat, θ_est')
     status = reduce(vcat, status)
+    num_negative_Q = reduce(vcat, num_negative_Q)
+    dist = reduce(vcat, dist)
 
     status_indicator = []
 
@@ -547,6 +556,12 @@ end
         end
     end
 
+    @show num_negative_Q
+    @show dist
+
+    @show size(num_negative_Q)
+    @show size(dist)
+
     estimation_result = DataFrame(
     T = T,
     σ = σ,
@@ -560,7 +575,9 @@ end
     γ_3 = γ_est[:,4],
     θ = θ_est,
     status = status,
-    status_indicator = status_indicator)
+    status_indicator = status_indicator,
+    num_negative_Q = num_negative_Q,
+    dist = dist)
 
     return estimation_result
 end

@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main_EL_loglinear_existence_condition"] 1746385625 "main_EL_loglinear_existence_condition.aux" "main_EL_loglinear_existence_condition.bbl" "main_EL_loglinear_existence_condition" 1746385626
+["bibtex main_EL_loglinear_existence_condition"] 1746385653 "main_EL_loglinear_existence_condition.aux" "main_EL_loglinear_existence_condition.bbl" "main_EL_loglinear_existence_condition" 1746385654
   "/usr/share/texlive/texmf-dist/bibtex/bst/economic/aer.bst" 1389482635 26812 2ae6e48450a8c17a93d98067b7084a7a ""
   "conduct_parameter.bib" 1740874358 26126 41b0abbad84403c4251d6dfa54535b2b ""
-  "main_EL_loglinear_existence_condition.aux" 1746385626 15561 cf9be75e66a76938563baee58cd50e89 "pdflatex"
+  "main_EL_loglinear_existence_condition.aux" 1746385654 15561 91966cf4aa1bc6506ddfa46c836ed5d4 "pdflatex"
   (generated)
   "main_EL_loglinear_existence_condition.bbl"
   "main_EL_loglinear_existence_condition.blg"
-["pdflatex"] 1746385625 "/home/yuri/Documents/GitHub/conduct_parameter/main_EL_loglinear_existence_condition.tex" "main_EL_loglinear_existence_condition.pdf" "main_EL_loglinear_existence_condition" 1746385626
+["pdflatex"] 1746385653 "/home/yuri/Documents/GitHub/conduct_parameter/main_EL_loglinear_existence_condition.tex" "main_EL_loglinear_existence_condition.pdf" "main_EL_loglinear_existence_condition" 1746385654
   "/etc/texmf/web2c/texmf.cnf" 1664728471 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/yuri/Documents/GitHub/conduct_parameter/main_EL_loglinear_existence_condition.tex" 1746385624 61473 ae92f5d7612486e8e9ea09cb466cd86a ""
+  "/home/yuri/Documents/GitHub/conduct_parameter/main_EL_loglinear_existence_condition.tex" 1746385651 61471 3e6c8af0e768eca5949d134225438365 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -282,11 +282,11 @@
   "figuretable/loglinear_loglinear_sigma_2_simultaneous_non_constraint_non_constraint_bias_rmse.tex" 1695315409 1002 7592074d22490d4b93b3c7fc161b59d6 ""
   "figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_non_constraint_bias_rmse.tex" 1693255367 995 f2271ff15612ea821245351d9c254f4a ""
   "figuretable/loglinear_loglinear_sigma_2_simultaneous_theta_constraint_slope_constraint_bias_rmse.tex" 1693255367 993 26ef85002e334209d669e8c2837a8f2a ""
-  "main_EL_loglinear_existence_condition.aux" 1746385626 15561 cf9be75e66a76938563baee58cd50e89 "pdflatex"
-  "main_EL_loglinear_existence_condition.bbl" 1746385625 2028 35d04126b43629f52dfe916227751c0e "bibtex main_EL_loglinear_existence_condition"
-  "main_EL_loglinear_existence_condition.brf" 1746385626 1060 8540e338f59ec2b22046c8d4dafcbc66 "pdflatex"
-  "main_EL_loglinear_existence_condition.out" 1746385626 2507 f5bc7d5928c5ac585b855fd6d64ccb4f "pdflatex"
-  "main_EL_loglinear_existence_condition.tex" 1746385624 61473 ae92f5d7612486e8e9ea09cb466cd86a ""
+  "main_EL_loglinear_existence_condition.aux" 1746385654 15561 91966cf4aa1bc6506ddfa46c836ed5d4 "pdflatex"
+  "main_EL_loglinear_existence_condition.bbl" 1746385653 2028 35d04126b43629f52dfe916227751c0e "bibtex main_EL_loglinear_existence_condition"
+  "main_EL_loglinear_existence_condition.brf" 1746385654 1060 cb13cac504cec8a4ac64530b2a88f8f4 "pdflatex"
+  "main_EL_loglinear_existence_condition.out" 1746385654 2507 f5bc7d5928c5ac585b855fd6d64ccb4f "pdflatex"
+  "main_EL_loglinear_existence_condition.tex" 1746385651 61471 3e6c8af0e768eca5949d134225438365 ""
   (generated)
   "main_EL_loglinear_existence_condition.aux"
   "main_EL_loglinear_existence_condition.brf"
