@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  4 MAY 2025 16:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  7 MAY 2025 19:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -675,7 +675,7 @@ Package: tgtermes 2009/09/27 v1.2 TeX Gyre Termes as default roman family
 \c@corollary=\count334
 \c@example=\count335
 \c@remark=\count336
-LaTeX Font Info:    Trying to load font information for T1+qtm on input line 74.
+LaTeX Font Info:    Trying to load font information for T1+qtm on input line 76.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/tex-gyre/t1qtm.fd
 File: t1qtm.fd 2009/09/25 v1.2 font definition file for T1/qtm
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -685,24 +685,24 @@ File: l3backend-pdftex.def 2022-08-05 L3 backend support: PDF output (pdfTeX)
 ) (./main_EL_counterexample.aux)
 \openout1 = `main_EL_counterexample.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -757,8 +757,8 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package backref Info: ** backref set up for natbib ** on input line 74.
-Package hyperref Info: Link coloring ON on input line 74.
+Package backref Info: ** backref set up for natbib ** on input line 76.
+Package hyperref Info: Link coloring ON on input line 76.
  (./main_EL_counterexample.out) (./main_EL_counterexample.out)
 \@outlinefile=\write5
 \openout5 = `main_EL_counterexample.out'.
@@ -766,64 +766,59 @@ Package hyperref Info: Link coloring ON on input line 74.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for OT1+mlmr on input line 77.
+LaTeX Font Info:    Trying to load font information for OT1+mlmr on input line 79.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/mlmodern/ot1mlmr.fd
 File: ot1mlmr.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
-LaTeX Font Info:    Trying to load font information for OML+mlmm on input line 77.
+LaTeX Font Info:    Trying to load font information for OML+mlmm on input line 79.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/mlmodern/omlmlmm.fd
 File: omlmlmm.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
-LaTeX Font Info:    Trying to load font information for OMS+mlmsy on input line 77.
+LaTeX Font Info:    Trying to load font information for OMS+mlmsy on input line 79.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/mlmodern/omsmlmsy.fd
 File: omsmlmsy.fd 2021/01/11 v1.0 Font defs for mlmodern
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 77.
+LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 79.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/tex-gyre/ts1qtm.fd
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ) [1
 
-{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8]
-Overfull \hbox (15.60495pt too wide) in paragraph at lines 514--517
-[]\T1/qtm/m/n/10.95 Because [][] and [][] come from [][] and [][], they are also the nec-es-sary con-di-tions for non-identification.
- []
-
-[9] [10] [11] [12] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
 \tf@brf=\write6
 \openout6 = `main_EL_counterexample.brf'.
 
-) [13] [14] [15] [16] [17] [18]
-Overfull \hbox (1.07698pt too wide) in paragraph at lines 925--928
+ [13]) [14] [15] [16] [17] [18] [19]
+Overfull \hbox (1.07698pt too wide) in paragraph at lines 916--919
 \T1/qtm/m/n/10.95 The de-pen-dence of $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$ \T1/qtm/m/n/10.95 on $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 comes only from the first term in the bracket. There-fore, $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$
  []
 
-[19] [20] [21] [22] [23] (./main_EL_counterexample.aux)
+[20] [21] [22] [23] [24] (./main_EL_counterexample.aux)
 Package rerunfilecheck Info: File `main_EL_counterexample.out' has not changed.
-(rerunfilecheck)             Checksum: B0403F365B191A010B8F40173FCE8110;3365.
+(rerunfilecheck)             Checksum: 18EE0B51B161C6AA4519719DD018A170;3096.
 Package rerunfilecheck Info: File `main_EL_counterexample.brf' has not changed.
-(rerunfilecheck)             Checksum: EDEE2FF1A1F7968FD22CDBB447A18382;1611.
+(rerunfilecheck)             Checksum: 0B2AE99B45E9C9095AA937317A3C9A81;1837.
  ) 
 Here is how much of TeX's memory you used:
- 26096 strings out of 477678
- 486930 string characters out of 5829469
- 791249 words of memory out of 5000000
- 44295 multiletter control sequences out of 15000+600000
+ 26097 strings out of 477678
+ 486911 string characters out of 5829469
+ 791194 words of memory out of 5000000
+ 44294 multiletter control sequences out of 15000+600000
  560682 words of font info for 121 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 87i,15n,91p,562b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 1142 hyphenation exceptions out of 8191
+ 87i,15n,91p,552b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on main_EL_counterexample.pdf (23 pages, 312486 bytes).
+Output written on main_EL_counterexample.pdf (24 pages, 313263 bytes).
 PDF statistics:
- 560 PDF objects out of 1000 (max. 8388607)
- 497 compressed objects within 5 object streams
- 92 named destinations out of 1000 (max. 500000)
+ 568 PDF objects out of 1000 (max. 8388607)
+ 503 compressed objects within 6 object streams
+ 93 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

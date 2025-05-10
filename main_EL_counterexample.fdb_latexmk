@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex main_EL_counterexample"] 1746394648 "main_EL_counterexample.aux" "main_EL_counterexample.bbl" "main_EL_counterexample" 1746394794
+["bibtex main_EL_counterexample"] 1746665815 "main_EL_counterexample.aux" "main_EL_counterexample.bbl" "main_EL_counterexample" 1746665821
   "/usr/local/texlive/2022/texmf-dist/bibtex/bst/economic/aer.bst" 1389482635 26812 2ae6e48450a8c17a93d98067b7084a7a ""
   "conduct_parameter.bib" 1740782201 26126 41b0abbad84403c4251d6dfa54535b2b ""
-  "main_EL_counterexample.aux" 1746394793 16239 683fafb54f122efab9528d15a06e7178 "pdflatex"
+  "main_EL_counterexample.aux" 1746665820 16193 06d50e02a0969eeef192ccd7091b6fb7 "pdflatex"
   (generated)
   "main_EL_counterexample.bbl"
   "main_EL_counterexample.blg"
-["pdflatex"] 1746394790 "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" "main_EL_counterexample.pdf" "main_EL_counterexample" 1746394794
-  "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" 1746394789 75027 2be2db32dfc6593492f5e5c88014b95c ""
+["pdflatex"] 1746665816 "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" "main_EL_counterexample.pdf" "main_EL_counterexample" 1746665821
+  "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" 1746665807 76681 1e49ce37e2842688cb394e936c8c4831 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -245,11 +245,11 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1660709058 4595804 b9440198e42732e01c7379f76ab491d8 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1660709104 2874271 f8f7d1d6010e6e021a5d660cb52da987 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "main_EL_counterexample.aux" 1746394793 16239 683fafb54f122efab9528d15a06e7178 "pdflatex"
-  "main_EL_counterexample.bbl" 1746394649 1102 b4deeabd3eec6cedf76658d1a8460662 "bibtex main_EL_counterexample"
-  "main_EL_counterexample.brf" 1746394793 1611 edee2ff1a1f7968fd22cdbb447a18382 "pdflatex"
-  "main_EL_counterexample.out" 1746394793 3365 b0403f365b191a010b8f40173fce8110 "pdflatex"
-  "main_EL_counterexample.tex" 1746394789 75027 2be2db32dfc6593492f5e5c88014b95c ""
+  "main_EL_counterexample.aux" 1746665820 16193 06d50e02a0969eeef192ccd7091b6fb7 "pdflatex"
+  "main_EL_counterexample.bbl" 1746665816 1102 b4deeabd3eec6cedf76658d1a8460662 "bibtex main_EL_counterexample"
+  "main_EL_counterexample.brf" 1746665820 1837 0b2ae99b45e9c9095aa937317a3c9a81 "pdflatex"
+  "main_EL_counterexample.out" 1746665820 3096 18ee0b51b161c6aa4519719dd018a170 "pdflatex"
+  "main_EL_counterexample.tex" 1746665807 76681 1e49ce37e2842688cb394e936c8c4831 ""
   (generated)
   "main_EL_counterexample.aux"
   "main_EL_counterexample.brf"
