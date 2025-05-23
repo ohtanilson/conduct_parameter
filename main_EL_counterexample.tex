@@ -173,6 +173,12 @@ Depending on the value of $\theta$, the relation can nest the equilibrium condit
 \end{assumption}
 
 
+
+\citet{adachiMicrofoundation2023} and \citet{weylPassThrough2013} consider the microfoundation of this model.
+
+
+
+
 %Based on the exogenous variables, the researcher can identify the reduced form of the equilibrium quantity $Q^e = h_q(X^{d}, X^{s})$.
 %Given the inverse demand function, the reduced form of the equilibrium price is $P$, defined as $h_p(X^{d}, X^{s})$, is also identified.
 %We put this fact as an assumption:
@@ -653,11 +659,37 @@ Based on Proposition \ref{proposition:nonidentification_inverse_demand} and Prop
 \end{theorem}
 
 
+\section{Identification of the Model}
 
+So far, we have characterized the non-identification problem given an inverse demand function.
+This implies that \citet{lau1982identifying} considers the identification of the conduct parameter and the marginal cost function given the identification of the inverse demand function.
+As in \citet{lau1982identifying}, we can assume that the reduced-form of the equilibrium quantity and the equilibrium price are identified:
 
+\begin{assumption}
+    The reduced-form of the equilibrium quantity and the equilibrium price are identified:
+    \begin{align}
+        Q^e = h_q(X^{d}, X^{s}), \quad P^e = h_p(X^{d}, X^{s}).
+    \end{align}
+\end{assumption}
+However, this does not imply that the inverse demand function is identified, and hence we need to consider the identification of the inverse demand function.
 
+First, we have an unfortunate result:
+\begin{proposition}
+    When the data is generated from the model with the inverse demand function \eqref{eq:identification_separable_demand}, the inverse demand function is not identified.
+\end{proposition}
+Recall that Lemma \ref{lemma:identification_condition_separable} shows that the conduct parameter and the marginal cost function are identified because some demand shifters always work as a demand rotation instrument.
+However, this implies that the change in the demand shifters does not affect the equilibrium quantity and the equilibrium price, and hence these shifters does not have any correlation with the endogenous variables.
+This is similar situation of weak instrument problem.
+Because the inverse demand function is not identified, we do not satisfy the assumption of the identification of the conduct parameter and the marginal cost function.
+Therefore, we have the following corollary:
+\begin{corollary}\label{corollary:nonidentification_model}
+    When the data is generated from the model with the inverse demand function \eqref{eq:identification_separable_demand}, all model components are not identified.
+\end{corollary}
 
-
+%疑問としては，nonidentificationが成り立つようなinverse demand functionでなければ，常にinverse demand functionは識別できるのか？
+%懸念としては，あるdemand shifterが常にdemand rotation instrumentとして動いてしまうと，inverse demand functionが識別できなくなってしまう
+%おそらく，demand shifterの動きが組み合わさってdemand rotationとして動いている場合には個々のdemand shifterの動きにある程度のvariationがあればinverse demand functionは識別できると思われる．
+% demand functionがnonidentificationを満たすものであれば，そのinverse demand functionが識別できないことを示せば，対偶として，inverse demand functionが識別できるのであれば，nonidentificationが成立するようなinverse demand functionの形にはならないことを示せる．
 
 
 

@@ -3,6 +3,11 @@
 \fi
 \begin{thebibliography}{xx}
 
+\harvarditem[Adachi]{Adachi}{2023}{adachiMicrofoundation2023}
+{\bf Adachi, Takanori}, ``A Microfoundation for the Conduct Parameter Approach:
+  Game Theory is Not Necessary to Introduce Imperfect,'' {\it Working
+  {{Paper}}}, 2023.
+
 \harvarditem[Bresnahan]{Bresnahan}{1982}{bresnahan1982oligopoly}
 {\bf Bresnahan, Timothy~F}, ``The oligopoly solution concept is identified,''
   {\it Economics Letters}, 1982, {\it 10} (1-2), 87--92.
@@ -21,5 +26,10 @@
 {\bf Matsumura, Yuri and Suguru Otani}, ``Resolving the conflict on conduct
   parameter estimation in homogeneous goods markets between Bresnahan (1982)
   and Perloff and Shen (2012),'' {\it Economics Letters}, 2023, p.~111193.
+
+\harvarditem[Weyl and Fabinger]{Weyl and Fabinger}{2013}{weylPassThrough2013}
+{\bf Weyl, E~Glen and Michal Fabinger}, ``Pass-{{Through}} as an Economic Tool:
+  {{Principles}} of Incidence under Imperfect Competition,'' {\it The journal
+  of Political Economy}, June 2013, {\it 121} (3), 528--583.
 
 \end{thebibliography}
