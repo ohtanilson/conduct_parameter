@@ -3,14 +3,25 @@
 \fi
 \begin{thebibliography}{xx}
 
-\harvarditem[Adachi]{Adachi}{2023}{adachiMicrofoundation2023}
-{\bf Adachi, Takanori}, ``A Microfoundation for the Conduct Parameter Approach:
-  Game Theory is Not Necessary to Introduce Imperfect,'' {\it Working
-  {{Paper}}}, 2023.
-
 \harvarditem[Bresnahan]{Bresnahan}{1982}{bresnahan1982oligopoly}
 {\bf Bresnahan, Timothy~F}, ``The oligopoly solution concept is identified,''
   {\it Economics Letters}, 1982, {\it 10} (1-2), 87--92.
+
+\harvarditem[Corts]{Corts}{1999}{corts1999conduct}
+{\bf Corts, Kenneth~S}, ``Conduct parameters and the measurement of market
+  power,'' {\it Journal of Econometrics}, 1999, {\it 88} (2), 227--250.
+
+\harvarditem[D{\"o}pper et al.]{D{\"o}pper, MacKay, Miller and
+  Stiebale}{2024}{dopperRising}
+{\bf D{\"o}pper, Hendrik, Alexander MacKay, Nathan~H Miller, and Joel
+  Stiebale}, ``Rising {{Markups}} and the {{Role}} of {{Consumer
+  Preferences}},'' {\it Working Paper}, 2024.
+
+\harvarditem[Genesove and Mullin]{Genesove and
+  Mullin}{1998}{genesove1998testing}
+{\bf Genesove, David and Wallace~P Mullin}, ``Testing static oligopoly models:
+  conduct and cost in the sugar industry, 1890-1914,'' {\it The RAND Journal of
+  Economics}, 1998, pp.~355--377.
 
 \harvarditem[Goldman and Uzawa]{Goldman and Uzawa}{1964}{goldmanNote1964}
 {\bf Goldman, S.~M. and H.~Uzawa}, ``A {{Note}} on {{Separability}} in {{Demand
@@ -21,15 +32,43 @@
   industry price and output data,'' {\it Economics Letters}, 1982, {\it 10}
   (1-2), 93--99.
 
+\harvarditem[De~Loecker et al.]{De~Loecker, Eeckhout and
+  Unger}{2020}{deloeckerRise2020}
+{\bf Loecker, Jan~De, Jan Eeckhout, and Gabriel Unger}, ``The {{Rise}} of
+  {{Market Power}} and the {{Macroeconomic Implications}},'' {\it The Quarterly
+  Journal of Economics}, May 2020, {\it 135} (2), 561--644.
+
 \harvarditem[Matsumura and Otani]{Matsumura and
   Otani}{2023}{matsumura2023resolving}
 {\bf Matsumura, Yuri and Suguru Otani}, ``Resolving the conflict on conduct
   parameter estimation in homogeneous goods markets between Bresnahan (1982)
   and Perloff and Shen (2012),'' {\it Economics Letters}, 2023, p.~111193.
 
+\harvarditem[Miller]{Miller}{2025}{millerIndustrial2025}
+{\bf Miller, Nathan~H.}, ``Industrial Organization and {{The Rise}} of {{Market
+  Power}},'' {\it International Journal of Industrial Organization}, January
+  2025, {\it 98}, 103131.
+
+\harvarditem[Miller et al.]{Miller, Osborne and
+  Sheu}{2017}{millerPassthrough2017}
+{\bf \bysame{}, Matthew Osborne, and Gloria Sheu}, ``Pass-through in a
+  Concentrated Industry: Empirical Evidence and Regulatory Implications,'' {\it
+  The RAND Journal of Economics}, March 2017, {\it 48} (1), 69--93.
+
+\harvarditem[Okazaki et al.]{Okazaki, Onishi and
+  Wakamori}{2022}{okazaki2022excess}
+{\bf Okazaki, Tetsuji, Ken Onishi, and Naoki Wakamori}, ``Excess Capacity and
+  Effectiveness of Policy Interventions: Evidence from the Cement Industry,''
+  {\it International Economic Review}, 2022, {\it 63} (2), 883--915.
+
+\harvarditem[Porter]{Porter}{1983}{porterStudy1983}
+{\bf Porter, Robert~H.}, ``A {{Study}} of {{Cartel Stability}}: {{The Joint
+  Executive Committee}}, 1880-1886,'' {\it The Bell Journal of Economics},
+  1983, {\it 14} (2), 301--314.
+
 \harvarditem[Weyl and Fabinger]{Weyl and Fabinger}{2013}{weylPassThrough2013}
 {\bf Weyl, E~Glen and Michal Fabinger}, ``Pass-{{Through}} as an Economic Tool:
-  {{Principles}} of Incidence under Imperfect Competition,'' {\it The journal
-  of Political Economy}, June 2013, {\it 121} (3), 528--583.
+  {{Principles}} of Incidence under Imperfect Competition,'' {\it Journal of
+  Political Economy}, June 2013, {\it 121} (3), 528--583.
 
 \end{thebibliography}
