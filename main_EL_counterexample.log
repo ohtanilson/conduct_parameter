@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  18 JUN 2025 17:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  20 JUN 2025 19:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -796,12 +796,12 @@ File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ) [1
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8]
-Overfull \hbox (8.93655pt too wide) in paragraph at lines 500--502
+Overfull \hbox (8.93655pt too wide) in paragraph at lines 501--503
 \T1/qtm/m/n/10.95 cost shifter $\OML/mlmm/m/it/10.95 X[]$\T1/qtm/m/n/10.95 , and the trans-formed marginal cost is af-fected by de-mand shifter $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 through $\OML/mlmm/m/it/10.95 ^^U\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q[]; X[]; X[]\OT1/mlmr/m/n/10.95 )$\T1/qtm/m/n/10.95 .
  []
 
 
-Overfull \hbox (22.22298pt too wide) in paragraph at lines 500--502
+Overfull \hbox (22.22298pt too wide) in paragraph at lines 501--503
 \T1/qtm/m/n/10.95 The trans-for-ma-tion is valid for the marginal rev-enue when we can re-move the ef-fect of $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 from $\OML/mlmm/m/it/10.95 ^^U\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q[]; X[]; X[]\OT1/mlmr/m/n/10.95 )$\T1/qtm/m/n/10.95 ,
  []
 
@@ -810,7 +810,7 @@ Overfull \hbox (22.22298pt too wide) in paragraph at lines 500--502
 \openout6 = `main_EL_counterexample.brf'.
 
  [15]) [16] [17] [18] [19] [20] [21]
-Overfull \hbox (1.07698pt too wide) in paragraph at lines 995--998
+Overfull \hbox (1.07698pt too wide) in paragraph at lines 997--1000
 \T1/qtm/m/n/10.95 The de-pen-dence of $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$ \T1/qtm/m/n/10.95 on $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 comes only from the first term in the bracket. There-fore, $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$
  []
 
@@ -832,7 +832,7 @@ Here is how much of TeX's memory you used:
  1142 hyphenation exceptions out of 8191
  87i,15n,91p,625b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on main_EL_counterexample.pdf (25 pages, 324716 bytes).
+Output written on main_EL_counterexample.pdf (25 pages, 324718 bytes).
 PDF statistics:
  626 PDF objects out of 1000 (max. 8388607)
  560 compressed objects within 6 object streams

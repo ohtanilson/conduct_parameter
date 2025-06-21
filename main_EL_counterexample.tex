@@ -106,7 +106,8 @@ However, when estimating markup, most papers put the restriction on how firms co
 Therefore, while the trend in markup is correctly captured even under the possibility of model misspecification, the magnitude of the rise in markup could be biased.
 
 In the literature on industrial organization, to measure markup under a flexible competition model, the conduct parameter approach has been used.
-In this approach, the researcher consider a generalized marginal revenue function with a conduct parameter and the equilibrium quantity is determined by the intersection of the marginal revenue function and the marginal cost function.
+In this approach, the researcher consider a generalized marginal revenue function with a conduct parameter. 
+The equilibrium quantity is determined by the intersection of the marginal revenue function and the marginal cost function.
 The conduct parameter approach has been used to measure competitiveness under a flexible competition model: \citet{porterStudy1983}, \citet{genesove1998testing} and \citet{okazaki2022excess}.
 In addition to investigating competitiveness, recently the conduct parameter approach has received attention in the literature on the pass-through since \citet{weylPassThrough2013} provides a new insight between the conduct parameter and the pass-through, and some empirical studies estimate the conduct parameter as an intermediate object to investigate the pass-through \citep{millerPassthrough2017}.
 
@@ -126,8 +127,8 @@ Lau's result implies that when the demand shifter is a scalar, the conduct param
 This implies that even when an inverse demand function includes a demand rotation instrument, just because the dimension of the demand shifter is one, the conduct parameter is not identified.
 The idea of Lau's proof is the following: let $\mathcal{E} = (\theta, MC)$ be the pair of the conduct parameter and the marginal cost function.
 Non-identification implies that there is a transformation from the first-order condition under $\mathcal{E}$ to the first-order condition under $\mathcal{E}^{*}$.
-Then, an equilibrium quantity satisfies both first-order conditions, which implies that observable equivalence holds.
-However, Lau's transformation does not work properly because to keep observable equivalence after the change in a demand rotation instrument, the transformation from $\mathcal{E}$ to $\mathcal{E}^{*}$ requires that marginal cost function in $\mathcal{E}^{*}$ depends on the demand shifter, which violates the exclusive demand shifters assumption.
+Then, an equilibrium quantity satisfies both first-order conditions, which implies that observational equivalence holds.
+However, Lau's transformation does not work properly because to keep observational equivalence after the change in a demand rotation instrument, the transformation from $\mathcal{E}$ to $\mathcal{E}^{*}$ requires that marginal cost function in $\mathcal{E}^{*}$ depends on the demand shifter, which violates the exclusive demand shifters assumption.
 
 Second, to resolve the problem, we provide a novel characterization of non-identification and construct a new transformation of the first-order conditions between $\mathcal{E}$ and $\mathcal{E}^{*}$.
 While Lau's transformation is constructed by using the derivative of marginal cost with respect to cost shifter, our transformation also uses the derivatives of marginal cost with respect to quantity.
@@ -241,12 +242,12 @@ The definition of non-identification is as follows:
     \end{align}
     The equilibrium quantity $Q^e$ has a reduced form functions $h_q(X^{d}, X^{s})$ and $h_q^{*}(X^{d}, X^{s})$ defined by \eqref{eq:foc_theta} and \eqref{eq:foc_theta_star} respectively are identical.
 \end{definition}
-In other words, non-identification asks whether given an inverse demand function, it is possible to find two distinct pairs of a conduct parameter and a marginal cost function that lead to observable equivalent equilibrium.
+In other words, non-identification asks whether given an inverse demand function, it is possible to find two distinct pairs of a conduct parameter and a marginal cost function that lead to observational equivalent equilibrium.
 By taking the contraposition of Definition \ref{definition:non_identification}, we can also define the identification of the conduct parameter and marginal cost function:
 \begin{definition}\label{definition:identification}
     Identification implies that for any two distinct pairs of conduct parameter and any marginal cost function, there exists a pair of demand shifter $X^{d}$ and $X^{s}$ where the equilibrium quantity $Q^e$ is different, that is, $h_q(X^{d}, X^{s}) \ne h_q^{*}(X^{d}, X^{s})$.
 \end{definition}
-The intuition is that identification means that any different pairs of conduct parameters and marginal cost functions cannot lead to the same equilibrium quantity under some demand shifter and cost shifter, that is, violates the observable equivalence of the equilibrium quantity.
+The intuition is that identification means that any different pairs of conduct parameters and marginal cost functions cannot lead to the same equilibrium quantity under some demand shifter and cost shifter, that is, violates the observational equivalence of the equilibrium quantity.
 
 
 
@@ -457,18 +458,18 @@ The equilibrium quantity under the monopoly is determined by the intersection of
 In Figure \ref{fig:identification_example_step_1}, the perfect competition and the monopoly leads to the same equilibrium $E$.
 Then, consider the change in the demand rotation instrument $X^{d}_1$.
 In Figure \ref{fig:identification_example_step_2}, the demand rotation changes the intercept and slope of the demand function without changing the equilibrium point under the true model.
-Under the monopoly, the new equilibrium point is $E^{*}$, which is different from $E$ and hence the observable equivalence is violated.
+Under the monopoly, the new equilibrium point is $E^{*}$, which is different from $E$ and hence the observational equivalence is violated.
 So as to lead to the same equilibrium after the change in the demand rotation ($E = E^{*})$, $MC^{*}$ should shift as in Figure \ref{fig:identification_example_step_3_1} and \ref{fig:identification_example_step_3_2}.
 Note that we changed only the demand shifter, and hence the cost shifter $X^{s}$ is unchanged.
-Thus, for observable equivalence to hold, $MC^{*}$ should also change along with the change in the demand rotation, which implies that $MC^{*}$ is a function of the demand shifter.
+Thus, for observational equivalence to hold, $MC^{*}$ should also change along with the change in the demand rotation, which implies that $MC^{*}$ is a function of the demand shifter.
 However, this is impossible because it violates Assumption \ref{assumption:exclusive_shifters}, that is, the demand shifter should not affect the marginal cost function.
 Therefore, even though the demand shifter is a scalar, when it works as a demand rotation instrument, observational equivalence cannot hold for any $X^{d}$ and $X^{s}$, and hence the conduct parameter can be identified.
 
 
 Note that in Definition \ref{definition:non_identification}, non-identification requires to find two distinct pairs of conduct parameter and marginal cost function that lead to the same equilibrium quantity.
-Here, we show only that the demand rotation breaks observable equivalence when the marginal cost is a linear function, hence there is a possibility that observable equivalence can be achieved without depending on the demand shifter under non-linear marginal costs.
+Here, we show only that the demand rotation breaks observational equivalence when the marginal cost is a linear function, hence there is a possibility that observational equivalence can be achieved without depending on the demand shifter under non-linear marginal costs.
 However, hereafter, we provide an alternative result for the non-identification of the conduct parameter and the marginal cost function. 
-Based on the result, we can find any marginal cost function that leads to observable equivalence under the inverse demand \eqref{eq:demand_counterexample}.
+Based on the result, we can find any marginal cost function that leads to observational equivalence under the inverse demand \eqref{eq:demand_counterexample}.
 
 
 \section{Characterization of Non-identification}\label{sec:nonidentification_characterization}
@@ -476,7 +477,7 @@ Based on the result, we can find any marginal cost function that leads to observ
 \subsection{Necessary Condition for Non-identification}
 
 First, we characterizes the non-identification condition based on Definition \ref{definition:non_identification} by following the proof of necessary condition in \citet{lau1982identifying}, but with some modifications.
-The characterization is based on the fact that observable equivalence implies that the reduced form of the equilibrium quantity $h_q$ and $h_q^{*}$ are identical for any $X^{d}$ and $X^{s}$.
+The characterization is based on the fact that observational equivalence implies that the reduced form of the equilibrium quantity $h_q$ and $h_q^{*}$ are identical for any $X^{d}$ and $X^{s}$.
 Therefore, its derivative with respect to the demand and cost shifters, $\nabla h_q$ and $\nabla h_q^{*}$, should be also identical.
 Then, by applying the implicit function theorem to the equilibrium condition, we can compute $\nabla h_q$ and $\nabla h_q^{*}$, and hence we can derive the following proposition:
 \begin{proposition}\label{proposition:nonidentification_charaterization}
@@ -608,7 +609,7 @@ Under \eqref{eq:identification_separable_demand}, the equilibrium condition \eqr
 which implies that the equilibrium quantity is not affected by the change in $X^{d}_i$ for any $i \in \mathcal{I}$.
 Therefore, when the conduct parameter is $\theta$ and under \eqref{eq:identification_separable_demand}, all demand shifters whose index is in $\mathcal{I}$ always work as a demand rotation instrument.
 On the other hand, for any other conduct parameter $\theta^{*}$, the marginal revenue is always affected by $X^{d}_i$, and hence the equilibrium quantity under the model with $\theta^{*}$ is different from the equilibrium quantity under the model with $\theta$.
-Therefore, the observable equivalence is always violated, which implies that the conduct parameter and the marginal cost function are identified.
+Therefore, the observational equivalence is always violated, which implies that the conduct parameter and the marginal cost function are identified.
 
 
 
@@ -643,7 +644,7 @@ When the inverse demand function is \eqref{eq:demand_counterexample}, $C_i$ and 
     C_i(Q, X^{d}) = \frac{\alpha_2 + \theta\alpha_3Q}{\alpha_2 + \theta^{*}\alpha_3Q},\quad \text{ and }\quad  D_i(Q, X^{d}) =  (\theta^{*} - \theta)(-\alpha_1 + \alpha_3X^{d}).
 \end{align}
 This implies that the transformation \eqref{eq:mc_transformation_quantity} is not valid because $D_i(Q, X^{d})$ depends on $X^{d}$.
-Therefore, any $MC^{*}$ that leads to observable equivalence with $MC$ should depend on the demand shifter, under which non-identification is impossible.
+Therefore, any $MC^{*}$ that leads to observational equivalence with $MC$ should depend on the demand shifter, under which non-identification is impossible.
 While Figure \ref{fig:identification_example} considers the case where the marginal cost function is linear, \eqref{eq:demand_bresnahan} and \eqref{eq:demand_counterexample} have the same power to identify the conduct parameter and the marginal cost in more general setting because both functions include a demand rotation instrument.
 
 
@@ -682,6 +683,7 @@ We state this result as a proposition and the proof is given in Appendix \ref{ap
 
 So far, we have characterized the non-identification problem given an inverse demand function, that is, we have assumed that the inverse demand function is already identified.
 In this section, we consider the identification of the entire model.
+
 Before we proceed, we summarize the results in the previous section as a theorem:
 \begin{theorem}\label{theorem:identification_characterization}
     Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:unique_equilibrium}, and \ref{assumption:three_times_differentiable}, the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is given as
