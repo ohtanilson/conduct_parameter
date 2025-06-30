@@ -1,6 +1,6 @@
 \documentclass[11pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath, setspace, geometry}
+\usepackage{amsmath, setspace}
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{mathtools}
@@ -14,7 +14,7 @@
 \usepackage[colorlinks=true, linkcolor= RawSienna, citecolor = RawSienna, filecolor = RawSienna, urlcolor = RawSienna, hypertexnames = true, backref = page]{hyperref}
 \usepackage[]{natbib} 
 \bibpunct[:]{(}{)}{,}{a}{}{,}
-\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+%\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
 \usepackage[english]{babel}
 \usepackage{float}
 \usepackage{caption}
@@ -51,6 +51,13 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
+
+\usepackage[margin=1in]{geometry}% <--- 1 in margin
+\singlespacing 
+\usepackage{sectsty}
+\sectionfont{\centering}
+
+
 
 \title{Conduct Parameter Estimation in Homogeneous Goods Markets with Equilibrium Existence and Uniqueness Conditions: The Case of Log-linear Specification}
 \author{Yuri Matsumura\thanks{Department of Economics, Rice University. Email: \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{Market Design Center, University of Tokyo. Email: \href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}.
