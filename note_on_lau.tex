@@ -50,7 +50,7 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-\title{Note on Lau (1982)}
+\title{Note on Conduct Parameter Approach in Empirical Industrial Organization}
 \author{Yuri Matsumura\thanks{\href{mailto:}{yuri.matsumura23@gmail.com}, Department of Economics, Rice University.} \and Suguru Otani \thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, Department of Economics, University of Tokyo
 \\Declarations of interest: none %this is for Economics Letters
 }}
@@ -127,6 +127,92 @@ This relationship is easy to interpret when $\theta = 1$ because it corresponds 
 Additionally, depending on the value of $\theta$, the relation can nest the first-order condition of other models such as perfect competition ($\theta=0$) and Cournot competition ($\theta=1/N$). See \citet{adachiMicrofoundation2023} for the detail of the interpretation.
 
 
+\subsection{Conjectural Variation Model}
+
+
+
+The foundation of the conduct parameter approach is a conjectural variation model.
+
+Conjectural variation how competitors react to the change in the firm's output.
+For example, in a homogeneous product market, the conjectural variation is defined as
+\begin{align}
+    r_{ij}(q_i) \equiv \frac{\partial q_j}{\partial q_i}.
+\end{align}
+Consider a firm $i$'s profit function
+\begin{align}
+    \pi_i = P(Q)q_i - C(q_i),
+\end{align}
+where $Q = \sum_{j=1}^N q_j$ is the aggregate output.
+Given the conjectural variation, the firm's first-order condition is given by
+\begin{align}
+    P(Q) + P'(Q)(1+r_{ij}(q_i))q_i = MC(q_i).
+\end{align}
+Then, the conduct parameter is equivalent to the term $1+r_{ij}(q_i)$ in the first-order condition.
+This conjectural variation model nests several competition models such as Cournot $r_{ij}(q_i) = 0$ and Bertrand $r_{ij}(q_i) = -1$.
+
+However, this conjectural variation model has been criticized by several papers.
+As an example, let's consider the Cournot conjecture.
+In this conjecture, each firm believes that its competitors does not react to the change in its output.
+Then, the first-order condition is given by
+\begin{align}
+    P(Q) + P'(Q)q_i = MC(q_i).
+\end{align}
+Then, under appropriate assumptions on the inverse demand function and the marginal cost function, by applying the implicit function theorem to the first-order condition, the derivative of reaction function $q_i = \rho_i(q_{-i})$ with respect to $q_j$ is given by
+\begin{align}
+    \frac{\partial \rho_i}{\partial q_j} = -\frac{q_iP''(Q) + P'(Q)}{P'(Q) + q_iP''(Q)+ P'(Q) - mc'_i(q_i)}.
+\end{align}
+
+Assume that the inverse demand function is linear and the marginal cost is constant: 
+$P'(Q) \ne 0$, $P''(Q) = 0$ and $MC'(q_i) = 0$.
+Then, the derivative of reaction function is given by
+\begin{align}
+    \frac{\partial \rho_i}{\partial q_j} = \frac{P'(Q)}{2P'(Q)} = \frac{1}{2}.
+\end{align}
+When the market is duopoly, this implies that $\rho'_{j}(q_i) = \frac{1}{2}$.
+However, this contradicts the conjecture that the firm does not react to the change in its output, that is, $\rho'_{j}(q_i) \ne r_{ij}(q_i)$.
+This is a well-known inconsistent result in the Cournot conjecture.
+In other words, firms' beliefs about the reaction to the change in output are not consistent with the reaction in equilibrium.
+
+To solve the inconsistency, proposes a new equilibrium concept called consistent conjectures equilibrium.
+
+
+\begin{framed}
+    \begin{definition}
+        A consistent conjectures equilibrium is a pair of the equilibrium quantity $q^*$ and the conjectural variation $r_i = (r_{i1}(q_i), \ldots, r_{iN}(q_i))$ that satisfies 
+        \begin{align}
+            q^*_i = \rho_i(q_{-i}^*),
+        \end{align}
+        where $q_{-i}^*$ is the equilibrium quantity of the other firms, and there is $\varepsilon > 0$ such that
+        \begin{align}
+            r_{ij}(q_j^*) = \frac{\partial \rho_{i}(q_{-i}^*)}{\partial q_j^*},\quad q^*_{i} - \varepsilon < q_i < q^*_{i} + \varepsilon.
+        \end{align}
+        for all $i$.
+    \end{definition}
+\end{framed}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Identification}
 Now, consider an econometric model of the above model.
 Define the aggregate inverse demand and aggregate marginal cost function as $P(Q, X^{d})$ and $MC(Q, X^{s})$ where $X^{d}$ and $X^{s}$ are the vector of exogenous variables.
 Assume that $X^{d}$ and $X^{s}$ are exclusive, that is, there is no common variable in $X^{d}$ and $X^{s}$.
