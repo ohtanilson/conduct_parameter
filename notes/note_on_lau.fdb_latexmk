@@ -1,13 +1,14 @@
 # Fdb version 3
-["bibtex note_on_lau"] 1740782217 "note_on_lau.aux" "note_on_lau.bbl" "note_on_lau" 1740782223
+["bibtex note_on_lau"] 1751349964 "note_on_lau.aux" "note_on_lau.bbl" "note_on_lau" 1751350001
   "/usr/local/texlive/2022/texmf-dist/bibtex/bst/economic/aer.bst" 1389482635 26812 2ae6e48450a8c17a93d98067b7084a7a ""
-  "conduct_parameter.bib" 0 -1 0 ""
-  "note_on_lau.aux" 1740782221 8049 bdbb0bf2e4fa9f9191edd3514e214a52 "pdflatex"
+  "conduct_parameter.bib" 1750075346 33030 77147e49a684ddfb44a3cadc88aad6e5 ""
+  "note_on_lau.aux" 1751350001 15405 dfb909fc273db22dfbaa3a0c6624fc5c "pdflatex"
   (generated)
   "note_on_lau.bbl"
   "note_on_lau.blg"
-["pdflatex"] 1740782217 "/Users/yurimatsumura/GitHub/conduct_parameter/lau1982/note_on_lau.tex" "note_on_lau.pdf" "note_on_lau" 1740782223
-  "/Users/yurimatsumura/GitHub/conduct_parameter/lau1982/note_on_lau.tex" 1740782201 62038 cf4df5275a79ae2b2063beb11c520fda ""
+["pdflatex"] 1751349997 "/Users/yurimatsumura/GitHub/conduct_parameter/note_on_lau.tex" "note_on_lau.pdf" "note_on_lau" 1751350001
+  "../conduct_parameter/figuretable/plot_counter_example.pdf" 1742755649 11481 eb288469ac8e9e37b9445d30c429e6f0 ""
+  "/Users/yurimatsumura/GitHub/conduct_parameter/note_on_lau.tex" 1751349996 90413 28191a85eb7ebe6146af732b0bbcab4e ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -65,12 +66,15 @@
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb" 1611007856 37975 23583c489eb4c0d6d5955f3ac52c3404 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb" 1611007856 37951 c2abaec7e16d17068f2f8ae84dad1d24 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb" 1611007856 37459 74caf033b8fef6a17a0eb22a0c873149 ""
+  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb" 1611007856 37692 68aff31946169fc5b8ce90b21cace2a7 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb" 1611007856 106226 6dee4fd24207a52fc3883da20d15ef79 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb" 1611007856 107927 5bf590577e78b1d1dfc8b2a1d699dc34 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb" 1611007856 106758 9574f3796dbe48eb661966173cfeb728 ""
+  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb" 1611007856 106326 5c15027cd98f25d7bef796f9f96c12a1 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb" 1611007856 33568 1229f51de832265c06b3cbc7c344e81f ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb" 1611007856 33822 306a2480bd9ed34f6be5319f3b7b1ef2 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb" 1611007856 33461 d002e2fb4fa522af5dd785c29b95f36d ""
+  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy9.pfb" 1611007856 33339 d8e8dcf6763d4a4b02fcb3fa17d945bd ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb" 1255129411 131776 4be3e220f990dc716f91bb7965c09237 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb" 1255129411 133302 8dca243a80ecf4cfe00077d4bd995bd7 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb" 1255129411 129669 aaf12ebd0b807d452087fc34bde5bd7d ""
@@ -236,11 +240,11 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1660709058 4595804 b9440198e42732e01c7379f76ab491d8 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1660709104 2874271 f8f7d1d6010e6e021a5d660cb52da987 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "note_on_lau.aux" 1740782221 8049 bdbb0bf2e4fa9f9191edd3514e214a52 "pdflatex"
-  "note_on_lau.bbl" 1722662333 1102 b4deeabd3eec6cedf76658d1a8460662 "bibtex note_on_lau"
-  "note_on_lau.brf" 1740782221 779 51192493bfa3d052c5d4dd570d0c920b "pdflatex"
-  "note_on_lau.out" 1740782221 1902 acb4d49e4dd5844a1d42c6fe67f25e2c "pdflatex"
-  "note_on_lau.tex" 1740782201 62038 cf4df5275a79ae2b2063beb11c520fda ""
+  "note_on_lau.aux" 1751350001 15405 dfb909fc273db22dfbaa3a0c6624fc5c "pdflatex"
+  "note_on_lau.bbl" 1751349964 1358 8ef166f6b9afb729f38a0d3b8d55bab2 "bibtex note_on_lau"
+  "note_on_lau.brf" 1751350001 1539 124bd7ad9a4190714e52a76dc62c4885 "pdflatex"
+  "note_on_lau.out" 1751350001 5305 a1b3c2dbf647685b1002412b608e1a73 "pdflatex"
+  "note_on_lau.tex" 1751349996 90413 28191a85eb7ebe6146af732b0bbcab4e ""
   (generated)
   "note_on_lau.aux"
   "note_on_lau.brf"

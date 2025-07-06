@@ -123,8 +123,52 @@ By rewriting the relationship, we have
     P(Q)+ \theta P'(Q)Q = MC(Q). \label{eq:optimality_conditition}
 \end{align}
 The equilibrium quantity is also given by the solution to \eqref{eq:optimality_conditition}.
-This relationship is easy to interpret when $\theta = 1$ because it corresponds to the first-order condition of a monopoly firm.
-Additionally, depending on the value of $\theta$, the relation can nest the first-order condition of other models such as perfect competition ($\theta=0$) and Cournot competition ($\theta=1/N$). See \citet{adachiMicrofoundation2023} for the detail of the interpretation.
+The parameter $\theta$ represents the degree of competition and is called the conduct parameter.
+The relationship is easy to interpret because when $\theta = 1$ it corresponds to the first-order condition of a monopoly firm and when $\theta = 0$ it corresponds to the first-order condition of perfect competition.
+
+While \citet{bresnahan1982oligopoly} states that $\theta = \frac{1}{N}$ corresponds to the first-order condition of Cournot competition, we believe that this holds only in limited cases.
+When $\theta = \frac{1}{N}$, the marginal revenue is given by
+\begin{align}
+    P(Q) + \frac{Q}{N}P'(Q) = P(Q) + P'(Q)q.
+\end{align}
+Under a symmetric equilibrium assumption, as $q = Q/N$, the generalized marginal revenue corresponds to the marginal revenue in Cournot competition.
+However, the resulting first-order condition,
+\begin{align}
+    P(Q) + P'(Q)q = MC(Q)
+\end{align}
+is not the first-order condition of Cournot competition in general as the right hand side is a industry level marginal cost instead of a firm level marginal cost.
+For example, when the marginal cost is constant or linear, this statement can be true.
+
+
+\begin{example}
+When the marginal cost is linear such that $MC(q_i) = c + dq_i$, the first-order condition is given by
+\begin{align}
+    P(Q) + P'(Q)q_i = c + dq_i.
+\end{align}
+By aggregating this over all firms and dividing by $N$, we have
+\begin{align}
+    P(Q) + P'(Q)\frac{Q}{N} = c + d\frac{Q}{N}.
+\end{align}
+Then, by defining the industry level marginal cost as $MC(Q) = c + \frac{d}{N}Q$, we have
+\begin{align}
+    P(Q) + P'(Q)\frac{Q}{N} = MC(Q).
+\end{align}
+Again, this is corresponds to \eqref{eq:optimality_conditition} with $\theta = \frac{1}{N}$.
+\end{example}
+
+\begin{example}
+However, when the marginal cost is defined as $MC(q_i) = c + d\log q_i$, 
+By aggregating the firm-level first-order condition over all firms and dividing by $N$, we have
+\begin{align}
+    P(Q) + P'(Q)\frac{Q}{N} = c + \frac{d}{N}\sum_{i=1}^N \log q_i.
+\end{align}
+In this case, we cannot define the industry level marginal cost depending on $Q$, and hence $\theta = \frac{1}{N}$ does not correspond to the first-order condition of Cournot competition.
+\end{example}
+
+
+
+
+
 
 
 \subsection{Conjectural Variation Model}
@@ -189,8 +233,6 @@ To solve the inconsistency, proposes a new equilibrium concept called consistent
         for all $i$.
     \end{definition}
 \end{framed}
-
-
 
 
 

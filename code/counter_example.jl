@@ -2,6 +2,72 @@ using Plots
 using LinearAlgebra  # 線形代数の計算用
 using Statistics     # 統計計算用
 
+
+
+# In this file, we check the estimation of the conduct parameter model where all demand shifter works as demand rotation instrument.
+
+
+
+
+## Data generation process
+# Consider a linear inverse demand and linear marginal cost
+inverse_demand(Q, X_d, alpha, e_d) = alpha[1] .- alpha[2] .* Q .+ alpha[3] .* X_d .+ alpha[4] .* X_d .* Q .+ e_d # inverse demand function
+marginal_cost(Q, X_s, gamma, e_s) = gamma[1] .+ gamma[2] .* Q .+ gamma[3] .* X_s .+ e_s # marginal cost function
+
+Q_eq(alpha, gamma, e_d, e_s, X_d, X_s) = (alpha[1] .+ alpha[3] .* X_d .+ e_d .- gamma[1] .- gamma[3] .* X_s .- e_s) ./ (theta .* (alpha[2] .- alpha[4] .* X_d) .+ gamma[2])
+
+X_s(alpha, gamma, e_s, e_d, theta) = alpha[3]/gamma[3]/alpha[4]/theta .* (theta .* alpha[1] .- gamma[1]) .+ 1/gamma[3] .* (alpha[1] .+ e_d .- e_s)
+
+
+##
+
+alpha = [1, 1, 1, 2] # a_0, a_1, a_2, a_3 are the demand parameters
+gamma = [1, 1, 1] # gamma_0, gamma_1, gamma_2 are the marginal cost parameters
+
+theta = 0.5
+
+e_d_t = randn(1000)
+e_s_t = randn(1000)
+
+X_d_t = randn(1000)
+
+X_s_t = randn(1000)
+
+#X_s_t = X_s(alpha, gamma, e_s_t, e_d_t, theta)
+
+
+
+Q_eq_t = Q_eq(alpha, gamma, e_d_t, e_s_t, X_d_t, X_s_t)
+
+P_t = inverse_demand(Q_eq_t, X_d_t, alpha, e_d_t)
+
+##
+
+# first-stage estimation for the equilibrium quantity
+
+X_shifter = [ones(1000) X_d_t X_s_t]
+
+beta_hat = (X_shifter' * X_shifter) \ (X_shifter' * Q_eq_t)
+Q_eq_hat = X_shifter * beta_hat
+
+
+X_demand = [ones(1000) Q_eq_hat X_d_t Q_eq_hat .* X_d_t]
+X_supply = [ones(1000) Q_eq_hat X_s_t]
+
+# second-stage estimation for the conduct parameter
+
+alpha_hat = (X_demand' * X_demand) \ (X_demand' * P_t)
+gamma_hat = (X_supply' * X_supply) \ (X_supply' * P_t)
+
+theta_hat = gamma_hat[2]/(alpha_hat[2] - alpha_hat[4])
+
+
+##
+
+
+
+#=
+
 ## Define the functions
 θ = 0
 θ_alternative = 1
@@ -274,3 +340,4 @@ plot!(Q_range, Q -> MR(Q, X1_d, θ), label="MR(Q,X_d;1/2)", color = :red)
 
 
 
+=#

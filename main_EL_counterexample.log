@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  30 JUN 2025 22:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  1 JUL 2025 10:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -795,11 +795,7 @@ LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 79
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ) [1
 
-{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-
-LaTeX Warning: Reference `sec:conclusion' on page 3 undefined on input line 153.
-
-[3] [4] [5] [6]
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6]
 Overfull \hbox (1.69835pt too wide) in paragraph at lines 476--479
 []\T1/qtm/m/n/10.95 In Def-i-ni-tion [][]1[][], non-identification re-quires to find two dis-tinct pairs of con-duct pa-ram-e-ter and marginal
  []
@@ -830,9 +826,6 @@ Overfull \hbox (12.0355pt too wide) in paragraph at lines 1072--1077
 
 [23] [24] [25] [26] [27] (./main_EL_counterexample.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main_EL_counterexample.out' has not changed.
@@ -843,16 +836,16 @@ Package rerunfilecheck Info: File `main_EL_counterexample.brf' has not changed.
 Here is how much of TeX's memory you used:
  26193 strings out of 477678
  489221 string characters out of 5829469
- 791329 words of memory out of 5000000
+ 791378 words of memory out of 5000000
  44366 multiletter control sequences out of 15000+600000
  560682 words of font info for 121 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
  87i,15n,91p,598b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on main_EL_counterexample.pdf (27 pages, 331122 bytes).
+Output written on main_EL_counterexample.pdf (27 pages, 330960 bytes).
 PDF statistics:
- 606 PDF objects out of 1000 (max. 8388607)
- 538 compressed objects within 6 object streams
+ 607 PDF objects out of 1000 (max. 8388607)
+ 539 compressed objects within 6 object streams
  117 named destinations out of 1000 (max. 500000)
  157 words of extra memory for PDF output out of 10000 (max. 10000000)
 
