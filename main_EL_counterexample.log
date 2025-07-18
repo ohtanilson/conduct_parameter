@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  1 JUL 2025 10:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  17 JUL 2025 23:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -682,11 +682,7 @@ File: t1qtm.fd 2009/09/25 v1.2 font definition file for T1/qtm
 File: l3backend-pdftex.def 2022-08-05 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count337
 \l__pdf_internal_box=\box72
-) (./main_EL_counterexample.aux
-
-LaTeX Warning: Label `sec:lau_result' multiply defined.
-
-)
+) (./main_EL_counterexample.aux)
 \openout1 = `main_EL_counterexample.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
@@ -795,57 +791,34 @@ LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 79
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ) [1
 
-{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6]
-Overfull \hbox (1.69835pt too wide) in paragraph at lines 476--479
-[]\T1/qtm/m/n/10.95 In Def-i-ni-tion [][]1[][], non-identification re-quires to find two dis-tinct pairs of con-duct pa-ram-e-ter and marginal
- []
-
-[7] [8]
-Overfull \hbox (8.93655pt too wide) in paragraph at lines 518--520
-\T1/qtm/m/n/10.95 cost shifter $\OML/mlmm/m/it/10.95 X[]$\T1/qtm/m/n/10.95 , and the trans-formed marginal cost is af-fected by de-mand shifter $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 through $\OML/mlmm/m/it/10.95 ^^U\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q[]; X[]; X[]\OT1/mlmr/m/n/10.95 )$\T1/qtm/m/n/10.95 .
- []
-
-
-Overfull \hbox (22.22298pt too wide) in paragraph at lines 518--520
-\T1/qtm/m/n/10.95 The trans-for-ma-tion is valid for the marginal rev-enue when we can re-move the ef-fect of $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 from $\OML/mlmm/m/it/10.95 ^^U\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q[]; X[]; X[]\OT1/mlmr/m/n/10.95 )$\T1/qtm/m/n/10.95 ,
- []
-
-[9] [10] [11] [12] [13] [14] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
 \tf@brf=\write6
 \openout6 = `main_EL_counterexample.brf'.
 
- [15]) [16] [17] [18] [19] [20] [21]
-Overfull \hbox (1.07698pt too wide) in paragraph at lines 1020--1023
+ [17]) [18] [19] [20] [21] [22] [23] [24]
+Overfull \hbox (1.07698pt too wide) in paragraph at lines 1079--1082
 \T1/qtm/m/n/10.95 The de-pen-dence of $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$ \T1/qtm/m/n/10.95 on $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 comes only from the first term in the bracket. There-fore, $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$
  []
 
-[22]
-Overfull \hbox (12.0355pt too wide) in paragraph at lines 1072--1077
-[]\T1/qtm/m/n/10.95 Recall that we re-quire that [][] does not hold for any $\OML/mlmm/m/it/10.95 i \OT1/mlmr/m/n/10.95 = 1\OML/mlmm/m/it/10.95 ; [] ; K[]$\T1/qtm/m/n/10.95 . Lemma [][]1[][] im-plies that $\OML/mlmm/m/it/10.95 k\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 ) =
- []
-
-[23] [24] [25] [26] [27] (./main_EL_counterexample.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
+[25] [26] [27] [28] [29] [30] (./main_EL_counterexample.aux)
 Package rerunfilecheck Info: File `main_EL_counterexample.out' has not changed.
-(rerunfilecheck)             Checksum: AA6EF1E818F54EA2D9971EB8CE29A8A4;3442.
+(rerunfilecheck)             Checksum: 1861E6ABE7C5307C77D599C753B87629;3917.
 Package rerunfilecheck Info: File `main_EL_counterexample.brf' has not changed.
-(rerunfilecheck)             Checksum: E7495FB5A465DA1274D695EEE1DA1921;1213.
+(rerunfilecheck)             Checksum: 21B0AD1D7BF8CE85BF5C2C260BC85DAE;1907.
  ) 
 Here is how much of TeX's memory you used:
- 26193 strings out of 477678
- 489221 string characters out of 5829469
- 791378 words of memory out of 5000000
- 44366 multiletter control sequences out of 15000+600000
+ 26271 strings out of 477678
+ 491258 string characters out of 5829469
+ 800804 words of memory out of 5000000
+ 44426 multiletter control sequences out of 15000+600000
  560682 words of font info for 121 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 87i,15n,91p,598b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on main_EL_counterexample.pdf (27 pages, 330960 bytes).
+ 87i,16n,91p,575b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
+Output written on main_EL_counterexample.pdf (30 pages, 357530 bytes).
 PDF statistics:
- 607 PDF objects out of 1000 (max. 8388607)
- 539 compressed objects within 6 object streams
- 117 named destinations out of 1000 (max. 500000)
- 157 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 700 PDF objects out of 1000 (max. 8388607)
+ 626 compressed objects within 7 object streams
+ 135 named destinations out of 1000 (max. 500000)
+ 189 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex main_EL_counterexample"] 1751333261 "main_EL_counterexample.aux" "main_EL_counterexample.bbl" "main_EL_counterexample" 1751333265
+["bibtex main_EL_counterexample"] 1752762091 "main_EL_counterexample.aux" "main_EL_counterexample.bbl" "main_EL_counterexample" 1752762095
   "/usr/local/texlive/2022/texmf-dist/bibtex/bst/economic/aer.bst" 1389482635 26812 2ae6e48450a8c17a93d98067b7084a7a ""
-  "conduct_parameter.bib" 1750075346 33030 77147e49a684ddfb44a3cadc88aad6e5 ""
-  "main_EL_counterexample.aux" 1751333264 17687 595c57aac35291a50642f4eebcff5c3a "pdflatex"
+  "conduct_parameter_counter_example.bib" 1752762061 94659 f97b9dab4d7586a4bb775cb4104b7e47 ""
+  "main_EL_counterexample.aux" 1752762095 20899 014ce53cd4ab09f528fe0a7aa3027448 "pdflatex"
   (generated)
   "main_EL_counterexample.bbl"
   "main_EL_counterexample.blg"
-["pdflatex"] 1751333261 "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" "main_EL_counterexample.pdf" "main_EL_counterexample" 1751333265
-  "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" 1751333255 91431 31b5946cc6038ba336107afb9a4ca4e0 ""
+["pdflatex"] 1752762091 "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" "main_EL_counterexample.pdf" "main_EL_counterexample" 1752762095
+  "/Users/yurimatsumura/GitHub/conduct_parameter/main_EL_counterexample.tex" 1752762072 100894 7a33ac300bc9bf4065a6ca76cdfcc75b ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -76,6 +76,7 @@
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb" 1611007856 106226 6dee4fd24207a52fc3883da20d15ef79 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb" 1611007856 107927 5bf590577e78b1d1dfc8b2a1d699dc34 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb" 1611007856 106758 9574f3796dbe48eb661966173cfeb728 ""
+  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb" 1611007856 106326 5c15027cd98f25d7bef796f9f96c12a1 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb" 1611007856 33568 1229f51de832265c06b3cbc7c344e81f ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb" 1611007856 33822 306a2480bd9ed34f6be5319f3b7b1ef2 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb" 1611007856 33559 4f778acb5b392d9baba4dc89b16a88f5 ""
@@ -245,11 +246,11 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1660709058 4595804 b9440198e42732e01c7379f76ab491d8 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1660709104 2874271 f8f7d1d6010e6e021a5d660cb52da987 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "main_EL_counterexample.aux" 1751333264 17687 595c57aac35291a50642f4eebcff5c3a "pdflatex"
-  "main_EL_counterexample.bbl" 1751333261 3550 580b77118a1e51571a0c5467d6b790ea "bibtex main_EL_counterexample"
-  "main_EL_counterexample.brf" 1751333264 1213 e7495fb5a465da1274d695eee1da1921 "pdflatex"
-  "main_EL_counterexample.out" 1751333264 3442 aa6ef1e818f54ea2d9971eb8ce29a8a4 "pdflatex"
-  "main_EL_counterexample.tex" 1751333255 91431 31b5946cc6038ba336107afb9a4ca4e0 ""
+  "main_EL_counterexample.aux" 1752762095 20899 014ce53cd4ab09f528fe0a7aa3027448 "pdflatex"
+  "main_EL_counterexample.bbl" 1752762091 5670 5474301b50bc902da5d6c02fbca556de "bibtex main_EL_counterexample"
+  "main_EL_counterexample.brf" 1752762095 1907 21b0ad1d7bf8ce85bf5c2c260bc85dae "pdflatex"
+  "main_EL_counterexample.out" 1752762095 3917 1861e6abe7c5307c77d599c753b87629 "pdflatex"
+  "main_EL_counterexample.tex" 1752762072 100894 7a33ac300bc9bf4065a6ca76cdfcc75b ""
   (generated)
   "main_EL_counterexample.aux"
   "main_EL_counterexample.brf"
