@@ -190,6 +190,7 @@ We call $X^{d}$ demand shifters and $X^{s}$ cost shifters, and assume the follow
     \begin{align}
         \frac{\partial P}{\partial X^{d}_{i}}(Q, X^{d}) \ne 0, \quad \frac{\partial MC}{\partial X^{s}_{j}}(Q, X^{s}) \ne 0, \quad \frac{\partial P}{\partial X^{s}_{j}}(Q, X^{d}) = 0, \quad \text{and} \quad \frac{\partial MC}{\partial X^{d}_{i}}(Q, X^{s}) = 0.
     \end{align}
+    where the last two equalities hold because $X^{s}_j$ is not an argument of $P$ and $X^{d}_i$ is not an argument of $MC$, respectively.
 \end{assumption}
 We can also include some common variables in $X^{d}$ and $X^{s}$, but in that case, we must have at least one exclusive demand shifter and one exclusive cost shifter.
 Lau also imposes the following restriction on the inverse demand and the marginal cost function:
@@ -241,7 +242,7 @@ Given the inverse demand function, we are interested in the identification of th
 While the interest is the identification, we take an indirect approach and specify the conditions under which the model is not identified.
 The definition of non-identification is as follows:
 \begin{definition}\label{definition:non_identification}
-    The conduct parameter and the marginal cost function are not identified if and only if 
+    The conduct parameter and the marginal cost function are said to be not identified if 
     there are two distinct pairs of conduct parameter and marginal cost function, denoted as $(\theta, MC)$ and $(\theta^{*}, MC^{*})$, and for any $X^{d}$ and $X^{s}$, there exist an equilibrium quantity $Q^e$ that satisfies both
     \begin{align}
     P(Q^e, X^{d}) + \theta Q^e\frac{\partial P}{\partial Q}(Q^e, X^{d}) & = MC(Q^e, X^{s}) ,  \label{eq:foc_theta}\\
@@ -252,7 +253,7 @@ The definition of non-identification is as follows:
 In other words, non-identification asks whether given an inverse demand function, it is possible to find two distinct pairs of a conduct parameter and a marginal cost function that lead to observational equivalent equilibrium.
 By taking the contraposition of Definition \ref{definition:non_identification}, we can also define the identification of the conduct parameter and marginal cost function:
 \begin{definition}\label{definition:identification}
-    Identification implies that for any two distinct pairs of conduct parameter and any marginal cost function, there exists a pair of demand shifter $X^{d}$ and $X^{s}$ where the equilibrium quantity $Q^e$ is different, that is, $h_q(X^{d}, X^{s}) \ne h_q^{*}(X^{d}, X^{s})$.
+    Identification are said to hold if for any two distinct pairs of conduct parameter and any marginal cost function, there exists a pair of demand shifter $X^{d}$ and $X^{s}$ where the equilibrium quantity $Q^e$ is different, that is, $h_q(X^{d}, X^{s}) \ne h_q^{*}(X^{d}, X^{s})$.
 \end{definition}
 The intuition is that identification means that any different pairs of conduct parameters and marginal cost functions cannot lead to the same equilibrium quantity under some demand shifter and cost shifter, that is, violates the observational equivalence of the equilibrium quantity.
 
@@ -293,7 +294,7 @@ To see the problem, consider the following inverse demand function:
 \begin{align}
     P(Q, X^{d}) = \alpha_0 - \alpha_1Q + \alpha_2X^{d}_1 + \alpha_3QX^{d}_1. \label{eq:demand_counterexample}
 \end{align}
-We exclude $X^{d}_2$ from \eqref{eq:demand_counterexample}, but it is still non-separable.
+We exclude $X^{d}_2$ from \eqref{eq:demand_counterexample}, but it is still non-separable from Lau's original definition of separability in \eqref{eq:separable_demand} based on \cite{goldmanNote1964}.
 Theorem \ref{theorem_lau} implies that the conduct parameter is not identified under this demand because the demand shifter is a scalar.
 Note that the difference between \eqref{eq:demand_bresnahan} and \eqref{eq:demand_counterexample} is that the intercept of the inverse demand function changes when $X^{d}_2$ varies.
 $X^{d}_1$ still works as a demand rotation instrument, and hence the role of $X^{d}_2$ is almost negligible. 
