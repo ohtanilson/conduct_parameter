@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  28 JUL 2025 21:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.8.17)  29 JUL 2025 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -792,12 +792,7 @@ LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 96
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
 ) [1
 
-{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (5.8529pt too wide) in paragraph at lines 166--170
-[]\T1/qtm/m/n/10.95 Lau's claim and our re-sult char-ac-ter-ize the non-identification of the con-duct pa-ram-e-ter and the marginal
- []
-
-[3]
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 
 LaTeX Warning: Reference `sec:lau_result' on page 4 undefined on input line 173.
 
@@ -808,40 +803,41 @@ LaTeX Warning: Reference `sec:nonidentification_characterization' on page 4 unde
 LaTeX Warning: Reference `sec:main_result_and_discussion' on page 4 undefined on input line 175.
 
 [4] [5] [6] [7] [8] [9] [10] [11]
-
-LaTeX Warning: Reference `eq:demand_counterexample' on page 12 undefined on input line 679.
+Overfull \hbox (6.21863pt too wide) in paragraph at lines 509--511
+\T1/qtm/m/n/10.95 equi-lib-rium con-di-tions. There-fore, we can have the fol-low-ing suf-fi-cient con-di-tion for the non-identification. 
+ []
 
 [12] [13] [14] [15] [16] (./main_EL_counterexample.bbl (./main_EL_counterexample.brf)
 \tf@brf=\write6
 \openout6 = `main_EL_counterexample.brf'.
 
- [17]) [18] [19] [20] [21] [22] [23] [24]
-Overfull \hbox (1.07698pt too wide) in paragraph at lines 1112--1115
-\T1/qtm/m/n/10.95 The de-pen-dence of $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$ \T1/qtm/m/n/10.95 on $\OML/mlmm/m/it/10.95 X[]$ \T1/qtm/m/n/10.95 comes only from the first term in the bracket. There-fore, $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; X[]\OT1/mlmr/m/n/10.95 )$
+ [17] [18]) [19] [20] [21] [22] [23] [24] [25]
+Overfull \hbox (4.95493pt too wide) in paragraph at lines 1128--1131
+\T1/qtm/m/n/10.95 The de-pen-dence of $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; \OML/cmm/b/it/10.95 X[]\OT1/mlmr/m/n/10.95 )$ \T1/qtm/m/n/10.95 on $\OML/cmm/b/it/10.95 X[]$ \T1/qtm/m/n/10.95 comes only from the first term in the bracket. There-fore, $\OML/mlmm/m/it/10.95 D[]\OT1/mlmr/m/n/10.95 (\OML/mlmm/m/it/10.95 Q; \OML/cmm/b/it/10.95 X[]\OT1/mlmr/m/n/10.95 )$
  []
 
-[25] [26] [27] [28] [29] [30] (./main_EL_counterexample.aux)
+[26] [27] [28] [29] [30] [31] (./main_EL_counterexample.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main_EL_counterexample.out' has not changed.
-(rerunfilecheck)             Checksum: 24EF1C978089ECC3DFCE0D009DBC9A44;3596.
+(rerunfilecheck)             Checksum: 596A85D3762C2081D68DF939588E2412;3558.
 Package rerunfilecheck Info: File `main_EL_counterexample.brf' has not changed.
-(rerunfilecheck)             Checksum: 0F07E0C4D5E1E966B6B899F78E5BF337;2092.
+(rerunfilecheck)             Checksum: E2F77E5124927181F3CA78DD23CD1009;2092.
  ) 
 Here is how much of TeX's memory you used:
  26294 strings out of 477678
- 491411 string characters out of 5829469
- 801010 words of memory out of 5000000
- 44450 multiletter control sequences out of 15000+600000
+ 491380 string characters out of 5829469
+ 801017 words of memory out of 5000000
+ 44448 multiletter control sequences out of 15000+600000
  560682 words of font info for 121 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 87i,16n,91p,575b,959s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on main_EL_counterexample.pdf (30 pages, 358256 bytes).
+ 87i,16n,91p,595b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmmi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmr9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/mlmodern/mlmsy9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
+Output written on main_EL_counterexample.pdf (31 pages, 404009 bytes).
 PDF statistics:
- 688 PDF objects out of 1000 (max. 8388607)
- 614 compressed objects within 7 object streams
- 134 named destinations out of 1000 (max. 500000)
+ 718 PDF objects out of 1000 (max. 8388607)
+ 633 compressed objects within 7 object streams
+ 136 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 
