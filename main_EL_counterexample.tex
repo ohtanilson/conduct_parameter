@@ -1,6 +1,6 @@
 \documentclass[11pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath,setspace,geometry}
+\usepackage{amsmath,setspace, geometry}
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{mathtools}
@@ -14,7 +14,7 @@
 \usepackage[colorlinks=true, linkcolor= RawSienna, citecolor = RawSienna, filecolor = RawSienna, urlcolor = RawSienna, hypertexnames = true, backref = page]{hyperref}
 \usepackage[]{natbib} 
 \bibpunct[:]{(}{)}{,}{a}{}{,}
-\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in, bottom = 1.0in}
 \usepackage[english]{babel}
 \usepackage{float}
 \usepackage{caption}
@@ -94,62 +94,62 @@
 
 \maketitle
 \begin{abstract}
-    We revisit the identification of the conduct parameter in homogeneous goods markets.
-    \citet{lauIdentifying1982} shows that the conduct parameter cannot be identified if and only if the inverse demand function is separable but not a specific functional form.
-    However, we provide a novel characterization of non-identification and show that the statement in Lau is incorrect.
-    Based on our characterization, we provide a new necessary and sufficient condition for the non-identification of the conduct parameter.
-    Our result implies that the inverse demand function that leads to the identification requires demand shifters that works as demand rotation instrument, which extends the insight of \citet{bresnahanOligopoly1982} to more general settings.
+    We revisit the identification of the conduct parameter in homogeneous goods markets. 
+    \citet{lauIdentifying1982} claims that the conduct parameter is not identified if and only if the inverse demand function is separable and not of a specific functional form. 
+    However, we provide a novel characterization of the non-identification and show that Lau's condition does not accurately characterize the non-identification.
+    Based on our characterization, we derive a necessary and sufficient condition for the non-identification of the conduct parameter. 
+    Our result implies that the identification requires inverse demand functions with demand shifters that act as demand rotation instruments. 
+    This properly extends the insight of \citet{bresnahanOligopoly1982} to more general settings.
 \end{abstract}
 
-\noindent\textbf{Keywords:} Identification, Conduct Parameter, Homogenous Goods Market
+\noindent\textbf{Keywords:} Identification, Conduct Parameter, Homogeneous Goods Market
 \vspace{0in}
 \newline
 \noindent\textbf{JEL Codes:} C5, C13, L1
 
-\bigskip
 
 
 \newpage
 \section{Introduction}
-Measuring market power is an important task in the several fields of economics, especially in industrial organization.
+Measuring market power is an important task in several fields of economics, especially in industrial organization.
 While there are several measures of market power, markup is one of the most popular measures.
 In the last decade, the rise of markup has been a hot topic in both macroeconomics and industrial organization (see \citet{millerIndustrial2025} for the detailed survey).
-However, when estimating markup, most papers put the restriction on how firms compete, that is, firm conduct, and hence the estimation result could be biased.\footnote{
-\citet{deloeckerRise2020} uses accounting data and estimate markup based on the production function approach under the assumption of imperfect competition in an output market and perfect competition in input markets.
-\citet{dopperRising2021} uses Nielsen data and estimate markup under the assumption of Bertrand-competition.}
+However, when estimating markup, most papers put restrictions on how firms compete, that is, firm conduct, and hence, the estimation result could be biased.\footnote{
+\citet{deloeckerRise2020} use accounting data and estimate markup based on the production function approach under the assumption of imperfect competition in an output market and perfect competition in input markets.
+\citet{dopperRising2021} uses Nielsen data and estimates markup under the assumption of Bertrand competition.}
 
 
-In the literature on empirical industrial organization, to measure markup under a flexible competition model, the conduct parameter approach has been used: \citet{porterStudy1983}, \citet{genesoveTesting1998} and \citet{okazakiExcess2022}.
-In this approach, the researcher consider a generalized marginal revenue function with a conduct parameter, and estimating conduct parameter is equivalent to estimating markup under a flexible competition model.
+In the literature on empirical industrial organization, to measure markup under a flexible competition model, the conduct parameter approach has been used: \citet{porterStudy1983}, \citet{genesoveTesting1998}, and \citet{okazakiExcess2022} in homogeneous product markets, and \cite{millerUnderstanding2017} and \citet{cilibertoDoes2014} in differentiated product markets.
+In this approach, the researcher considers a generalized marginal revenue function with a conduct parameter, and estimating the conduct parameter is equivalent to estimating markup under a flexible competition model.
 In addition to measuring markup, recently the conduct parameter approach has received attention in the literature on the pass-through since \citet{weylPassThrough2013} provides a new insight between the conduct parameter and the pass-through, and some empirical studies estimate the conduct parameter as an intermediate object to investigate the pass-through \citep{millerPassthrough2017}.
 
 A central question in this approach is the identification of the conduct parameter.
 As for the identification in homogeneous goods markets, there are two influential papers.
-First, \citet{bresnahanOligopoly1982} considers the identification of conduct parameter and marginal cost function in linear demand and linear marginal cost model.
-It finds that the conduct parameter and the parameters of the marginal cost function can be identified when the inverse demand function includes a demand shifter, called a demand rotation instrument, 
+First, \citet{bresnahanOligopoly1982} considers the identification of conduct parameter and marginal cost function in a linear demand and a linear marginal cost model.
+It finds that the conduct parameter and the parameters of the marginal cost function can be identified when the inverse demand function includes a demand shifter, called a demand rotation instrument. 
 This demand rotation instrument changes the slope and intercept of the inverse demand function without changing the equilibrium point under a true model.
-However, under a false model, the equilibrium point changes, and hence the conduct parameter can be identified.\footnote{Recently, \citet{matsumuraResolving2023} provide a detailed condition for the identification.}
+However, the equilibrium point changes under a false model, and hence the conduct parameter can be identified.
 
 Second, \citet{lauIdentifying1982} considers a more general setting and investigates the conditions under which the conduct parameter is not identified.
 Then, he claims that the shape of the inverse demand function plays the central role in the identification by deriving the sufficient and necessary condition for non-identification:
 \begin{claim*}
-    Under some assumptions, the conduct parameter and the marginal cost function are not identified if and only if the inverse demand function is separable in demand shifters but not take a specific form.
+    Under some assumptions, the conduct parameter and the marginal cost function are not identified if and only if the inverse demand function is separable in demand shifters but does not take a specific form.
 \end{claim*}
 The claim implies that separability is the key to the non-identification, but there is a specific functional form that always leads to the identification.
-The contraposition of the claim implies that, non-separable demand function leads to the identification.
+The contraposition of the claim implies that a non-separable demand function leads to the identification.
 As the inverse demand function with a demand rotation instrument is not separable, this result has been regarded as an extension of Bresnahan's idea in a more general setting.
 
-The main contribution of this paper is to show that Lau's claim is incorrect and to provide a new characterization of non-identification.
-Based on our characterization we have the following result:
+The main contribution of our paper is to show that Lau's claim is incorrect and to provide a new characterization of non-identification.
+Based on our characterization, we have the following result:
 \begin{result*}\label{result:main}
     Under some assumptions, the conduct parameter and the marginal cost function are not identified if and only if the inverse demand function is such that the demand shifters can change only the slope or the intercept of the inverse demand function, but does not take a specific form.
 \end{result*}
-As the demand shifters can only changes the slope or the intercept of the inverse demand, the inverse demand function cannot have any demand rotation instrument which requires to keep the equilibrium quantity unchanged by changing the slope and the intercept simultaneously.
+In this result, as the demand shifters can change only the slope or the intercept of the inverse demand, the inverse demand function cannot have any demand rotation instrument that requires keeping the equilibrium quantity unchanged by changing the slope and the intercept simultaneously.
+Therefore, our result restricts the type of the inverse demand function for the non-identification more than the separability requirement in Lau's claim.
 The contraposition of our result implies that the inverse demand function with demand rotation instrument leads to the identification, and hence our result clearly shows the role of demand rotation instrument in the identification of the conduct parameter and indicates
-that the idea in \citet{bresnahanOligopoly1982} is crucial for the identification of the conduct parameter even in more general settings.
+that the idea in \citet{bresnahanOligopoly1982} is crucial for the identification of the conduct parameter even in more general settings than \citet{bresnahanOligopoly1982} shows the identification.
 
-
-Why Lau's result is incorrect?
+Why is Lau's result incorrect?
 The idea of Lau's proof is the following: let $\mathcal{E} = (\theta, MC)$ be the pair of the conduct parameter and the marginal cost function, and let $\mathcal{E}^{*} = (\theta^{*}, MC^{*})$ be an alternative pair.
 The non-identification implies that given demand shifters and cost shifters, both $\mathcal{E}$ and $\mathcal{E}^{*}$ lead to the same equilibrium quantity.
 Lau shows that the non-identification implies that there is a transformation between the marginal cost function $MC$ and $MC^{*}$.
@@ -159,20 +159,21 @@ When a demand rotation instrument varies so as not to change the equilibrium in 
 
 To resolve the problem in Lau's transformation, we construct a new transformation of the marginal cost function between $MC$ and $MC^{*}$ based on the definition of the non-identification.
 Under our transformation, the transformed marginal cost function still could depend on demand shifters.
-Thus, to make the transformation valid, we restrict the functional form of the inverse demand function so that the transformation is independent of the demand shifter.
+Thus, to make the transformation valid, we restrict the functional form of the inverse demand function such that the transformation is independent of the demand shifter.
 The restriction leads to a differential equation of the inverse demand function, and the solution of the differential equation leads to the result.
 
-Lau's claim assumes that the inverse demand function is already identified.
-However, we show that the inverse demand function that leads to the non-identification of the conduct parameter and the marginal cost function are not identified.
-In other words, when the observed data is generated by the inverse demand function that leads to the non-identification of the conduct parameter and the marginal cost function, we cannot identify the inverse demand function, and hence the all model components of the conduct parameter model cannot be identified.
-In contrast, we show that demand rotation instrument does not help to identify the inverse demand function. 
+Another of our contributions is that Lau's claim assumes that the inverse demand function is already identified.
+However, we show that the inverse demand function that leads to the non-identification of the conduct parameter and the marginal cost function is not identified.
+In other words, when the observed data is generated by the inverse demand function that leads to the non-identification of the conduct parameter and the marginal cost function, we cannot identify the inverse demand function, and hence, all model components of the conduct parameter model cannot be identified.
+In contrast, we show that the demand rotation instrument does not help to identify the inverse demand function. 
 Therefore, we conclude that when an inverse demand function with demand rotation instruments is identified, the conduct parameter and the marginal cost function can be identified.
 
 The rest of the paper is organized as follows.
 Section \ref{sec:setting} describes the setting.
-Section \ref{sec:lau_result} revisits Lau's result and points out the problems in the proof.
-Section \ref{sec:nonidentification_characterization} provides a new characterization of non-identification and shows the necessary and sufficient condition for non-identification and considers whether the inverse demand function that leads to non-identification can be identified.
-Section \ref{sec:main_result_and_discussion} provides the main result and discusses the interpretation of the result and the model justification.
+Section \ref{sec:main_result_and_lau_result} discusses Lau's result and our main result.
+Subsection \ref{subsec:necessary_condition_nonidentification} and Subsection \ref{subsec:sufficient_condition_nonidentification} provide a new characterization of non-identification and show the necessary and sufficient condition for non-identification.
+Subsection \ref{subsec:identification_all_model_components} considers whether the inverse demand function that leads to non-identification can be identified.
+Section \ref{subsec:discussion} discusses some criticisms of the conduct parameter approach.
 Section \ref{sec:conclusion} concludes.
 Appendix includes the omitted proofs in the main text and a summary of \citet{goldmanNote1964}.
 
@@ -206,7 +207,7 @@ Appendix includes the omitted proofs in the main text and a summary of \citet{go
 \subsection{The Conduct Parameter Model}\label{subsec:model_and_assumptions}
 
 Consider a homogeneous product market with an aggregate inverse demand and an aggregate marginal cost function as $P(Q, \bm{X}^{d})$ and $MC(Q, \bm{X}^{s})$ where $Q$ is the aggregate product quantity, $\bm{X}^{d}$ and $\bm{X}^{s}$ are the vector of demand shifters and cost shifters, respectively.
-Note that every vectors are represented by a bold letter, and their elements or scalar values are represented by a non-bold letter.
+Note that every vector is represented by a bold letter, and its elements or scalar values are represented by a non-bold letter.
 Let $K_d$ and $K_s$ be the dimension of $\bm{X}^{d}$ and $\bm{X}^{s}$, respectively.
 
 First, we assume that the demand shifter and the cost shifter are mutually exclusive:
@@ -220,21 +221,28 @@ The latter part of the assumption implies that the derivative of the inverse dem
 We can also include some common variables in $\bm{X}^{d}$ and $\bm{X}^{s}$, but in that case, we must have at least one exclusive demand shifter and one exclusive cost shifter.
 Hereafter, we assume that there is no common variable in $\bm{X}^{d}$ and $\bm{X}^{s}$, for simplicity.
 
-We also impose the following restriction on the inverse demand and the marginal cost function:
+We also impose some restrictions on the differentiability of the inverse demand function and the marginal cost function.
+First, Lau assumes for his claim that functions are twice continuously differentiable:
 \begin{assumption}\label{assumption:twice_differentiable}
     The inverse demand and the marginal cost function are twice continuously differentiable.
 \end{assumption}
+In contrast, our result requires that the inverse demand function to be three-times continuously differentiable:
+\begin{assumption}\label{assumption:three_times_differentiable}
+    The inverse demand function is three times continuously differentiable.
+    The marginal cost function is twice continuously differentiable.
+\end{assumption}
+Obviously, our assumption requires a stronger assumption on the inverse demand function.
+However, we will justify our assumption and point out that Lau's claim also needs three-times continuous differentiability.
 
 
-We introduce the conduct parameter model.
+Now, we introduce the conduct parameter model.
 Given the inverse demand and the marginal cost function, the equilibrium quantity $Q^e$ is defined as the solution to the following equation:
 \begin{align}
     P(Q^e, \bm{X}^{d}) + \theta Q^e\frac{\partial P}{\partial Q}(Q^e, \bm{X}^{d}) = MC(Q^e, \bm{X}^{s}), \label{eq:foc}
 \end{align}
 where $\theta\in [0,1]$ is called the conduct parameter.
-The left-hand side is a generalized marginal revenue with $\theta$.
-Thus, the condition is a generalized first-order condition with the conduct parameter.
-Depending on the value of $\theta$, the condition can nest the first-order condition of several models between perfect competition ($\theta=0$) and joint-profit maximization ($\theta=1$).\footnote{It can also nest Cournot competition when $\theta=1/N$ under some marginal cost function such as constant marginal cost and linear marginal cost.}
+Depending on the value of $\theta$, the condition can represent the first-order condition of several models between perfect competition ($\theta=0$) and joint-profit maximization ($\theta=1$).\footnote{It can also nest Cournot competition when $\theta=1/N$ under some marginal cost function such as constant marginal cost and linear marginal cost.}
+Therefore, the left-hand side is regarded as a generalized marginal revenue with $\theta$, and hence the condition is a generalized first-order condition with the conduct parameter.
 Therefore, the conduct parameter model is regarded as a flexible competition model.
 Another interpretation of the conduct parameter is obtained by rewriting the equilibrium condition \eqref{eq:foc} as
 \begin{align}
@@ -260,9 +268,10 @@ Note that as the above equation consists of the derivative of the inverse demand
 
 \subsection{Definitions of Non-identification and Identification}\label{subsec:definition_identification}
 Suppose that the researcher observes the aggregate price $P$ and the aggregate quantity $Q$, and the vector of exogenous variables $\bm{X}^{d}$ and $\bm{X}^{s}$.
+Assume that the data is generated through the equilibrium condition \eqref{eq:foc}.
 Given the inverse demand function, we are interested in the identification of the conduct parameter and the marginal cost function.
 While the interest is the identification, we take an indirect approach and specify the conditions under which the model is not identified.
-The definition of non-identification is as follows:
+The definition of the non-identification is as follows:
 \begin{definition}\label{definition:non_identification}
     The conduct parameter and the marginal cost function are said to be non-identified if there are two distinct pairs of conduct parameter and marginal cost function, denoted as $(\theta, MC)$ and $(\theta^{*}, MC^{*})$, and for any $\bm{X}^{d}$ and $\bm{X}^{s}$, there exist an equilibrium quantity $Q^e$ that satisfies both
     \begin{align}
@@ -271,12 +280,12 @@ The definition of non-identification is as follows:
     \end{align}
     The equilibrium quantity $Q^e$ has a reduced form functions $h_q(\bm{X}^{d}, \bm{X}^{s})$ and $h_q^{*}(\bm{X}^{d}, \bm{X}^{s})$ defined by \eqref{eq:foc_theta} and \eqref{eq:foc_theta_star} respectively are identical.
 \end{definition}
-In other words, non-identification asks whether given an inverse demand function, it is possible to find two distinct pairs of a conduct parameter and a marginal cost function that lead to observational equivalent equilibrium.
-By taking the contraposition of Definition \ref{definition:non_identification}, we can characterizes the identification of the conduct parameter and marginal cost function:
+In other words, the non-identification asks whether, given an inverse demand function, it is possible to find two distinct pairs of a conduct parameter and a marginal cost function that lead to an observationally equivalent equilibrium.
+By taking the contraposition of Definition \ref{definition:non_identification}, we can characterize the identification of the conduct parameter and the marginal cost function:
 \begin{corollary}\label{corollary:identification}
     The conduct parameter and the marginal cost is said to be identified if for any two distinct pairs of a conduct parameter and a marginal cost function, there exists a pair of demand shifter $\bm{X}^{d}$ and $\bm{X}^{s}$ where the equilibrium quantity $Q^e$ is different, that is, $h_q(\bm{X}^{d}, \bm{X}^{s}) \ne h_q^{*}(\bm{X}^{d}, \bm{X}^{s})$.
 \end{corollary}
-The intuition is that identification means that any different pairs of a conduct parameter and a marginal cost function cannot lead to the same equilibrium quantity under some demand shifter and cost shifter, that is, violates the observational equivalence of the equilibrium quantity.
+The intuition is that the identification means that any different pairs of a conduct parameter and a marginal cost function cannot lead to the same equilibrium quantity under some demand shifter and cost shifter, that is, any pair violates the observational equivalence of the equilibrium quantity.
 
 
 \section{Main Result: Characterization of the Non-identification}\label{sec:main_result_and_lau_result}
@@ -284,19 +293,20 @@ The intuition is that identification means that any different pairs of a conduct
 Based on the above setting, \citet{lauIdentifying1982} finds that the separability of the inverse demand function and the non-identification of the conduct parameter and the marginal cost function are equivalent.
 The following claim corresponds to Theorem 1 in \citet{lauIdentifying1982}.
 \begin{claim}\label{theorem_lau}
-    Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:twice_differentiable}, and \ref{assumption:unique_equilibrium},
-    the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is separable in the demand shifter, that is,
+    Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:twice_differentiable}, and \ref{assumption:unique_equilibrium}, the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is separable in the demand shifter, that is,
     \begin{align}
-        P(Q, r(\bm{X}^{d})), \label{eq:separable_demand}
+        P(Q,\bm{X}^{d}) = P(Q, r(\bm{X}^{d})), \label{eq:separable_demand}
     \end{align}
+    where $r:\mathbb{R}^{K_{d}}\rightarrow\mathbb{R}$,
     but not take the form, 
     \begin{align}
-        P(Q, r(\bm{X}^{d})) = Q^{-\frac{1}{\theta}}r(\bm{X}^{d}) + s(Q). \label{eq:identification_separable_demand_lau}
+        P(Q, r(\bm{X}^{d})) = Q^{-\frac{1}{\theta}}r(\bm{X}^{d}) + s(Q), \label{eq:identification_separable_demand_lau}
     \end{align}
+    where $s:\mathbb{R}_{+}\rightarrow \mathbb{R}$.
 \end{claim}
-The result says that the shape of the inverse demand function are important for the identification.
-When the inverse demand function is separable in the demand shifter, the conduct parameter is not identified.\footnote{An inverse demand function satisfying \eqref{eq:separable_demand} has weak separability defined in \citet{goldmanNote1964}. See Definition \ref{def:weal_separable} in Appendix \ref{appendix:summary_goldman_uzawa}.
-Note that the separability is defined only when the dimension of the demand shifter is greater than two. When the demand shifter is a scalar, we cannot apply the separability definition.}
+The result says that the shape of the inverse demand function is important for the identification.
+When the inverse demand function is separable in the demand shifter, the conduct parameter is not identified.
+An inverse demand function satisfying \eqref{eq:separable_demand} has weak separability defined in \citet{goldmanNote1964}. See Definition \ref{def:weal_separable} in Appendix \ref{appendix:summary_goldman_uzawa}. \footnote{Note that the separability is defined only when the dimension of the demand shifter is greater than two. When the demand shifter is a scalar, we cannot apply the definition of separability.}
 For example, \citet{bresnahanOligopoly1982} considers a market with a linear demand and a linear marginal cost.
 He assumes a linear inverse demand function such that
 \begin{align}
@@ -304,38 +314,40 @@ He assumes a linear inverse demand function such that
 \end{align}
 where $X^{d}_1$ is called a demand rotation instrument because it can change the slope and the intercept of the inverse demand function without changing the equilibrium quantity.
 This inverse demand function is not separable in $\bm{X}^{d}$.
-Bresnahan shows the identification of the conduct parameter only in this linear environment, but Lau's claim also shows that the identification holds for any other marginal cost function as the inverse demand function is not separable.
+Bresnahan shows the identification of the conduct parameter only in this linear environment, but Lau's claim also shows that the identification holds for any other marginal cost function as long as the inverse demand function is not separable.
 The claim also emphasizes that the dimension of the demand shifter is important for the identification.
-When the demand shifter is a scalar, the inverse demand function \eqref{eq:separable_demand} nests any inverse demand with a scalar demand shifter by putting $r(X^{d})= X^{d}$.
-Thus, the conduct parameter can be identified only when the inverse demand function takes the form \eqref{eq:identification_separable_demand_lau}.
+When the demand shifter is a scalar, that is, when the dimension of the demand shifter is one, the inverse demand function \eqref{eq:separable_demand} nests any inverse demand with a scalar demand shifter because under a scalar demand shifter $X^{d}$, the change of the demand shifter through $r(X^{d})$ are regarded as same as the change in $X^{d}$.
+Thus, the conduct parameter can be identified only when the inverse demand function takes the form \eqref{eq:identification_separable_demand_lau} when the demand shifter is a scalar.
 
-While Lau's claim has been regarded as the extension of \citet{bresnahanOligopoly1982} to more general settings, an important observation is that while introducing demand rotation instrument make an inverse demand function be separable, separability does not exclude demand rotation instruments.\footnote{
-For example, the inverse demand function is given as $P(Q, r(\bm{X}^d)) = Qr(\bm{X}^d) + s(Q) + r(\bm{X}^d)$ includes demand rotation instruments but is a separable because 
+While Lau's claim has been regarded as the extension of \citet{bresnahanOligopoly1982} to more general settings, an important observation is that while introducing demand rotation instruments makes an inverse demand function separable, separability does not exclude demand rotation instruments.
+For example, the inverse demand function given as $P(Q, r(\bm{X}^d)) = Qr(\bm{X}^d) + s(Q) + r(\bm{X}^d)$ includes demand rotation instruments, but is separable because for any $i$ and $j$,
 \begin{align}
-    \frac{\partial}{\partial Q}\left(\frac{\frac{\partial P}{\partial X^{d}_i}(Q,\bm{X}^d)}{\frac{\partial P}{\partial X^{d}_j}(Q,\bm{X}^d)}\right) = \frac{r_i(\bm{X}^d)(Qr_j(\bm{X}^d) + r_j(\bm{X}^d)) - r_j(\bm{X}^d)(Qr_i(\bm{X}^d) + r_i(\bm{X}^d))}{(Qr_j(\bm{X}^d) + r_j(\bm{X}^d))^2} = 0.
+    \frac{\partial}{\partial Q}\left(\frac{\frac{\partial P}{\partial X^{d}_i}(Q,\bm{X}^d)}{\frac{\partial P}{\partial X^{d}_j}(Q,\bm{X}^d)}\right) = \frac{r_i(\bm{X}^d)(Qr_j(\bm{X}^d) + r_j(\bm{X}^d)) - r_j(\bm{X}^d)(Qr_i(\bm{X}^d) + r_i(\bm{X}^d))}{(Qr_j(\bm{X}^d) + r_j(\bm{X}^d))^2} = 0,
 \end{align}
-}
-Therefore, Lau's claim itself does not provide a clear economic intuition why separability of the inverse demand function is the key for the identification.
+where $r_i(\bm{X}^d) \equiv \frac{\partial r(\bm{X}^{d})}{\partial \bm{X}^{d}_i}$.
+Therefore, Lau's claim itself does not provide a clear explanation for why the separability of the inverse demand function is the key to identification.
 
 In contrast, we are going to show the following theorem, which is the formal version of the result in the introduction:
 \begin{theorem}\label{theorem:identification_characterization}
-    Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:unique_equilibrium}, and \ref{assumption:three_times_differentiable}, the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is given as
+    Given Assumption \ref{assumption:exclusive_shifters}, \ref{assumption:three_times_differentiable}, and  \ref{assumption:unique_equilibrium}, the conduct parameter $\theta$ cannot be identified from data on price, quantity, and other exogenous variables alone if and only if the industry inverse demand function is given as
     \begin{align}
         P(Q, \bm{X}^{d}) = Q^{\alpha}r(\bm{X}^{d}) + s(Q) \label{eq:nonidentification_inverse_demand}
     \end{align}
     where $\alpha \ne -\frac{1}{\theta}$ is a constant, and $r(\cdot)$ and $s(\cdot)$ are twice continuously differentiable functions.
 \end{theorem}
-As in Lau's claim, the non-identification implies the demand shifters affect the inverse demand function only via $r(\cdot)$.
+As in Lau's claim, the non-identification implies that the demand shifters affect the inverse demand function only via $r(\cdot)$.
+Therefore, when the demand shifter is a vector, the inverse demand function is separable.
 However, our result tells more about under what type of separable function the non-identification holds and has a clear economic interpretation.
-Observe that the demand shifter changes only the slope of the inverse demand function when $\alpha \ne 0$, and the demand shifter changes only the intercept of the inverse demand function when $\alpha = 0$.
+Again, our result has a special case where the identification always holds ($\alpha = - \frac{1}{\theta}$).
+Except in this case, observe that the demand shifter changes only the slope of the inverse demand function when $\alpha \ne 0$, and the demand shifter changes only the intercept of the inverse demand function when $\alpha = 0$.
 Therefore, we cannot have any demand rotation instrument under \eqref{eq:nonidentification_inverse_demand}.
-The contrapositive of the necessary condition in Theorem \ref{theorem:identification_characterization} implies that whenever we have a set of demand shifters that can work as demand rotation instrument, the conduct parameter and the marginal cost function are identified.
-This clearly emphasizes the idea of \citet{bresnahanOligopoly1982} in more general settings.
+The contrapositive of the necessary condition in Theorem \ref{theorem:identification_characterization} implies that whenever we have a set of demand shifters that can work as a demand rotation instrument, the conduct parameter and the marginal cost function are identified.
+This clearly emphasizes that the idea of \citet{bresnahanOligopoly1982} using demand rotation instruments for the identification holds in more general settings and that the role of demand rotation instruments also works as a sufficient condition for the identification.
 
-The proof of Theorem \ref{theorem:identification_characterization} have the following steps.
+The proof of Theorem \ref{theorem:identification_characterization} has the following steps.
 First, we derive the necessary condition for non-identification based on Definition \ref{definition:non_identification}.
-By rewiring Definition \ref{definition:non_identification}, we can obtain the transformation between the derivatives of $MC$ and $MC^{*}$ that leads to observational equivalence given an inverse demand function (Lemma \ref{lemma:mc_transformation}).
-To make the transformation valid, we need to remove the effect of the demand shifter from the transformation, which put restrictions on the inverse demand function.
+By rewriting Definition \ref{definition:non_identification}, we can obtain the transformation between the derivatives of $MC$ and $MC^{*}$ that leads to observational equivalence given an inverse demand function (Lemma \ref{lemma:mc_transformation}).
+To make the transformation valid, we need to remove the effect of the demand shifter from the transformation, which puts restrictions on the inverse demand function.
 Then, we obtain the inverse demand function that is a necessary condition of the non-identification (Proposition \ref{proposition:nonidentification_inverse_demand}).
 We then check that under the restricted inverse demand function, we can construct a transformation that leads to observational equivalence, which is the sufficient condition for non-identification (Proposition \ref{proposition:sufficient_nonidentification}).
 
@@ -345,7 +357,7 @@ We then check that under the restricted inverse demand function, we can construc
 
 First, we characterize the non-identification condition based on Definition \ref{definition:non_identification}.
 The characterization is based on the fact that observational equivalence implies that the reduced form of the equilibrium quantity $h_q$ and $h_q^{*}$ are identical for any $\bm{X}^{d}$ and $\bm{X}^{s}$.
-Therefore, its derivative with respect to the demand and cost shifters, $\nabla h_q$ and $\nabla h_q^{*}$, should be also identical.
+Therefore, its derivative with respect to the demand and cost shifters, $\nabla h_q$ and $\nabla h_q^{*}$, should also be identical.
 Then, by applying the implicit function theorem to the equilibrium condition, we can compute $\nabla h_q$ and $\nabla h_q^{*}$.
 The following lemma characterizes the non-identification condition:
 \begin{lemma}\label{lemma:nonidentification_charaterization}
@@ -366,7 +378,7 @@ The following lemma characterizes the non-identification condition:
 See Appendix \ref{appendix:proof} for the detailed proof.
 Equation \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost} imply that when non-identification holds, the derivative of the marginal revenue with $\theta$ can be transformed into the derivative of the marginal revenue with $\theta^{*}$, and the derivative of the marginal cost $MC$ with respect to $\bm{X}^{s}$ can be transformed into the derivative of the marginal cost $MC^{*}$ with respect to $\bm{X}^{s}$ by $\lambda(Q^e, \bm{X}^{d}, \bm{X}^{s})$.
 
-These transformations cannot be always valid because the transformed marginal revenue is affected by cost shifter $\bm{X}^{s}$, and the transformed marginal cost is affected by demand shifter $\bm{X}^{d}$ through $\lambda(\cdot)$.
+These transformations cannot always be valid because the transformed marginal revenue is affected by the cost shifter $\bm{X}^{s}$, and the transformed marginal cost is affected by the demand shifter $\bm{X}^{d}$ through $\lambda(\cdot)$.
 However, removing effect of $\bm{X}^{s}$ from $\lambda(\cdot)$ is not appropriate because in this case, $\lambda(\cdot)$ depends only on $Q^e$ and $\bm{X}^{d}$, and hence the transformation is not valid for the marginal cost.
 
 To consider a valid transformation, we further rewrite \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost}.
@@ -397,25 +409,16 @@ If the dependence holds, while demand rotation does not change the equilibrium q
 However, this is prohibited by Assumption \ref{assumption:exclusive_shifters}. 
 Therefore, in order for the transformations to be valid, both $C_i$ and $D_i$ must be independent of $\bm{X}^{d}$.
 
-The terms $C_i$ and $D_i$ are independent of $\bm{X}^{d}$ when the derivative of the inverse demand function with respect to $X^{d}_i$ is zero for all $i$.
-A concern is that as $C_i$ and $D_i$ already consist of the second-order derivative of inverse demand function, to take the derivative of $C_i$ and $D_i$, we need a strong restriction on the inverse demand function.
-The following assumption is necessary for this purpose:
-\begin{assumption}\label{assumption:three_times_differentiable}
-    The inverse demand function is three times continuously differentiable.
-    The marginal cost function is twice continuously differentiable.
-\end{assumption}
-This assumption puts a stronger restriction on the inverse demand function than Assumption \ref{assumption:twice_differentiable}.
-Actually, while Lau impose only the twice-continuous differentiability, we will discuss that his proof potentially requires three-times differentiability on the inverse demand function.
-Therefore, to characterize the non-identification condition, Assumption \ref{assumption:three_times_differentiable} is inevitable.
-
-
+To check whether the terms $C_i$ and $D_i$ are independent of $\bm{X}^{d}$, we take the derivative of the inverse demand function with respect to $X^{d}_i$ and put it as zero for all $i = 1,\ldots, K^{d}$.
+A concern is that, as $C_i$ and $D_i$ already consist of the second-order derivative of the inverse demand function, taking the derivative of $C_i$ and $D_i$ leads to three-times derivative of the inverse demand function, and hence we need a stronger restriction on the inverse demand function than Lau considers (Assumption \ref{assumption:twice_differentiable}).
+Thus, Assumption \ref{assumption:three_times_differentiable} serves for this requirement.
 
 
 \paragraph{Case: The denominators of $C_i$ and $D_i$ are zero for some demand shifters}
 Before we characterize the inverse demand function that makes $C_i$ and $D_i$ independent of $\bm{X}^{d}$, we first check when $C_i$ and $D_i$ are not well-defined.
 This implies that \eqref{eq:ratio_marginal_revenue} and \eqref{eq:intercation_derivative_demand} are violated, and hence the identification holds by Corollary \ref{corollary:identification}.
-All derivatives in $C_i$ and $D_i$ are finite by Assumption \ref{assumption:three_times_differentiable}, and hence the numerator and the denominator of $C_i$ and $D_i$ cannot take infinite values.
-In this case, no matter what value of the numerator of $C_i$ and $D_i$ is, \eqref{eq:ratio_marginal_revenue} and \eqref{eq:intercation_derivative_demand} are violated when at least one of the denominator of $C_i$ and $D_i$ for $i= 1, \ldots, K_d$ is zero.
+All derivatives in $C_i$ and $D_i$ are finite by Assumption \ref{assumption:three_times_differentiable}, and hence the numerator and the denominator of $C_i$ and $D_i$ cannot take a infinite value.
+In this case, no matter what value of the numerator of $C_i$ and $D_i$ is, \eqref{eq:ratio_marginal_revenue} and \eqref{eq:intercation_derivative_demand} are violated when at least one of the denominators of $C_i$ and $D_i$ for $i= 1, \ldots, K_d$ is zero.
 In this case, $C_i$ and $D_i$ will be infinite or indeterminate.
 
 
@@ -444,15 +447,14 @@ Additionally, under \eqref{eq:identification_separable_demand}, the equilibrium 
 \begin{align}
     s(Q, \bm{X}^{d}_{-\mathcal{I}}) + \theta Qs'(Q, \bm{X}^{d}_{-\mathcal{I}}) = MC(Q, \bm{X}^{s}),
 \end{align}
-Therefore, both imply that when \eqref{eq:identification_condition_separable} holds, the equilibrium quantity is not affected by the change in $X^{d}_i$, and hence $X^{d}_i$ always work as a demand rotation instrument under $\theta$.
+Therefore, both imply that when \eqref{eq:identification_condition_separable} holds, the equilibrium quantity is not affected by the change in $X^{d}_i$, and hence $X^{d}_i$ always works as a demand rotation instrument under $\theta$.
 On the other hand, for any other $\theta^{*} \ne \theta$, the equilibrium condition becomes
 \begin{align}
     Q^{-\frac{1}{\theta}}r(\bm{X}^{d})\left(1 - \frac{\theta}{\theta^{*}}\right) + s(Q, \bm{X}^{d}_{-\mathcal{I}}) +  Qs'(Q, \bm{X}^{d}_{-\mathcal{I}}) = MC(Q, \bm{X}^{s}).
 \end{align}
-As $r(\bm{X}^{d})$ is a function of $X^{d}_i$ and  $r(\bm{X}^{d})$ should be a funvtion of $\bm{X}^{d}$ by Assumption \ref{assumption:exclusive_shifters}, the equilibrium condition implies that the equilibrium quantity should depend on $X^{d}_i$ under $\theta^{*}$.
-Therefore, while the change in $X^{d}_i$ does not change the equilibrium quantity under $\theta$, it changes under $\theta^{*}$, which violates observationally equivalence.
+As $r(\bm{X}^{d})$ is a function of $X^{d}_i$ by Assumption \ref{assumption:exclusive_shifters}, the equilibrium condition implies that the equilibrium quantity should depend on $X^{d}_i$ under $\theta^{*}$.
+Therefore, while the change in $X^{d}_i$ does not change the equilibrium quantity under $\theta$, it changes under $\theta^{*}$, which violates observational equivalence.
 Therefore, the conduct parameter and the marginal cost function are always identified.
-
 
 
 
@@ -460,8 +462,7 @@ Therefore, the conduct parameter and the marginal cost function are always ident
 \paragraph{Case: The denominators of $C_i$ and $D_i$ are not zero for all demand shifters}
 Now, suppose that \eqref{eq:identification_condition_separable} does not hold for all demand shifters.
 Then, by taking the derivative of $C_i$ and $D_i$ with respect to $X^{d}_i$ for all $i$ and by putting the derivative being equal to zero, we can obtain differential equations of the inverse demand functions.
-Fortunately, these differential equations have analytical solutions and we can have the 
-following proposition that characterizes an inverse demand function that satisfies the independence of $C_i$ and $D_i$ of the demand shifter:
+Fortunately, these differential equations have analytical solutions, and we can have the following proposition that characterizes an inverse demand function that satisfies the independence of $C_i$ and $D_i$ of the demand shifter:
 \begin{proposition}\label{proposition:nonidentification_inverse_demand}
     The non-identification of the conduct parameter and the marginal cost function implies \eqref{eq:identification_condition_separable} does not hold for all $i  = 1, \ldots, K_d$, and $C_i(Q, \bm{X}^{d})$ and $D_i(Q, \bm{X}^{d})$ are independent of $\bm{X}^{d}$ for all $i$.    
     The independence implies that the inverse demand function is given as
@@ -472,7 +473,11 @@ following proposition that characterizes an inverse demand function that satisfi
 \end{proposition}
 See Appendix \ref{appendix:proof} for the proof.
 This proposition characterizes the necessary condition of the non-identification.
-As we have seen, this inverse demand function does not allow any demand rotation instrument.
+As we have discussed in the introduction, this inverse demand function does not allow for any demand rotation instrument.
+Recall that \citet{bresnahanOligopoly1982} provides the idea of using a demand rotation instrument to identify the conduct parameter, \citet{matsumuraResolving2023} formalize his idea by deriving a sufficient condition that guarantees the inverse demand function includes demand rotation instruments for the non-identification in Bresnahan's setting.
+The contraposition of their sufficient condition implies that the non-identification holds only if the inverse demand function does not include any demand shifter.
+As the current environment is more general than \citet{bresnahanOligopoly1982} and \citet{matsumuraResolving2023}, Proposition \ref{proposition:sufficient_nonidentification} is the refinement of the result in \citet{matsumuraResolving2023} in general settings.
+
 Another difference from Lau's claim is that the conduct parameter can be identified even when the demand shifter is a scalar as long as the inverse demand function includes a demand rotation instrument.
 For example, consider an inverse demand function with a scalar demand rotation instrument:
 \begin{align}
@@ -497,7 +502,7 @@ Therefore, any $MC^{*}$ that leads to observational equivalence with $MC$ should
 \subsection{Sufficient Condition for Non-identification}\label{subsec:sufficient_condition_nonidentification}
 We turn to check the sufficiency of the necessary condition for the non-identification.
 To see whether the inverse demand function \eqref{eq:nonidentification_inverse_demand} can lead to the non-identification, we need to check whether there exists a transformation between the equilibrium conditions under $\mathcal{E} =(\theta, MC)$ and $\mathcal{E}^{*} =(\theta^{*}, MC^{*})$.
-Suppose that there exist a such transformation.
+Suppose that there exists such a transformation.
 Then, when an equilibrium quantity $Q^e$ satisfies the equilibrium condition under $\mathcal{E}$, by applying the transformation to the equilibrium condition under $\mathcal{E}$, we have that
 \begin{align}
     T\left(P(Q^e, \bm{X}^{d}) + \theta Q^e \frac{\partial P}{\partial Q}(Q^e, \bm{X}^{d}), Q^e\right)&= T\left(MC(Q^e, \bm{X}^{s}), Q^e\right)\\
@@ -507,27 +512,22 @@ Thus, $Q^e$ also satisfies the equilibrium condition under $\mathcal{E}^{*}$.
 This implies that observational equivalence holds, and hence the non-identification holds.
 
 In fact, by using \eqref{eq:mc_transformation_quantity} and the inverse demand function \eqref{eq:nonidentification_inverse_demand}, we can construct the transformation for the equilibrium conditions.
-Therefore, we can have the following sufficient condition for the non-identification.
+Therefore, we can have the following sufficient condition for the non-identification:
 \begin{proposition}\label{proposition:sufficient_nonidentification}
     Given the inverse demand function \eqref{eq:nonidentification_inverse_demand} where $\alpha \ne -\frac{1}{\theta}$, there exists a transformation $T$ between the equilibrium conditions under $\mathcal{E}$ and $\mathcal{E}^{*}$.
     Therefore, non-identification of the conduct parameter and the marginal cost function holds.
 \end{proposition}
 The proof is given in Appendix \ref{appendix:proof}.
-While Lau shows the separable inverse demand function is also a sufficient condition of the non-identification, Proposition \ref{proposition:sufficient_nonidentification} shows that the inverse demand  function without any demand rotation instrument can lead to a transformation that leads to non-identification.
+While Lau shows the separable inverse demand function is also a sufficient condition of the non-identification, Proposition \ref{proposition:sufficient_nonidentification} shows that the inverse demand function without any demand rotation instrument can lead to a transformation that leads to non-identification.
 We point out that Lau's sufficiency proof is incomplete because it can be verified that his proof implicitly assumes that there exists a transformation $T$ under a separable inverse demand function \eqref{eq:separable_demand}.
 However, the separability itself does not guarantee the existence of the transformation.
-This is parallel to the fact that including demand rotation instruments makes an inverse demand function be not separable, but the separability does not exclude demand rotation instruments.
+This is parallel to the fact that including demand rotation instruments makes an inverse demand function non-separable, but the separability does not exclude demand rotation instruments.
 
 
-
-
-
-
-\subsection{Discussions}\label{subsec:discussions}
-
+\subsection{Discussion}\label{subsec:discussion}
 \paragraph{Rethinking the role of demand rotation instrument:}
 Proposition \ref{proposition:nonidentification_inverse_demand} emphasizes the role of demand rotation instruments.
-To get the intuition of how the instrument relates the proof, consider an economy with a linear inverse demand with a demand rotation instrument and a linear marginal cost.
+To get the intuition of how the instrument relates to the proof, consider an economy with a linear inverse demand with a demand rotation instrument and a linear marginal cost.
 \citet{bresnahanOligopoly1982} considers this environment.
 Then, assume that the true conduct is the perfect competition, that is, $\theta = 0$, and the alternative conduct is the monopoly, that is, $\theta^{*} = 1$.
 Figure \ref{fig:identification_example} illustrates this environment.
@@ -677,7 +677,7 @@ The equilibrium quantity under the monopoly is determined by the intersection of
             \label{fig:identification_example_step_3_2}
         \end{subfigure}
     \end{center}
-    \caption{Intuition of the role of demand rotation instrument and identification}
+    \caption{Intuition of the role of the demand rotation instrument and identification}
     \label{fig:identification_example}
     \vspace{2mm}
     \footnotesize
@@ -688,10 +688,10 @@ The equilibrium quantity under the monopoly is determined by the intersection of
     Step 3 illustrates that to keep the equilibrium point under the monopoly, $MC^{*}$ should change along with the demand rotation, which is impossible because the marginal cost function is independent of the demand shifter.
 \end{figure}
 
-In Figure \ref{fig:identification_example_step_1}, the perfect competition and the monopoly leads to the same equilibrium $E$.
+In Figure \ref{fig:identification_example_step_1}, the perfect competition and the monopoly lead to the same equilibrium $E$.
 Then, consider the change in a demand rotation instrument.
 In Figure \ref{fig:identification_example_step_2}, the demand rotation instrument changes the intercept and slope of the demand function without changing the equilibrium point under the true model.
-Under the monopoly, the new equilibrium point is $E^{*}$, which is different from $E$ and hence the observational equivalence is violated.
+Under the monopoly, the new equilibrium point is $E^{*}$, which is different from $E$, and hence the observational equivalence is violated.
 So as to lead to the same equilibrium after the change in the demand rotation instrument ($E = E^{*})$, $MC^{*}$ should shift as in Figure \ref{fig:identification_example_step_3_1} and \ref{fig:identification_example_step_3_2}.
 Note that we changed only the demand shifter, and hence the cost shifter is unchanged.
 Thus, for the observational equivalence to hold, the shift in $MC^{*}$ should be derived from the change in the demand rotation instrument, which implies that $MC^{*}$ is a function of the demand shifter.
@@ -717,17 +717,17 @@ Then he concludes that there is a transformation $T$ such that
     MC^{*}(Q^e, \bm{X}^{s}) = T(MC(Q^e, \bm{X}^{s}), Q^e). \label{eq:mc_transformation_lau}
 \end{align}
 The existence of the transformation $T$ is shown by integrating \eqref{eq:nonidentification_marginal_cost_lau} with respect to the cost shifter when it is a scalar, and by applying Lemma \ref{lemma_1_GU} from \citet{goldmanNote1964} when the cost shifter is a vector.
-However, while Lau does not explicitly define $\mu(\cdot)$ in his formulation, it can be verified that his $\mu(\cdot)$ corresponds to our $\lambda(\cdot)$.
-Thus, he neglects a point that the function $\mu(\cdot)$ implicitly depends on the demand shifter $\bm{X}^{d}$, and this dependence is not addressed in his analysis.
-As long as the effect of the demand shifter cannot be eliminated from $\mu(\cdot)$, the transformation $T$ between $MC$ and $MC^*$ will necessarily depend on $\bm{X}^{d}$, which violates Assumption \ref{assumption:exclusive_shifters}.
-Unfortunately, Lau does not provide a justification for why the effect of the demand shifter can be removed from $\mu(\cdot)$, and hence it leaves a critical gap in the argument.
-
 Note also that in our approach, both \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost} are necessary to derive the transformation between marginal cost functions. 
 In contrast, while Lau derives both equations \eqref{eq:nonidentification_demand} and \eqref{eq:nonidentification_marginal_cost} in his proof, he relies solely on \eqref{eq:nonidentification_marginal_cost} to show the non-identification.
-Furthermore, Lau assumes that the functions are twice continuously differentiable, which allows him to apply Lemma \ref{lemma_1_GU} to justify the existence of the transformation $T$. 
-However, this reasoning is flawed because equation \eqref{eq:nonidentification_marginal_cost_lau} potentially retains dependence on $\bm{X}^{d}$. 
-To validly eliminate $\bm{X}^{d}$, it is necessary to differentiate $\lambda(\cdot)$ with respect to $\bm{X}^{d}$ and require that the derivative vanishes.
-This step, in turn, demands that the inverse demand function be at least three-times continuously differentiable as in our proof.
+
+While Lau does not explicitly define $\mu(\cdot)$ in his formulation, it can be verified that his $\mu(\cdot)$ corresponds to our $\lambda(\cdot)$.
+However, he neglects a point that the function $\mu(\cdot)$ implicitly depends on the demand shifter $\bm{X}^{d}$, and this dependence is not addressed in his analysis.
+As long as the effect of the demand shifter cannot be eliminated from $\mu(\cdot)$, the transformation $T$ between $MC$ and $MC^*$ will necessarily depend on $\bm{X}^{d}$, which violates Assumption \ref{assumption:exclusive_shifters}.
+Unfortunately, Lau does not provide a justification for why the effect of the demand shifter can be removed from $\mu(\cdot)$, and hence it leaves a critical gap in the argument.
+Furthermore, Lau assumes that the inverse demand functions are twice continuously differentiable, which allows him to apply Lemma \ref{lemma_1_GU} to justify the existence of the transformation $T$. 
+To validly eliminate the effect of $\bm{X}^{d}$ from $\mu(\cdot)$, it is necessary to differentiate $\mu(\cdot)$ with respect to $\bm{X}^{d}$ and is required that the derivative is equal to zero.
+This step, in turn, requires that the inverse demand function be at least three-times continuously differentiable as in our proof.
+Therefore, the twice-continuous differentiability (Assumption \ref{assumption:twice_differentiable}) is not enough to characterize the non-identification.
 
 
 
@@ -735,21 +735,24 @@ This step, in turn, demands that the inverse demand function be at least three-t
 
 
 
-\subsection{Identification of All Model Components}\label{sec:identification_all_model_components}
+
+
+
+\subsection{Identification of All Model Components}\label{subsec:identification_all_model_components}
 
 So far, as in \citet{lauIdentifying1982}, we have characterized the non-identification problem given an inverse demand function.
 Thus, we have not discussed the identification of the inverse demand function.
 When the inverse demand function is also identified, all components in the conduct parameter model can be identified.
-While Lau does not discuss the identification of the inverse demand function, he assumes that the reduced-form of the equilibrium quantity and the equilibrium price are identified:
+While Lau does not discuss the identification of the inverse demand function, he assumes that the reduced form of the equilibrium quantity and the equilibrium price are identified:
 \begin{assumption}\label{assumption:reduced_form}
-    The reduced-form of the equilibrium quantity and the equilibrium price are identified:
+    The reduced form of the equilibrium quantity and the equilibrium price are identified:
     \begin{align}
         Q^e = h_q(\bm{X}^{d}, \bm{X}^{s}), \quad P^e = h_p(\bm{X}^{d}, \bm{X}^{s}).
     \end{align}
 \end{assumption}
-This is due to the variation in the demand and cost shifters.
+The identification is assumed to be achieved by the variation in the demand shifters and the cost shifters.
 However, this does not imply that the inverse demand function is identified.
-Therefore, we need to consider whether the inverse demand function where the conduct parameter and the marginal cost function are not identified, can be identified.
+Therefore, we further confirm whether the inverse demand function, where the conduct parameter and the marginal cost function are not identified, can be identified or not.
 When the inverse demand function is not identified, all components in the conduct parameter model cannot be identified.
 Unfortunately, we have the following result:
 \begin{proposition}\label{proposition:nonidentification_inverse_demand_with_nonidentifed_conduct_parameter}
@@ -762,23 +765,23 @@ Unfortunately, we have the following result:
 See Appendix \ref{appendix:proof} for the proof.
 It shows that for any $s(Q)$, another function $\tilde{s}(Q) = s(Q) + C Q^{-\frac{1}{\theta}}$, where $C$ is a nonzero constant, leads to the same equilibrium quantity for any $\bm{X}^{d}$ and $\bm{X}^{s}$, which implies that the inverse demand function itself is not identified.
 Note that here $\alpha$ also include the case where $\alpha = -\frac{1}{\theta}$.
-Therefore, while Lau's claim  and Lemma \ref{lemma:identification_condition_separable} show that the conduct parameter and the marginal cost function are identified as all demand shifters work as demand rotation instrument, the inverse demand function \eqref{eq:identification_separable_demand_lau} cannot be identified.
+Therefore, while Lau's claim and Lemma \ref{lemma:identification_condition_separable} show that the conduct parameter and the marginal cost function are identified as all demand shifters work as a demand rotation instrument, the inverse demand function \eqref{eq:identification_separable_demand_lau} cannot be identified.
 
-Another unfortunate news is that demand rotation instruments do not help to identify an inverse demand function with demand rotation instruments.
-The following example demonstrate this point, and hence demand rotation instrument is not a necessary condition for the identification of the inverse demand function:
+Another unfortunate fact is that demand rotation instruments do not help identify an inverse demand function with demand rotation instruments.
+The following example demonstrates this point, and hence demand rotation instrument is not a necessary condition for the identification of the inverse demand function:
 \begin{example}\label{example:demand_rotation_instrument_does_not_help_identification}
     Suppose the inverse demand function is given as
     \begin{align}
-        P(Q, \bm{X}^{d}) = Q^{\alpha}r(\bm{X}^{d}) + s(Q) + t(\bm{X}^{d}).
+        P(Q, \bm{X}^{d}) = Q^{\alpha}r(\bm{X}^{d}) + s(Q) + r(\bm{X}^{d}).
     \end{align}
-    Here, $\bm{X}^{d}$ works as demand rotation instrument through $r(\cdot)$ and $t(\cdot)$.
+    Here, $\bm{X}^{d}$ works as demand rotation instrument through $r(\cdot)$.
     However, in the same ways as in Proposition \ref{proposition:nonidentification_inverse_demand_with_nonidentifed_conduct_parameter}, it is easy to see that inverse demand functions with $s(Q)$ and $\tilde{s}(Q) = s(Q) + C Q^{-\frac{1}{\theta}}$ lead to the same equilibrium quantity, which implies that the inverse demand function is not identified.
 \end{example}
 
-Therefore, at least Theorem \ref{theorem:identification_characterization} implies that given an identified inverse demand function with demand rotation instrument, the conduct parameter and the marginal cost function can be nonparametrically identified.
+Therefore, at least Theorem \ref{theorem:identification_characterization} implies that given an identified inverse demand function with demand rotation instrument, the conduct parameter and the marginal cost function can be identified.
 This gives us the following corollary for the identification of the conduct parameter model:
 \begin{corollary}\label{corollary:identification_conduct_parameter_model}
-    When the inverse demand function with demand rotation instrument is identified, the conduct parameter and the marginal cost function are identified.
+    When the inverse demand function with a demand rotation instrument is identified, the conduct parameter and the marginal cost function are identified.
 \end{corollary}
 
 
@@ -787,20 +790,20 @@ This gives us the following corollary for the identification of the conduct para
 \section{Other Discussions}\label{sec:other_discussions}
 The results so far are true whenever we admit the conduct parameter approach.
 In contrast, the conduct parameter approach has been criticized by several papers.
-In this section, We discuss the micro-foundations of the conduct parameter approach and the accuracy of the conduct parameter approach.
+In this section, we discuss the micro-foundations of the conduct parameter approach and the accuracy of the conduct parameter approach.
 
 \paragraph{Micro-foundations of Conduct Parameter Approach}
 The conduct parameter approach is based on the conjectural variation model.
 In the conjectural variation model, each firm has a conjecture about how the competitors will react to the firm's action.
-A major problem of the conjectural variation model is that the conjecture and the reaction function does not coincide at the equilibrium.
+A major problem of the conjectural variation model is that the conjecture and the reaction function do not coincide at the equilibrium.
 \citet{bresnahanDuopoly1981,bresnahanExistence1983}  propose a Consistent Conjecture Equilibrium (CCE) which requires that the consistency between the conjecture and the reaction function is satisfied at the equilibrium.
 However, the existence and uniqueness of the CCE is not guaranteed in general \citep{klempererConsistent1988,robsonExistence1983}.
 
 However, several alternative micro-foundations have been proposed.
-For example, \citet{escrihuela-villarNote2015} shows that corporation coefficient approach is equivalent to the conjectural variation model in some specific setting.
-In this model, each firm maximizes its profit plus the weighted sum of its competitors profit, where the weight is called the corporation coefficient.
+For example, \citet{escrihuela-villarNote2015} shows that the corporation coefficient approach is equivalent to the conjectural variation model in some specific setting.
+In this model, each firm maximizes its profit plus the weighted sum of its competitors' profits, where the weight is called the corporation coefficient.
 \citet{menezesStrategic2020} investigates the supply function approach where firms choose not quantity but supply schedule based on price.
-\citet{menezesCompetition2023} show the relationship between the conduct parameter approach and the supply function approach in linear demand and linear marginal cost model case, and \citet{menezesStrategic2020} briefly discuss how to estimate the competitiveness given the information of marginal cost.
+\citet{menezesCompetition2023} show the relationship between the conduct parameter approach and the supply function approach in a linear demand and a linear marginal cost model case, and \citet{menezesStrategic2020} briefly discuss how to estimate the competitiveness given the information of marginal cost.
 
 %\citet{adachiMicrofoundation2023} considers a micro-foundation where the representative firm chooses a quantity that equate a discounted marginal gain by $\theta$ and marginal loss.
 %This condition is equivalent to the equilibrium condition in our model.
@@ -808,26 +811,26 @@ In this model, each firm maximizes its profit plus the weighted sum of its compe
 
 
 \paragraph{Accuracy of the Conduct Parameter Approach}
-While this paper only focus on the identification problem, \citet{cortsConduct1999} criticize that the conduct parameter approach can be inaccurate when the data generation process is out of the conduct parameter model.
-For example, while a repeated game model can sustain the equilibrium quantity under the joint-profit maximization , the conduct parameter estimate could be biased from $\theta = 1$.
+While this paper only focuses on the identification problem, \citet{cortsConduct1999} criticizes that the conduct parameter approach can be inaccurate when the data generation process is out of the conduct parameter model.
+For example, while a repeated game model can sustain the equilibrium quantity under the joint-profit maximization, the conduct parameter estimate could be biased from $\theta = 1$.
 At least, as \citet{cortsConduct1999} and \citet{magnolfiComparison2022} mention, the critics can be avoided by assuming the data generation process is a static competition and derived from the equilibrium condition in \eqref{eq:foc}.
 
 
 \section{Conclusion}\label{sec:conclusion}
 
-This paper revisited the identification of the conduct parameter in homogeneous product market.
+This paper revisited the identification of the conduct parameter in homogeneous product markets.
 In the literature, Lau considers the identification problem in a fairly generalized setting.
 While \citet{lauIdentifying1982} characterizes the non-identification condition, we point out some problems in Lau's paper and provide a novel characterization of the non-identification condition.
-Based on the new characterization, we find that the non-identification is equivalent to the absence of demand shifters that works as demand rotation instrument proposed in \citet{bresnahanOligopoly1982}.
-We then consider the identification of the all primitives in the model and show that when some demand shifters always work as demand rotation instruments, the inverse demand function cannot be identified, which immediately implies that the conduct parameter and the marginal cost function are also not identified.
-Therefore, while demand rotation instrument is a key for the identification of the conduct parameter, it could be prevent us from the identification.
+Based on the new characterization, we find that the non-identification is equivalent to the absence of demand shifters that work as a demand rotation instrument proposed in \citet{bresnahanOligopoly1982}.
+We then consider the identification of all primitives in the model and show that when some demand shifters always work as demand rotation instruments, the inverse demand function cannot be identified, which immediately implies that the conduct parameter and the marginal cost function are also not identified.
+Therefore, while a demand rotation instrument is a key for the identification of the conduct parameter, it could prevent us from identifying it.
 
 
 
 \paragraph{Acknowledgments}
 This paper is based on Chapter 3 of the first author's dissertation submitted to Rice University.
 We thank Jeremy Fox for his valuable advice.
-We also thank to the participants of Professor Fox's group meeting for their helpful comments.
+We also thank the participants of Professor Fox's group meeting for their helpful comments.
 
 
 
@@ -1054,7 +1057,7 @@ Instead of using this directly, we use the fact that
 \end{align}
 Because Assumption \ref{assumption:exclusive_shifters} guarantees that $u_i \ne 0$, 
 the cross derivative of $\log u_i$ becomes zero when \eqref{eq:identification_condition_separable_step1} holds.
-This implies that it is sufficient to solve the partial differential equation, for any $i,j = 1, \ldots, K_d$,
+This implies that it is sufficient to solve the partial differential equation for any $i,j = 1, \ldots, K_d$,
 \begin{align}
     \frac{\partial^2 }{\partial X^{d}_j \partial Q}\log |u_i(Q,\bm{X}^{d})| = 0.
 \end{align}
@@ -1073,7 +1076,7 @@ By taking exponential both side, we have for $i = 1, \ldots, K_d$,
     & |u_i(Q, \bm{X}^{d})| = g(Q)r_i(\bm{X}^{d})
 \end{align}
 where $r_i(\bm{X}^{d}) \equiv \exp(R_i(\bm{X}^{d}))$ and $g(Q) = \exp\left(\int |G(Q)| dQ\right)$.
-This has two solutions, but again because $r_i$ is an arbitrary function, we can unify these solutions and put the solution as
+This has two solutions, but again, because $r_i$ is an arbitrary function, we can unify these solutions and put the solution as
 \begin{align}
     u_i(Q, \bm{X}^{d}) = g(Q)r_i(\bm{X}^{d}).
 \end{align}
@@ -1199,7 +1202,7 @@ Again, this has two solutions
     g(Q) = \pm \alpha_2|Q|^{\alpha}.
 \end{align}
 Since $\alpha_2 > 0$, we can define $\alpha_2 \in \mathbb{R} \backslash \{0\}$ to absorb the sign into $\alpha_2$.
-Also we can remove the absolute value for $Q$ because it can be assumed that $Q\ge 0$.\footnote{We allow the aggregate price become infinity when $Q = 0$ for the inverse demand function.}
+Also, we can remove the absolute value for $Q$ because it can be assumed that $Q\ge 0$.\footnote{We allow the aggregate price to become infinity when $Q = 0$ for the inverse demand function.}
 Therefore, when $C_i$ and $D_i$ are independent of $\bm{X}^{d}$, the inverse demand function must be of the form
 \begin{align}
     P(Q, \bm{X}^{d}) = Q^{\alpha}r(\bm{X}^{d}) + s(Q). \label{eq:inverse_demand_separable_step2}
@@ -1263,7 +1266,7 @@ Second, by substituting the marginal revenue under $\theta$ into $T$, we have
 \end{align}
 where the last line is the marginal revenue under $\theta^{*}$.
 Therefore, under the inverse demand function, $T$ can connect the marginal revenue under the two models.
-As the result, $T$ can connect the equilibrium conditions under the two models, which implies that the inverse demand function is a sufficient condition for the non-identification.
+As a result, $T$ can connect the equilibrium conditions under the two models, which implies that the inverse demand function is a sufficient condition for the non-identification.
 
 
 
@@ -1366,7 +1369,7 @@ Then, \citet{goldmanNote1964} specifies the functional form that a weak separabl
     \end{align} where $\Phi(r^1,\ldots, r^K)$ is a function of $K$ variables and, for each $k$, $r^k(x^{k})$ is a function subvector $x^{k}$ alone.
 \end{theorem}
 
-The next lemma is a key lemma in the proof of Lau.
+The next lemma is a key lemma in Lau's proof.
 \begin{lemma}\label{lemma_1_GU}
     Let $f(x)$ and $g(x)$ be two continuously twice-differentiable functions of $n$ variables $x=(x_1, \dots, x_n)$. If each indifference surface is connected, and if there exists a function $\lambda(x)$ such that
     \begin{align}
