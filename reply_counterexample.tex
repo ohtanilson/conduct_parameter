@@ -1,0 +1,105 @@
+
+
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor= RawSienna, citecolor = RawSienna, filecolor = RawSienna, urlcolor = RawSienna, hypertexnames = true, backref = page]{hyperref}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\setstretch{1.3}
+%\usepackage[tablesfirst,nolists]{endfloat}
+
+\usepackage[T1]{fontenc}
+\usepackage{mlmodern}  % 太いComputer Modern
+% MLmodernのバグを修正: cf. https://tex.stackexchange.com/questions/646333/size-of-integral-symbol-in-section-header-with-mlmodern
+\DeclareFontFamily{OMX}{mlmex}{}
+\DeclareFontShape{OMX}{mlmex}{m}{n}{<->mlmex10}{} 
+\usepackage{tgtermes} % 数式以外の欧文をTXフォントで上書き
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\DeclareMathOperator{\rank}{rank}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+
+\title{Rebuttal to our paper ``Identifying Conduct Parameters with Separable Demand: A Counterexample to \cite{lau1982identifying}"}
+\author{Yuri Matsumura\thanks{Department of Economics, Rice University, \href{mailto:}{yuri.matsumura23@gmail.com}} \and Suguru Otani \thanks{Market Design Center, Department of Economics, University of Tokyo, \href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}
+\\Declarations of interest: none %this is for Economics Letters
+}}
+
+\begin{document}
+
+\maketitle
+
+\bigskip
+
+Our deadline. January 31, 2025
+Actual deadline. February 6, 2025.
+
+\section{Referee comments}
+\begin{enumerate}
+    \item I do not think that the simulations add much to the paper: identification is a theoretical property, and mathematical statements proofs are enough to prove it (or disprove it).
+    \begin{itemize}
+        \item (Reply) We move the numerical section to an Online Appendix.
+    \end{itemize}
+    \item It would be interesting to point out exactly where the reasoning in Lau (1982) breaks down. The original Lau (1982) article (esp. Section 2) is an extended proof of the claim: \textbf{what steps exactly fail and give rise to the counterexample?} This wasn't obvious to me upon re-reading the paper, and perhaps deserves some discussion.
+    \begin{itemize}
+        \item (Reply) \textcolor{blue}{[TBA]}%- まぁ相変わらずどこにまずい部分があるのかわからんけど笑
+    \end{itemize}
+    \item Finally, I would like some more balanced discussion of the implications of this counterexample. 
+    This is my view on the big picture here: Bresnahan (1982) makes a famous point that identification of conduct fails with linear demand, unless some special structure (i.e., rotators) is present, and Lau (1982) generalizes somewhat this insight using the concept of separability.
+    Nowadays, most empirical studies are cast in a differentiated products setting, where many other sources of variation for identification of conduct are available beyond demand shifters and rotators (e.g., rivals' cost - see Berry and Haile, 2014).
+    \textbf{In this differentiated products world, the original intuition of Bresnahan (1982) is still vaguely relevant, but doesn't strictly apply.}
+    
+    I see the authors' results as a further caveat that the "rotators" insight in Bresnahan is quite special to a certain parametric environment. 
+    Rather than bringing back to life the homogenous goods, conduct parameters approach, which has other limitations, this result in my view reinforces the modern notion that \textbf{demand rotators do not offer some kind of "silver bullet" variation that is uniquely suited to identify conduct.}
+    The authors do not need to agree with every point above, but it would be helpful for the paper if they could articulate how they see the broader relevance of their result.
+    \begin{itemize}
+        \item \textcolor{blue}{[TBA]}%- ここの部分は賛同できる．separableな関数系のときには結局，demandをrotateさせるような形にはなっていないので，conduct parameterの識別，もしくはより広範囲に，conduct の識別にはdemand rotationは必ずしも必要ないことになる．
+        %\item - むしろ，この反例のメッセージはBerry and Haileにあるように，ある一定の条件を満たす市場の変化があることが識別に必要，と解釈できる
+        % Jeremyの
+    \end{itemize}
+    \item Minor changes:
+    \begin{itemize}
+        \item After updating our results, we changed the title into ``Identifying Conduct Parameters with Separable Demand of \cite{lau1982identifying}".
+    \end{itemize}
+\end{enumerate}
+
+
+
+
+
+\bibliographystyle{aer}
+\bibliography{conduct_parameter.bib}
+
+
+\end{document}
