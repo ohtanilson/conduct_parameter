@@ -13,3 +13,12 @@ past_file/
 past_draft/
 english_edited_comment/
 *.zip
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.pdf
