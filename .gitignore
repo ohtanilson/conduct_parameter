@@ -12,6 +12,8 @@
 past_file/
 past_draft/
 english_edited_comment/
+reply_counterexample.tex
+reply_loglinear.tex
 *.zip
 *.aux
 *.bbl
